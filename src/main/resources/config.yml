@@ -1,0 +1,49 @@
+ServerQuests:
+  TestQuest:
+    displayName: Zombie Slayer
+    type: mobkill
+    mobNames:
+      - Zombie
+      - Pig
+    description: Kill 5 zombies before time runs out!
+    goal: 2
+    rewards:
+      experience: 100
+      money: 1000
+      diamondsword:
+        material: DIAMOND_SWORD
+        amount: 1
+      apples:
+        material: APPLE
+        amount: 12
+  MiningTest:
+    displayName: MINING CHALLENGE
+    type: blockbreak
+    description: Mine some ores
+    goal: 10
+    blocks:
+      - DIAMOND_ORE
+      - IRON_ORE
+    rewards:
+      money: 100.0
+      diamondsword:
+        material: DIAMOND_SWORD
+        amount: 1
+      apples:
+        material: APPLE
+        amount: 12
+  SheepShear:
+    displayName: Shear Sheep
+    type: shear
+    description: Let's get that wool baby
+    goal: 5
+    rewards:
+      experience: 100
+      money: 104
+  PlantTree:
+    displayName: Save the Planet
+    type: blockPlace
+    description: Place 10 trees to save the world!
+    goal: 10
+    blocks:
+      - Sapling

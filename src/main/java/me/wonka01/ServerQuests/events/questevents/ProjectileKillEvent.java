@@ -1,0 +1,51 @@
+package me.wonka01.ServerQuests.events.questevents;
+
+import me.wonka01.ServerQuests.handlers.EventListenerHandler;
+import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
+
+import me.wonka01.ServerQuests.questcomponents.QuestController;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
+
+public class ProjectileKillEvent extends QuestListener implements Listener {
+
+    private final EventListenerHandler.EventListenerType TYPE = EventListenerHandler.EventListenerType.PROJ_KILL;
+
+    public ProjectileKillEvent(ActiveQuests activeQuests)
+    {
+        super(activeQuests);
+    }
+
+    @EventHandler
+    public void onProjectileKill(EntityDeathEvent event)
+    {
+        if(!(event.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent)){
+            return;
+        }
+
+        EntityDamageByEntityEvent damageEvent = (EntityDamageByEntityEvent)event.getEntity().getLastDamageCause();
+        Entity damager = damageEvent.getDamager();
+
+        if(damager instanceof Projectile){
+            Projectile projectile = (Projectile)damager;
+            if(projectile.getShooter() != null && projectile.getShooter() instanceof Player){
+                Player player = (Player)projectile.getShooter();
+                Bukkit.getServer().broadcastMessage("Debug: Player killed entity with a projectile");
+                for(QuestController controller : activeQuests.getActiveQuestsList()){
+                    if(controller.getListenerType().equals(TYPE)){
+                        updateQuest(controller, player, 1 );
+                    }
+                }
+                removedFinishedQuests();
+            }
+        }
+
+    }
+
+}

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ServerQuests">
+    <output-path>$USER_HOME$/OneDrive/Desktop/MinecraftServerStuff/plugins</output-path>
+    <root id="archive" name="ServerQuests.jar">
+      <element id="module-output" name="MagicArena" />
+    </root>
+  </artifact>
+</component>

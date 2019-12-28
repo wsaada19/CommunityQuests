@@ -1,0 +1,20 @@
+name: ServerQuests
+version: 1.0
+author: wonka01
+main: me.wonka01.ServerQuests.ServerQuests
+
+commands:
+  sq:
+    usage: /<command> [start]
+    description: Commands for ServerQuests Plugin
+
+permissions:
+  serverevents.start:
+    description: The ability to start server events
+    default: op
+  serverevents.stop:
+    description: The ability to end an event
+    default: op
+  serverevents.bossbar.hide:
+    description: The player will not be shown the boss bar by default
+    default: false

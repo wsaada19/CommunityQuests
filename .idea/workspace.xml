@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="ServerQuests" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="74a783ff-ce89-4520-a15a-5427ecba405e" name="Default Changelist" comment="" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StartEventGui.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="527">
+              <caret line="46" column="19" selection-start-line="46" selection-end-line="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/EventTypeGui.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="39" selection-start-line="39" selection-end-line="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/ViewEventsGui.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="782">
+              <caret line="58" column="32" selection-start-line="44" selection-start-column="8" selection-end-line="58" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StopEventGui.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="901">
+              <caret line="71" column="9" selection-start-line="71" selection-start-column="9" selection-end-line="71" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/BaseGui.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/CompetitiveQuestData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="16" column="74" selection-start-line="16" selection-start-column="74" selection-end-line="16" selection-end-column="74" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/StartCommand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/StopQuestCommand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/ServerQuests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="76" column="36" selection-start-line="76" selection-start-column="36" selection-end-line="76" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/me/williamsaada/MagicArena/BaseClass.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/williamsaada/MagicArena/MagicWand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/williamsaada/MagicArena/MagicArena.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/williamsaada/MagicArena/FireballEvents.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/williamsaada/MagicArena/PlayerJoin.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/williamsaada/MagicArena/StartMenu.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/williamsaada/EggProject/FireballEvents.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/williamsaada/EggProject/PlayerJoin.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/williamsaada/EggProject/EggListener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/williamsaada/EggProject/EggProject.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/williamsaada/EggProject/Revive.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/williamsaada/Revive/DeathEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/williamsaada/Revive/Revive.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/williamsaada/ImmortalGrass/ImmortalGrass.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ImmortalGrass/BlockBreak.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ImmortalGrass/ImmortalGrass.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/PickTen/JoinEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/PickTen/ArmorChange.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/PickTen/PickTen.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/PickTen/Llama.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/Llama/LlamaContents.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/Llama/Events/LlamaDeathEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/Llama/LlamaData/LlamaContents.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/Llama/Llama.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/Llama/LlamaData/Loot.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/Llama/BeePlugin.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+        <option value="$PROJECT_DIR$/src/main/resources/config.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/players/BasePlayerComponent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/players/PlayerData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/ActiveQuests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/EventTypeGui.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/handlers/EventTypeHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/handlers/EventTypeHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/JsonQuestSave.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StartEventGui.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/ViewEventsGui.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/CompetitiveQuestData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StopEventGui.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/ServerQuests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/StopQuestCommand.java" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="MagicArena" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="MagicArena" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-10" />
+    <option name="y" value="20" />
+    <option name="width" value="2758" />
+    <option name="height" value="1664" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1577312058502" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\willi\IdeaProjects\ImmortalGrass\src\main\resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\willi\IdeaProjects\MagicArena\src\main\resources" />
+      <recent name="C:\Users\willi\IdeaProjects\MagicArena\src" />
+      <recent name="C:\Users\willi\IdeaProjects\MagicArena\target" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="74a783ff-ce89-4520-a15a-5427ecba405e" name="Default Changelist" comment="" />
+      <created>1552444196741</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1552444196741</updated>
+      <workItem from="1552444204180" duration="1394000" />
+      <workItem from="1555208787210" duration="102000" />
+      <workItem from="1556815456616" duration="2812000" />
+      <workItem from="1556820770287" duration="2424000" />
+      <workItem from="1558646261714" duration="7980000" />
+      <workItem from="1558663069745" duration="5769000" />
+      <workItem from="1558881842612" duration="5718000" />
+      <workItem from="1559323125930" duration="673000" />
+      <workItem from="1567276605656" duration="954000" />
+      <workItem from="1567358561928" duration="11405000" />
+      <workItem from="1567550119800" duration="6804000" />
+      <workItem from="1567776996988" duration="2414000" />
+      <workItem from="1569977897575" duration="58000" />
+      <workItem from="1574827259030" duration="243000" />
+      <workItem from="1574827642834" duration="3083000" />
+      <workItem from="1574831327852" duration="360000" />
+      <workItem from="1574869121557" duration="316000" />
+      <workItem from="1574885731416" duration="1282000" />
+      <workItem from="1574887818316" duration="3555000" />
+      <workItem from="1576030528898" duration="1081000" />
+      <workItem from="1577080999419" duration="8804000" />
+      <workItem from="1577119963440" duration="5181000" />
+      <workItem from="1577383415427" duration="3914000" />
+      <workItem from="1577548580599" duration="280000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="76606000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="45" y="62" width="1225" height="703" extended-state="0" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3033419" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32905984" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.32980132" />
+      <window_info anchor="bottom" id="Messages" order="12" visible="true" weight="0.21192053" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="4" />
+      <window_info anchor="right" id="Maven" order="5" weight="0.32945737" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Database" order="8" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25581396" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32905984" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.21225071" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="4" />
+      <window_info anchor="right" id="Maven" order="5" weight="0.32945737" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Database" order="8" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/maven/lib/maven.jar!/schemas/maven-4.0.0.xsd">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="782" column="6" selection-start-line="782" selection-start-column="6" selection-end-line="782" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/williamsaada/MagicArena/MagicWand.java" />
+    <entry file="file://$PROJECT_DIR$/MagicArena.iml" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/williamsaada/MagicArena/StartMenu.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/williamsaada/MagicArena/MagicArena.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/williamsaada/MagicArena/PlayerJoin.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/williamsaada/MagicArena/FireballEvents.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/williamsaada/EggProject/EggListener.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/williamsaada/EggProject/FireballEvents.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/williamsaada/EggProject/PlayerJoin.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/williamsaada/EggProject/Revive.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/williamsaada/MagicArena/ImmortalGrass.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/williamsaada/Revive/DeathEvent.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/williamsaada/Revive/ImmortalGrass.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/williamsaada/ImmortalGrass/ImmortalGrass.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ImmortalGrass/BlockBreak.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ImmortalGrass/PickTen.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/PickTen/JoinEvent.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/PickTen/ArmorChange.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/PickTen/Llama.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/Llama/LlamaData/LlamaContents.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/Llama/Events/LlamaDeathEvent.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/Llama/LlamaData/Loot.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/Llama/BeePlugin.java" />
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/QuestModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/players/PlayerData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+          <folding>
+            <element signature="e#568#569#0" expanded="true" />
+            <element signature="e#473#474#0" expanded="true" />
+            <element signature="e#515#516#0" expanded="true" />
+            <element signature="e#830#831#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="31" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/handlers/EventListenerHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/QuestLibrary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/players/BasePlayerComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/ActiveQuests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/JsonQuestSave.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1394">
+          <caret line="98" column="17" selection-start-line="98" selection-start-column="17" selection-end-line="98" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/handlers/EventTypeHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="901">
+          <caret line="61" column="95" selection-start-line="61" selection-start-column="95" selection-end-line="61" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/EventsCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StartEventGui.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="46" column="19" selection-start-line="46" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/EventTypeGui.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/ViewEventsGui.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="58" column="32" selection-start-line="44" selection-start-column="8" selection-end-line="58" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StopEventGui.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="901">
+          <caret line="71" column="9" selection-start-line="71" selection-start-column="9" selection-end-line="71" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/BaseGui.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/CompetitiveQuestData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="16" column="74" selection-start-line="16" selection-start-column="74" selection-end-line="16" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/StartCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/StopQuestCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/ServerQuests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="76" column="36" selection-start-line="76" selection-start-column="36" selection-end-line="76" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>ServerQuests</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>MagicArena</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: com.google.code.gson:gson:2.8.0</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
