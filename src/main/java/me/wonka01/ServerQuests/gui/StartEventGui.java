@@ -21,11 +21,13 @@ public class StartEventGui extends BaseGui implements InventoryHolder, Listener 
     private Inventory inventory;
     private QuestLibrary questLibrary;
     private EventTypeGui eventTypeGui;
+    private int startingSlot;
 
     public StartEventGui(EventTypeGui eventTypeGui) {
         inventory = Bukkit.createInventory(this, 27, "Begin Server Event");
         questLibrary = QuestLibrary.getQuestLibraryInstance();
         this.eventTypeGui = eventTypeGui;
+        startingSlot = 1;
     }
 
     @NotNull
@@ -37,7 +39,7 @@ public class StartEventGui extends BaseGui implements InventoryHolder, Listener 
     public void initializeItems() {
 
         Set<String> keys = QuestLibrary.getQuestLibraryInstance().getAllQuestKeys();
-        int count = 1;
+        int count = startingSlot;
         for(String key : keys)
         {
             QuestModel model = questLibrary.getQuestModelById(key);
@@ -61,8 +63,20 @@ public class StartEventGui extends BaseGui implements InventoryHolder, Listener 
         Player player = (Player)e.getWhoClicked();
 
         ItemStack clickedItem = e.getCurrentItem();
+        int clickedSlot = e.getRawSlot();
+        QuestModel model = null;
+        int count = startingSlot;
 
-        QuestModel model = questLibrary.getQuestModelById(clickedItem.getItemMeta().getDisplayName());
+        for(String modelKeys : questLibrary.getAllQuestKeys()){
+            if(clickedSlot == count){
+                model = questLibrary.getQuestModelById(modelKeys);
+                break;
+            }
+        }
+
+        if(model == null){
+            return;
+        }
         player.closeInventory();
         eventTypeGui.openInventory(player, model);
     }

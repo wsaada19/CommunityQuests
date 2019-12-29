@@ -48,7 +48,7 @@ public class QuestLibrary {
         String description = section.getString("description");
         int timeToComplete = section.getInt("timeToComplete");
         int goal = section.getInt("goal");
-        List<String> mobNames = section.getStringList("mobNames");
+        List<String> mobNames = section.getStringList("entities");
         List<String> blockNames = section.getStringList("blocks");
 
         EventListenerHandler.EventListenerType eventType = EventListenerHandler.parseEventTypeFromString(section.getString("type"));

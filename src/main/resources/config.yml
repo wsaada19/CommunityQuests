@@ -2,7 +2,7 @@ ServerQuests:
   TestQuest:
     displayName: Zombie and Pig Slayer
     type: mobkill # required, see type list for available types
-    mobNames: # This is an optional parameter, if it doesn't exist the quest will count all mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
+    entities: # This is an optional parameter, if it doesn't exist the quest will count all mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
       - Zombie
       - Pig
       - Pig_Zombie

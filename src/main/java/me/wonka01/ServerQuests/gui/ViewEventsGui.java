@@ -32,16 +32,18 @@ public class ViewEventsGui extends BaseGui implements InventoryHolder {
     public void initializeItems() {
         List<QuestController> controllers = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
 
+        int index = 0;
         for(QuestController controller : controllers){
             if(controller.isCompetitive()){
-                createItemStackForComp(controller);
+                createItemStackForComp(controller, index);
             } else{
-                createItemStackForCoop(controller);
+                createItemStackForCoop(controller, index);
             }
+            index++;
         }
     }
 
-    public void createItemStackForCoop(QuestController controller){
+    public void createItemStackForCoop(QuestController controller, int index){
         int progress = controller.getQuestData().getAmountCompleted();
         int goal = controller.getQuestData().getQuestGoal();
 
@@ -56,10 +58,10 @@ public class ViewEventsGui extends BaseGui implements InventoryHolder {
                 progressString,
                 playerProgressString);
 
-        inventory.addItem(item);
+        inventory.setItem(index, item);
     }
 
-    public void createItemStackForComp(QuestController controller){
+    public void createItemStackForComp(QuestController controller, int index){
 
         int goal = controller.getQuestData().getQuestGoal();
 
@@ -77,7 +79,7 @@ public class ViewEventsGui extends BaseGui implements InventoryHolder {
                 ChatColor.GREEN + topPlayerName + ": " + topPlayerAmount + "/" + goal,
                 playerProgressString);
 
-        inventory.addItem(item);
+        inventory.setItem(index,item);
     }
 
     public void openInventory() {
