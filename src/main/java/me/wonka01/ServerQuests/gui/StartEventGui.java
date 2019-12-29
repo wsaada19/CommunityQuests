@@ -45,7 +45,7 @@ public class StartEventGui extends BaseGui implements InventoryHolder, Listener 
             QuestModel model = questLibrary.getQuestModelById(key);
             Material material = EventListenerHandler.getEventTypeMaterial(model.getEventType());
 
-            inventory.setItem(count, createGuiItem(material, model.getQuestId() , model.getDisplayName(), model.getEventDescription()));
+            inventory.setItem(count, createGuiItem(material, model.getDisplayName(), model.getEventDescription()));
             count++;
         }
     }

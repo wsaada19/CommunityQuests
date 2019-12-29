@@ -6,34 +6,34 @@ See the guide below to configure quests to use on your server.
 
 ## Configuration
 The config.yml provides a powerful customization system to allow you to create 
-unique quests. 
+unique quests. All quests are created in the config.yml file and are started in game.
 
 Under the ServerQuests section quests can be created, the field (the example below uses TestQuest),
 must be unique.
 
-##### displayName (required) 
+#### displayName (required) 
 
 The name that will be shown for the quest you've created
 
-##### description (required)
+#### description (required)
 
 A short description of the quest
 
-##### type (required)
+#### type (required)
 The quest type, see here for a list of types: 
 
-##### goal (required)
+#### goal (required)
 The amount you'll need to complete to finish the quest
 
-##### blocks (optional)
+#### blocks (optional)
 This is an optional parameter for the following quest types: 
 blockbreak, blockplace. If the field is empty or non existent then all blocks will be considered.
 
-#####entities (optional)
+#### entities (optional)
 This is an optional for the following quest types: mobkill, projectilekill.
 If empty or not used then all mob types will be included.
 
-#####rewards (optional)
+#### rewards (optional)
 The rewards that will be given to players upon completion of the quest. 
 
 Note: Experience and money rewards are based on how much a player contributes to a quest.

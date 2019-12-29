@@ -7,13 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="74a783ff-ce89-4520-a15a-5427ecba405e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/QuestLibrary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/QuestLibrary.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StartEventGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StartEventGui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/ViewEventsGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/ViewEventsGui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -25,11 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StartEventGui.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
+            <state relative-caret-position="355">
+              <caret line="47" column="60" selection-start-line="47" selection-start-column="60" selection-end-line="47" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -70,10 +65,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/ServerQuests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1286">
+            <state relative-caret-position="647">
               <caret line="108" column="74" lean-forward="true" selection-start-line="108" selection-start-column="74" selection-end-line="108" selection-end-column="74" />
             </state>
           </provider>
@@ -110,8 +105,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="442">
-                <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+              <first_editor relative-caret-position="884">
+                <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
               </first_editor>
               <second_editor />
             </state>
@@ -182,8 +177,8 @@
         <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/ViewEventsGui.java" />
         <option value="$PROJECT_DIR$/src/main/resources/config.yml" />
         <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/QuestLibrary.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StartEventGui.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -365,7 +360,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1577593438980" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1577596239408" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -430,12 +425,12 @@
       <workItem from="1577119963440" duration="5181000" />
       <workItem from="1577383415427" duration="3914000" />
       <workItem from="1577548580599" duration="280000" />
-      <workItem from="1577549547846" duration="25180000" />
+      <workItem from="1577549547846" duration="25429000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="101786000" />
+    <option name="totallyTimeSpent" value="102035000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1381" height="885" extended-state="6" />
@@ -758,13 +753,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/ServerQuests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1286">
-          <caret line="108" column="74" lean-forward="true" selection-start-line="108" selection-start-column="74" selection-end-line="108" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/QuestModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -786,16 +774,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="442">
-            <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/ViewEventsGui.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -805,8 +783,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StartEventGui.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
+        <state relative-caret-position="355">
+          <caret line="47" column="60" selection-start-line="47" selection-start-column="60" selection-end-line="47" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="884">
+            <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/ServerQuests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="647">
+          <caret line="108" column="74" lean-forward="true" selection-start-line="108" selection-start-column="74" selection-end-line="108" selection-end-column="74" />
         </state>
       </provider>
     </entry>
