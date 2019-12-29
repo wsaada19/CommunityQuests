@@ -12,7 +12,6 @@ public class QuestBar {
     private BossBar bossBar;
     public QuestBar(String displayName)
     {
-        Bukkit.getServer().getConsoleSender().sendMessage("Building the bar");
         bossBar = Bukkit.getServer().createBossBar( ChatColor.YELLOW + "" + ChatColor.BOLD + displayName, BarColor.GREEN, BarStyle.SEGMENTED_12);
         bossBar.setProgress(1.0);
         bossBar.setVisible(true);

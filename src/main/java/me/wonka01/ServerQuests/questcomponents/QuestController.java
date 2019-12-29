@@ -48,15 +48,23 @@ public class QuestController {
 
     public void handleQuestComplete()
     {
-        questBar.removeBossBar();
-        Bukkit.getServer().broadcastMessage(playerComponent.getLeaderString());
-        playerComponent.giveOutRewards(questData.getQuestGoal());
         sendVictoryMessage();
+        playerComponent.sendLeaderString();
+        Bukkit.getServer().broadcastMessage("");
+        playerComponent.giveOutRewards(questData.getQuestGoal());
         ActiveQuests.getActiveQuestsInstance().endQuest(questId);
     }
 
+    public void removeBossBar(){
+        questBar.removeBossBar();
+    }
+
     public void sendVictoryMessage(){
-        Bukkit.getServer().broadcastMessage(ChatColor.GREEN + "Quest Complete!");
+        //Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "=====================================================");
+        Bukkit.getServer().broadcastMessage("");
+        Bukkit.getServer().broadcastMessage(ChatColor.GREEN + "QUEST COMPLETE " + ChatColor.WHITE + "(" + " " + ChatColor.YELLOW + questData.getDisplayName() + ChatColor.WHITE +  " )");
+        Bukkit.getServer().broadcastMessage("");
+        //Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "=====================================================");
     }
 
     public void showBossBar(Player player)

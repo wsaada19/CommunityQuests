@@ -17,21 +17,12 @@ ServerQuests:
         material: APPLE
         amount: 12
   MiningTest:
-    displayName: MINING CHALLENGE
-    type: blockbreak
-    description: Mine some ores
-    goal: 10
-    blocks:
-      - DIAMOND_ORE
-      - IRON_ORE
+    displayName: Wolf Lover
+    type: tame
+    description: Make some friends
+    goal: 5
     rewards:
       money: 100.0
-      diamondsword:
-        material: DIAMOND_SWORD
-        amount: 1
-      apples:
-        material: APPLE
-        amount: 12
   SheepShear:
     displayName: Shear Sheep
     type: shear

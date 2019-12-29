@@ -28,7 +28,6 @@ public class PlaceEvent extends QuestListener implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event){
-        Bukkit.getServer().broadcastMessage("DEBUG: Placed a " + event.getBlock().getType().toString());
         Block block = event.getBlock();
         if(block.hasMetadata(PLACED)){
             return;
@@ -47,7 +46,7 @@ public class PlaceEvent extends QuestListener implements Listener {
 
     private boolean containsMaterial(String material, List<String> materials){
         for(String targetMaterial : materials){
-            if(targetMaterial.toUpperCase().contains(material)){
+            if(material.contains(targetMaterial.toUpperCase())){
                 return true;
             }
         }

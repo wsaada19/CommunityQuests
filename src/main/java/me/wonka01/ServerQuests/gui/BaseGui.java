@@ -2,6 +2,7 @@ package me.wonka01.ServerQuests.gui;
 
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -26,6 +27,7 @@ public abstract class BaseGui {
         }
 
         meta.setLore(metalore);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
         return item;
     }

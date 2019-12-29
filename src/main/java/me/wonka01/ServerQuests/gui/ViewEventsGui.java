@@ -60,14 +60,14 @@ public class ViewEventsGui extends BaseGui implements InventoryHolder {
     }
 
     public void createItemStackForComp(QuestController controller){
-        int progress = controller.getQuestData().getAmountCompleted();
+
         int goal = controller.getQuestData().getQuestGoal();
 
         int playerProgress = controller.getPlayerComponent().getAmountContributed(player);
         String leaders = ChatColor.GRAY + "Leader:";
         int topPlayerAmount = controller.getPlayerComponent().getTopPlayerData().getAmountContributed();
         String topPlayerName = controller.getPlayerComponent().getTopPlayerData().getDisplayName();
-        String playerProgressString = ChatColor.YELLOW + "You: " + ChatColor.GREEN + playerProgress + "/" + goal;
+        String playerProgressString = ChatColor.GRAY + "You: " + ChatColor.GREEN + playerProgress + "/" + goal;
 
         ItemStack item = createGuiItem(Material.DIAMOND,
                 ChatColor.YELLOW + controller.getQuestData().getDisplayName(),
@@ -75,7 +75,6 @@ public class ViewEventsGui extends BaseGui implements InventoryHolder {
                 "",
                 leaders,
                 ChatColor.GREEN + topPlayerName + ": " + topPlayerAmount + "/" + goal,
-                playerProgressString,
                 playerProgressString);
 
         inventory.addItem(item);

@@ -1,5 +1,7 @@
 package me.wonka01.ServerQuests.handlers;
 
+import org.bukkit.Material;
+
 public class EventListenerHandler {
 
     public enum EventListenerType {
@@ -34,6 +36,30 @@ public class EventListenerHandler {
             return EventListenerType.SHEAR;
         } else if(eventType.equalsIgnoreCase("tame")){
             return EventListenerType.TAME;
+        }
+        return null;
+    }
+
+    public static Material getEventTypeMaterial(EventListenerType eventType){
+        if(eventType == EventListenerType.MOB_Kill){
+            return Material.ZOMBIE_HEAD;
+        } else if(eventType == EventListenerType.CATCH_FISH)
+        {
+            return Material.FISHING_ROD;
+        } else if(eventType == EventListenerType.PLAYER_KILL){
+            return Material.PLAYER_HEAD;
+        } else if(eventType == EventListenerType.BLOCK_BREAK)
+        {
+            return Material.DIAMOND_PICKAXE;
+        } else if(eventType == EventListenerType.PROJ_KILL)
+        {
+            return Material.BOW;
+        } else if(eventType == EventListenerType.BLOCK_PLACE){
+            return Material.DIRT;
+        } else if(eventType == EventListenerType.SHEAR){
+            return Material.SHEARS;
+        } else if(eventType == EventListenerType.TAME){
+            return Material.BONE;
         }
         return null;
     }

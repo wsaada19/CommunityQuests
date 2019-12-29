@@ -68,7 +68,6 @@ public class JsonQuestSave {
 
     public void readAndInitializeQuests(){
         if(!path.exists()){return;}
-
         JSONParser parser = new JSONParser();
         try {
             JSONObject object = (JSONObject) parser.parse(new FileReader(path.getPath()));
@@ -109,10 +108,4 @@ public class JsonQuestSave {
             e.printStackTrace();
         }
     }
-    /*public void jsonStuff()
-    {
-        JSONParser jsonParser = new JSONParser();
-        Object parsed = jsonParser.parse(new FileReader(file.getPath()));
-        JSONObject jsonObject = (JSONObject) parsed;
-    }*/
 }

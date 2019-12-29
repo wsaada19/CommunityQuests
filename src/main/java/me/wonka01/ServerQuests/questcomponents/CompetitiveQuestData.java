@@ -14,12 +14,20 @@ public class CompetitiveQuestData extends QuestData {
 
     @Override
     public int getAmountCompleted(){
-        return playersReference.getTopPlayerData().getAmountContributed();
+        PlayerData playerData = playersReference.getTopPlayerData();
+        if(playerData == null){
+            return 0;
+        }
+
+        return playerData.getAmountContributed();
     }
 
     @Override
     public boolean isQuestComplete() {
         PlayerData playerData = playersReference.getTopPlayerData();
+        if(playerData == null){
+            return false;
+        }
         return (playerData.getAmountContributed() >= getQuestGoal());
 
     }

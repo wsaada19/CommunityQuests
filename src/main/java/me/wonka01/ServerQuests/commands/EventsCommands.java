@@ -22,6 +22,7 @@ public class EventsCommands implements CommandExecutor {
         subCommands.put("stop", new StopQuestCommand());
         subCommands.put("togglebar", new ToggleBarCommand());
         subCommands.put("view", new ViewQuestsCommand());
+        subCommands.put("reload", new ReloadCommand());
     }
 
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {

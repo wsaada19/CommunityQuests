@@ -3,6 +3,7 @@ package me.wonka01.ServerQuests.gui;
 import com.sun.istack.internal.NotNull;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.configuration.QuestModel;
+import me.wonka01.ServerQuests.handlers.EventListenerHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,7 +23,7 @@ public class StartEventGui extends BaseGui implements InventoryHolder, Listener 
     private EventTypeGui eventTypeGui;
 
     public StartEventGui(EventTypeGui eventTypeGui) {
-        inventory = Bukkit.createInventory(this, 9, "Begin Server Event");
+        inventory = Bukkit.createInventory(this, 27, "Begin Server Event");
         questLibrary = QuestLibrary.getQuestLibraryInstance();
         this.eventTypeGui = eventTypeGui;
     }
@@ -36,11 +37,14 @@ public class StartEventGui extends BaseGui implements InventoryHolder, Listener 
     public void initializeItems() {
 
         Set<String> keys = QuestLibrary.getQuestLibraryInstance().getAllQuestKeys();
-
+        int count = 1;
         for(String key : keys)
         {
             QuestModel model = questLibrary.getQuestModelById(key);
-            inventory.addItem(createGuiItem(Material.DIAMOND_SWORD, model.getQuestId() , model.getDisplayName(), model.getEventDescription()));
+            Material material = EventListenerHandler.getEventTypeMaterial(model.getEventType());
+
+            inventory.setItem(count, createGuiItem(material, model.getQuestId() , model.getDisplayName(), model.getEventDescription()));
+            count++;
         }
     }
 

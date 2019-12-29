@@ -3,6 +3,7 @@ package me.wonka01.ServerQuests.questcomponents.players;
 import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -41,14 +42,20 @@ public class BasePlayerComponent {
         }
     }
 
-    public String getLeaderString()
+    public void sendLeaderString()
     {
-        String result = "";
+        String result = ChatColor.YELLOW + "Top Contributors";
+        int count = 1;
         for(UUID key : playerMap.keySet())
         {
-            result += ChatColor.GREEN + Bukkit.getServer().getPlayer(key).getDisplayName() + ": " + ChatColor.WHITE + playerMap.get(key).getAmountContributed();
+            if(count == 6){
+                break;
+            }
+            result += "\n" + ChatColor.WHITE + count +  ") " + ChatColor.GREEN + Bukkit.getServer().getPlayer(key).getDisplayName() + " " +
+                    ChatColor.WHITE + playerMap.get(key).getAmountContributed();
+            count++;
         }
-        return result;
+        Bukkit.getServer().broadcastMessage(result);
     }
 
     public PlayerData getTopPlayerData()
@@ -57,7 +64,6 @@ public class BasePlayerComponent {
         {
             return playerMap.get(key);
         }
-
         return null;
     }
 
@@ -96,8 +102,15 @@ public class BasePlayerComponent {
         for(UUID key : playerMap.keySet())
         {
             double playerContributionRatio = (double)playerMap.get(key).getAmountContributed() / (double)questGoal;
+            OfflinePlayer player = Bukkit.getServer().getOfflinePlayer(key);
+
+            if(player.isOnline()){
+                Player onlinePlayer = (Player)player;
+                onlinePlayer.sendMessage(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "REWARDS");
+                onlinePlayer.sendMessage("");
+            }
             for (Reward reward : rewardsList) {
-                reward.giveRewardToPlayer(Bukkit.getServer().getOfflinePlayer(key), playerContributionRatio);
+                reward.giveRewardToPlayer(player, playerContributionRatio);
             }
         }
     }

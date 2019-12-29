@@ -80,4 +80,5 @@ public class EventTypeHandler {
         QuestController controller = new QuestController(data, bar, playerComponent, eventConstraints, questModel.getEventType());
         return controller;
     }
+
 }

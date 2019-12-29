@@ -1,15 +1,16 @@
 ServerQuests:
   TestQuest:
-    displayName: Zombie Slayer
-    type: mobkill
-    mobNames:
+    displayName: Zombie and Pig Slayer
+    type: mobkill # required, see type list for available types
+    mobNames: # This is an optional parameter, if it doesn't exist the quest will count all mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
       - Zombie
       - Pig
+      - Pig_Zombie
     description: Kill 5 zombies before time runs out!
-    goal: 2
+    goal: 2 # The goal is the amount of the task to be completed
     rewards:
       experience: 100
-      money: 1000
+      money: 1000 # You must have Vault and an Economy plugin installed for this to work
       diamondsword:
         material: DIAMOND_SWORD
         amount: 1
@@ -17,21 +18,12 @@ ServerQuests:
         material: APPLE
         amount: 12
   MiningTest:
-    displayName: MINING CHALLENGE
-    type: blockbreak
-    description: Mine some ores
-    goal: 10
-    blocks:
-      - DIAMOND_ORE
-      - IRON_ORE
+    displayName: Wolf Lover
+    type: tame
+    description: Make some friends
+    goal: 5
     rewards:
       money: 100.0
-      diamondsword:
-        material: DIAMOND_SWORD
-        amount: 1
-      apples:
-        material: APPLE
-        amount: 12
   SheepShear:
     displayName: Shear Sheep
     type: shear

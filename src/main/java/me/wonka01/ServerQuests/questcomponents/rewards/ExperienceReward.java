@@ -17,6 +17,7 @@ public class ExperienceReward implements Reward {
         {
             int weightedExperience = (int)(rewardPercentage * (double)experienceAmount);
             Player realPlayer = (Player)player;
+            ((Player) player).sendMessage(experienceAmount + " experience");
             realPlayer.giveExp(weightedExperience);
         }
 

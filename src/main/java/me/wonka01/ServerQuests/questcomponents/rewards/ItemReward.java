@@ -23,6 +23,7 @@ public class ItemReward implements Reward {
         {
             Player realPlayer = (Player)player;
             realPlayer.getInventory().addItem(itemStack);
+            realPlayer.sendMessage(amount + " " + itemStack.getItemMeta().getDisplayName());
         }
     }
 }

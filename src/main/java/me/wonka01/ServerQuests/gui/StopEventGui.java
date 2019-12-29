@@ -24,6 +24,7 @@ public class StopEventGui extends BaseGui implements InventoryHolder, Listener {
     }
 
     public void initializeItems() {
+        inventory.clear();
         List<QuestController> controllers = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
 
         for(QuestController controller : controllers){
@@ -57,7 +58,6 @@ public class StopEventGui extends BaseGui implements InventoryHolder, Listener {
         int slotNumber = e.getRawSlot();
         int counter = 0;
         QuestController controllerToRemove = null;
-        Bukkit.getServer().broadcastMessage("Slot: " + slotNumber);
 
         for(QuestController controller : ActiveQuests.getActiveQuestsInstance().getActiveQuestsList()){
             if(counter == slotNumber){
@@ -69,8 +69,8 @@ public class StopEventGui extends BaseGui implements InventoryHolder, Listener {
         if(controllerToRemove != null){
             UUID id = controllerToRemove.getQuestId();
             ActiveQuests.getActiveQuestsInstance().endQuest(id);
+            e.getWhoClicked().closeInventory();
         }
-
     }
 
     public Inventory getInventory() {

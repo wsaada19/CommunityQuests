@@ -25,6 +25,7 @@ public class ActiveQuests {
         for(int i =0; i < activeQuestsList.size(); i++)
         {
             if(activeQuestsList.get(i).getQuestId().equals(questId)){
+                activeQuestsList.get(i).removeBossBar();
                 activeQuestsList.remove(i);
             }
         }

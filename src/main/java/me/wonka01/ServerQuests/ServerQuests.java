@@ -61,7 +61,7 @@ public class ServerQuests extends JavaPlugin {
         saveConfig();
     }
 
-    private void loadQuestLibraryFromConfig()
+    public void loadQuestLibraryFromConfig()
     {
         ConfigurationSection serverQuestSection = getConfig().getConfigurationSection("ServerQuests");
         questLibrary = new QuestLibrary();
@@ -74,7 +74,7 @@ public class ServerQuests extends JavaPlugin {
         jsonSave.readAndInitializeQuests();
     }
 
-    private void loadStartEventGui()
+    public void loadStartEventGui()
     {
         EventTypeGui eventTypeGui = new EventTypeGui();
         eventTypeGui.initializeItems();
@@ -82,6 +82,7 @@ public class ServerQuests extends JavaPlugin {
         StartEventGui startGui = new StartEventGui(eventTypeGui);
         startGui.initializeItems();
         startEventGui = startGui;
+        stopEventGui = new StopEventGui();
     }
 
     public StartEventGui getStartGui()
@@ -104,25 +105,18 @@ public class ServerQuests extends JavaPlugin {
 
     private void registerEvents()
     {
-        BreakEvent blockBreakEvent = new BreakEvent(activeQuests);
-        CatchFishEvent catchFishEvent = new CatchFishEvent(activeQuests);
-        KillPlayerEvent killEvent = new KillPlayerEvent(activeQuests);
-        MobKillEvent mobKillEvent = new MobKillEvent(activeQuests);
-        ProjectileKillEvent projectileKillEvent = new ProjectileKillEvent(activeQuests);
-        PlaceEvent placeEvent = new PlaceEvent(activeQuests);
-        ShearEvent shearEvent = new ShearEvent( activeQuests);
-        TameEvent tameEvent = new TameEvent(activeQuests);
-
         getServer().getPluginManager().registerEvents(startEventGui, this);
-        getServer().getPluginManager().registerEvents(blockBreakEvent, this);
-        getServer().getPluginManager().registerEvents(catchFishEvent, this);
-        getServer().getPluginManager().registerEvents(killEvent, this);
-        getServer().getPluginManager().registerEvents(mobKillEvent, this);
+        getServer().getPluginManager().registerEvents(stopEventGui, this);
+
+        getServer().getPluginManager().registerEvents(new BreakEvent(activeQuests), this);
+        getServer().getPluginManager().registerEvents(new CatchFishEvent(activeQuests), this);
+        getServer().getPluginManager().registerEvents(new KillPlayerEvent(activeQuests), this);
+        getServer().getPluginManager().registerEvents(new MobKillEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
-        getServer().getPluginManager().registerEvents(projectileKillEvent, this);
-        getServer().getPluginManager().registerEvents(placeEvent, this);
-        getServer().getPluginManager().registerEvents(shearEvent, this);
-        getServer().getPluginManager().registerEvents(tameEvent, this);
+        getServer().getPluginManager().registerEvents(new ProjectileKillEvent(activeQuests), this);
+        getServer().getPluginManager().registerEvents(new PlaceEvent(activeQuests), this);
+        getServer().getPluginManager().registerEvents(new ShearEvent( activeQuests), this);
+        getServer().getPluginManager().registerEvents(new TameEvent(activeQuests), this);
 
     }
 

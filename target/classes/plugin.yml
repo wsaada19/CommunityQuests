@@ -2,6 +2,7 @@ name: ServerQuests
 version: 1.0
 author: wonka01
 main: me.wonka01.ServerQuests.ServerQuests
+api-version: 1.13
 
 commands:
   sq:
@@ -14,6 +15,9 @@ permissions:
     default: op
   serverevents.stop:
     description: The ability to end an event
+    default: op
+  serverevents.reload:
+    description: Can reload the plugins configurations
     default: op
   serverevents.bossbar.hide:
     description: The player will not be shown the boss bar by default
