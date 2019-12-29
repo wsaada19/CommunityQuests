@@ -26,7 +26,7 @@ public class StopEventGui extends BaseGui implements InventoryHolder, Listener {
     public void initializeItems() {
         inventory.clear();
         List<QuestController> controllers = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
-
+        int count = 0;
         for(QuestController controller : controllers){
             int progress = controller.getQuestData().getAmountCompleted();
             int goal = controller.getQuestData().getQuestGoal();
@@ -39,7 +39,8 @@ public class StopEventGui extends BaseGui implements InventoryHolder, Listener {
                     "",
                     progressString);
 
-            inventory.addItem(item);
+            inventory.setItem(count, item);
+            count++;
         }
     }
 

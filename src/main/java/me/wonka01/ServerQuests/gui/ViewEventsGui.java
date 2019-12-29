@@ -76,7 +76,7 @@ public class ViewEventsGui extends BaseGui implements InventoryHolder {
                 ChatColor.WHITE + controller.getQuestData().getDescription(),
                 "",
                 leaders,
-                ChatColor.GREEN + topPlayerName + ": " + topPlayerAmount + "/" + goal,
+                ChatColor.GRAY + topPlayerName + ": " + ChatColor.GREEN + topPlayerAmount + "/" + goal,
                 playerProgressString);
 
         inventory.setItem(index,item);

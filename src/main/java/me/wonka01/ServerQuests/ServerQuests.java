@@ -35,6 +35,7 @@ public class ServerQuests extends JavaPlugin {
 
         loadConfig();
         loadQuestLibraryFromConfig();
+        loadSaveData();
 
         if(!setupEconomy())
         {
@@ -61,17 +62,19 @@ public class ServerQuests extends JavaPlugin {
         saveConfig();
     }
 
-    public void loadQuestLibraryFromConfig()
-    {
+    public void loadSaveData(){
+        JsonQuestSave saveJson = new JsonQuestSave(getDataFolder(), activeQuests);
+        jsonSave = saveJson;
+        jsonSave.getOrCreateQuestFile();
+        jsonSave.readAndInitializeQuests();
+    }
+
+    public void loadQuestLibraryFromConfig() {
         ConfigurationSection serverQuestSection = getConfig().getConfigurationSection("ServerQuests");
         questLibrary = new QuestLibrary();
         questLibrary.loadQuestConfiguration(serverQuestSection);
         ActiveQuests activeQuests = new ActiveQuests();
         this.activeQuests = activeQuests;
-        JsonQuestSave saveJson = new JsonQuestSave(getDataFolder(), activeQuests);
-        jsonSave = saveJson;
-        jsonSave.getOrCreateQuestFile();
-        jsonSave.readAndInitializeQuests();
     }
 
     public void loadStartEventGui()
@@ -83,6 +86,13 @@ public class ServerQuests extends JavaPlugin {
         startGui.initializeItems();
         startEventGui = startGui;
         stopEventGui = new StopEventGui();
+    }
+
+    public void reloadConfiguration(){
+        reloadConfig();
+        ConfigurationSection serverQuestSection = getConfig().getConfigurationSection("ServerQuests");
+        questLibrary = new QuestLibrary();
+        questLibrary.loadQuestConfiguration(serverQuestSection);
     }
 
     public StartEventGui getStartGui()

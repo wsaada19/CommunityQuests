@@ -31,9 +31,9 @@ public class EventTypeGui extends BaseGui implements Listener, InventoryHolder {
     @Override
     public void initializeItems() {
         inventory.setItem(12, createGuiItem(Material.PLAYER_HEAD, COOPERATIVE,
-                "In cooperative events all players work together to achieve a common goal."));
+                "Sever wide cooperative quest."));
         inventory.setItem(13, createGuiItem(Material.DIAMOND_SWORD, COMPETITIVE,
-                "In competitive events, players go against each other to see who can reach a goal first."));
+                "See who can finish first!"));
         inventory.setItem(8, createGuiItem(Material.REDSTONE_BLOCK, ChatColor.RED + "BACK",
                 "Return to the event list"));
     }

@@ -5,6 +5,7 @@ import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.handlers.EventListenerHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,7 +38,7 @@ public class StartEventGui extends BaseGui implements InventoryHolder, Listener 
 
     // You can call this whenever you want to put the items in
     public void initializeItems() {
-
+        inventory.clear();
         Set<String> keys = QuestLibrary.getQuestLibraryInstance().getAllQuestKeys();
         int count = startingSlot;
         for(String key : keys)
@@ -45,7 +46,9 @@ public class StartEventGui extends BaseGui implements InventoryHolder, Listener 
             QuestModel model = questLibrary.getQuestModelById(key);
             Material material = EventListenerHandler.getEventTypeMaterial(model.getEventType());
 
-            inventory.setItem(count, createGuiItem(material, model.getDisplayName(), model.getEventDescription()));
+            inventory.setItem(count, createGuiItem(material, model.getDisplayName(),
+                    model.getEventDescription(),
+                    ChatColor.GRAY + "Goal: " + model.getQuestGoal()));
             count++;
         }
     }
@@ -72,6 +75,7 @@ public class StartEventGui extends BaseGui implements InventoryHolder, Listener 
                 model = questLibrary.getQuestModelById(modelKeys);
                 break;
             }
+            count++;
         }
 
         if(model == null){
