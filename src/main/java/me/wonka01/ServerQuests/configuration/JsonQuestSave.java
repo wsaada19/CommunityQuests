@@ -30,9 +30,10 @@ public class JsonQuestSave {
         this.activeQuests = activeQuests;
     }
 
-    public void getOrCreateQuestFile(){
+    public boolean getOrCreateQuestFile(){
         if(path.exists()){
             Bukkit.getServer().getConsoleSender().sendMessage("The quest file exists");
+            return true;
         } else {
             Bukkit.getServer().getConsoleSender().sendMessage("The questSave.json file does not exist, creating a new one.");
             try {
@@ -41,6 +42,8 @@ public class JsonQuestSave {
                 Bukkit.getServer().getConsoleSender().sendMessage(e.getMessage());
             }
         }
+
+        return false;
     }
 
     public void saveQuestsInProgress(){
@@ -70,6 +73,7 @@ public class JsonQuestSave {
 
     public void readAndInitializeQuests(){
         if(!path.exists()){return;}
+
         JSONParser parser = new JSONParser();
         try {
             JSONObject object = (JSONObject) parser.parse(new FileReader(path.getPath()));

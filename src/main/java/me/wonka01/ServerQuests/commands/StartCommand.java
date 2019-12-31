@@ -32,7 +32,7 @@ public class StartCommand extends SubCommand {
         }
 
         if(args.length < 3){
-            player.sendMessage(ChatColor.RED + "Please enter a quest type; collab or competetive");
+            player.sendMessage(ChatColor.RED + "Please enter a quest type; coop or comp");
             return;
         }
         if(args[2].equalsIgnoreCase("coop"))

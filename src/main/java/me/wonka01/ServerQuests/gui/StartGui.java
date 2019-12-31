@@ -39,6 +39,7 @@ public class StartGui extends BaseGui implements InventoryHolder, Listener {
     // You can call this whenever you want to put the items in
     public void initializeItems() {
         inventory.clear();
+        questLibrary = JavaPlugin.getPlugin(ServerQuests.class).getQuestLibrary();
         Set<String> keys = questLibrary.getAllQuestKeys();
         int count = 0;
         for(String key : keys)
@@ -65,7 +66,6 @@ public class StartGui extends BaseGui implements InventoryHolder, Listener {
         }
         Player player = (Player)e.getWhoClicked();
 
-        ItemStack clickedItem = e.getCurrentItem();
         int clickedSlot = e.getRawSlot();
         QuestModel model = null;
         int count = 0;

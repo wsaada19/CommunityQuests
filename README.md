@@ -19,6 +19,8 @@ Opens up a GUI to see the progress of all active quests
 #### /sq stop
 Opens up a GUI that allows you to end active quests
 
+#### /sq reload 
+Reloads the configuration file
 
 ## Configuration
 The config.yml provides a powerful customization system allowing you to create 

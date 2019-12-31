@@ -65,8 +65,9 @@ public class ServerQuests extends JavaPlugin {
     public void loadSaveData(){
         JsonQuestSave saveJson = new JsonQuestSave(getDataFolder(), activeQuests);
         jsonSave = saveJson;
-        jsonSave.getOrCreateQuestFile();
-        jsonSave.readAndInitializeQuests();
+        if(jsonSave.getOrCreateQuestFile()){
+            jsonSave.readAndInitializeQuests();
+        }
     }
 
     public void loadQuestLibraryFromConfig() {
