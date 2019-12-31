@@ -102,7 +102,6 @@ public class JsonQuestSave {
                 if(model == null){
                     continue;
                 }
-                Bukkit.getServer().getConsoleSender().sendMessage("" + (int)amountComplete);
 
                 QuestController controller = handler.crateControllerFromSave(model, playerMap, (int)amountComplete);
                 activeQuests.startQuestWithController(controller);
