@@ -29,7 +29,7 @@ server-wide quests for your players to enjoy. All quests are created in the conf
 Under the ServerQuests section quests can be created, the field (the example below uses TestQuest),
 must be unique.
 
-Here is an example of a quest where everyone needs to kill a combined 100 zombies, pigs and zombie pigmen to complete it. 
+Here is an example of a quest where everyone needs to kill a combined 100 zombies, pigs and zombie pigmen to complete. 
 ```yaml 
 ServerQuests:
   TestQuest: # this value can be anything but it must be unique
