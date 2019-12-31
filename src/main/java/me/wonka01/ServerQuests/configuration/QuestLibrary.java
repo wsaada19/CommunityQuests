@@ -14,10 +14,10 @@ import java.util.Set;
 
 public class QuestLibrary {
 
-    private static QuestLibrary questLibraryInstance;
     private HashMap<String, QuestModel> questList;
 
-    public QuestLibrary( ) { }
+    public QuestLibrary( ) {
+    }
 
     public QuestModel getQuestModelById(String questId)
     {
@@ -38,8 +38,6 @@ public class QuestLibrary {
             map.put(questId, model);
         }
         questList = map;
-
-        questLibraryInstance = this;
     }
 
     private QuestModel loadQuestFromConfig(ConfigurationSection section) {
@@ -92,11 +90,6 @@ public class QuestLibrary {
             rewards.add(reward);
         }
         return rewards;
-    }
-
-    public static QuestLibrary getQuestLibraryInstance()
-    {
-        return questLibraryInstance;
     }
 
     public Set<String> getAllQuestKeys()

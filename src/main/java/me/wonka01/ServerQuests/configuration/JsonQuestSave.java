@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.configuration;
 
+import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.handlers.EventTypeHandler;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.CompetitiveQuestData;
@@ -7,10 +8,12 @@ import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.omg.PortableServer.Servant;
 
 import java.io.File;
 import java.io.FileReader;
@@ -29,9 +32,9 @@ public class JsonQuestSave {
 
     public void getOrCreateQuestFile(){
         if(path.exists()){
-            Bukkit.getServer().getConsoleSender().sendMessage("The quest file exists!");
+            Bukkit.getServer().getConsoleSender().sendMessage("The quest file exists");
         } else {
-            Bukkit.getServer().getConsoleSender().sendMessage("The quest file does not exist!");
+            Bukkit.getServer().getConsoleSender().sendMessage("The questSave.json file does not exist, creating a new one.");
             try {
                 path.createNewFile();
             } catch (IOException e) {
@@ -63,7 +66,6 @@ public class JsonQuestSave {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void readAndInitializeQuests(){
@@ -92,7 +94,7 @@ public class JsonQuestSave {
                 }
 
                 EventTypeHandler handler = new EventTypeHandler(questType);
-                QuestModel model = QuestLibrary.getQuestLibraryInstance().getQuestModelById(questId);
+                QuestModel model = JavaPlugin.getPlugin(ServerQuests.class).getQuestLibrary().getQuestModelById(questId);
                 if(model == null){
                     continue;
                 }

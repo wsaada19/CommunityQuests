@@ -36,7 +36,7 @@ public class ProjectileKillEvent extends QuestListener implements Listener {
             Projectile projectile = (Projectile)damager;
             if(projectile.getShooter() != null && projectile.getShooter() instanceof Player){
                 Player player = (Player)projectile.getShooter();
-                Bukkit.getServer().broadcastMessage("Debug: Player killed entity with a projectile");
+
                 for(QuestController controller : activeQuests.getActiveQuestsList()){
                     if(controller.getListenerType().equals(TYPE)){
                         updateQuest(controller, player, 1 );

@@ -13,6 +13,6 @@ public class ReloadCommand extends SubCommand {
         ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
 
         plugin.reloadConfiguration();
-        player.sendMessage(ChatColor.GREEN + "ServerQuests configuration has been reloaded.");
+        player.sendMessage(ChatColor.GREEN + "[ServerQuests] The config.yml has been reloaded.");
     }
 }

@@ -1,6 +1,7 @@
 package me.wonka01.ServerQuests.gui;
 
 import com.sun.istack.internal.NotNull;
+import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.handlers.EventListenerHandler;
@@ -14,21 +15,20 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Set;
 
-public class StartEventGui extends BaseGui implements InventoryHolder, Listener {
+public class StartGui extends BaseGui implements InventoryHolder, Listener {
 
     private Inventory inventory;
     private QuestLibrary questLibrary;
-    private EventTypeGui eventTypeGui;
-    private int startingSlot;
+    private TypeGui typeGui;
 
-    public StartEventGui(EventTypeGui eventTypeGui) {
+    public StartGui(TypeGui typeGui) {
         inventory = Bukkit.createInventory(this, 27, "Begin Server Event");
-        questLibrary = QuestLibrary.getQuestLibraryInstance();
-        this.eventTypeGui = eventTypeGui;
-        startingSlot = 1;
+        questLibrary = JavaPlugin.getPlugin(ServerQuests.class).getQuestLibrary();;
+        this.typeGui = typeGui;
     }
 
     @NotNull
@@ -39,15 +39,15 @@ public class StartEventGui extends BaseGui implements InventoryHolder, Listener 
     // You can call this whenever you want to put the items in
     public void initializeItems() {
         inventory.clear();
-        Set<String> keys = QuestLibrary.getQuestLibraryInstance().getAllQuestKeys();
-        int count = startingSlot;
+        Set<String> keys = questLibrary.getAllQuestKeys();
+        int count = 0;
         for(String key : keys)
         {
             QuestModel model = questLibrary.getQuestModelById(key);
             Material material = EventListenerHandler.getEventTypeMaterial(model.getEventType());
 
-            inventory.setItem(count, createGuiItem(material, model.getDisplayName(),
-                    model.getEventDescription(),
+            inventory.setItem(count, createGuiItem(material, ChatColor.GREEN + model.getDisplayName(),
+                    ChatColor.WHITE + model.getEventDescription(),
                     ChatColor.GRAY + "Goal: " + model.getQuestGoal()));
             count++;
         }
@@ -68,7 +68,7 @@ public class StartEventGui extends BaseGui implements InventoryHolder, Listener 
         ItemStack clickedItem = e.getCurrentItem();
         int clickedSlot = e.getRawSlot();
         QuestModel model = null;
-        int count = startingSlot;
+        int count = 0;
 
         for(String modelKeys : questLibrary.getAllQuestKeys()){
             if(clickedSlot == count){
@@ -82,6 +82,6 @@ public class StartEventGui extends BaseGui implements InventoryHolder, Listener 
             return;
         }
         player.closeInventory();
-        eventTypeGui.openInventory(player, model);
+        typeGui.openInventory(player, model);
     }
 }

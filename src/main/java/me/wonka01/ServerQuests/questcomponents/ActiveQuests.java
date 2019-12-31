@@ -29,7 +29,6 @@ public class ActiveQuests {
                 activeQuestsList.remove(i);
             }
         }
-
     }
 
     public void InitializeQuestListener(QuestModel questModel, EventTypeHandler.EventType eventType)
@@ -56,16 +55,6 @@ public class ActiveQuests {
     public static ActiveQuests getActiveQuestsInstance()
     {
         return activeQuestsInstance;
-    }
-
-    public void showBossBar(Player player)
-    {
-
-    }
-
-    public void hideBossBar(Player player)
-    {
-
     }
 
 }

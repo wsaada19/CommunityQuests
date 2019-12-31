@@ -41,13 +41,13 @@ public class StartCommand extends SubCommand {
             return;
         }
 
-        if(args[2].equalsIgnoreCase("competitive"))
+        if(args[2].equalsIgnoreCase("comp"))
         {
             ActiveQuests.getActiveQuestsInstance().InitializeQuestListener(questModel, EventTypeHandler.EventType.COMPETITIVE);
             return;
         }
 
-        player.sendMessage(ChatColor.RED + "Please enter a quest type: coop or competetive");
+        player.sendMessage(ChatColor.RED + "Please enter a quest type: coop or comp");
 
     }
 }

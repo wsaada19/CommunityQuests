@@ -12,19 +12,19 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-public class ViewEventsGui extends BaseGui implements InventoryHolder {
+public class ViewGui extends BaseGui implements InventoryHolder {
 
     public Inventory inventory;
     public Player player;
 
-    public ViewEventsGui(Player player)
+    public ViewGui(Player player)
     {
         this.player = player;
         inventory = Bukkit.createInventory(this, 36, "Active Quests");
         initializeItems();
     }
 
-    public  ViewEventsGui(){
+    public ViewGui(){
         inventory = Bukkit.createInventory(this, 36, "Active Quests");
     }
 
@@ -47,16 +47,14 @@ public class ViewEventsGui extends BaseGui implements InventoryHolder {
         int progress = controller.getQuestData().getAmountCompleted();
         int goal = controller.getQuestData().getQuestGoal();
 
-        int playerProgress = controller.getPlayerComponent().getAmountContributed(player);
         String progressString = ChatColor.GRAY + "Progress: " + ChatColor.GREEN + progress + "/" + goal;
-        String playerProgressString = ChatColor.GRAY + "You: " + ChatColor.GREEN + playerProgress;
 
         ItemStack item = createGuiItem(Material.DIAMOND,
-                ChatColor.YELLOW + controller.getQuestData().getDisplayName(),
+                ChatColor.GREEN + controller.getQuestData().getDisplayName(),
                 ChatColor.WHITE + controller.getQuestData().getDescription(),
                 "",
                 progressString,
-                playerProgressString);
+                getPlayerProgress(controller, goal));
 
         inventory.setItem(index, item);
     }
@@ -65,21 +63,24 @@ public class ViewEventsGui extends BaseGui implements InventoryHolder {
 
         int goal = controller.getQuestData().getQuestGoal();
 
-        int playerProgress = controller.getPlayerComponent().getAmountContributed(player);
-        String leaders = ChatColor.GRAY + "Leader:";
+        String leaders = ChatColor.GRAY + "Leaders";
         int topPlayerAmount = controller.getPlayerComponent().getTopPlayerData().getAmountContributed();
         String topPlayerName = controller.getPlayerComponent().getTopPlayerData().getDisplayName();
-        String playerProgressString = ChatColor.GRAY + "You: " + ChatColor.GREEN + playerProgress + "/" + goal;
 
         ItemStack item = createGuiItem(Material.DIAMOND,
-                ChatColor.YELLOW + controller.getQuestData().getDisplayName(),
+                ChatColor.GREEN + controller.getQuestData().getDisplayName(),
                 ChatColor.WHITE + controller.getQuestData().getDescription(),
                 "",
                 leaders,
                 ChatColor.GRAY + topPlayerName + ": " + ChatColor.GREEN + topPlayerAmount + "/" + goal,
-                playerProgressString);
+                getPlayerProgress(controller, goal));
 
         inventory.setItem(index,item);
+    }
+
+    private String getPlayerProgress(QuestController controller, int goal){
+        int playerProgress = controller.getPlayerComponent().getAmountContributed(player);
+        return (ChatColor.GRAY + "You: " + ChatColor.GREEN + playerProgress + "/" + goal);
     }
 
     public void openInventory() {

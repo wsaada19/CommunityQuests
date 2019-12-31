@@ -1,6 +1,7 @@
 package me.wonka01.ServerQuests.commands;
 
 import me.wonka01.ServerQuests.ServerQuests;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,6 +22,7 @@ public class EventsCommands implements CommandExecutor {
         subCommands.put("start", new StartCommand());
         subCommands.put("stop", new StopQuestCommand());
         subCommands.put("togglebar", new ToggleBarCommand());
+        subCommands.put("togglemessages", new ToggleMessageCommand());
         subCommands.put("view", new ViewQuestsCommand());
         subCommands.put("reload", new ReloadCommand());
     }
@@ -30,13 +32,13 @@ public class EventsCommands implements CommandExecutor {
         if(!(commandSender instanceof Player)){return false;}
         Player player = (Player)commandSender;
         if(args.length < 1){
-            player.sendMessage("&cPlease enter another command");
+            player.sendMessage(ChatColor.RED + "[ServerQuests] Invalid command");
             return false;
         }
         String subCommandPrefix = args[0];
 
         if(!subCommands.containsKey(subCommandPrefix)){
-            player.sendMessage("&cPlease enter another command");
+            player.sendMessage(ChatColor.RED + "[ServerQuests] Invalid command");
             return false;
         }
 

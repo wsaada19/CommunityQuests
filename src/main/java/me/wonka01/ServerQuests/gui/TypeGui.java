@@ -16,26 +16,28 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class EventTypeGui extends BaseGui implements Listener, InventoryHolder {
+public class TypeGui extends BaseGui implements Listener, InventoryHolder {
 
-    private final String COMPETITIVE = "COMPETITIVE";
-    private final String COOPERATIVE = "COOPERATIVE";
+    private final String COMPETITIVE = ChatColor.GREEN + "Competitive";
+    private final String COOPERATIVE = ChatColor.GREEN + "Cooperative";
+    private final String COMP_DESCRIPTION = ChatColor.WHITE + "See who can finish first!";
+    private final String COOP_DESCRIPTION = ChatColor.WHITE + "Sever wide cooperative quest.";
 
     private Inventory inventory;
     private QuestModel model;
 
-    public EventTypeGui() {
-        inventory = Bukkit.createInventory(this, 27, ChatColor.YELLOW  + "" +  ChatColor.BOLD +  "SELECT AN EVENT TYPE");
+    public TypeGui() {
+        inventory = Bukkit.createInventory(this, 27, ChatColor.WHITE  + "" +  ChatColor.BOLD +  "Select an Event Type");
     }
 
     @Override
     public void initializeItems() {
         inventory.setItem(12, createGuiItem(Material.PLAYER_HEAD, COOPERATIVE,
-                "Sever wide cooperative quest."));
+                COOP_DESCRIPTION));
         inventory.setItem(13, createGuiItem(Material.DIAMOND_SWORD, COMPETITIVE,
-                "See who can finish first!"));
-        inventory.setItem(8, createGuiItem(Material.REDSTONE_BLOCK, ChatColor.RED + "BACK",
-                "Return to the event list"));
+                COOP_DESCRIPTION));
+        inventory.setItem(8, createGuiItem(Material.ARROW, ChatColor.GREEN + "Go Back",
+                ChatColor.GRAY + "Go back to the event list"));
     }
 
     public void openInventory(Player p, QuestModel model) {

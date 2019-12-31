@@ -85,18 +85,6 @@ public class BasePlayerComponent {
         return  jArray;
     }
 
-    public void sendMessageToPlayers(String victoryMessage)
-    {
-        for(UUID key : playerMap.keySet())
-        {
-            Player player = Bukkit.getServer().getPlayer(key);
-            if(player.isOnline())
-            {
-                player.sendMessage(victoryMessage);
-            }
-        }
-    }
-
     public void giveOutRewards(int questGoal)
     {
         for(UUID key : playerMap.keySet())
@@ -106,8 +94,9 @@ public class BasePlayerComponent {
 
             if(player.isOnline()){
                 Player onlinePlayer = (Player)player;
-                onlinePlayer.sendMessage(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "REWARDS");
-                onlinePlayer.sendMessage("");
+                if(rewardsList.size() > 0){
+                    onlinePlayer.sendMessage(ChatColor.GREEN + "Rewards");
+                }
             }
             for (Reward reward : rewardsList) {
                 reward.giveRewardToPlayer(player, playerContributionRatio);

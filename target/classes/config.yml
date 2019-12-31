@@ -7,7 +7,7 @@ ServerQuests:
       - Pig
       - Pig_Zombie
     description: Kill 5 zombies before time runs out!
-    goal: 2 # The goal is the amount of the task to be completed
+    goal: 5 # The goal is the amount of the task to be completed
     rewards:
       experience: 100
       money: 1000 # You must have Vault and an Economy plugin installed for this to work

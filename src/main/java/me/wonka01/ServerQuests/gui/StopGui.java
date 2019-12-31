@@ -16,10 +16,10 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 import java.util.UUID;
 
-public class StopEventGui extends BaseGui implements InventoryHolder, Listener {
+public class StopGui extends BaseGui implements InventoryHolder, Listener {
     private Inventory inventory;
 
-    public StopEventGui() {
+    public StopGui() {
         inventory = Bukkit.createInventory(this, 36, "Active Quests");
     }
 
@@ -34,10 +34,11 @@ public class StopEventGui extends BaseGui implements InventoryHolder, Listener {
             String progressString = ChatColor.GRAY + "Progress: " + ChatColor.GREEN + progress + "/" + goal;
 
             ItemStack item = createGuiItem(Material.DIAMOND,
-                    ChatColor.YELLOW + controller.getQuestData().getDisplayName(),
+                    ChatColor.GREEN + controller.getQuestData().getDisplayName(),
                     ChatColor.WHITE + controller.getQuestData().getDescription(),
                     "",
-                    progressString);
+                    progressString,
+                    ChatColor.GREEN + "Click to end the quest");
 
             inventory.setItem(count, item);
             count++;
@@ -65,6 +66,7 @@ public class StopEventGui extends BaseGui implements InventoryHolder, Listener {
                 controllerToRemove = controller;
                 break;
             }
+            counter++;
         }
 
         if(controllerToRemove != null){

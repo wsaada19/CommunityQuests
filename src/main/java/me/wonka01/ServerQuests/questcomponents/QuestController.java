@@ -34,8 +34,8 @@ public class QuestController {
         questData.addToQuestProgress(count);
 
         playerComponent.savePlayerAction(player, count);
-
         updateBossBar();
+        sendPlayerMessage(player);
 
         return questData.isQuestComplete();
     }
@@ -59,12 +59,15 @@ public class QuestController {
         questBar.removeBossBar();
     }
 
+    private void sendPlayerMessage(Player player){
+        if(player.hasPermission("serverquests.showmessages")){
+            player.sendMessage(ChatColor.GREEN + "+1 for the quest - " + ChatColor.YELLOW + getQuestData().getDisplayName());
+        }
+    }
+
     public void sendVictoryMessage(){
-        //Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "=====================================================");
+        Bukkit.getServer().broadcastMessage(ChatColor.GREEN + "QUEST COMPLETE " + ChatColor.WHITE + "-" + " " + ChatColor.YELLOW + questData.getDisplayName());
         Bukkit.getServer().broadcastMessage("");
-        Bukkit.getServer().broadcastMessage(ChatColor.GREEN + "QUEST COMPLETE " + ChatColor.WHITE + "(" + " " + ChatColor.YELLOW + questData.getDisplayName() + ChatColor.WHITE +  " )");
-        Bukkit.getServer().broadcastMessage("");
-        //Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "=====================================================");
     }
 
     public void showBossBar(Player player)

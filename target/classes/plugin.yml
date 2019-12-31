@@ -6,7 +6,7 @@ api-version: 1.13
 
 commands:
   sq:
-    usage: /<command> [start]
+    usage:
     description: Commands for ServerQuests Plugin
 
 permissions:
@@ -14,11 +14,17 @@ permissions:
     description: The ability to start server events
     default: op
   serverevents.stop:
-    description: The ability to end an event
+    description: The ability to stop an event
     default: op
   serverevents.reload:
     description: Can reload the plugins configurations
     default: op
+  serverevents.view:
+    description: Can view all active quests for the server
+    default: true
+  serverevents.showmessages:
+    description: If true the player will receive a message when the contribute to the quest
+    default: true
   serverevents.bossbar.hide:
     description: The player will not be shown the boss bar by default
     default: false
