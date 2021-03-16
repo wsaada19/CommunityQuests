@@ -27,7 +27,7 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
         inventory.clear();
         List<QuestController> controllers = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
         int count = 0;
-        for(QuestController controller : controllers){
+        for (QuestController controller : controllers) {
             int progress = controller.getQuestData().getAmountCompleted();
             int goal = controller.getQuestData().getQuestGoal();
 
@@ -61,15 +61,15 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
         int counter = 0;
         QuestController controllerToRemove = null;
 
-        for(QuestController controller : ActiveQuests.getActiveQuestsInstance().getActiveQuestsList()){
-            if(counter == slotNumber){
+        for (QuestController controller : ActiveQuests.getActiveQuestsInstance().getActiveQuestsList()) {
+            if (counter == slotNumber) {
                 controllerToRemove = controller;
                 break;
             }
             counter++;
         }
 
-        if(controllerToRemove != null){
+        if (controllerToRemove != null) {
             UUID id = controllerToRemove.getQuestId();
             ActiveQuests.getActiveQuestsInstance().endQuest(id);
             e.getWhoClicked().closeInventory();

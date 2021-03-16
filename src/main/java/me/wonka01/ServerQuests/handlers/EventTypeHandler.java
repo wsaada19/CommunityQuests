@@ -19,8 +19,9 @@ public class EventTypeHandler {
     public EventTypeHandler(EventType eventType) {
         this.eventType = eventType;
     }
-    public EventTypeHandler(String type){
-        if(type.equalsIgnoreCase("comp")){
+
+    public EventTypeHandler(String type) {
+        if (type.equalsIgnoreCase("comp")) {
             eventType = EventType.COMPETITIVE;
         } else {
             eventType = EventType.COLLAB;
@@ -34,28 +35,25 @@ public class EventTypeHandler {
         QuestData data = getQuestData(questModel, 0, playerComponent);
         EventConstraints eventConstraints = new EventConstraints(questModel.getBlockNames(), questModel.getMobNames());
 
-        QuestController controller = new QuestController(data, bar, playerComponent, eventConstraints,
-                questModel.getEventType());
-        return controller;
+        return new QuestController(data, bar, playerComponent, eventConstraints, questModel.getEventType());
     }
 
-    public QuestController crateControllerFromSave(QuestModel questModel, Map<UUID, PlayerData> players,
-                                                    int amountComplete){
+    public QuestController createControllerFromSave(QuestModel questModel, Map<UUID, PlayerData> players,
+                                                    int amountComplete) {
 
         BasePlayerComponent playerComponent = new BasePlayerComponent(questModel.getRewards(), players);
         QuestData data = getQuestData(questModel, amountComplete, playerComponent);
 
         QuestBar bar = new QuestBar(questModel.getDisplayName());
-        bar.updateBarProgress((double)amountComplete/(double)questModel.getQuestGoal());
+        bar.updateBarProgress((double) amountComplete / (double) questModel.getQuestGoal());
         EventConstraints eventConstraints = new EventConstraints(questModel.getBlockNames(), questModel.getMobNames());
 
-        QuestController controller = new QuestController(data, bar, playerComponent, eventConstraints, questModel.getEventType());
-        return controller;
+        return new QuestController(data, bar, playerComponent, eventConstraints, questModel.getEventType());
     }
 
-    private QuestData getQuestData(QuestModel questModel, int amountComplete, BasePlayerComponent playerComponent){
+    private QuestData getQuestData(QuestModel questModel, int amountComplete, BasePlayerComponent playerComponent) {
 
-        if(eventType == EventType.COMPETITIVE){
+        if (eventType == EventType.COMPETITIVE) {
             return new CompetitiveQuestData(questModel.getQuestGoal(), questModel.getDisplayName(),
                     questModel.getEventDescription(), playerComponent, questModel.getQuestId(), amountComplete);
         } else {

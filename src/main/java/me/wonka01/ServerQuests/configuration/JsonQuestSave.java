@@ -5,7 +5,6 @@ import me.wonka01.ServerQuests.handlers.EventTypeHandler;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.CompetitiveQuestData;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
-import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,47 +12,47 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.omg.PortableServer.Servant;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.UUID;
 
 public class JsonQuestSave {
     private File path;
     private ActiveQuests activeQuests;
 
-    public JsonQuestSave(File path, ActiveQuests activeQuests){
+    public JsonQuestSave(File path, ActiveQuests activeQuests) {
         this.path = new File(path + "/questSave.json");
         this.activeQuests = activeQuests;
     }
 
-    public boolean getOrCreateQuestFile(){
-        if(path.exists()){
-            Bukkit.getServer().getConsoleSender().sendMessage("The quest file exists");
+    public boolean getOrCreateQuestFile() {
+        if (path.exists()) {
             return true;
         } else {
-            Bukkit.getServer().getConsoleSender().sendMessage("The questSave.json file does not exist, creating a new one.");
             try {
                 path.createNewFile();
             } catch (IOException e) {
                 Bukkit.getServer().getConsoleSender().sendMessage(e.getMessage());
             }
         }
-
         return false;
     }
 
-    public void saveQuestsInProgress(){
+    public void saveQuestsInProgress() {
         JSONArray jsonArray = new JSONArray();
-        for(QuestController questController : activeQuests.getActiveQuestsList()){
+        for (QuestController questController : activeQuests.getActiveQuestsList()) {
+            Bukkit.getLogger().info("Adding quest to the save " + questController.getQuestData().getDisplayName());
             JSONObject jObject = new JSONObject();
             jObject.put("id", questController.getQuestType());
             jObject.put("playerMap", questController.getPlayerComponent().getPlayerDataInJson());
             jObject.put("amountComplete", questController.getQuestData().getAmountCompleted());
-            if(questController.getQuestData() instanceof CompetitiveQuestData){
+            if (questController.getQuestData() instanceof CompetitiveQuestData) {
                 jObject.put("type", "comp");
             } else {
                 jObject.put("type", "coop");
@@ -61,7 +60,7 @@ public class JsonQuestSave {
             jsonArray.add(jObject);
         }
         try {
-            FileWriter fileWriter = new FileWriter(path);
+            FileWriter fileWriter = new FileWriter(path, false); // overwrite the existing file
             JSONObject object = new JSONObject();
             object.put("activeQuests", jsonArray);
             fileWriter.write(object.toJSONString());
@@ -71,8 +70,10 @@ public class JsonQuestSave {
         }
     }
 
-    public void readAndInitializeQuests(){
-        if(!path.exists()){return;}
+    public void readAndInitializeQuests() {
+        if (!path.exists()) {
+            return;
+        }
 
         JSONParser parser = new JSONParser();
         try {
@@ -80,30 +81,32 @@ public class JsonQuestSave {
             JSONArray questArray = (JSONArray) object.get("activeQuests");
             Iterator qIterator = questArray.iterator();
 
-            while (qIterator.hasNext()){
+            while (qIterator.hasNext()) {
                 JSONObject questObject = (JSONObject) qIterator.next();
-                String questId = (String)questObject.get("id");
-                String questType = (String)questObject.get("type");
+                String questId = (String) questObject.get("id");
+                String questType = (String) questObject.get("type");
                 long amountComplete = (Long) questObject.get("amountComplete");
 
                 JSONArray playerObject = (JSONArray) questObject.get("playerMap");
                 Iterator<JSONObject> pIterator = playerObject.iterator();
                 Map<UUID, PlayerData> playerMap = new TreeMap<UUID, PlayerData>();
-                while(pIterator.hasNext()){
+                while (pIterator.hasNext()) {
                     JSONObject obj = pIterator.next();
-                    UUID uuid = UUID.fromString((String)obj.keySet().iterator().next());
+                    UUID uuid = UUID.fromString((String) obj.keySet().iterator().next());
                     String playerName = Bukkit.getServer().getOfflinePlayer(uuid).getName();
                     long pContributed = (Long) obj.get(uuid.toString());
-                    playerMap.put(uuid, new PlayerData(playerName, (int)pContributed));
+                    playerMap.put(uuid, new PlayerData(playerName, (int) pContributed));
                 }
 
                 EventTypeHandler handler = new EventTypeHandler(questType);
                 QuestModel model = JavaPlugin.getPlugin(ServerQuests.class).getQuestLibrary().getQuestModelById(questId);
-                if(model == null){
+                if (model == null) {
                     continue;
                 }
-
-                QuestController controller = handler.crateControllerFromSave(model, playerMap, (int)amountComplete);
+                if (amountComplete >= model.getQuestGoal()) {
+                    Bukkit.getLogger().info("[ServerQuests] The quest in the save file has expired and will not be initialized.");
+                }
+                QuestController controller = handler.createControllerFromSave(model, playerMap, (int) amountComplete);
                 activeQuests.startQuestWithController(controller);
             }
 

@@ -12,20 +12,20 @@ public class KillPlayerEvent extends QuestListener implements Listener {
 
     private final EventListenerHandler.EventListenerType TYPE = EventListenerHandler.EventListenerType.PLAYER_KILL;
 
-    public KillPlayerEvent(ActiveQuests activeQuests)
-    {
+    public KillPlayerEvent(ActiveQuests activeQuests) {
         super(activeQuests);
     }
 
     @EventHandler
-    public void onKillPlayer(PlayerDeathEvent event){
+    public void onKillPlayer(PlayerDeathEvent event) {
 
         Player killer = event.getEntity().getKiller();
-        if(killer == null){return;}
+        if (killer == null) {
+            return;
+        }
 
-        for(QuestController controller : activeQuests.getActiveQuestsList())
-        {
-            if(controller.getListenerType().equals(TYPE)){
+        for (QuestController controller : activeQuests.getActiveQuestsList()) {
+            if (controller.getListenerType().equals(TYPE)) {
                 updateQuest(controller, killer, 1);
             }
         }

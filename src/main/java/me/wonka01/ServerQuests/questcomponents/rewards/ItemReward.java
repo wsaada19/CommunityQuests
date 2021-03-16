@@ -11,7 +11,7 @@ public class ItemReward implements Reward {
     private String materialName;
     private int amount;
 
-    public ItemReward(int count, String materialName){
+    public ItemReward(int count, String materialName) {
         this.amount = count;
         this.materialName = materialName;
     }
@@ -19,9 +19,8 @@ public class ItemReward implements Reward {
     public void giveRewardToPlayer(OfflinePlayer player, double rewardPercentage) {
         ItemStack itemStack = new ItemStack(Material.getMaterial(materialName), amount);
         Bukkit.getServer().getConsoleSender().sendMessage(materialName);
-        if(player.isOnline())
-        {
-            Player realPlayer = (Player)player;
+        if (player.isOnline()) {
+            Player realPlayer = (Player) player;
             realPlayer.getInventory().addItem(itemStack);
             realPlayer.sendMessage(amount + " " + itemStack.getItemMeta().getDisplayName());
         }

@@ -19,8 +19,7 @@ public class QuestController {
 
     public QuestController(QuestData questData, QuestBar questBar,
                            BasePlayerComponent playerComponent, EventConstraints eventConstraints,
-                           EventListenerHandler.EventListenerType listenerType)
-    {
+                           EventListenerHandler.EventListenerType listenerType) {
         this.questData = questData;
         this.questBar = questBar;
         this.playerComponent = playerComponent;
@@ -29,8 +28,7 @@ public class QuestController {
         this.listenerType = listenerType;
     }
 
-    public boolean updateQuest(int count, Player player)
-    {
+    public boolean updateQuest(int count, Player player) {
         questData.addToQuestProgress(count);
 
         playerComponent.savePlayerAction(player, count);
@@ -40,57 +38,31 @@ public class QuestController {
         return questData.isQuestComplete();
     }
 
-    public void updateBossBar()
-    {
-        double barProgress = questData.getPercentageComplete();
-        questBar.updateBarProgress(barProgress);
-    }
-
-    public void handleQuestComplete()
-    {
-        sendVictoryMessage();
+    public void handleQuestComplete() {
+        broadcastVictoryMessage();
         playerComponent.sendLeaderString();
         Bukkit.getServer().broadcastMessage("");
         playerComponent.giveOutRewards(questData.getQuestGoal());
         ActiveQuests.getActiveQuestsInstance().endQuest(questId);
     }
 
-    public void removeBossBar(){
+    public void removeBossBar() {
         questBar.removeBossBar();
     }
 
-    private void sendPlayerMessage(Player player){
-        if(player.hasPermission("serverquests.showmessages")){
-            player.sendMessage(ChatColor.GREEN + "+1 for the quest - " + ChatColor.YELLOW + getQuestData().getDisplayName());
-        }
+    public UUID getQuestId() {
+        return questId;
     }
 
-    public void sendVictoryMessage(){
-        Bukkit.getServer().broadcastMessage(ChatColor.GREEN + "QUEST COMPLETE " + ChatColor.WHITE + "-" + " " + ChatColor.YELLOW + questData.getDisplayName());
-        Bukkit.getServer().broadcastMessage("");
-    }
-
-    public void showBossBar(Player player)
-    {
-        questBar.showBossBar(player);
-    }
-
-    public void hideBossBar(Player player)
-    {
-        questBar.hideBossBar(player);
-    }
-
-    public UUID getQuestId(){return questId;}
-
-    public QuestData getQuestData(){
+    public QuestData getQuestData() {
         return questData;
     }
 
-    public BasePlayerComponent getPlayerComponent(){
+    public BasePlayerComponent getPlayerComponent() {
         return playerComponent;
     }
-    public EventConstraints getEventConstraints()
-    {
+
+    public EventConstraints getEventConstraints() {
         return eventConstraints;
     }
 
@@ -98,9 +70,32 @@ public class QuestController {
         return listenerType;
     }
 
-    public boolean isCompetitive(){
+    public boolean isCompetitive() {
         return (questData instanceof CompetitiveQuestData);
     }
 
-    public String getQuestType(){return questData.getQuestType();}
+    public String getQuestType() {
+        return questData.getQuestType();
+    }
+
+    public QuestBar getQuestBar() {
+        return questBar;
+    }
+
+    private void updateBossBar() {
+        double barProgress = questData.getPercentageComplete();
+        questBar.updateBarProgress(barProgress);
+    }
+
+    private void sendPlayerMessage(Player player) {
+        if (player.hasPermission("serverquests.showmessages")) {
+            String message = ChatColor.translateAlternateColorCodes('&', "&a+1 for the quest &e " + getQuestData().getDisplayName());
+            player.sendMessage(message);
+        }
+    }
+
+    private void broadcastVictoryMessage() {
+        String message = ChatColor.translateAlternateColorCodes('&', "&aQUEST COMPLETE &f" + "-" + " &e" + questData.getDisplayName() + "\n");
+        Bukkit.getServer().broadcastMessage(message);
+    }
 }

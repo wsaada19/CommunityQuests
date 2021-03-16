@@ -17,10 +17,11 @@ public class BossBarGui extends BaseGui implements Listener, InventoryHolder {
     public Inventory getInventory() {
         return null;
     }
+
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
 
-        if(!clickEventCheck(e, this)){
+        if (!clickEventCheck(e, this)) {
             return;
         }
     }

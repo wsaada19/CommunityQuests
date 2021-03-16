@@ -6,6 +6,7 @@ import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 public class CompetitiveQuestData extends QuestData {
 
     private BasePlayerComponent playersReference;
+
     public CompetitiveQuestData(int start, String displayName, String description,
                                 BasePlayerComponent playersReference, String questType, int amountComplete) {
         super(start, displayName, description, questType, amountComplete);
@@ -13,9 +14,9 @@ public class CompetitiveQuestData extends QuestData {
     }
 
     @Override
-    public int getAmountCompleted(){
+    public int getAmountCompleted() {
         PlayerData playerData = playersReference.getTopPlayerData();
-        if(playerData == null){
+        if (playerData == null) {
             return 0;
         }
 
@@ -25,7 +26,7 @@ public class CompetitiveQuestData extends QuestData {
     @Override
     public boolean isQuestComplete() {
         PlayerData playerData = playersReference.getTopPlayerData();
-        if(playerData == null){
+        if (playerData == null) {
             return false;
         }
         return (playerData.getAmountContributed() >= getQuestGoal());

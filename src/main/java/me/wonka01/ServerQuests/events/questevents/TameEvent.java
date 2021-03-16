@@ -16,11 +16,11 @@ public class TameEvent extends QuestListener implements Listener {
     }
 
     @EventHandler
-    public void onTameEvent(EntityTameEvent tameEvent){
-        if(tameEvent.getOwner() instanceof Player){
-            for (QuestController controller : activeQuests.getActiveQuestsList()){
-                if(controller.getListenerType().equals(TYPE)){
-                    updateQuest(controller, (Player)tameEvent.getOwner(), 1);
+    public void onTameEvent(EntityTameEvent tameEvent) {
+        if (tameEvent.getOwner() instanceof Player) {
+            for (QuestController controller : activeQuests.getActiveQuestsList()) {
+                if (controller.getListenerType().equals(TYPE)) {
+                    updateQuest(controller, (Player) tameEvent.getOwner(), 1);
                 }
             }
             removedFinishedQuests();

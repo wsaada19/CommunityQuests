@@ -8,7 +8,7 @@ public class NPCInteractEvent extends QuestListener implements Listener {
 
     private final EventListenerHandler.EventListenerType TYPE = EventListenerHandler.EventListenerType.MOB_Kill;
 
-    public NPCInteractEvent(ActiveQuests activeQuests){
+    public NPCInteractEvent(ActiveQuests activeQuests) {
 
         super(activeQuests);
     }

@@ -1,3 +1,6 @@
+# Number of quests that can be in progress at a time
+questLimit: 5
+
 ServerQuests:
   TestQuest:
     displayName: Zombie and Pig Slayer
@@ -24,6 +27,13 @@ ServerQuests:
     goal: 5
     rewards:
       money: 100.0
+  Milking:
+    displayName: Farming Challenge
+    type: milkcow
+    description: Get some milk
+    goal: 3
+    rewards:
+      experience: 100
   SheepShear:
     displayName: Shear Sheep
     type: shear

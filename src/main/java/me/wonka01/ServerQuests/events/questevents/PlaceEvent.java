@@ -4,7 +4,6 @@ import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.handlers.EventListenerHandler;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
-import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,16 +26,18 @@ public class PlaceEvent extends QuestListener implements Listener {
     }
 
     @EventHandler
-    public void onBlockPlace(BlockPlaceEvent event){
+    public void onBlockPlace(BlockPlaceEvent event) {
         Block block = event.getBlock();
-        if(block.hasMetadata(PLACED)){
+        if (block.hasMetadata(PLACED)) {
             return;
         }
-        for (QuestController controller : activeQuests.getActiveQuestsList()){
-            if(!controller.getListenerType().equals(TYPE)){continue;}
+        for (QuestController controller : activeQuests.getActiveQuestsList()) {
+            if (!controller.getListenerType().equals(TYPE)) {
+                continue;
+            }
             List<String> materials = controller.getEventConstraints().getMaterialNames();
 
-            if(materials.isEmpty() || containsMaterial(block.getType().toString(), materials)){
+            if (materials.isEmpty() || containsMaterial(block.getType().toString(), materials)) {
                 updateQuest(controller, event.getPlayer(), 1);
                 block.setMetadata(PLACED, meta);
             }
@@ -44,9 +45,9 @@ public class PlaceEvent extends QuestListener implements Listener {
         removedFinishedQuests();
     }
 
-    private boolean containsMaterial(String material, List<String> materials){
-        for(String targetMaterial : materials){
-            if(material.contains(targetMaterial.toUpperCase())){
+    private boolean containsMaterial(String material, List<String> materials) {
+        for (String targetMaterial : materials) {
+            if (material.contains(targetMaterial.toUpperCase())) {
                 return true;
             }
         }

@@ -11,17 +11,15 @@ public class CatchFishEvent extends QuestListener implements Listener {
 
     private final EventListenerHandler.EventListenerType TYPE = EventListenerHandler.EventListenerType.CATCH_FISH;
 
-    public CatchFishEvent(ActiveQuests activeQuests)
-    {
+    public CatchFishEvent(ActiveQuests activeQuests) {
         super(activeQuests);
     }
 
     @EventHandler
-    public void onCatchFish(PlayerFishEvent event){
-        if(event.getState() == PlayerFishEvent.State.CAUGHT_FISH ){
-            for(QuestController controller : activeQuests.getActiveQuestsList())
-            {
-                if(controller.getListenerType().equals(TYPE)){
+    public void onCatchFish(PlayerFishEvent event) {
+        if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
+            for (QuestController controller : activeQuests.getActiveQuestsList()) {
+                if (controller.getListenerType().equals(TYPE)) {
                     updateQuest(controller, event.getPlayer(), 1);
                 }
             }

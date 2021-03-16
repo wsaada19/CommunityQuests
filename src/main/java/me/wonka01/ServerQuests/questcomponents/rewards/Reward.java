@@ -4,5 +4,5 @@ import org.bukkit.OfflinePlayer;
 
 public interface Reward {
 
-    void giveRewardToPlayer(OfflinePlayer player,  double rewardPercentage);
+    void giveRewardToPlayer(OfflinePlayer player, double rewardPercentage);
 }

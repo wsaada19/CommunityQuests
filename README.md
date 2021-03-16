@@ -1,23 +1,26 @@
 # Server Quests
- 
+
+## Summary
+The Server Quests plugin allows server owners and administers to create server wide quests for players to participate in either
+working together or working against each other. 
+
 ## Installation
-The jar for this plugin can be downloaded here [Spigot Link] . To use, add this to the plugin folder on your spigot server.
-See the guide below to configure quests to use on your server. There are no hard dependencies, however if you have vault and 
-an economy plugin installed you can give players money as a reward.
+The jar for this plugin can be downloaded here [Spigot Link]. Add the jar file this to the plugin folder on your spigot server. See the guide below to configure quests to use on your server. There are no hard dependencies, however if you have vault and 
+an economy plugin installed you can give players money as a reward for completing quests.
 
 ## Commands 
 
 #### /sq start
 Opens up a GUI to begin a new quest 
 
-#### /sq start QuestId [coop, comp]
+#### /sq start [QuestId] [coop, comp]
 Starts a quest with the given ID and quest type
 
 #### /sq view 
 Opens up a GUI to see the progress of all active quests
 
 #### /sq stop
-Opens up a GUI that allows you to end active quests
+Opens up a GUI to end active quests
 
 #### /sq reload 
 Reloads the configuration file
@@ -29,7 +32,7 @@ server-wide quests for your players to enjoy. All quests are created in the conf
 Under the ServerQuests section quests can be created, the field (the example below uses TestQuest),
 must be unique.
 
-Here is an example of a quest where everyone needs to kill a combined 100 zombies, pigs and zombie pigmen to complete. 
+Here is an example of a quest where everyone on the server must work together to kill a combined 100 zombies, pigs and zombie pigmen to finish the quest. 
 ```yaml 
 ServerQuests:
   TestQuest: # this value can be anything but it must be unique
@@ -68,16 +71,18 @@ You can include patterns in the blocks list such as 'Ore', and every material th
 be a part of the quest.
 
 #### entities (optional)
-This is an optional for the following quest types: mobkill, projectilekill.
+This is an optional field for the following quest types: mobkill, projectilekill.
 If empty or not used then all mob types will be included.
 
 #### rewards (optional)
 The rewards that will be given to players after completing the quest. There are three types of 
 rewards: money, experience and item rewards. Experience and money rewards are earned based on how much you contribute to the
 quest. Item rewards are given to everyone in cooperative quests, and to the winner in competitive quests.
-More reward options will be added in the next update.
+More reward options will be added in the future.
 
-Note: Only money rewards will be given to offline players now, I plan on addressing this in the future.
+**Note: Only money rewards will be given to players who contributed but are offline when the quest is complete , I plan on addressing this in the future.**
+
+Rewards example
 ```yaml 
 rewards:
     experience: 100
@@ -91,27 +96,27 @@ rewards:
 ```
 
 ### Competitive vs. Cooperative
-There are two quest types to chose from: competitive and cooperative. If you're using the GUI which is opened from the /sp start command, after chosing the quest you'd like to run you're presented with a 
+There are two quest types to chose from: competitive and cooperative. If you're using the GUI which is opened from the /sp start command, after choosing the quest you'd like to run you're presented with a 
 GUI to pick the type. You can also do /sq start [QuestId] [coop/comp] . I plan on adding the option to bind 
-a quest to a specific type in the config going forward.
+a quest to a specific type in the config in a later update.
 
 #### Cooperative 
 Cooperative quests involve everyone on the server working together to complete the goal. For example in the quest created in the 
 configuration section, the quest will be complete once 100 zombies, pigs and zombie pigmen have been killed. Note: This means 100 total of
-any combination of zombies/pigs/zombiepigman kills that add to 100. 
+any combination of zombies/pigs/zombie pigman kills that add to 100. 
 
-Player's are rewarded based on how much they contribute to the quest. If the reward includes 1000 
-money and Player1 kills 50 of the 100 zombies, Player1 will receive 500 of the server's currency.
-Every player who contributes to the quest will be given the items.
+Player's are rewarded based on how much they contribute to the quest. If the reward is 1000 
+money and Player1 kills 50 of the 100 zombies, Player1 will receive 500. Item rewards are given to every player who contributes to 
+the quest.
 
 #### Competitive
 Competitive quests put player's against each other to see who can complete a goal first. Using our zombie/pig example
 from above, the quest will end once a single player gets 100 kills for the correct mob types.
 
 Money/experience awards work the same way as cooperative quests. If the money reward is 1000 the winner of the competition will 
-get 1000 of the currency on the server. If Player1 came in second with 70 kills, he or she will
-get 700. Only the winner of the quest will get the items.
- 
+get 1000 . If Player1 came in second with 70 kills, he or she will get 700. The winner is the only person who will get items in a competitive quest.
+Think of it as more of a challenge than a quest.
+
 ### Quest Types
 - mobKill
 - catchFish

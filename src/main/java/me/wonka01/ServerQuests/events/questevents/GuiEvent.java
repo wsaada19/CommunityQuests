@@ -1,19 +1,41 @@
-package me.wonka01.ServerQuests.gui;
+package me.wonka01.ServerQuests.events.questevents;
 
+import me.wonka01.ServerQuests.gui.BaseGui;
+import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 
-public abstract class BaseGui {
+public class GuiEvent extends QuestListener implements Listener, InventoryHolder {
 
-    public BaseGui() {
+    private Inventory inventory;
+    private int[] glassLocations = {12, 13, 14, 21, 23, 30, 31, 32};
+
+    public GuiEvent(ActiveQuests activeQuests) {
+
+        super(activeQuests);
+        inventory = Bukkit.createInventory(this, 45, "Place item in the center to ");
+        initializeItems();
     }
 
-    public abstract void initializeItems();
+    private void initializeItems() {
+        ItemStack glass = createGuiItem(Material.GREEN_STAINED_GLASS_PANE, "", "");
+        for (int index : glassLocations) {
+            inventory.setItem(index, glass);
+        }
+    }
+
+    public Inventory getInventory() {
+        return null;
+    }
 
     protected ItemStack createGuiItem(Material material, String name, String... lore) {
         ItemStack item = new ItemStack(material, 1);
@@ -44,4 +66,5 @@ public abstract class BaseGui {
 
         return true;
     }
+
 }

@@ -12,13 +12,12 @@ public class StartCommand extends SubCommand {
 
     public void onCommand(Player player, String[] args) {
 
-        if(!player.hasPermission("serverevents.start")){
-            player.sendMessage("You do not have permission to perform this action");
+        if (!player.hasPermission("serverevents.start")) {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou do not have permission to perform this action"));
             return;
         }
 
-        if(args.length < 2)
-        {
+        if (args.length < 2) {
             JavaPlugin.getPlugin(ServerQuests.class).getStartGui().initializeItems();
             JavaPlugin.getPlugin(ServerQuests.class).getStartGui().openInventory(player);
             return;
@@ -26,28 +25,32 @@ public class StartCommand extends SubCommand {
 
         String questId = args[1];
         QuestModel questModel = JavaPlugin.getPlugin(ServerQuests.class).questLibrary.getQuestModelById(questId);
-        if(questModel == null){
-            player.sendMessage("The name you entered does not exist");
+        if (questModel == null) {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cThe quest name you entered does not exist"));
             return;
         }
 
-        if(args.length < 3){
-            player.sendMessage(ChatColor.RED + "Please enter a quest type; coop or comp");
+        if (args.length < 3) {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\"You must enter a quest type; coop or comp\""));
             return;
         }
-        if(args[2].equalsIgnoreCase("coop"))
-        {
-            ActiveQuests.getActiveQuestsInstance().InitializeQuestListener(questModel, EventTypeHandler.EventType.COLLAB);
+        EventTypeHandler.EventType eventType;
+
+        if (args[2].equalsIgnoreCase("coop")) {
+            eventType = EventTypeHandler.EventType.COLLAB;
+        } else if (args[2].equalsIgnoreCase("comp")) {
+            eventType = EventTypeHandler.EventType.COMPETITIVE;
+        } else {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\"You must enter a quest type; coop or comp\""));
             return;
         }
 
-        if(args[2].equalsIgnoreCase("comp"))
-        {
-            ActiveQuests.getActiveQuestsInstance().InitializeQuestListener(questModel, EventTypeHandler.EventType.COMPETITIVE);
-            return;
+        boolean questCreated = ActiveQuests.getActiveQuestsInstance().InitializeQuestListener(questModel, eventType);
+        if (!questCreated) {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cThe quest could not be created, the number of active quests has reached its limit"));
         }
 
-        player.sendMessage(ChatColor.RED + "Please enter a quest type: coop or comp");
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aQuest started!"));
 
     }
 }

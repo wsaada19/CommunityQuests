@@ -16,15 +16,13 @@ public class QuestLibrary {
 
     private HashMap<String, QuestModel> questList;
 
-    public QuestLibrary( ) {
+    public QuestLibrary() {
     }
 
-    public QuestModel getQuestModelById(String questId)
-    {
-        if(questList.containsKey(questId)){
+    public QuestModel getQuestModelById(String questId) {
+        if (questList.containsKey(questId)) {
             return questList.get(questId);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -53,29 +51,25 @@ public class QuestLibrary {
         ConfigurationSection rewardsSection = section.getConfigurationSection("rewards");
 
         ArrayList<Reward> rewards;
-        if(rewardsSection == null)
-        {
+        if (rewardsSection == null) {
             rewards = new ArrayList<Reward>();
         } else {
             rewards = getRewardsFromConfig(rewardsSection);
         }
 
         return new QuestModel(questId, displayName, description, timeToComplete, goal,
-                                eventType, mobNames, rewards, blockNames);
+                eventType, mobNames, rewards, blockNames);
     }
 
-    private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section)
-    {
-         ArrayList<Reward> rewards =  new ArrayList<Reward>();
-        for(String key: section.getKeys(false))
-        {
+    private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {
+        ArrayList<Reward> rewards = new ArrayList<Reward>();
+        for (String key : section.getKeys(false)) {
             Reward reward;
-            if(key.equalsIgnoreCase("money"))
-            {
+            if (key.equalsIgnoreCase("money")) {
                 double amount = section.getDouble("money");
                 reward = new MoneyReward(amount);
 
-            } else if(key.equalsIgnoreCase("experience")){
+            } else if (key.equalsIgnoreCase("experience")) {
                 int amount = section.getInt("experience");
                 reward = new ExperienceReward(amount);
 
@@ -92,8 +86,7 @@ public class QuestLibrary {
         return rewards;
     }
 
-    public Set<String> getAllQuestKeys()
-    {
+    public Set<String> getAllQuestKeys() {
         return questList.keySet();
     }
 

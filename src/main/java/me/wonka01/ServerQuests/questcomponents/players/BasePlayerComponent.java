@@ -18,20 +18,18 @@ public class BasePlayerComponent {
     protected Map<UUID, PlayerData> playerMap;
     protected ArrayList<Reward> rewardsList;
 
-    public BasePlayerComponent(ArrayList<Reward> rewardsList)
-    {
+    public BasePlayerComponent(ArrayList<Reward> rewardsList) {
         this.rewardsList = rewardsList;
         this.playerMap = new TreeMap<UUID, PlayerData>();
     }
 
-    public BasePlayerComponent(ArrayList<Reward> rewardsList, Map<UUID, PlayerData> map){
+    public BasePlayerComponent(ArrayList<Reward> rewardsList, Map<UUID, PlayerData> map) {
         this.rewardsList = rewardsList;
         this.playerMap = map;
     }
 
-    public void savePlayerAction(Player player, int count)
-    {
-        if(playerMap.containsKey(player.getUniqueId())){
+    public void savePlayerAction(Player player, int count) {
+        if (playerMap.containsKey(player.getUniqueId())) {
             PlayerData playerData = playerMap.get(player.getUniqueId());
             playerData.increaseContribution(count);
         } else {
@@ -42,59 +40,56 @@ public class BasePlayerComponent {
         }
     }
 
-    public void sendLeaderString()
-    {
-        String result = ChatColor.YELLOW + "Top Contributors";
-        int count = 1;
-        for(UUID key : playerMap.keySet())
-        {
-            if(count == 6){
+    public void sendLeaderString() {
+        StringBuilder result = new StringBuilder(ChatColor.YELLOW + "Top Contributors");
+        int count = 0;
+        for (UUID key : playerMap.keySet()) {
+            if (count == 6) {
                 break;
             }
-            result += "\n" + ChatColor.WHITE + count +  ") " + ChatColor.GREEN + Bukkit.getServer().getPlayer(key).getDisplayName() + " " +
-                    ChatColor.WHITE + playerMap.get(key).getAmountContributed();
-            count++;
+
+            result.append("\n &f");
+            result.append((count + 1));
+            result.append(") &a");
+            result.append(Bukkit.getServer().getPlayer(key).getDisplayName());
+            result.append(" &f");
+            result.append(playerMap.get(key).getAmountContributed());
         }
-        Bukkit.getServer().broadcastMessage(result);
+        Bukkit.getServer().broadcastMessage(result.toString());
     }
 
-    public PlayerData getTopPlayerData()
-    {
-        for(UUID key : playerMap.keySet())
-        {
+    public PlayerData getTopPlayerData() {
+        for (UUID key : playerMap.keySet()) {
             return playerMap.get(key);
         }
         return null;
     }
 
-    public int getAmountContributed(Player player){
-        if(playerMap.containsKey(player.getUniqueId())){
+    public int getAmountContributed(Player player) {
+        if (playerMap.containsKey(player.getUniqueId())) {
             return playerMap.get(player.getUniqueId()).getAmountContributed();
         }
-
         return 0;
     }
 
-    public JSONArray getPlayerDataInJson(){
+    public JSONArray getPlayerDataInJson() {
         JSONArray jArray = new JSONArray();
-        for(UUID key : playerMap.keySet()){
+        for (UUID key : playerMap.keySet()) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put(key.toString(), playerMap.get(key).getAmountContributed());
             jArray.add(jsonObject);
         }
-        return  jArray;
+        return jArray;
     }
 
-    public void giveOutRewards(int questGoal)
-    {
-        for(UUID key : playerMap.keySet())
-        {
-            double playerContributionRatio = (double)playerMap.get(key).getAmountContributed() / (double)questGoal;
+    public void giveOutRewards(int questGoal) {
+        for (UUID key : playerMap.keySet()) {
+            double playerContributionRatio = (double) playerMap.get(key).getAmountContributed() / (double) questGoal;
             OfflinePlayer player = Bukkit.getServer().getOfflinePlayer(key);
 
-            if(player.isOnline()){
-                Player onlinePlayer = (Player)player;
-                if(rewardsList.size() > 0){
+            if (player.isOnline()) {
+                Player onlinePlayer = (Player) player;
+                if (rewardsList.size() > 0) {
                     onlinePlayer.sendMessage(ChatColor.GREEN + "Rewards");
                 }
             }

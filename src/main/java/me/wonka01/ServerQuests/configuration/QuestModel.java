@@ -20,8 +20,7 @@ public class QuestModel {
 
     public QuestModel(String questId, String displayName, String eventDescription,
                       int secondsToComplete, int questGoal, EventListenerHandler.EventListenerType eventType,
-                      List<String> mobNames, ArrayList<Reward> rewards, List<String> blockNames)
-    {
+                      List<String> mobNames, ArrayList<Reward> rewards, List<String> blockNames) {
         this.questId = questId;
         this.displayName = displayName;
         this.eventDescription = eventDescription;
@@ -53,11 +52,21 @@ public class QuestModel {
         return questGoal;
     }
 
-    public EventListenerHandler.EventListenerType getEventType(){ return eventType; }
-    public List<String> getMobNames(){return mobNames;}
-    public ArrayList<Reward> getRewards() {return rewards;}
+    public EventListenerHandler.EventListenerType getEventType() {
+        return eventType;
+    }
 
-    public List<String> getBlockNames() {return blockNames;}
+    public List<String> getMobNames() {
+        return mobNames;
+    }
+
+    public ArrayList<Reward> getRewards() {
+        return rewards;
+    }
+
+    public List<String> getBlockNames() {
+        return blockNames;
+    }
 
 
 }
