@@ -1,6 +1,6 @@
 package me.wonka01.ServerQuests.configuration;
 
-import me.wonka01.ServerQuests.handlers.EventListenerHandler;
+import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
 
 import java.util.ArrayList;
@@ -13,20 +13,20 @@ public class QuestModel {
     private String eventDescription;
     private int secondsToComplete;
     private int questGoal;
-    private EventListenerHandler.EventListenerType eventType;
+    private ObjectiveType objective;
     private List<String> mobNames;
     private ArrayList<Reward> rewards;
     private List<String> blockNames;
 
     public QuestModel(String questId, String displayName, String eventDescription,
-                      int secondsToComplete, int questGoal, EventListenerHandler.EventListenerType eventType,
+                      int secondsToComplete, int questGoal, ObjectiveType objective,
                       List<String> mobNames, ArrayList<Reward> rewards, List<String> blockNames) {
         this.questId = questId;
         this.displayName = displayName;
         this.eventDescription = eventDescription;
         this.secondsToComplete = secondsToComplete;
         this.questGoal = questGoal;
-        this.eventType = eventType;
+        this.objective = objective;
         this.mobNames = mobNames;
         this.rewards = rewards;
         this.blockNames = blockNames;
@@ -52,8 +52,8 @@ public class QuestModel {
         return questGoal;
     }
 
-    public EventListenerHandler.EventListenerType getEventType() {
-        return eventType;
+    public ObjectiveType getObjective() {
+        return objective;
     }
 
     public List<String> getMobNames() {

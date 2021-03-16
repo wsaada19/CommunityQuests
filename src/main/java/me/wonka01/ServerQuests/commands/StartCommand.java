@@ -2,7 +2,7 @@ package me.wonka01.ServerQuests.commands;
 
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestModel;
-import me.wonka01.ServerQuests.handlers.EventTypeHandler;
+import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -34,12 +34,12 @@ public class StartCommand extends SubCommand {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\"You must enter a quest type; coop or comp\""));
             return;
         }
-        EventTypeHandler.EventType eventType;
+        EventType eventType;
 
         if (args[2].equalsIgnoreCase("coop")) {
-            eventType = EventTypeHandler.EventType.COLLAB;
+            eventType = EventType.COLLAB;
         } else if (args[2].equalsIgnoreCase("comp")) {
-            eventType = EventTypeHandler.EventType.COMPETITIVE;
+            eventType = EventType.COMPETITIVE;
         } else {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\"You must enter a quest type; coop or comp\""));
             return;

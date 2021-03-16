@@ -2,7 +2,8 @@ package me.wonka01.ServerQuests.questcomponents;
 
 import com.sun.istack.internal.Nullable;
 import me.wonka01.ServerQuests.configuration.QuestModel;
-import me.wonka01.ServerQuests.handlers.EventTypeHandler;
+import me.wonka01.ServerQuests.enums.EventType;
+import me.wonka01.ServerQuests.util.EventTypeHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class ActiveQuests {
         activeQuestsList.remove(getQuestById(questId));
     }
 
-    public boolean InitializeQuestListener(QuestModel questModel, EventTypeHandler.EventType eventType) {
+    public boolean InitializeQuestListener(QuestModel questModel, EventType eventType) {
         if (activeQuestsList.size() >= questLimit) {
             return false;
         } else {

@@ -1,6 +1,6 @@
 package me.wonka01.ServerQuests.events.questevents;
 
-import me.wonka01.ServerQuests.handlers.EventListenerHandler;
+import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.Bukkit;
@@ -30,7 +30,7 @@ public class MilkCowEvent extends QuestListener implements Listener {
 
         Bukkit.getServer().broadcastMessage("A cow has been milked ladies and gentleman!");
 
-        List<QuestController> controllers = tryGetControllersOfEventType(EventListenerHandler.EventListenerType.MILK_COW);
+        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.MILK_COW);
         for (QuestController controller : controllers) {
             updateQuest(controller, player, 1);
         }

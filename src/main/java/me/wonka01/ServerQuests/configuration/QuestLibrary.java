@@ -1,10 +1,11 @@
 package me.wonka01.ServerQuests.configuration;
 
-import me.wonka01.ServerQuests.handlers.EventListenerHandler;
+import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.rewards.ExperienceReward;
 import me.wonka01.ServerQuests.questcomponents.rewards.ItemReward;
 import me.wonka01.ServerQuests.questcomponents.rewards.MoneyReward;
 import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
+import me.wonka01.ServerQuests.util.ObjectiveTypeUtil;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class QuestLibrary {
         List<String> mobNames = section.getStringList("entities");
         List<String> blockNames = section.getStringList("blocks");
 
-        EventListenerHandler.EventListenerType eventType = EventListenerHandler.parseEventTypeFromString(section.getString("type"));
+        ObjectiveType objectiveType = ObjectiveTypeUtil.parseEventTypeFromString(section.getString("type"));
         ConfigurationSection rewardsSection = section.getConfigurationSection("rewards");
 
         ArrayList<Reward> rewards;
@@ -58,7 +59,7 @@ public class QuestLibrary {
         }
 
         return new QuestModel(questId, displayName, description, timeToComplete, goal,
-                eventType, mobNames, rewards, blockNames);
+                objectiveType, mobNames, rewards, blockNames);
     }
 
     private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {

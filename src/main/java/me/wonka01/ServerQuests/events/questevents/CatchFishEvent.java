@@ -1,6 +1,6 @@
 package me.wonka01.ServerQuests.events.questevents;
 
-import me.wonka01.ServerQuests.handlers.EventListenerHandler;
+import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.event.EventHandler;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CatchFishEvent extends QuestListener implements Listener {
 
-    private final EventListenerHandler.EventListenerType TYPE = EventListenerHandler.EventListenerType.CATCH_FISH;
+    private final ObjectiveType TYPE = ObjectiveType.CATCH_FISH;
 
     public CatchFishEvent(ActiveQuests activeQuests) {
         super(activeQuests);
@@ -21,7 +21,7 @@ public class CatchFishEvent extends QuestListener implements Listener {
     public void onCatchFish(PlayerFishEvent event) {
         if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
             List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
-            for(QuestController controller : controllers) {
+            for (QuestController controller : controllers) {
                 updateQuest(controller, event.getPlayer(), 1);
             }
         }

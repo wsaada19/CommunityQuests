@@ -2,7 +2,7 @@ package me.wonka01.ServerQuests.gui;
 
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestModel;
-import me.wonka01.ServerQuests.handlers.EventTypeHandler;
+import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -59,9 +59,9 @@ public class TypeGui extends BaseGui implements Listener, InventoryHolder {
         ItemStack clickedItem = e.getCurrentItem();
 
         if (clickedItem.getItemMeta().getDisplayName().equalsIgnoreCase(COOPERATIVE)) {
-            ActiveQuests.getActiveQuestsInstance().InitializeQuestListener(model, EventTypeHandler.EventType.COLLAB);
+            ActiveQuests.getActiveQuestsInstance().InitializeQuestListener(model, EventType.COLLAB);
         } else if (clickedItem.getItemMeta().getDisplayName().equalsIgnoreCase(COMPETITIVE)) {
-            ActiveQuests.getActiveQuestsInstance().InitializeQuestListener(model, EventTypeHandler.EventType.COMPETITIVE);
+            ActiveQuests.getActiveQuestsInstance().InitializeQuestListener(model, EventType.COMPETITIVE);
         } else if (e.getRawSlot() == 8) {
             player.closeInventory();
             JavaPlugin.getPlugin(ServerQuests.class).getStartGui().openInventory(player);

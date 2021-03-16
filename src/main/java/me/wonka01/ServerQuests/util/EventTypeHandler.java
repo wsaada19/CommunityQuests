@@ -1,6 +1,7 @@
-package me.wonka01.ServerQuests.handlers;
+package me.wonka01.ServerQuests.util;
 
 import me.wonka01.ServerQuests.configuration.QuestModel;
+import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.questcomponents.*;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
@@ -9,11 +10,6 @@ import java.util.Map;
 import java.util.UUID;
 
 public class EventTypeHandler {
-    public enum EventType {
-        COLLAB,
-        COMPETITIVE
-    }
-
     private EventType eventType;
 
     public EventTypeHandler(EventType eventType) {
@@ -35,7 +31,7 @@ public class EventTypeHandler {
         QuestData data = getQuestData(questModel, 0, playerComponent);
         EventConstraints eventConstraints = new EventConstraints(questModel.getBlockNames(), questModel.getMobNames());
 
-        return new QuestController(data, bar, playerComponent, eventConstraints, questModel.getEventType());
+        return new QuestController(data, bar, playerComponent, eventConstraints, questModel.getObjective());
     }
 
     public QuestController createControllerFromSave(QuestModel questModel, Map<UUID, PlayerData> players,
@@ -48,7 +44,7 @@ public class EventTypeHandler {
         bar.updateBarProgress((double) amountComplete / (double) questModel.getQuestGoal());
         EventConstraints eventConstraints = new EventConstraints(questModel.getBlockNames(), questModel.getMobNames());
 
-        return new QuestController(data, bar, playerComponent, eventConstraints, questModel.getEventType());
+        return new QuestController(data, bar, playerComponent, eventConstraints, questModel.getObjective());
     }
 
     private QuestData getQuestData(QuestModel questModel, int amountComplete, BasePlayerComponent playerComponent) {

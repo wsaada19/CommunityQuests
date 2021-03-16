@@ -1,6 +1,6 @@
 package me.wonka01.ServerQuests.events.questevents;
 
-import me.wonka01.ServerQuests.handlers.EventListenerHandler;
+import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.entity.Player;
@@ -22,7 +22,7 @@ public abstract class QuestListener {
         }
     }
 
-    protected List<QuestController> tryGetControllersOfEventType(EventListenerHandler.EventListenerType type) {
+    protected List<QuestController> tryGetControllersOfEventType(ObjectiveType type) {
         List<QuestController> controllers = new ArrayList<QuestController>();
 
         for (QuestController controller : activeQuests.getActiveQuestsList()) {

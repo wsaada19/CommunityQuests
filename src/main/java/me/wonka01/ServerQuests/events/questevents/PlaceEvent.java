@@ -1,7 +1,7 @@
 package me.wonka01.ServerQuests.events.questevents;
 
 import me.wonka01.ServerQuests.ServerQuests;
-import me.wonka01.ServerQuests.handlers.EventListenerHandler;
+import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.block.Block;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class PlaceEvent extends QuestListener implements Listener {
 
-    private final EventListenerHandler.EventListenerType TYPE = EventListenerHandler.EventListenerType.BLOCK_PLACE;
+    private final ObjectiveType TYPE = ObjectiveType.BLOCK_PLACE;
     private final String PLACED = "PLACED";
     private final MetadataValue meta = new FixedMetadataValue(JavaPlugin.getPlugin(ServerQuests.class), true);
 

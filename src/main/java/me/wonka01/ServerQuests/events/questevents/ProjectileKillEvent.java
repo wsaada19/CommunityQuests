@@ -1,6 +1,6 @@
 package me.wonka01.ServerQuests.events.questevents;
 
-import me.wonka01.ServerQuests.handlers.EventListenerHandler;
+import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.entity.Entity;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ProjectileKillEvent extends QuestListener implements Listener {
 
-    private final EventListenerHandler.EventListenerType TYPE = EventListenerHandler.EventListenerType.PROJ_KILL;
+    private final ObjectiveType TYPE = ObjectiveType.PROJ_KILL;
 
     public ProjectileKillEvent(ActiveQuests activeQuests) {
         super(activeQuests);
@@ -36,7 +36,7 @@ public class ProjectileKillEvent extends QuestListener implements Listener {
                 Player player = (Player) projectile.getShooter();
 
                 List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
-                for(QuestController controller : controllers) {
+                for (QuestController controller : controllers) {
                     updateQuest(controller, player, 1);
                 }
             }

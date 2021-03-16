@@ -1,7 +1,7 @@
 package me.wonka01.ServerQuests.events.questevents;
 
+import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.gui.BaseGui;
-import me.wonka01.ServerQuests.handlers.EventListenerHandler;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.entity.Player;
@@ -19,8 +19,8 @@ public class GuiEvent extends QuestListener {
     }
 
     public boolean tryAddItemsToQuest(ItemStack itemsToAdd, Player player) {
-        List<QuestController> controllers = tryGetControllersOfEventType(EventListenerHandler.EventListenerType.GUI);
-        for(QuestController controller : controllers) {
+        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.GUI);
+        for (QuestController controller : controllers) {
             // Add logic to check the item
             updateQuest(controller, player, itemsToAdd.getAmount());
             return true;

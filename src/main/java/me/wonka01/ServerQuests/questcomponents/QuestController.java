@@ -1,6 +1,6 @@
 package me.wonka01.ServerQuests.questcomponents;
 
-import me.wonka01.ServerQuests.handlers.EventListenerHandler;
+import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,17 +15,17 @@ public class QuestController {
     private BasePlayerComponent playerComponent;
     private EventConstraints eventConstraints;
     private UUID questId;
-    private EventListenerHandler.EventListenerType listenerType;
+    private ObjectiveType objective;
 
     public QuestController(QuestData questData, QuestBar questBar,
                            BasePlayerComponent playerComponent, EventConstraints eventConstraints,
-                           EventListenerHandler.EventListenerType listenerType) {
+                           ObjectiveType objective) {
         this.questData = questData;
         this.questBar = questBar;
         this.playerComponent = playerComponent;
         questId = UUID.randomUUID();
         this.eventConstraints = eventConstraints;
-        this.listenerType = listenerType;
+        this.objective = objective;
     }
 
     public boolean updateQuest(int count, Player player) {
@@ -66,8 +66,8 @@ public class QuestController {
         return eventConstraints;
     }
 
-    public EventListenerHandler.EventListenerType getListenerType() {
-        return listenerType;
+    public ObjectiveType getListenerType() {
+        return objective;
     }
 
     public boolean isCompetitive() {

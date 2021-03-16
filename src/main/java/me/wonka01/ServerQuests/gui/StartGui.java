@@ -4,7 +4,7 @@ import com.sun.istack.internal.NotNull;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.configuration.QuestModel;
-import me.wonka01.ServerQuests.handlers.EventListenerHandler;
+import me.wonka01.ServerQuests.util.ObjectiveTypeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -43,7 +43,7 @@ public class StartGui extends BaseGui implements InventoryHolder, Listener {
         int count = 0;
         for (String key : keys) {
             QuestModel model = questLibrary.getQuestModelById(key);
-            Material material = EventListenerHandler.getEventTypeDefaultMaterial(model.getEventType());
+            Material material = ObjectiveTypeUtil.getEventTypeDefaultMaterial(model.getObjective());
 
             inventory.setItem(count, createGuiItem(material, ChatColor.GREEN + model.getDisplayName(),
                     ChatColor.WHITE + model.getEventDescription(),
