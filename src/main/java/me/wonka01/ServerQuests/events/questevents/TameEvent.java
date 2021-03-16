@@ -8,6 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTameEvent;
 
+import java.util.List;
+
 public class TameEvent extends QuestListener implements Listener {
     private final EventListenerHandler.EventListenerType TYPE = EventListenerHandler.EventListenerType.TAME;
 
@@ -18,12 +20,10 @@ public class TameEvent extends QuestListener implements Listener {
     @EventHandler
     public void onTameEvent(EntityTameEvent tameEvent) {
         if (tameEvent.getOwner() instanceof Player) {
-            for (QuestController controller : activeQuests.getActiveQuestsList()) {
-                if (controller.getListenerType().equals(TYPE)) {
-                    updateQuest(controller, (Player) tameEvent.getOwner(), 1);
-                }
+            List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+            for(QuestController controller : controllers) {
+                updateQuest(controller, (Player) tameEvent.getOwner(), 1);
             }
-            removedFinishedQuests();
         }
     }
 }

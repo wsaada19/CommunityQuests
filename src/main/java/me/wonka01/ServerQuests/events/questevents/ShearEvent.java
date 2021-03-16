@@ -7,10 +7,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerShearEntityEvent;
 
+import java.util.List;
+
 public class ShearEvent extends QuestListener implements Listener {
 
     private final EventListenerHandler.EventListenerType TYPE = EventListenerHandler.EventListenerType.SHEAR;
-
 
     public ShearEvent(ActiveQuests activeQuests) {
         super(activeQuests);
@@ -18,11 +19,9 @@ public class ShearEvent extends QuestListener implements Listener {
 
     @EventHandler
     public void onSheer(PlayerShearEntityEvent shearEvent) {
-        for (QuestController controller : activeQuests.getActiveQuestsList()) {
-            if (controller.getListenerType().equals(TYPE)) {
-                updateQuest(controller, shearEvent.getPlayer(), 1);
-            }
+        List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+        for(QuestController controller : controllers) {
+            updateQuest(controller, shearEvent.getPlayer(), 1);
         }
-        removedFinishedQuests();
     }
 }

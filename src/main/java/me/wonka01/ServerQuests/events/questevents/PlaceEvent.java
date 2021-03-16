@@ -31,18 +31,15 @@ public class PlaceEvent extends QuestListener implements Listener {
         if (block.hasMetadata(PLACED)) {
             return;
         }
-        for (QuestController controller : activeQuests.getActiveQuestsList()) {
-            if (!controller.getListenerType().equals(TYPE)) {
-                continue;
-            }
-            List<String> materials = controller.getEventConstraints().getMaterialNames();
 
+        List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+        for (QuestController controller : controllers) {
+            List<String> materials = controller.getEventConstraints().getMaterialNames();
             if (materials.isEmpty() || containsMaterial(block.getType().toString(), materials)) {
                 updateQuest(controller, event.getPlayer(), 1);
                 block.setMetadata(PLACED, meta);
             }
         }
-        removedFinishedQuests();
     }
 
     private boolean containsMaterial(String material, List<String> materials) {

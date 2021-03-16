@@ -3,7 +3,6 @@ package me.wonka01.ServerQuests.events.questevents;
 import me.wonka01.ServerQuests.handlers.EventListenerHandler;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,19 +28,12 @@ public class MobKillEvent extends QuestListener implements Listener {
 
         String mobName = event.getEntity().getName();
 
-        for (QuestController questController : activeQuests.getActiveQuestsList()) {
-
-            if (!questController.getListenerType().equals(TYPE)) {
-                continue;
-            }
-
-            List<String> mobTypes = questController.getEventConstraints().getMobNames();
-
+        List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+        for (QuestController controller : controllers) {
+            List<String> mobTypes = controller.getEventConstraints().getMobNames();
             if (mobTypes.isEmpty() || mobTypes.contains(mobName)) {
-                Bukkit.getServer().broadcastMessage("DEBUG: Player killed an entity " + mobName);
-                updateQuest(questController, killer, 1);
+                updateQuest(controller, killer, 1);
             }
         }
-        removedFinishedQuests();
     }
 }

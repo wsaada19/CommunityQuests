@@ -11,7 +11,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Iterator;
+import java.util.List;
 
 public class BreakEvent extends QuestListener implements Listener {
 
@@ -32,14 +32,8 @@ public class BreakEvent extends QuestListener implements Listener {
 
         String blockName = event.getBlock().getType().toString();
 
-        Iterator<QuestController> iterator = activeQuests.getActiveQuestsList().iterator();
-        while (iterator.hasNext()) {
-            QuestController controller = iterator.next();
-
-            if (!controller.getListenerType().equals(TYPE)) {
-                continue;
-            }
-
+        List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+        for (QuestController controller : controllers) {
             for (String blockType : controller.getEventConstraints().getMaterialNames()) {
                 if (blockName.equalsIgnoreCase(blockType)) {
                     event.getBlock().setMetadata(BROKEN, meta);
@@ -48,6 +42,5 @@ public class BreakEvent extends QuestListener implements Listener {
                 }
             }
         }
-        removedFinishedQuests();
     }
 }

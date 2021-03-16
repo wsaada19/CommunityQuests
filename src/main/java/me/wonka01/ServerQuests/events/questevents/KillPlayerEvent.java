@@ -8,6 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+import java.util.List;
+
 public class KillPlayerEvent extends QuestListener implements Listener {
 
     private final EventListenerHandler.EventListenerType TYPE = EventListenerHandler.EventListenerType.PLAYER_KILL;
@@ -24,11 +26,9 @@ public class KillPlayerEvent extends QuestListener implements Listener {
             return;
         }
 
-        for (QuestController controller : activeQuests.getActiveQuestsList()) {
-            if (controller.getListenerType().equals(TYPE)) {
-                updateQuest(controller, killer, 1);
-            }
+        List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+        for(QuestController controller : controllers) {
+            updateQuest(controller, killer, 1);
         }
-        removedFinishedQuests();
     }
 }

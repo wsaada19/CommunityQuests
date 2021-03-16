@@ -12,6 +12,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
+import java.util.List;
+
 public class MilkCowEvent extends QuestListener implements Listener {
 
     public MilkCowEvent(ActiveQuests activeQuests) {
@@ -28,12 +30,9 @@ public class MilkCowEvent extends QuestListener implements Listener {
 
         Bukkit.getServer().broadcastMessage("A cow has been milked ladies and gentleman!");
 
-        for (QuestController questController : activeQuests.getActiveQuestsList()) {
-            if (!questController.getListenerType().equals(EventListenerHandler.EventListenerType.MILK_COW)) {
-                continue;
-            }
-            updateQuest(questController, player, 1);
+        List<QuestController> controllers = tryGetControllersOfEventType(EventListenerHandler.EventListenerType.MILK_COW);
+        for (QuestController controller : controllers) {
+            updateQuest(controller, player, 1);
         }
-        removedFinishedQuests();
     }
 }

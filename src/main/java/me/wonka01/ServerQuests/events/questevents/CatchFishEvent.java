@@ -7,6 +7,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 
+import java.util.List;
+
 public class CatchFishEvent extends QuestListener implements Listener {
 
     private final EventListenerHandler.EventListenerType TYPE = EventListenerHandler.EventListenerType.CATCH_FISH;
@@ -18,13 +20,11 @@ public class CatchFishEvent extends QuestListener implements Listener {
     @EventHandler
     public void onCatchFish(PlayerFishEvent event) {
         if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
-            for (QuestController controller : activeQuests.getActiveQuestsList()) {
-                if (controller.getListenerType().equals(TYPE)) {
-                    updateQuest(controller, event.getPlayer(), 1);
-                }
+            List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+            for(QuestController controller : controllers) {
+                updateQuest(controller, event.getPlayer(), 1);
             }
         }
 
-        removedFinishedQuests();
     }
 }

@@ -11,6 +11,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 
+import java.util.List;
+
 public class ProjectileKillEvent extends QuestListener implements Listener {
 
     private final EventListenerHandler.EventListenerType TYPE = EventListenerHandler.EventListenerType.PROJ_KILL;
@@ -33,12 +35,10 @@ public class ProjectileKillEvent extends QuestListener implements Listener {
             if (projectile.getShooter() != null && projectile.getShooter() instanceof Player) {
                 Player player = (Player) projectile.getShooter();
 
-                for (QuestController controller : activeQuests.getActiveQuestsList()) {
-                    if (controller.getListenerType().equals(TYPE)) {
-                        updateQuest(controller, player, 1);
-                    }
+                List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+                for(QuestController controller : controllers) {
+                    updateQuest(controller, player, 1);
                 }
-                removedFinishedQuests();
             }
         }
 
