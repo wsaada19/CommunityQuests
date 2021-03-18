@@ -1,10 +1,8 @@
 package me.wonka01.ServerQuests.events.questevents;
 
-import me.wonka01.ServerQuests.handlers.EventListenerHandler;
+import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
-
 import me.wonka01.ServerQuests.questcomponents.QuestController;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -13,36 +11,34 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 
+import java.util.List;
+
 public class ProjectileKillEvent extends QuestListener implements Listener {
 
-    private final EventListenerHandler.EventListenerType TYPE = EventListenerHandler.EventListenerType.PROJ_KILL;
+    private final ObjectiveType TYPE = ObjectiveType.PROJ_KILL;
 
-    public ProjectileKillEvent(ActiveQuests activeQuests)
-    {
+    public ProjectileKillEvent(ActiveQuests activeQuests) {
         super(activeQuests);
     }
 
     @EventHandler
-    public void onProjectileKill(EntityDeathEvent event)
-    {
-        if(!(event.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent)){
+    public void onProjectileKill(EntityDeathEvent event) {
+        if (!(event.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent)) {
             return;
         }
 
-        EntityDamageByEntityEvent damageEvent = (EntityDamageByEntityEvent)event.getEntity().getLastDamageCause();
+        EntityDamageByEntityEvent damageEvent = (EntityDamageByEntityEvent) event.getEntity().getLastDamageCause();
         Entity damager = damageEvent.getDamager();
 
-        if(damager instanceof Projectile){
-            Projectile projectile = (Projectile)damager;
-            if(projectile.getShooter() != null && projectile.getShooter() instanceof Player){
-                Player player = (Player)projectile.getShooter();
+        if (damager instanceof Projectile) {
+            Projectile projectile = (Projectile) damager;
+            if (projectile.getShooter() != null && projectile.getShooter() instanceof Player) {
+                Player player = (Player) projectile.getShooter();
 
-                for(QuestController controller : activeQuests.getActiveQuestsList()){
-                    if(controller.getListenerType().equals(TYPE)){
-                        updateQuest(controller, player, 1 );
-                    }
+                List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+                for (QuestController controller : controllers) {
+                    updateQuest(controller, player, 1);
                 }
-                removedFinishedQuests();
             }
         }
 

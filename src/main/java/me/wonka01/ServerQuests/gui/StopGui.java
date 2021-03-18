@@ -17,17 +17,18 @@ import java.util.List;
 import java.util.UUID;
 
 public class StopGui extends BaseGui implements InventoryHolder, Listener {
+    private final int END_ALL = 17;
     private Inventory inventory;
 
     public StopGui() {
-        inventory = Bukkit.createInventory(this, 36, "Active Quests");
+        inventory = Bukkit.createInventory(this, 36, ChatColor.RED + "" + ChatColor.BOLD + "End Quest Menu");
     }
 
     public void initializeItems() {
         inventory.clear();
         List<QuestController> controllers = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
         int count = 0;
-        for(QuestController controller : controllers){
+        for (QuestController controller : controllers) {
             int progress = controller.getQuestData().getAmountCompleted();
             int goal = controller.getQuestData().getQuestGoal();
 
@@ -38,11 +39,14 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
                     ChatColor.WHITE + controller.getQuestData().getDescription(),
                     "",
                     progressString,
-                    ChatColor.GREEN + "Click to end the quest");
+                    ChatColor.YELLOW + "Click to end the quest");
 
             inventory.setItem(count, item);
             count++;
         }
+
+        ItemStack redStone = createGuiItem(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "End All Quests", "");
+        inventory.setItem(END_ALL, redStone);
     }
 
     public void openInventory(Player p) {
@@ -61,15 +65,19 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
         int counter = 0;
         QuestController controllerToRemove = null;
 
-        for(QuestController controller : ActiveQuests.getActiveQuestsInstance().getActiveQuestsList()){
-            if(counter == slotNumber){
+        if (slotNumber == END_ALL) {
+            ActiveQuests.getActiveQuestsInstance().endAllQuests();
+        }
+
+        for (QuestController controller : ActiveQuests.getActiveQuestsInstance().getActiveQuestsList()) {
+            if (counter == slotNumber) {
                 controllerToRemove = controller;
                 break;
             }
             counter++;
         }
 
-        if(controllerToRemove != null){
+        if (controllerToRemove != null) {
             UUID id = controllerToRemove.getQuestId();
             ActiveQuests.getActiveQuestsInstance().endQuest(id);
             e.getWhoClicked().closeInventory();

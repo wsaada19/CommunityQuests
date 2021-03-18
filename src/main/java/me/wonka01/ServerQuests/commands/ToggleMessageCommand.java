@@ -14,7 +14,7 @@ public class ToggleMessageCommand extends SubCommand {
 
     public void onCommand(Player player, String[] args) {
         PermissionAttachment attachment = player.addAttachment(JavaPlugin.getPlugin(ServerQuests.class));
-        if(player.hasPermission("serverquests.showmessages")){
+        if (player.hasPermission("serverquests.showmessages")) {
             attachment.setPermission("serverquests.showmessages", false);
             player.sendMessage(ChatColor.YELLOW + "You will no longer see server quest messages");
         } else {
@@ -22,11 +22,6 @@ public class ToggleMessageCommand extends SubCommand {
             player.sendMessage(ChatColor.YELLOW + "You will now see server quest messages");
         }
 
-        if(map.containsKey(player.getUniqueId())){
-            map.remove(player.getUniqueId());
-            map.put(player.getUniqueId(), attachment);
-        } else {
-            map.put(player.getUniqueId(), attachment);
-        }
+        map.put(player.getUniqueId(), attachment);
     }
 }

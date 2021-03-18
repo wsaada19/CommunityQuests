@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.events.questevents;
 
+import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.entity.Player;
@@ -9,24 +10,26 @@ import java.util.List;
 
 public abstract class QuestListener {
     protected ActiveQuests activeQuests;
-    private List<QuestController> controllersToRemove;
 
-    public QuestListener(ActiveQuests activeQuests){
+    public QuestListener(ActiveQuests activeQuests) {
         this.activeQuests = activeQuests;
-        controllersToRemove = new ArrayList<QuestController>();
     }
 
-    protected void updateQuest(QuestController controller, Player player, int amount){
+    protected void updateQuest(QuestController controller, Player player, int amount) {
         boolean isQuestComplete = controller.updateQuest(amount, player);
-        if(isQuestComplete){
-            controllersToRemove.add(controller);
-        }
-    }
-
-    protected void removedFinishedQuests(){
-        for(QuestController controller : controllersToRemove){
+        if (isQuestComplete) {
             controller.handleQuestComplete();
         }
-        controllersToRemove.clear();
+    }
+
+    protected List<QuestController> tryGetControllersOfEventType(ObjectiveType type) {
+        List<QuestController> controllers = new ArrayList<QuestController>();
+
+        for (QuestController controller : activeQuests.getActiveQuestsList()) {
+            if (controller.getListenerType().equals(type)) {
+                controllers.add(controller);
+            }
+        }
+        return controllers;
     }
 }

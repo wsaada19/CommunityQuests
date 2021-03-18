@@ -1,60 +1,58 @@
 package me.wonka01.ServerQuests;
 
+import me.wonka01.ServerQuests.commands.ServerQuestsCommands;
 import me.wonka01.ServerQuests.configuration.JsonQuestSave;
-import me.wonka01.ServerQuests.events.*;
-import me.wonka01.ServerQuests.events.questevents.*;
-import me.wonka01.ServerQuests.gui.TypeGui;
-import me.wonka01.ServerQuests.gui.StopGui;
-import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
-import org.bukkit.Bukkit;
-import me.wonka01.ServerQuests.commands.EventsCommands;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
+import me.wonka01.ServerQuests.events.questevents.*;
+import me.wonka01.ServerQuests.gui.DonateQuestGui;
 import me.wonka01.ServerQuests.gui.StartGui;
+import me.wonka01.ServerQuests.gui.StopGui;
+import me.wonka01.ServerQuests.gui.TypeGui;
+import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
+import me.wonka01.ServerQuests.questcomponents.BarManager;
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-
 public class ServerQuests extends JavaPlugin {
 
     public static Economy economy = null;
     public QuestLibrary questLibrary;
-    private EventsCommands commandExecutor;
+    private ServerQuestsCommands commandExecutor;
     private StartGui startGui;
     private StopGui stopGui;
+    private DonateQuestGui questGui;
+
     private ActiveQuests activeQuests;
     private JsonQuestSave jsonSave;
 
     @Override
     public void onEnable() {
-        getLogger().info("onEnable is called!");
-        commandExecutor = new EventsCommands();
+        getLogger().info("Plugin is enabled");
+        commandExecutor = new ServerQuestsCommands();
         commandExecutor.setup();
 
         loadConfig();
         loadQuestLibraryFromConfig();
+        loadConfigurationLimits();
         loadSaveData();
 
-        if(!setupEconomy())
-        {
-            this.getServer().getConsoleSender().sendMessage(ChatColor.RED + "Warning! No economy plugin found, a cash reward can not be added" +
-                    " to a quest.");
+        if (!setupEconomy()) {
+            getLogger().info(ChatColor.RED + " Warning! No economy plugin found, a cash reward can not be added to a quest.");
         }
 
-        loadStartEventGui();
+        loadGuis();
         registerEvents();
-        getServer().getPluginManager().registerEvents(startGui, this);
-        StopGui stopGui = new StopGui();
-        getServer().getPluginManager().registerEvents(stopGui, this);
     }
 
     @Override
     public void onDisable() {
-
-        getLogger().info("onDisable is called!");
+        getLogger().info("Plugin is disabled");
         jsonSave.saveQuestsInProgress();
+        BarManager.closeBar();
     }
 
     public void loadConfig() {
@@ -62,77 +60,88 @@ public class ServerQuests extends JavaPlugin {
         saveConfig();
     }
 
-    public void loadSaveData(){
-        JsonQuestSave saveJson = new JsonQuestSave(getDataFolder(), activeQuests);
-        jsonSave = saveJson;
-        if(jsonSave.getOrCreateQuestFile()){
+    public void loadSaveData() {
+        jsonSave = new JsonQuestSave(getDataFolder(), activeQuests);
+        if (jsonSave.getOrCreateQuestFile()) {
             jsonSave.readAndInitializeQuests();
+            BarManager.initializeDisplayBar();
         }
     }
 
     public void loadQuestLibraryFromConfig() {
-        ConfigurationSection serverQuestSection = getConfig().getConfigurationSection("ServerQuests");
+        ConfigurationSection serverQuestSection = getConfig().getConfigurationSection("Quests");
         questLibrary = new QuestLibrary();
         questLibrary.loadQuestConfiguration(serverQuestSection);
-        ActiveQuests activeQuests = new ActiveQuests();
-        this.activeQuests = activeQuests;
+        this.activeQuests = new ActiveQuests();
     }
 
-    public void loadStartEventGui()
-    {
+    private void loadConfigurationLimits() {
+        int questLimit = getConfig().getInt("questLimit");
+        ActiveQuests.setQuestLimit(questLimit);
+    }
+
+    private void loadGuis() {
         TypeGui typeGui = new TypeGui();
         typeGui.initializeItems();
         getServer().getPluginManager().registerEvents(typeGui, this);
-        StartGui startGui = new StartGui(typeGui);
+        startGui = new StartGui(typeGui);
         startGui.initializeItems();
-        this.startGui = startGui;
         stopGui = new StopGui();
+        questGui = new DonateQuestGui();
+        questGui.initializeItems();
     }
 
-    public void reloadConfiguration(){
+    public void reloadConfiguration() {
         reloadConfig();
         saveConfig();
-        ConfigurationSection serverQuestSection = getConfig().getConfigurationSection("ServerQuests");
+        ConfigurationSection serverQuestSection = getConfig().getConfigurationSection("Quests");
         questLibrary = new QuestLibrary();
         questLibrary.loadQuestConfiguration(serverQuestSection);
     }
 
-    public QuestLibrary getQuestLibrary(){
+    public QuestLibrary getQuestLibrary() {
         return questLibrary;
     }
 
-    public StartGui getStartGui()
-    {
+    public StartGui getStartGui() {
         return startGui;
     }
-    public StopGui getStopGui()
-    {
+
+    public StopGui getStopGui() {
         return stopGui;
     }
 
-    private boolean setupEconomy()
-    {
-        RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
-        if (economyProvider != null) {
-            economy = economyProvider.getProvider();
-            Bukkit.getServer().getConsoleSender().sendMessage(economy.currencyNameSingular());
-        }
-        return (economy != null);
+    public DonateQuestGui getQuestsGui() {
+        return questGui;
     }
 
-    private void registerEvents()
-    {
+    private boolean setupEconomy() {
+        try {
+            Class.forName("net.milkbowl.vault.economy.Economy");
+            RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+            if (economyProvider != null) {
+                economy = economyProvider.getProvider();
+                Bukkit.getServer().getConsoleSender().sendMessage(economy.currencyNameSingular());
+            }
+            return (economy != null);
+        } catch (ClassNotFoundException exception) {
+            return false;
+        }
+    }
+
+    private void registerEvents() {
+        getServer().getPluginManager().registerEvents(questGui, this);
         getServer().getPluginManager().registerEvents(startGui, this);
         getServer().getPluginManager().registerEvents(stopGui, this);
-
+        getServer().getPluginManager().registerEvents(new BarManager(), this);
         getServer().getPluginManager().registerEvents(new BreakEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new CatchFishEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new KillPlayerEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new MobKillEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new ProjectileKillEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new PlaceEvent(activeQuests), this);
-        getServer().getPluginManager().registerEvents(new ShearEvent( activeQuests), this);
+        getServer().getPluginManager().registerEvents(new ShearEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new TameEvent(activeQuests), this);
-        //getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+        getServer().getPluginManager().registerEvents(new MilkCowEvent(activeQuests), this);
     }
 }

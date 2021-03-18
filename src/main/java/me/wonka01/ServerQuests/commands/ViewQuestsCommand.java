@@ -7,7 +7,7 @@ public class ViewQuestsCommand extends SubCommand {
     @Override
     public void onCommand(Player player, String[] args) {
 
-        if(!player.hasPermission("serverevents.view")){
+        if (!player.hasPermission("serverevents.view")) {
             player.sendMessage("You do not have permission for this command.");
             return;
         }

@@ -1,10 +1,11 @@
 package me.wonka01.ServerQuests.configuration;
 
-import me.wonka01.ServerQuests.handlers.EventListenerHandler;
+import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.rewards.ExperienceReward;
 import me.wonka01.ServerQuests.questcomponents.rewards.ItemReward;
 import me.wonka01.ServerQuests.questcomponents.rewards.MoneyReward;
 import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
+import me.wonka01.ServerQuests.util.ObjectiveTypeUtil;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
@@ -16,15 +17,13 @@ public class QuestLibrary {
 
     private HashMap<String, QuestModel> questList;
 
-    public QuestLibrary( ) {
+    public QuestLibrary() {
     }
 
-    public QuestModel getQuestModelById(String questId)
-    {
-        if(questList.containsKey(questId)){
+    public QuestModel getQuestModelById(String questId) {
+        if (questList.containsKey(questId)) {
             return questList.get(questId);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -47,35 +46,31 @@ public class QuestLibrary {
         int timeToComplete = section.getInt("timeToComplete");
         int goal = section.getInt("goal");
         List<String> mobNames = section.getStringList("entities");
-        List<String> blockNames = section.getStringList("blocks");
+        List<String> itemNames = section.getStringList("materials");
 
-        EventListenerHandler.EventListenerType eventType = EventListenerHandler.parseEventTypeFromString(section.getString("type"));
+        ObjectiveType objectiveType = ObjectiveTypeUtil.parseEventTypeFromString(section.getString("type"));
         ConfigurationSection rewardsSection = section.getConfigurationSection("rewards");
 
         ArrayList<Reward> rewards;
-        if(rewardsSection == null)
-        {
+        if (rewardsSection == null) {
             rewards = new ArrayList<Reward>();
         } else {
             rewards = getRewardsFromConfig(rewardsSection);
         }
 
         return new QuestModel(questId, displayName, description, timeToComplete, goal,
-                                eventType, mobNames, rewards, blockNames);
+                objectiveType, mobNames, rewards, itemNames);
     }
 
-    private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section)
-    {
-         ArrayList<Reward> rewards =  new ArrayList<Reward>();
-        for(String key: section.getKeys(false))
-        {
+    private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {
+        ArrayList<Reward> rewards = new ArrayList<Reward>();
+        for (String key : section.getKeys(false)) {
             Reward reward;
-            if(key.equalsIgnoreCase("money"))
-            {
+            if (key.equalsIgnoreCase("money")) {
                 double amount = section.getDouble("money");
                 reward = new MoneyReward(amount);
 
-            } else if(key.equalsIgnoreCase("experience")){
+            } else if (key.equalsIgnoreCase("experience")) {
                 int amount = section.getInt("experience");
                 reward = new ExperienceReward(amount);
 
@@ -83,8 +78,8 @@ public class QuestLibrary {
                 ConfigurationSection rewardSection = section.getConfigurationSection(key);
                 int amount = rewardSection.getInt("amount");
                 String material = rewardSection.getString("material");
-
-                reward = new ItemReward(amount, material);
+                String itemName = rewardSection.getString("displayName");
+                reward = new ItemReward(amount, material, itemName);
             }
 
             rewards.add(reward);
@@ -92,8 +87,7 @@ public class QuestLibrary {
         return rewards;
     }
 
-    public Set<String> getAllQuestKeys()
-    {
+    public Set<String> getAllQuestKeys() {
         return questList.keySet();
     }
 

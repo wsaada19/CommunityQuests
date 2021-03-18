@@ -7,7 +7,7 @@ public class EventConstraints {
     private List<String> materialNames;
     private List<String> mobNames;
 
-    public EventConstraints(List<String> materialNames, List<String> mobNames){
+    public EventConstraints(List<String> materialNames, List<String> mobNames) {
         this.materialNames = materialNames;
         this.mobNames = mobNames;
     }
@@ -19,5 +19,4 @@ public class EventConstraints {
     public List<String> getMobNames() {
         return mobNames;
     }
-
 }

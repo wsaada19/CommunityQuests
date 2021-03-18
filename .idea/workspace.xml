@@ -6,9 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74a783ff-ce89-4520-a15a-5427ecba405e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/JsonQuestSave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/JsonQuestSave.java" afterDir="false" />
-    </list>
+    <list default="true" id="74a783ff-ce89-4520-a15a-5427ecba405e" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,85 +18,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StartGui.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="68" column="41" lean-forward="true" selection-start-line="68" selection-start-column="41" selection-end-line="68" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/JsonQuestSave.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="43" column="9" lean-forward="true" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="454">
-              <caret line="68" selection-start-line="68" selection-end-line="68" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/CompetitiveQuestData.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="21" column="49" lean-forward="true" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/players/BasePlayerComponent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="97" column="74" selection-start-line="97" selection-start-column="74" selection-end-line="97" selection-end-column="74" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="374">
-                <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/ServerQuests.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="67" column="11" lean-forward="true" selection-start-line="67" selection-start-column="11" selection-end-line="67" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/config.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/StopQuestCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+            <state relative-caret-position="543">
+              <caret line="102" column="69" selection-start-line="102" selection-start-column="69" selection-end-line="102" selection-end-column="69" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -107,10 +30,92 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/StartCommand.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/EventConstraints.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="34" column="87" selection-start-line="34" selection-start-column="87" selection-end-line="34" selection-end-column="87" />
+            <state relative-caret-position="68">
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/config.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="36" column="13" lean-forward="true" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/QuestLibrary.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="376">
+              <caret line="80" column="73" lean-forward="true" selection-start-line="80" selection-start-column="73" selection-end-line="80" selection-end-column="73" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/BarManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <marker date="1616033516285" expanded="true" signature="2881:3449" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/CompetitiveQuestData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="56">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/JsonQuestSave.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1445">
+              <caret line="105" column="45" selection-start-line="105" selection-start-column="45" selection-end-line="105" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/rewards/ItemReward.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="12" column="31" lean-forward="true" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestBar.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="359">
+              <caret line="40" column="27" lean-forward="true" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="533">
+              <caret line="51" selection-start-line="51" selection-end-line="51" />
             </state>
           </provider>
         </entry>
@@ -120,15 +125,40 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Bukkit</find>
       <find>getOr</find>
+      <find>Bukkit</find>
+      <find>the quest file</find>
+      <find>startQuestWith</find>
+      <find>InitializeQuestLi</find>
+      <find>BarMana</find>
+      <find>Gui</find>
+      <find>barmanager</find>
+      <find>Click to</find>
+      <find>showBossBar</find>
+      <find>showBos</find>
+      <find>startShowingPlayer</find>
+      <find>startShowing</find>
+      <find>InitializeQuestListe</find>
+      <find>isSlotFree</find>
+      <find>QUEST CO</find>
+      <find>ServerQuests</find>
+      <find>loadQuestCon</find>
+      <find>updateQuest(</find>
+      <find>loadQuestLibrary</find>
     </findStrings>
+    <dirStrings>
+      <dir>C:\Users\willi\IdeaProjects\ServerQuests\src</dir>
+      <dir>C:\Users\willi\IdeaProjects\ServerQuests\src\main\java\me\wonka01</dir>
+      <dir>C:\Users\willi\IdeaProjects\ServerQuests\src\main\java</dir>
+      <dir>C:\Users\willi\IdeaProjects\ServerQuests</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -136,57 +166,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/PickTen/JoinEvent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/PickTen/ArmorChange.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/PickTen/PickTen.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/PickTen/Llama.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/Llama/LlamaContents.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/Llama/Events/LlamaDeathEvent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/Llama/LlamaData/LlamaContents.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/Llama/Llama.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/Llama/LlamaData/Loot.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/Llama/BeePlugin.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/players/PlayerData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/StopQuestCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/handlers/EventTypeHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/handlers/EventTypeHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/BaseGui.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/handlers/EventListenerHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/TameEvent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestBar.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/CompetitiveQuestData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/rewards/ExperienceReward.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/rewards/ItemReward.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/rewards/MoneyReward.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/PlaceEvent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/EventTypeGui.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StopEventGui.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/ViewEventsGui.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StartEventGui.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/BreakEvent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/ReloadCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/handlers/EventTypeHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/handlers/EventTypeHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/PlayerJoin.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/ViewQuestsCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/ProjectileKillEvent.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/plugin.yml" />
         <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/BossBarGui.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/config.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/enums/ObjectiveTypes.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/handlers/EventListenerHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/enums/ObjectiveType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/handlers/ObjectiveTypeUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/enums/EventType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/TypeGui.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/BreakEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/QuestListener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/ShearEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/TameEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/ProjectileKillEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/PlaceEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/NPCInteractEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/MobKillEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/MilkCowEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/KillPlayerEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/CatchFishEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/OpenGuiQuestCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/ToggleMessageCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/rewards/Reward.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/StartCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/ToggleBarCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/GuiHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StartGui.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/ViewGui.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StopGui.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/TypeGui.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/QuestModel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/EventConstraints.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/util/EventTypeHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/GuiEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestBar.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/ActiveQuests.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/ToggleMessageCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/EventsCommands.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/QuestLibrary.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/players/BasePlayerComponent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/StartCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StartGui.java" />
-        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/ServerQuests.java" />
-        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/ServerQuestsCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/DonateQuestGui.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/DonateQuestCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/ReloadCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/JsonQuestSave.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/ServerQuests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/players/BasePlayerComponent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/rewards/ExperienceReward.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/rewards/MoneyReward.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/config.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/QuestLibrary.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/rewards/ItemReward.java" />
+        <option value="$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/BarManager.java" />
       </list>
     </option>
   </component>
@@ -206,11 +236,11 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-20" />
-    <option name="y" value="50" />
-    <option name="width" value="2758" />
-    <option name="height" value="1664" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="28" />
+    <option name="y" value="54" />
+    <option name="width" value="2680" />
+    <option name="height" value="1646" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -218,6 +248,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
@@ -280,51 +311,7 @@
               <item name="me" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="wonka01" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="ServerQuests" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="commands" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="ServerQuests" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="MagicArena" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="me" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="wonka01" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="ServerQuests" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="configuration" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="ServerQuests" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="MagicArena" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="me" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="wonka01" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="ServerQuests" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="events" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="ServerQuests" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="MagicArena" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="me" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="wonka01" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="ServerQuests" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="gui" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="ServerQuests" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="MagicArena" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="me" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="wonka01" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="ServerQuests" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="handlers" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="ServerQuests" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -354,26 +341,49 @@
               <item name="MagicArena" type="2674bda8:ScopeViewTreeModel$GroupNode" />
               <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="me" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="wonka01" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="ServerQuests" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="questcomponents" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="rewards" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="ServerQuests" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="MagicArena" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="me" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="wonka01" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="ServerQuests" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="util" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="ServerQuests" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="MagicArena" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1577751973310" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1616036620664" />
+    <property name="last_opened_file_path" value="$USER_HOME$/MinecraftServer/plugins" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.annotationProcessors" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -432,17 +442,41 @@
       <workItem from="1577383415427" duration="3914000" />
       <workItem from="1577548580599" duration="280000" />
       <workItem from="1577549547846" duration="30226000" />
-      <workItem from="1577654918430" duration="17556000" />
+      <workItem from="1577654918430" duration="18332000" />
+      <workItem from="1577825659465" duration="57000" />
+      <workItem from="1577825744786" duration="1616000" />
+      <workItem from="1578704709063" duration="2001000" />
+      <workItem from="1579149974801" duration="617000" />
+      <workItem from="1580180014942" duration="3720000" />
+      <workItem from="1581038964720" duration="17000" />
+      <workItem from="1602281981377" duration="1286000" />
+      <workItem from="1602345580690" duration="12000" />
+      <workItem from="1602364292388" duration="1443000" />
+      <workItem from="1602635617643" duration="14000" />
+      <workItem from="1602719972442" duration="2414000" />
+      <workItem from="1615585442696" duration="2085000" />
+      <workItem from="1615676953086" duration="1131000" />
+      <workItem from="1615742345391" duration="105000" />
+      <workItem from="1615751398557" duration="5768000" />
+      <workItem from="1615772111705" duration="1596000" />
+      <workItem from="1615806265455" duration="53000" />
+      <workItem from="1615806886615" duration="609000" />
+      <workItem from="1615808550888" duration="327000" />
+      <workItem from="1615825831613" duration="15938000" />
+      <workItem from="1615860438553" duration="1738000" />
+      <workItem from="1615931280582" duration="7529000" />
+      <workItem from="1616000212428" duration="24131000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124388000" />
+    <option name="totallyTimeSpent" value="199371000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1381" height="885" extended-state="6" />
+    <frame x="14" y="27" width="1340" height="823" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.31368104" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28705147" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -450,7 +484,7 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32905984" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32905984" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -460,14 +494,14 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.32980132" />
-      <window_info active="true" anchor="bottom" id="Messages" order="12" visible="true" weight="0.18145695" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.32905984" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.14574315" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Theme Preview" order="4" />
-      <window_info anchor="right" id="Maven" order="5" weight="0.32945737" />
+      <window_info anchor="right" id="Maven" order="5" weight="0.32917318" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Database" order="8" />
@@ -508,209 +542,234 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/PickTen/Llama.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/Llama/LlamaData/LlamaContents.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/Llama/Events/LlamaDeathEvent.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/Llama/LlamaData/Loot.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/Llama/BeePlugin.java" />
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/TameEvent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+        <state relative-caret-position="323">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/rewards/ItemReward.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/MilkCowEvent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="25" column="91" selection-start-line="25" selection-start-column="91" selection-end-line="25" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/rewards/Reward.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/rewards/MoneyReward.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="23" column="64" lean-forward="true" selection-start-line="23" selection-start-column="64" selection-end-line="23" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/PlayerJoin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="13" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/PlaceEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="22" column="56" lean-forward="true" selection-start-line="22" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/QuestListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/ProjectileKillEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestMessager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/QuestModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/BreakEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="44" column="59" lean-forward="true" selection-start-line="44" selection-start-column="59" selection-end-line="44" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/CatchFishEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/KillPlayerEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/MobKillEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/BossBarGui.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        <state relative-caret-position="221">
+          <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StopGui.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-144">
-          <caret line="42" column="43" lean-forward="true" selection-start-line="42" selection-start-column="43" selection-end-line="42" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/TypeGui.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="37" column="32" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/ViewGui.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="82" column="90" lean-forward="true" selection-start-line="82" selection-start-column="90" selection-end-line="82" selection-end-column="90" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/handlers/EventListenerHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-586">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/handlers/EventTypeHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/players/PlayerData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
-          <folding>
-            <element signature="e#528#529#0" expanded="true" />
-            <element signature="e#568#569#0" expanded="true" />
-            <element signature="e#747#748#0" expanded="true" />
-            <element signature="e#830#831#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/rewards/ExperienceReward.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/BossBarGui.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/OpenGuiQuestCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="19" column="73" selection-start-line="19" selection-start-column="73" selection-end-line="19" selection-end-column="73" />
+          <caret line="15" column="54" selection-start-line="15" selection-start-column="54" selection-end-line="15" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/ActiveQuests.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/ViewQuestsCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="57" column="5" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestBar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        <state relative-caret-position="255">
+          <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/ToggleBarCommand.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="48" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/ToggleMessageCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="50" lean-forward="true" selection-start-line="24" selection-start-column="50" selection-end-line="24" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/ShearEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/CatchFishEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="13" column="53" selection-start-line="13" selection-start-column="53" selection-end-line="13" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/StartCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="20" column="14" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/BaseGui.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="37" column="9" lean-forward="true" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StartGui.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-272">
+          <caret line="30" column="31" lean-forward="true" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/BreakEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="37" column="60" lean-forward="true" selection-start-line="37" selection-start-column="60" selection-end-line="37" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/QuestModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="68" column="5" lean-forward="true" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/NPCInteractEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/MobKillEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="35" column="13" lean-forward="true" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/KillPlayerEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="14" column="53" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/PlaceEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="51" column="5" lean-forward="true" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/ProjectileKillEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/ActiveQuests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="49" column="5" lean-forward="true" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/GuiHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/ViewGui.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="30" column="56" lean-forward="true" selection-start-line="30" selection-start-column="56" selection-end-line="30" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/ServerQuestsCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <caret line="9" column="40" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/util/ObjectiveTypeUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="32" column="81" lean-forward="true" selection-start-line="32" selection-start-column="81" selection-end-line="32" selection-end-column="81" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/util/EventTypeHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="58" column="5" lean-forward="true" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/DonateQuestGui.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="58" column="56" selection-start-line="58" selection-start-column="56" selection-end-line="58" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/GuiEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/DonateQuestCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="9" lean-forward="true" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/ReloadCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
         </state>
       </provider>
     </entry>
@@ -721,62 +780,89 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/ViewQuestsCommand.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/StopQuestCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
+        <state relative-caret-position="68">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/BaseGui.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StopGui.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="29" column="52" lean-forward="true" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
+        <state relative-caret-position="306">
+          <caret line="74" column="13" lean-forward="true" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/EventsCommands.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/events/questevents/QuestListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="25" column="57" lean-forward="true" selection-start-line="25" selection-start-column="57" selection-end-line="25" selection-end-column="57" />
+        <state relative-caret-position="238">
+          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/ReloadCommand.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/players/PlayerData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/ServerQuests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="31" column="13" lean-forward="true" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/rewards/ExperienceReward.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="15" column="75" selection-start-line="15" selection-start-column="75" selection-end-line="15" selection-end-column="75" />
+          <caret line="17" column="51" lean-forward="true" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/players/BasePlayerComponent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="51" lean-forward="true" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
+        <state relative-caret-position="34">
+          <caret line="31" column="58" lean-forward="true" selection-start-line="31" selection-start-column="58" selection-end-line="31" selection-end-column="58" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/ToggleMessageCommand.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/TypeGui.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="28" column="54" selection-start-line="28" selection-start-column="54" selection-end-line="28" selection-end-column="54" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#415#443#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-187">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/QuestLibrary.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/rewards/MoneyReward.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-535">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="340">
+          <caret line="26" column="41" lean-forward="true" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/rewards/Reward.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/JsonQuestSave.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1445">
+          <caret line="105" column="45" selection-start-line="105" selection-start-column="45" selection-end-line="105" selection-end-column="45" />
         </state>
       </provider>
     </entry>
@@ -787,79 +873,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/CompetitiveQuestData.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestBar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="21" column="49" lean-forward="true" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
+        <state relative-caret-position="359">
+          <caret line="40" column="27" lean-forward="true" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="68" selection-start-line="68" selection-end-line="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/players/BasePlayerComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="97" column="74" selection-start-line="97" selection-start-column="74" selection-end-line="97" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/StopQuestCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+        <state relative-caret-position="543">
+          <caret line="102" column="69" selection-start-line="102" selection-start-column="69" selection-end-line="102" selection-end-column="69" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/commands/StartCommand.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/QuestData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="34" column="87" selection-start-line="34" selection-start-column="87" selection-end-line="34" selection-end-column="87" />
+        <state relative-caret-position="533">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/gui/StartGui.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/CompetitiveQuestData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="68" column="41" lean-forward="true" selection-start-line="68" selection-start-column="41" selection-end-line="68" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/ServerQuests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="67" column="11" lean-forward="true" selection-start-line="67" selection-start-column="11" selection-end-line="67" selection-end-column="11" />
+        <state relative-caret-position="56">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
+        <state relative-caret-position="510">
+          <caret line="36" column="13" lean-forward="true" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="374">
-            <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/JsonQuestSave.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/configuration/QuestLibrary.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="43" column="9" lean-forward="true" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
+        <state relative-caret-position="376">
+          <caret line="80" column="73" lean-forward="true" selection-start-line="80" selection-start-column="73" selection-end-line="80" selection-end-column="73" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/rewards/ItemReward.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="12" column="31" lean-forward="true" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/wonka01/ServerQuests/questcomponents/BarManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1616033516285" expanded="true" signature="2881:3449" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

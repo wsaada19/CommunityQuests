@@ -10,34 +10,37 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 
-public class EventsCommands implements CommandExecutor {
+public class ServerQuestsCommands implements CommandExecutor {
 
     private HashMap<String, SubCommand> subCommands;
-    private final String commandPrefix = "sq";
 
-    public void setup()
-    {
+    public void setup() {
+        String commandPrefix = "cq";
+
         JavaPlugin.getPlugin(ServerQuests.class).getCommand(commandPrefix).setExecutor(this);
         subCommands = new HashMap<String, SubCommand>();
         subCommands.put("start", new StartCommand());
         subCommands.put("stop", new StopQuestCommand());
         subCommands.put("togglebar", new ToggleBarCommand());
-        subCommands.put("togglemessages", new ToggleMessageCommand());
+        //subCommands.put("togglemessages", new ToggleMessageCommand());
         subCommands.put("view", new ViewQuestsCommand());
         subCommands.put("reload", new ReloadCommand());
+        subCommands.put("donate", new DonateQuestCommand());
     }
 
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
 
-        if(!(commandSender instanceof Player)){return false;}
-        Player player = (Player)commandSender;
-        if(args.length < 1){
+        if (!(commandSender instanceof Player)) {
+            return false;
+        }
+        Player player = (Player) commandSender;
+        if (args.length < 1) {
             player.sendMessage(ChatColor.RED + "[ServerQuests] Invalid command");
             return false;
         }
         String subCommandPrefix = args[0];
 
-        if(!subCommands.containsKey(subCommandPrefix)){
+        if (!subCommands.containsKey(subCommandPrefix)) {
             player.sendMessage(ChatColor.RED + "[ServerQuests] Invalid command");
             return false;
         }

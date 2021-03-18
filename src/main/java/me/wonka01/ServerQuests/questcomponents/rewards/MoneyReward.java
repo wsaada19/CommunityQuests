@@ -8,20 +8,22 @@ import org.bukkit.entity.Player;
 public class MoneyReward implements Reward {
 
     private double amount;
-    public MoneyReward(double amount)
-    {
+
+    public MoneyReward(double amount) {
         this.amount = amount;
     }
 
     public void giveRewardToPlayer(OfflinePlayer player, double rewardPercentage) {
 
+        if (ServerQuests.economy == null) {
+            return;
+        }
         double weightedAmount = rewardPercentage * amount;
         Economy economy = ServerQuests.economy;
         economy.depositPlayer(player, weightedAmount);
 
-        if(player.isOnline()){
-            Player onlinePlayer = (Player)player;
-            onlinePlayer.sendMessage(weightedAmount + " money");
+        if (player.isOnline()) {
+            ((Player) player).sendMessage("- " + weightedAmount + " " + ServerQuests.economy.currencyNamePlural());
         }
     }
 }

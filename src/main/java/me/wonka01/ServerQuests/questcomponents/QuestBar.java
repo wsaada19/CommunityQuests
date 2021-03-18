@@ -10,31 +10,43 @@ import org.bukkit.entity.Player;
 public class QuestBar {
 
     private BossBar bossBar;
-    public QuestBar(String displayName)
-    {
-        bossBar = Bukkit.getServer().createBossBar( ChatColor.YELLOW + "" + ChatColor.BOLD + displayName, BarColor.GREEN, BarStyle.SEGMENTED_12);
+
+    public QuestBar(String displayName) {
+        bossBar = Bukkit.getServer().createBossBar(ChatColor.YELLOW + "" + ChatColor.BOLD + displayName, BarColor.GREEN, BarStyle.SEGMENTED_12);
         bossBar.setProgress(1.0);
         bossBar.setVisible(true);
-
-        for(Player player : Bukkit.getServer().getOnlinePlayers()){
-            bossBar.addPlayer(player);
-        }
     }
 
-    public void updateBarProgress(double barRatio)
-    {
+    public void updateBarProgress(double barRatio) {
         bossBar.setProgress(barRatio);
     }
 
-    public void removeBossBar()
-    {
+    public void removeBossBar() {
         bossBar.removeAll();
     }
 
-    public void hideBossBar(Player player){
+    public void hideBossBar(Player player) {
         bossBar.removePlayer(player);
     }
 
-    public void showBossBar(Player player) {bossBar.addPlayer(player);}
+    public void toggleBossBar(Player player) {
+        boolean showPlayerBar = true;
+        for (Player p : bossBar.getPlayers()) {
+            if (p.getUniqueId().equals(player.getUniqueId())) {
+                showPlayerBar = false;
+                break;
+            }
+        }
+
+        if (showPlayerBar) {
+            bossBar.addPlayer(player);
+        } else {
+            bossBar.removePlayer(player);
+        }
+    }
+
+    public void showBossBar(Player player) {
+        bossBar.addPlayer(player);
+    }
 
 }

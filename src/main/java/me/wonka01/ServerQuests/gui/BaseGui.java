@@ -15,13 +15,13 @@ public abstract class BaseGui {
 
     public abstract void initializeItems();
 
-    protected ItemStack createGuiItem(Material material, String name, String...lore) {
+    protected ItemStack createGuiItem(Material material, String name, String... lore) {
         ItemStack item = new ItemStack(material, 1);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name);
         ArrayList<String> metalore = new ArrayList<String>();
 
-        for(String lorecomments : lore) {
+        for (String lorecomments : lore) {
 
             metalore.add(lorecomments);
         }

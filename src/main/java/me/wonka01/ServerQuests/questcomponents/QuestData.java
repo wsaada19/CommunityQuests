@@ -9,10 +9,9 @@ public class QuestData {
     private String displayName;
     private String description;
 
-    public QuestData(int start, String displayName, String description, String questType, int amountCompleted)
-    {
+    public QuestData(int start, String displayName, String description, String questType, int amountCompleted) {
         questGoal = start;
-        this.amountCompleted  = amountCompleted;
+        this.amountCompleted = amountCompleted;
         this.displayName = displayName;
         this.description = description;
         this.questType = questType;
@@ -22,22 +21,21 @@ public class QuestData {
         return amountCompleted;
     }
 
-    public double getPercentageComplete()
-    {
-        return 1.0 - ((double)amountCompleted / (double)questGoal);
+    public double getPercentageComplete() {
+        return 1.0 - ((double) amountCompleted / (double) questGoal);
     }
 
-    public void addToQuestProgress(int amountToIncrease)
-    {
+    public void addToQuestProgress(int amountToIncrease) {
         amountCompleted += amountToIncrease;
     }
 
-    public boolean isQuestComplete()
-    {
+    public boolean isQuestComplete() {
         return (amountCompleted >= questGoal);
     }
 
-    public int getQuestGoal(){return questGoal;}
+    public int getQuestGoal() {
+        return questGoal;
+    }
 
     public String getDisplayName() {
         return displayName;
@@ -47,7 +45,9 @@ public class QuestData {
         return description;
     }
 
-    public String getQuestType(){return questType;}
+    public String getQuestType() {
+        return questType;
+    }
 
 
 }
