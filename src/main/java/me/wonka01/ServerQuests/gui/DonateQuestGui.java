@@ -15,8 +15,8 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 public class DonateQuestGui extends BaseGui implements InventoryHolder, Listener {
-    private Inventory inventory;
     private final int ITEM_SLOT = 22;
+    private Inventory inventory;
     private int[] GLASS_LOCATIONS = {12, 13, 14, 21, 23, 30, 31, 32};
     private GuiEvent eventHandler;
 

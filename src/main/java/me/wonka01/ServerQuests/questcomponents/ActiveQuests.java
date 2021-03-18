@@ -22,6 +22,14 @@ public class ActiveQuests {
         activeQuestsInstance = this;
     }
 
+    public static void setQuestLimit(int limit) {
+        questLimit = limit;
+    }
+
+    public static ActiveQuests getActiveQuestsInstance() {
+        return activeQuestsInstance;
+    }
+
     // TODO Test this change
     public void endQuest(UUID questId) {
         activeQuestsList.remove(getQuestById(questId));
@@ -38,10 +46,6 @@ public class ActiveQuests {
             BarManager.startShowingPlayersBar(controller.getQuestId()); // doesn't show if there are two active quests
             return true;
         }
-    }
-
-    public static void setQuestLimit(int limit) {
-        questLimit = limit;
     }
 
     public void startQuestWithController(QuestController controller) {
@@ -68,9 +72,5 @@ public class ActiveQuests {
 
     public void endAllQuests() {
         activeQuestsList.clear();
-    }
-
-    public static ActiveQuests getActiveQuestsInstance() {
-        return activeQuestsInstance;
     }
 }

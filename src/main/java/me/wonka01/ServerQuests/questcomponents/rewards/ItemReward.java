@@ -15,7 +15,7 @@ public class ItemReward implements Reward {
     public ItemReward(int count, String materialName, String displayName) {
         this.amount = count;
         this.materialName = materialName;
-        if(displayName == null || displayName.length() < 1 ){
+        if (displayName == null || displayName.length() < 1) {
             this.displayName = materialName;
         } else {
             this.displayName = displayName;

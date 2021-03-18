@@ -50,7 +50,7 @@ public class ServerQuests extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        getLogger().info( "Plugin is disabled");
+        getLogger().info("Plugin is disabled");
         jsonSave.saveQuestsInProgress();
         BarManager.closeBar();
     }
@@ -111,7 +111,9 @@ public class ServerQuests extends JavaPlugin {
         return stopGui;
     }
 
-    public DonateQuestGui getQuestsGui(){return questGui;}
+    public DonateQuestGui getQuestsGui() {
+        return questGui;
+    }
 
     private boolean setupEconomy() {
         try {

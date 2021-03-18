@@ -31,14 +31,14 @@ public class QuestBar {
 
     public void toggleBossBar(Player player) {
         boolean showPlayerBar = true;
-        for(Player p : bossBar.getPlayers()){
-            if(p.getUniqueId().equals(player.getUniqueId())){
+        for (Player p : bossBar.getPlayers()) {
+            if (p.getUniqueId().equals(player.getUniqueId())) {
                 showPlayerBar = false;
                 break;
             }
         }
 
-        if(showPlayerBar) {
+        if (showPlayerBar) {
             bossBar.addPlayer(player);
         } else {
             bossBar.removePlayer(player);

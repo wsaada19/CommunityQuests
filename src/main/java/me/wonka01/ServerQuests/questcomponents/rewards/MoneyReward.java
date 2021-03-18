@@ -4,7 +4,6 @@ import me.wonka01.ServerQuests.ServerQuests;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class MoneyReward implements Reward {
 
@@ -24,7 +23,7 @@ public class MoneyReward implements Reward {
         economy.depositPlayer(player, weightedAmount);
 
         if (player.isOnline()) {
-            ((Player)player).sendMessage("- " + weightedAmount + " " +  ServerQuests.economy.currencyNamePlural());
+            ((Player) player).sendMessage("- " + weightedAmount + " " + ServerQuests.economy.currencyNamePlural());
         }
     }
 }

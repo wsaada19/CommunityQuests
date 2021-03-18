@@ -29,8 +29,8 @@ public class BarManager implements Listener {
     }
 
     public static void closeBar(UUID questId) {
-        for(int i = 0; i < questsToShow.length; i++) {
-            if(questsToShow[i] != null && questsToShow[i].equals(questId)) {
+        for (int i = 0; i < questsToShow.length; i++) {
+            if (questsToShow[i] != null && questsToShow[i].equals(questId)) {
                 questsToShow[i] = null;
             }
         }
@@ -40,7 +40,7 @@ public class BarManager implements Listener {
         for (UUID questId : questsToShow) {
             if (questId != null) {
                 QuestController controller = ActiveQuests.getActiveQuestsInstance().getQuestById(questId);
-                if(controller != null){
+                if (controller != null) {
                     controller.removeBossBar();
                 }
             }
