@@ -15,17 +15,17 @@ public class ServerQuestsCommands implements CommandExecutor {
     private HashMap<String, SubCommand> subCommands;
 
     public void setup() {
-        String commandPrefix = "sq";
+        String commandPrefix = "cq";
 
         JavaPlugin.getPlugin(ServerQuests.class).getCommand(commandPrefix).setExecutor(this);
         subCommands = new HashMap<String, SubCommand>();
         subCommands.put("start", new StartCommand());
         subCommands.put("stop", new StopQuestCommand());
         subCommands.put("togglebar", new ToggleBarCommand());
-        subCommands.put("togglemessages", new ToggleMessageCommand());
+        //subCommands.put("togglemessages", new ToggleMessageCommand());
         subCommands.put("view", new ViewQuestsCommand());
         subCommands.put("reload", new ReloadCommand());
-        subCommands.put("open", new OpenGuiQuestCommand()); //get better name
+        subCommands.put("donate", new DonateQuestCommand());
     }
 
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {

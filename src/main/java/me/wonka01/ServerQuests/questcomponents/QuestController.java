@@ -29,9 +29,13 @@ public class QuestController {
     }
 
     public boolean updateQuest(int count, Player player) {
-        questData.addToQuestProgress(count);
+        int amountToAdd = count;
+        if(count > questData.getQuestGoal() - questData.getAmountCompleted()) {
+            amountToAdd = questData.getQuestGoal() - questData.getAmountCompleted();
+        }
+        questData.addToQuestProgress(amountToAdd);
 
-        playerComponent.savePlayerAction(player, count);
+        playerComponent.savePlayerAction(player, amountToAdd);
         updateBossBar();
         sendPlayerMessage(player);
 
@@ -41,8 +45,9 @@ public class QuestController {
     public void handleQuestComplete() {
         broadcastVictoryMessage();
         playerComponent.sendLeaderString();
-        Bukkit.getServer().broadcastMessage("");
         playerComponent.giveOutRewards(questData.getQuestGoal());
+        questBar.removeBossBar();
+        BarManager.closeBar(questId);
         ActiveQuests.getActiveQuestsInstance().endQuest(questId);
     }
 
@@ -95,7 +100,7 @@ public class QuestController {
     }
 
     private void broadcastVictoryMessage() {
-        String message = ChatColor.translateAlternateColorCodes('&', "&aQUEST COMPLETE &f" + "-" + " &e" + questData.getDisplayName() + "\n");
+        String message = ChatColor.translateAlternateColorCodes('&', "&a&lQUEST COMPLETE &f(" + "&e" + questData.getDisplayName() + "&f)\n\n");
         Bukkit.getServer().broadcastMessage(message);
     }
 }

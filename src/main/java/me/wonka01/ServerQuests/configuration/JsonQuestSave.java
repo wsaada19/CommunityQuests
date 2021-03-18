@@ -47,7 +47,6 @@ public class JsonQuestSave {
     public void saveQuestsInProgress() {
         JSONArray jsonArray = new JSONArray();
         for (QuestController questController : activeQuests.getActiveQuestsList()) {
-            Bukkit.getLogger().info("Adding quest to the save " + questController.getQuestData().getDisplayName());
             JSONObject jObject = new JSONObject();
             jObject.put("id", questController.getQuestType());
             jObject.put("playerMap", questController.getPlayerComponent().getPlayerDataInJson());
@@ -104,7 +103,8 @@ public class JsonQuestSave {
                     continue;
                 }
                 if (amountComplete >= model.getQuestGoal()) {
-                    Bukkit.getLogger().info("[ServerQuests] The quest in the save file has expired and will not be initialized.");
+                    Bukkit.getLogger().info("The quest in the save file has expired and will not be initialized.");
+                    break;
                 }
                 QuestController controller = handler.createControllerFromSave(model, playerMap, (int) amountComplete);
                 activeQuests.startQuestWithController(controller);

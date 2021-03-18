@@ -19,12 +19,8 @@ public class ViewGui extends BaseGui implements InventoryHolder {
 
     public ViewGui(Player player) {
         this.player = player;
-        inventory = Bukkit.createInventory(this, 36, "Active Quests");
+        inventory = Bukkit.createInventory(this, 36, ChatColor.YELLOW + "" + ChatColor.BOLD + "Active Quests");
         initializeItems();
-    }
-
-    public ViewGui() {
-        inventory = Bukkit.createInventory(this, 36, "Active Quests");
     }
 
     @Override
@@ -53,7 +49,7 @@ public class ViewGui extends BaseGui implements InventoryHolder {
                 ChatColor.WHITE + controller.getQuestData().getDescription(),
                 "",
                 progressString,
-                getPlayerProgress(controller, goal));
+                getPlayerProgress(controller));
 
         inventory.setItem(index, item);
     }
@@ -72,14 +68,14 @@ public class ViewGui extends BaseGui implements InventoryHolder {
                 "",
                 leaders,
                 ChatColor.GRAY + topPlayerName + ": " + ChatColor.GREEN + topPlayerAmount + "/" + goal,
-                getPlayerProgress(controller, goal));
+                getPlayerProgress(controller));
 
         inventory.setItem(index, item);
     }
 
-    private String getPlayerProgress(QuestController controller, int goal) {
+    private String getPlayerProgress(QuestController controller) {
         int playerProgress = controller.getPlayerComponent().getAmountContributed(player);
-        return (ChatColor.GRAY + "You: " + ChatColor.GREEN + playerProgress + "/" + goal);
+        return (ChatColor.GRAY + "You: " + ChatColor.GREEN + playerProgress);
     }
 
     public void openInventory() {

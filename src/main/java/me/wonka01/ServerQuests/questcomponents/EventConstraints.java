@@ -19,5 +19,4 @@ public class EventConstraints {
     public List<String> getMobNames() {
         return mobNames;
     }
-
 }

@@ -18,7 +18,7 @@ public class StartCommand extends SubCommand {
         }
 
         if (args.length < 2) {
-            JavaPlugin.getPlugin(ServerQuests.class).getStartGui().initializeItems();
+            //JavaPlugin.getPlugin(ServerQuests.class).getStartGui().initializeItems();
             JavaPlugin.getPlugin(ServerQuests.class).getStartGui().openInventory(player);
             return;
         }

@@ -41,7 +41,7 @@ public class BasePlayerComponent {
     }
 
     public void sendLeaderString() {
-        StringBuilder result = new StringBuilder(ChatColor.YELLOW + "Top Contributors");
+        StringBuilder result = new StringBuilder("&e&n&lTop Contributors&r");
         int count = 0;
         for (UUID key : playerMap.keySet()) {
             if (count == 6) {
@@ -51,11 +51,11 @@ public class BasePlayerComponent {
             result.append("\n &f");
             result.append((count + 1));
             result.append(") &a");
-            result.append(Bukkit.getServer().getPlayer(key).getDisplayName());
+            result.append(playerMap.get(key).getDisplayName());
             result.append(" &f");
             result.append(playerMap.get(key).getAmountContributed());
         }
-        Bukkit.getServer().broadcastMessage(result.toString());
+        Bukkit.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', result.toString()));
     }
 
     public PlayerData getTopPlayerData() {

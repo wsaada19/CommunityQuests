@@ -18,9 +18,9 @@ import java.util.UUID;
 
 public class StopGui extends BaseGui implements InventoryHolder, Listener {
     private Inventory inventory;
-
+    private final int END_ALL = 17;
     public StopGui() {
-        inventory = Bukkit.createInventory(this, 36, "Active Quests");
+        inventory = Bukkit.createInventory(this, 36, ChatColor.RED + "" + ChatColor.BOLD + "End Quest Menu");
     }
 
     public void initializeItems() {
@@ -38,11 +38,14 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
                     ChatColor.WHITE + controller.getQuestData().getDescription(),
                     "",
                     progressString,
-                    ChatColor.GREEN + "Click to end the quest");
+                    ChatColor.YELLOW + "Click to end the quest");
 
             inventory.setItem(count, item);
             count++;
         }
+
+        ItemStack redStone = createGuiItem(Material.RED_STAINED_GLASS_PANE, ChatColor.RED  + "End All Quests", "");
+        inventory.setItem(END_ALL, redStone);
     }
 
     public void openInventory(Player p) {
@@ -60,6 +63,10 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
         int slotNumber = e.getRawSlot();
         int counter = 0;
         QuestController controllerToRemove = null;
+
+        if(slotNumber == END_ALL) {
+            ActiveQuests.getActiveQuestsInstance().endAllQuests();
+        }
 
         for (QuestController controller : ActiveQuests.getActiveQuestsInstance().getActiveQuestsList()) {
             if (counter == slotNumber) {

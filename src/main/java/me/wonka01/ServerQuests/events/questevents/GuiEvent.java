@@ -12,7 +12,6 @@ import java.util.List;
 public class GuiEvent extends QuestListener {
 
     private BaseGui guiMenu;
-    private int[] glassLocations = {12, 13, 14, 21, 23, 30, 31, 32};
 
     public GuiEvent(ActiveQuests activeQuests) {
         super(activeQuests);
@@ -21,9 +20,22 @@ public class GuiEvent extends QuestListener {
     public boolean tryAddItemsToQuest(ItemStack itemsToAdd, Player player) {
         List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.GUI);
         for (QuestController controller : controllers) {
+
             // Add logic to check the item
-            updateQuest(controller, player, itemsToAdd.getAmount());
+            List<String> materials = controller.getEventConstraints().getMaterialNames();
+            if (materials.isEmpty() || containsMaterial(itemsToAdd.getType().toString(), materials)) {
+                updateQuest(controller, player, itemsToAdd.getAmount());
+            }
             return true;
+        }
+        return false;
+    }
+
+    private boolean containsMaterial(String material, List<String> materials) {
+        for (String targetMaterial : materials) {
+            if (material.contains(targetMaterial.toUpperCase())) {
+                return true;
+            }
         }
         return false;
     }

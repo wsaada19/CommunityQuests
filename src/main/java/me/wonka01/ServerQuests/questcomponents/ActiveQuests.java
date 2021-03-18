@@ -46,6 +46,7 @@ public class ActiveQuests {
 
     public void startQuestWithController(QuestController controller) {
         activeQuestsList.add(controller);
+        BarManager.startShowingPlayersBar(controller.getQuestId()); // doesn't show if there are two active quests
     }
 
     public List<QuestController> getActiveQuestsList() {
@@ -63,6 +64,10 @@ public class ActiveQuests {
             }
         }
         return null;
+    }
+
+    public void endAllQuests() {
+        activeQuestsList.clear();
     }
 
     public static ActiveQuests getActiveQuestsInstance() {

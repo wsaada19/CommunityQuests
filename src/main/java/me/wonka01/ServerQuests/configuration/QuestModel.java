@@ -16,11 +16,11 @@ public class QuestModel {
     private ObjectiveType objective;
     private List<String> mobNames;
     private ArrayList<Reward> rewards;
-    private List<String> blockNames;
+    private List<String> itemNames;
 
     public QuestModel(String questId, String displayName, String eventDescription,
                       int secondsToComplete, int questGoal, ObjectiveType objective,
-                      List<String> mobNames, ArrayList<Reward> rewards, List<String> blockNames) {
+                      List<String> mobNames, ArrayList<Reward> rewards, List<String> itemNames) {
         this.questId = questId;
         this.displayName = displayName;
         this.eventDescription = eventDescription;
@@ -29,7 +29,7 @@ public class QuestModel {
         this.objective = objective;
         this.mobNames = mobNames;
         this.rewards = rewards;
-        this.blockNames = blockNames;
+        this.itemNames = itemNames;
     }
 
     public String getQuestId() {
@@ -64,8 +64,8 @@ public class QuestModel {
         return rewards;
     }
 
-    public List<String> getBlockNames() {
-        return blockNames;
+    public List<String> getItemNames() {
+        return itemNames;
     }
 
 

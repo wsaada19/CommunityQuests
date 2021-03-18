@@ -1,13 +1,13 @@
-name: ServerQuests
+name: CommunityQuests
 version: 1.0
 author: wonka01
 main: me.wonka01.ServerQuests.ServerQuests
 api-version: 1.13
 
 commands:
-  sq:
+  cq:
     usage:
-    description: Commands for ServerQuests Plugin
+    description: Commands for Community Quests Plugin
 
 permissions:
   serverevents.start:
@@ -23,7 +23,7 @@ permissions:
     description: Can view all active quests for the server
     default: true
   serverevents.showmessages:
-    description: If true the player will receive a message when the contribute to the quest
+    description: If true the player will receive a message when they contribute to the quest
     default: true
   serverevents.bossbar.hide:
     description: The player will not be shown the boss bar by default

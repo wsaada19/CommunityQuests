@@ -22,11 +22,6 @@ public class ToggleMessageCommand extends SubCommand {
             player.sendMessage(ChatColor.YELLOW + "You will now see server quest messages");
         }
 
-        if (map.containsKey(player.getUniqueId())) {
-            map.remove(player.getUniqueId());
-            map.put(player.getUniqueId(), attachment);
-        } else {
-            map.put(player.getUniqueId(), attachment);
-        }
+        map.put(player.getUniqueId(), attachment);
     }
 }

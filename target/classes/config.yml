@@ -1,8 +1,8 @@
 # Number of quests that can be in progress at a time
 questLimit: 5
 
-ServerQuests:
-  TestQuest:
+Quests:
+  TestQuest: # Quest identifier can be whatever you'd like as long as it's unique
     displayName: Zombie and Pig Slayer
     type: mobkill # required, see type list for available types
     entities: # This is an optional parameter, if it doesn't exist the quest will count all mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
@@ -20,6 +20,24 @@ ServerQuests:
       apples:
         material: APPLE
         amount: 12
+  GuiQuest:
+    displayName: Bring us potatoes!
+    type: donate # required, see type list for available types
+    materials: # This is an optional parameter, if it doesn't exist the quest will count all mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
+      - POTATO
+    description: Deliver 10 potatoes!
+    goal: 10 # The goal is the amount of the task to be completed
+    rewards:
+      experience: 100
+      money: 1000 # You must have Vault and an Economy plugin installed for this to work
+      diamondsword:
+        material: DIAMOND_SWORD
+        amount: 1
+        displayName: "&bPowerful Diamond Sword"
+      apples:
+        material: APPLE
+        amount: 12
+        displayName: "&capples"
   MiningTest:
     displayName: Wolf Lover
     type: tame
@@ -47,5 +65,5 @@ ServerQuests:
     type: blockPlace
     description: Place 10 trees to save the world!
     goal: 10
-    blocks:
+    materials:
       - Sapling

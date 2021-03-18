@@ -29,7 +29,7 @@ public class EventTypeHandler {
         QuestBar bar = new QuestBar(questModel.getDisplayName());
         BasePlayerComponent playerComponent = new BasePlayerComponent(questModel.getRewards());
         QuestData data = getQuestData(questModel, 0, playerComponent);
-        EventConstraints eventConstraints = new EventConstraints(questModel.getBlockNames(), questModel.getMobNames());
+        EventConstraints eventConstraints = new EventConstraints(questModel.getItemNames(), questModel.getMobNames());
 
         return new QuestController(data, bar, playerComponent, eventConstraints, questModel.getObjective());
     }
@@ -41,8 +41,8 @@ public class EventTypeHandler {
         QuestData data = getQuestData(questModel, amountComplete, playerComponent);
 
         QuestBar bar = new QuestBar(questModel.getDisplayName());
-        bar.updateBarProgress((double) amountComplete / (double) questModel.getQuestGoal());
-        EventConstraints eventConstraints = new EventConstraints(questModel.getBlockNames(), questModel.getMobNames());
+        bar.updateBarProgress((double) 1 - (amountComplete / (double) questModel.getQuestGoal()));
+        EventConstraints eventConstraints = new EventConstraints(questModel.getItemNames(), questModel.getMobNames());
 
         return new QuestController(data, bar, playerComponent, eventConstraints, questModel.getObjective());
     }

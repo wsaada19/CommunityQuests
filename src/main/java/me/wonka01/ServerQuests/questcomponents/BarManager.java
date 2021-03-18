@@ -9,25 +9,67 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.UUID;
 
+// This class smells pretty bad
 public class BarManager implements Listener {
 
+    private static final String HIDE_BAR_PERMISSION = "serverevents.bossbar.hide";
     private static UUID[] questsToShow = new UUID[2];
 
-    public static void stopShowingPlayersBar(UUID questId) {
-        if (!isSlotFree()) {
-            return;
-        }
-        QuestController controller = ActiveQuests.getActiveQuestsInstance().getQuestById(questId);
-        if (controller == null) {
-            return;
-        }
+    public static void initializeDisplayBar() {
+        ActiveQuests quests = ActiveQuests.getActiveQuestsInstance();
 
-        controller.getQuestBar().removeBossBar();
-
-        for (int i = 0; i < questsToShow.length; i++) {
-            if (questId.equals(questsToShow[i])) {
-                questsToShow[i] = null;
+        int questsIndex = 0;
+        for (QuestController quest : quests.getActiveQuestsList()) {
+            questsToShow[questsIndex] = quest.getQuestId();
+            questsIndex++;
+            if (questsIndex > 1) {
                 break;
+            }
+        }
+    }
+
+    public static void closeBar(UUID questId) {
+        for(int i = 0; i < questsToShow.length; i++) {
+            if(questsToShow[i] != null && questsToShow[i].equals(questId)) {
+                questsToShow[i] = null;
+            }
+        }
+    }
+
+    public static void closeBar() {
+        for (UUID questId : questsToShow) {
+            if (questId != null) {
+                QuestController controller = ActiveQuests.getActiveQuestsInstance().getQuestById(questId);
+                if(controller != null){
+                    controller.removeBossBar();
+                }
+            }
+        }
+    }
+
+    public static void toggleShowPlayerBar(Player player) {
+        for (UUID id : questsToShow) {
+            QuestController controller = ActiveQuests.getActiveQuestsInstance().getQuestById(id);
+            if (controller != null) {
+                controller.getQuestBar().toggleBossBar(player);
+            }
+        }
+    }
+
+    public static void stopShowingPlayerBar(Player player) {
+        for (UUID id : questsToShow) {
+            QuestController controller = ActiveQuests.getActiveQuestsInstance().getQuestById(id);
+            if (controller != null) {
+                controller.getQuestBar().hideBossBar(player);
+            }
+        }
+    }
+
+    public static void startShowingPlayerBar(Player player) {
+        for (UUID id : questsToShow) {
+            QuestController controller = ActiveQuests.getActiveQuestsInstance().getQuestById(id);
+            if (controller != null) {
+                controller.getQuestBar().showBossBar(player);
             }
         }
     }
@@ -40,15 +82,21 @@ public class BarManager implements Listener {
             return;
         }
 
-        for (int i = 0; i < questsToShow.length; i++) {
-            if (questsToShow[i] == null) {
-                questsToShow[i] = questId;
-                break;
+        if (isSlotFree()) {
+            int openSlot = 0;
+            for (int i = 0; i < questsToShow.length; i++) {
+                if (questsToShow[i] == null) {
+                    openSlot = i;
+                }
             }
-        }
 
-        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-            controller.getQuestBar().showBossBar(player);
+            questsToShow[openSlot] = controller.getQuestId();
+            for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+                if (player.getPlayer().hasPermission(HIDE_BAR_PERMISSION)) {
+                    return;
+                }
+                controller.getQuestBar().showBossBar(player);
+            }
         }
     }
 
@@ -63,23 +111,17 @@ public class BarManager implements Listener {
 
     @EventHandler
     public void onPlayerLogin(PlayerJoinEvent joinEvent) {
-        for (int i = 0; i < questsToShow.length; i++) {
-            if (questsToShow[i] == null) {
-                continue;
-            }
-            QuestController controller = ActiveQuests.getActiveQuestsInstance().getQuestById(questsToShow[i]);
-            controller.getQuestBar().showBossBar(joinEvent.getPlayer());
+        if (joinEvent.getPlayer().hasPermission(HIDE_BAR_PERMISSION)) {
+            return;
         }
+        startShowingPlayerBar(joinEvent.getPlayer());
     }
 
     @EventHandler
     public void onPlayerLogout(PlayerQuitEvent quitEvent) {
-        for (int i = 0; i < questsToShow.length; i++) {
-            if (questsToShow[i] == null) {
-                continue;
-            }
-            QuestController controller = ActiveQuests.getActiveQuestsInstance().getQuestById(questsToShow[i]);
-            controller.getQuestBar().hideBossBar(quitEvent.getPlayer());
+        if (quitEvent.getPlayer().hasPermission(HIDE_BAR_PERMISSION)) {
+            return;
         }
+        stopShowingPlayerBar(quitEvent.getPlayer());
     }
 }

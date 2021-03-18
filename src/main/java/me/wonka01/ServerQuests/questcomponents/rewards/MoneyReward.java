@@ -16,7 +16,7 @@ public class MoneyReward implements Reward {
 
     public void giveRewardToPlayer(OfflinePlayer player, double rewardPercentage) {
 
-        if (JavaPlugin.getPlugin(ServerQuests.class).economy == null) {
+        if (ServerQuests.economy == null) {
             return;
         }
         double weightedAmount = rewardPercentage * amount;
@@ -24,8 +24,7 @@ public class MoneyReward implements Reward {
         economy.depositPlayer(player, weightedAmount);
 
         if (player.isOnline()) {
-            Player onlinePlayer = (Player) player;
-            onlinePlayer.sendMessage(weightedAmount + " money");
+            ((Player)player).sendMessage("- " + weightedAmount + " " +  ServerQuests.economy.currencyNamePlural());
         }
     }
 }
