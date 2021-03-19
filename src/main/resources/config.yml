@@ -30,6 +30,8 @@ Quests:
     rewards:
       experience: 100
       money: 1000 # You must have Vault and an Economy plugin installed for this to work
+      commands:
+        - give player stick 15 # player will be replaced with the name of the player who is to receive the reward.
       diamondsword:
         material: DIAMOND_SWORD
         amount: 1
@@ -38,6 +40,7 @@ Quests:
         material: APPLE
         amount: 12
         displayName: "&capples"
+
   MiningTest:
     displayName: Wolf Lover
     type: tame

@@ -47,6 +47,11 @@ public class JsonQuestSave {
     public void saveQuestsInProgress() {
         JSONArray jsonArray = new JSONArray();
         for (QuestController questController : activeQuests.getActiveQuestsList()) {
+
+            if(questController.getQuestData().isQuestComplete()) {
+                continue;
+            }
+
             JSONObject jObject = new JSONObject();
             jObject.put("id", questController.getQuestType());
             jObject.put("playerMap", questController.getPlayerComponent().getPlayerDataInJson());

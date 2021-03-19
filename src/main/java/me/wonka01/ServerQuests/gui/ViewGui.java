@@ -19,7 +19,7 @@ public class ViewGui extends BaseGui implements InventoryHolder {
 
     public ViewGui(Player player) {
         this.player = player;
-        inventory = Bukkit.createInventory(this, 36, ChatColor.YELLOW + "" + ChatColor.BOLD + "Active Quests");
+        inventory = Bukkit.createInventory(this, 36, "Active Quests");
         initializeItems();
     }
 

@@ -21,7 +21,7 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
     private Inventory inventory;
 
     public StopGui() {
-        inventory = Bukkit.createInventory(this, 36, ChatColor.RED + "" + ChatColor.BOLD + "End Quest Menu");
+        inventory = Bukkit.createInventory(this, 36, "End Quest Menu");
     }
 
     public void initializeItems() {

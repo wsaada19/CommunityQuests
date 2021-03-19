@@ -1,10 +1,7 @@
 package me.wonka01.ServerQuests.configuration;
 
 import me.wonka01.ServerQuests.enums.ObjectiveType;
-import me.wonka01.ServerQuests.questcomponents.rewards.ExperienceReward;
-import me.wonka01.ServerQuests.questcomponents.rewards.ItemReward;
-import me.wonka01.ServerQuests.questcomponents.rewards.MoneyReward;
-import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
+import me.wonka01.ServerQuests.questcomponents.rewards.*;
 import me.wonka01.ServerQuests.util.ObjectiveTypeUtil;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -62,6 +59,7 @@ public class QuestLibrary {
                 objectiveType, mobNames, rewards, itemNames);
     }
 
+    // TODO Clean this up please
     private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {
         ArrayList<Reward> rewards = new ArrayList<Reward>();
         for (String key : section.getKeys(false)) {
@@ -74,6 +72,13 @@ public class QuestLibrary {
                 int amount = section.getInt("experience");
                 reward = new ExperienceReward(amount);
 
+            } else if (key.equalsIgnoreCase("commands")) {
+                List<String> commands = section.getStringList("commands");
+                for(String command : commands) {
+                    Reward commandReward = new CommandReward(command);
+                    rewards.add(commandReward);
+                }
+                continue;
             } else {
                 ConfigurationSection rewardSection = section.getConfigurationSection(key);
                 int amount = rewardSection.getInt("amount");
@@ -81,7 +86,6 @@ public class QuestLibrary {
                 String itemName = rewardSection.getString("displayName");
                 reward = new ItemReward(amount, material, itemName);
             }
-
             rewards.add(reward);
         }
         return rewards;

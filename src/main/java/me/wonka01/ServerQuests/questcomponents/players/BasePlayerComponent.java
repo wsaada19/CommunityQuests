@@ -42,18 +42,20 @@ public class BasePlayerComponent {
 
     public void sendLeaderString() {
         StringBuilder result = new StringBuilder("&e&n&lTop Contributors&r");
-        int count = 0;
+        int count = 1;
         for (UUID key : playerMap.keySet()) {
             if (count == 6) {
                 break;
             }
 
-            result.append("\n &f");
-            result.append((count + 1));
-            result.append(") &a");
+            result.append("\n &f#");
+            result.append(count);
+            result.append(". &a");
             result.append(playerMap.get(key).getDisplayName());
-            result.append(" &f");
+            result.append(" &7- &f");
             result.append(playerMap.get(key).getAmountContributed());
+
+            count++;
         }
         Bukkit.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', result.toString()));
     }
@@ -93,6 +95,7 @@ public class BasePlayerComponent {
                     onlinePlayer.sendMessage(ChatColor.GREEN + "Rewards");
                 }
             }
+
             for (Reward reward : rewardsList) {
                 reward.giveRewardToPlayer(player, playerContributionRatio);
             }

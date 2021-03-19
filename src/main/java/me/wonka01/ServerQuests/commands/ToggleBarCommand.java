@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.commands;
 
+import me.wonka01.ServerQuests.enums.PermissionConstants;
 import me.wonka01.ServerQuests.questcomponents.BarManager;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
@@ -13,7 +14,7 @@ public class ToggleBarCommand extends SubCommand {
     @Override
     public void onCommand(Player player, String[] args) {
         // always hidden if player has this perm
-        if (player.hasPermission("serverevents.bossbar.hide")) {
+        if (player.hasPermission(PermissionConstants.HIDE_BAR)) {
             return;
         }
         BarManager.toggleShowPlayerBar(player);

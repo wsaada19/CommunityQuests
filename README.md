@@ -1,4 +1,4 @@
-# Server Quests
+# Community Quests
 
 ## Summary
 The Server Quests plugin allows server owners and administers to create server wide quests for players to participate in either
@@ -29,12 +29,14 @@ Reloads the configuration file
 The config.yml provides a powerful customization system allowing you to create 
 server-wide quests for your players to enjoy. All quests are created in the config.yml file and are started in game.
 
-Under the ServerQuests section quests can be created, the field (the example below uses TestQuest),
+Currently, the configuration file is the only way to create quest types. I hope to include a 
+
+Under the Quests section quests can be created, the field (the example below uses TestQuest),
 must be unique.
 
 Here is an example of a quest where everyone on the server must work together to kill a combined 100 zombies, pigs and zombie pigmen to finish the quest. 
 ```yaml 
-ServerQuests:
+Quests:
   TestQuest: # this value can be anything but it must be unique
     displayName: Zombie and Pig Slayer
     type: mobkill # required, see type list for available types
@@ -90,6 +92,7 @@ rewards:
     diamondsword: # this can be anything
       material: DIAMOND_SWORD
       amount: 1
+      displayName: "&bPowerful Diamond Sword" # optional ability to change the name used in messages
     apples:
       material: APPLE
       amount: 12
@@ -124,7 +127,8 @@ Think of it as more of a challenge than a quest.
 - blockBreak
 - blockPlace
 - projectileKill
-- damageEntity
 - shear
 - tame 
+- donate
+- milkcow
 

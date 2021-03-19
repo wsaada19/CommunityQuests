@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.questcomponents;
 
+import me.wonka01.ServerQuests.enums.PermissionConstants;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,7 +13,6 @@ import java.util.UUID;
 // This class smells pretty bad
 public class BarManager implements Listener {
 
-    private static final String HIDE_BAR_PERMISSION = "serverevents.bossbar.hide";
     private static UUID[] questsToShow = new UUID[2];
 
     public static void initializeDisplayBar() {
@@ -92,7 +92,7 @@ public class BarManager implements Listener {
 
             questsToShow[openSlot] = controller.getQuestId();
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-                if (player.getPlayer().hasPermission(HIDE_BAR_PERMISSION)) {
+                if (player.getPlayer().hasPermission(PermissionConstants.HIDE_BAR)) {
                     return;
                 }
                 controller.getQuestBar().showBossBar(player);
@@ -111,7 +111,7 @@ public class BarManager implements Listener {
 
     @EventHandler
     public void onPlayerLogin(PlayerJoinEvent joinEvent) {
-        if (joinEvent.getPlayer().hasPermission(HIDE_BAR_PERMISSION)) {
+        if (joinEvent.getPlayer().hasPermission(PermissionConstants.HIDE_BAR)) {
             return;
         }
         startShowingPlayerBar(joinEvent.getPlayer());
@@ -119,7 +119,7 @@ public class BarManager implements Listener {
 
     @EventHandler
     public void onPlayerLogout(PlayerQuitEvent quitEvent) {
-        if (quitEvent.getPlayer().hasPermission(HIDE_BAR_PERMISSION)) {
+        if (quitEvent.getPlayer().hasPermission(PermissionConstants.HIDE_BAR)) {
             return;
         }
         stopShowingPlayerBar(quitEvent.getPlayer());

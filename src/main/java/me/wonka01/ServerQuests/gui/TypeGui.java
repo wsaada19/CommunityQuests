@@ -27,16 +27,16 @@ public class TypeGui extends BaseGui implements Listener, InventoryHolder {
     private QuestModel model;
 
     public TypeGui() {
-        inventory = Bukkit.createInventory(this, 27, ChatColor.WHITE + "" + ChatColor.BOLD + "Select an Event Type");
+        inventory = Bukkit.createInventory(this, 27, "Select an Event Type");
     }
 
     @Override
     public void initializeItems() {
         inventory.setItem(12, createGuiItem(Material.PLAYER_HEAD, COOPERATIVE,
                 COOP_DESCRIPTION));
-        inventory.setItem(13, createGuiItem(Material.DIAMOND_SWORD, COMPETITIVE,
+        inventory.setItem(14, createGuiItem(Material.DIAMOND_SWORD, COMPETITIVE,
                 COMP_DESCRIPTION));
-        inventory.setItem(8, createGuiItem(Material.ARROW, ChatColor.GREEN + "Go Back",
+        inventory.setItem(18, createGuiItem(Material.ARROW, ChatColor.GREEN + "Go Back",
                 ChatColor.GRAY + "Go back to the event list"));
     }
 

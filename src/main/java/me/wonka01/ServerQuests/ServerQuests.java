@@ -41,7 +41,7 @@ public class ServerQuests extends JavaPlugin {
         loadSaveData();
 
         if (!setupEconomy()) {
-            getLogger().info(ChatColor.RED + " Warning! No economy plugin found, a cash reward can not be added to a quest.");
+            getLogger().info( "Warning! No economy plugin found, a cash reward can not be added to a quest.");
         }
 
         loadGuis();

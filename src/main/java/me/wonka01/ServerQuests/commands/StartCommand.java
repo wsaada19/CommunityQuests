@@ -3,6 +3,7 @@ package me.wonka01.ServerQuests.commands;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.enums.EventType;
+import me.wonka01.ServerQuests.enums.PermissionConstants;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -12,7 +13,7 @@ public class StartCommand extends SubCommand {
 
     public void onCommand(Player player, String[] args) {
 
-        if (!player.hasPermission("serverevents.start")) {
+        if (!player.hasPermission(PermissionConstants.START_QUEST)) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou do not have permission to perform this action"));
             return;
         }

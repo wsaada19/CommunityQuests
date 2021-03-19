@@ -1,6 +1,7 @@
 package me.wonka01.ServerQuests.questcomponents;
 
 import me.wonka01.ServerQuests.enums.ObjectiveType;
+import me.wonka01.ServerQuests.enums.PermissionConstants;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -71,7 +72,7 @@ public class QuestController {
         return eventConstraints;
     }
 
-    public ObjectiveType getListenerType() {
+    public ObjectiveType getObjectiveType() {
         return objective;
     }
 
@@ -93,14 +94,15 @@ public class QuestController {
     }
 
     private void sendPlayerMessage(Player player) {
-        if (player.hasPermission("serverquests.showmessages")) {
+        if (player.hasPermission(PermissionConstants.SHOW_MESSAGES)) {
             String message = ChatColor.translateAlternateColorCodes('&', "&a+1 for the quest &e " + getQuestData().getDisplayName());
             player.sendMessage(message);
         }
     }
 
     private void broadcastVictoryMessage() {
-        String message = ChatColor.translateAlternateColorCodes('&', "&a&lQUEST COMPLETE &f(" + "&e" + questData.getDisplayName() + "&f)\n\n");
+        String message = ChatColor.translateAlternateColorCodes('&', "&a&lQUEST COMPLETE &f(" + "&e" + questData.getDisplayName() + "&f)\n");
         Bukkit.getServer().broadcastMessage(message);
+        Bukkit.getServer().broadcastMessage("");
     }
 }
