@@ -20,8 +20,6 @@ public class TypeGui extends BaseGui implements Listener, InventoryHolder {
 
     private final String COMPETITIVE = ChatColor.GREEN + "Competitive";
     private final String COOPERATIVE = ChatColor.GREEN + "Cooperative";
-    private final String COMP_DESCRIPTION = ChatColor.WHITE + "See who can finish first! All players on the server will compete to finish the goal and fight for the rewards.";
-    private final String COOP_DESCRIPTION = ChatColor.WHITE + "All players on the server will work together to achieve the goal and share the rewards.";
 
     private Inventory inventory;
     private QuestModel model;
@@ -32,10 +30,8 @@ public class TypeGui extends BaseGui implements Listener, InventoryHolder {
 
     @Override
     public void initializeItems() {
-        inventory.setItem(12, createGuiItem(Material.PLAYER_HEAD, COOPERATIVE,
-                COOP_DESCRIPTION));
-        inventory.setItem(14, createGuiItem(Material.DIAMOND_SWORD, COMPETITIVE,
-                COMP_DESCRIPTION));
+        inventory.setItem(12, createGuiItem(Material.PLAYER_HEAD, COOPERATIVE));
+        inventory.setItem(14, createGuiItem(Material.DIAMOND_SWORD, COMPETITIVE));
         inventory.setItem(18, createGuiItem(Material.ARROW, ChatColor.GREEN + "Go Back",
                 ChatColor.GRAY + "Go back to the event list"));
     }

@@ -30,9 +30,15 @@ public class ActiveQuests {
         return activeQuestsInstance;
     }
 
-    // TODO Test this change
     public void endQuest(UUID questId) {
+        BarManager.closeBar(questId);
+        QuestController controller = getQuestById(questId);
+        controller.getQuestBar().removeBossBar();
         activeQuestsList.remove(getQuestById(questId));
+        if (activeQuestsList.size() > 1) {
+            BarManager.startShowingPlayersBar(activeQuestsList.get(0).getQuestId());
+        }
+        // begin showing the bar
     }
 
     public boolean InitializeQuestListener(QuestModel questModel, EventType eventType) {

@@ -48,7 +48,7 @@ public class JsonQuestSave {
         JSONArray jsonArray = new JSONArray();
         for (QuestController questController : activeQuests.getActiveQuestsList()) {
 
-            if(questController.getQuestData().isQuestComplete()) {
+            if (questController.getQuestData().isQuestComplete()) {
                 continue;
             }
 

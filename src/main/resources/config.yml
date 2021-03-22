@@ -1,27 +1,35 @@
 # Number of quests that can be in progress at a time
 questLimit: 5
 
+# MUST BE IN ALL CAPS!
+# See color options here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html
+barColor: "GREEN"
+
 Quests:
+
   TestQuest: # Quest identifier can be whatever you'd like as long as it's unique
-    displayName: Zombie and Pig Slayer
+    displayName: "&l&cZombie and Pig Slayer"
     type: mobkill # required, see type list for available types
     entities: # This is an optional parameter, if it doesn't exist the quest will count all mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
       - Zombie
       - Pig
       - Pig_Zombie
-    description: Kill 5 zombies before time runs out!
+    description: "&fKill 5 zombies before time runs out!"
     goal: 5 # The goal is the amount of the task to be completed
     rewards:
       experience: 100
       money: 1000 # You must have Vault and an Economy plugin installed for this to work
-      diamondsword:
-        material: DIAMOND_SWORD
-        amount: 1
-      apples:
-        material: APPLE
-        amount: 12
+      items:
+        - material: DIAMOND_SWORD
+          amount: 1
+          displayName: "&bPowerful Diamond Sword"
+        - material: APPLE
+          amount: 12
+          displayName: "&capples"
+
+
   GuiQuest:
-    displayName: Gather 10 Potatoes
+    displayName: "&l&aGather 10 Potatoes"
     type: donate # required, see type list for available types
     materials: # This is an optional parameter, if it doesn't exist the quest will count all mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
       - POTATO
@@ -32,14 +40,13 @@ Quests:
       money: 1000 # You must have Vault and an Economy plugin installed for this to work
       commands:
         - give player stick 15 # player will be replaced with the name of the player who is to receive the reward.
-      diamondsword:
-        material: DIAMOND_SWORD
-        amount: 1
-        displayName: "&bPowerful Diamond Sword"
-      apples:
-        material: APPLE
-        amount: 12
-        displayName: "&capples"
+      items:
+        - material: DIAMOND_SWORD
+          amount: 1
+          displayName: "&bPowerful Diamond Sword"
+        - material: APPLE
+          amount: 12
+          displayName: "&capples"
 
   MiningTest:
     displayName: Wolf Lover
@@ -48,9 +55,9 @@ Quests:
     goal: 5
     rewards:
       money: 100.0
-  Milking:
-    displayName: Farming Challenge
-    type: milkcow
+  Fishing:
+    displayName: Catch Fish
+    type: catchFish
     description: Get some milk
     goal: 3
     rewards:
@@ -62,7 +69,6 @@ Quests:
     goal: 5
     rewards:
       experience: 100
-      money: 104
   PlantTree:
     displayName: Save the Planet
     type: blockPlace

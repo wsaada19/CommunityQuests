@@ -35,8 +35,8 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
             String progressString = ChatColor.GRAY + "Progress: " + ChatColor.GREEN + progress + "/" + goal;
 
             ItemStack item = createGuiItem(Material.DIAMOND,
-                    ChatColor.GREEN + controller.getQuestData().getDisplayName(),
-                    ChatColor.WHITE + controller.getQuestData().getDescription(),
+                    ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDisplayName()),
+                    ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDescription()),
                     "",
                     progressString,
                     ChatColor.YELLOW + "Click to end the quest");
@@ -45,8 +45,8 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
             count++;
         }
 
-        ItemStack redStone = createGuiItem(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "End All Quests", "");
-        inventory.setItem(END_ALL, redStone);
+        //ItemStack redStone = createGuiItem(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "End All Quests", "");
+        //inventory.setItem(END_ALL, redStone);
     }
 
     public void openInventory(Player p) {

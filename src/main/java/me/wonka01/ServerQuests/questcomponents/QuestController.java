@@ -48,7 +48,6 @@ public class QuestController {
         playerComponent.sendLeaderString();
         playerComponent.giveOutRewards(questData.getQuestGoal());
         questBar.removeBossBar();
-        BarManager.closeBar(questId);
         ActiveQuests.getActiveQuestsInstance().endQuest(questId);
     }
 
@@ -95,14 +94,15 @@ public class QuestController {
 
     private void sendPlayerMessage(Player player) {
         if (player.hasPermission(PermissionConstants.SHOW_MESSAGES)) {
-            String message = ChatColor.translateAlternateColorCodes('&', "&a+1 for the quest &e " + getQuestData().getDisplayName());
+            String message = ChatColor.translateAlternateColorCodes('&', "&a+1 for the quest " + getQuestData().getDisplayName());
             player.sendMessage(message);
         }
     }
 
     private void broadcastVictoryMessage() {
-        String message = ChatColor.translateAlternateColorCodes('&', "&a&lQUEST COMPLETE &f(" + "&e" + questData.getDisplayName() + "&f)\n");
+        String message = ChatColor.translateAlternateColorCodes('&', "&a&lQUEST COMPLETE &f(" + questData.getDisplayName() + "&f)\n");
+        String questInfo = ChatColor.translateAlternateColorCodes('&', "Congrats on completing the quest! Below you can see a list of the top contributors.");
         Bukkit.getServer().broadcastMessage(message);
-        Bukkit.getServer().broadcastMessage("");
+        Bukkit.getServer().broadcastMessage(questInfo);
     }
 }

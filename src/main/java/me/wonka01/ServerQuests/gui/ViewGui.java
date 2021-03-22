@@ -45,8 +45,8 @@ public class ViewGui extends BaseGui implements InventoryHolder {
         String progressString = ChatColor.GRAY + "Progress: " + ChatColor.GREEN + progress + "/" + goal;
 
         ItemStack item = createGuiItem(Material.DIAMOND,
-                ChatColor.GREEN + controller.getQuestData().getDisplayName(),
-                ChatColor.WHITE + controller.getQuestData().getDescription(),
+                ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDisplayName()),
+                ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDescription()),
                 "",
                 progressString,
                 getPlayerProgress(controller));
@@ -63,8 +63,8 @@ public class ViewGui extends BaseGui implements InventoryHolder {
         String topPlayerName = controller.getPlayerComponent().getTopPlayerData().getDisplayName();
 
         ItemStack item = createGuiItem(Material.DIAMOND,
-                ChatColor.GREEN + controller.getQuestData().getDisplayName(),
-                ChatColor.WHITE + controller.getQuestData().getDescription(),
+                ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDisplayName()),
+                ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDescription()),
                 "",
                 leaders,
                 ChatColor.GRAY + topPlayerName + ": " + ChatColor.GREEN + topPlayerAmount + "/" + goal,

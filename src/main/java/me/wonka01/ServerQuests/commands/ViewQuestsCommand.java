@@ -14,7 +14,7 @@ public class ViewQuestsCommand extends SubCommand {
             player.sendMessage(ChatColor.RED + "You do not have permission for this command.");
             return;
         }
-        if(ActiveQuests.getActiveQuestsInstance().getActiveQuestsList().size() < 1) {
+        if (ActiveQuests.getActiveQuestsInstance().getActiveQuestsList().size() < 1) {
             player.sendMessage(ChatColor.RED + "There are currently no active quests");
             return;
         }

@@ -26,6 +26,7 @@ public class ServerQuestsCommands implements CommandExecutor {
         subCommands.put("view", new ViewQuestsCommand());
         subCommands.put("reload", new ReloadCommand());
         subCommands.put("donate", new DonateQuestCommand());
+        subCommands.put("help", new HelpCommand());
     }
 
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {

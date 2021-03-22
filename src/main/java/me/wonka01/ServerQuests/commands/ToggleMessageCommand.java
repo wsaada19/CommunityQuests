@@ -3,7 +3,7 @@ package me.wonka01.ServerQuests.commands;
 import org.bukkit.entity.Player;
 
 public class ToggleMessageCommand extends SubCommand {
-   //public HashMap<UUID, PermissionAttachment> map = new HashMap<UUID, PermissionAttachment>();
+    //public HashMap<UUID, PermissionAttachment> map = new HashMap<UUID, PermissionAttachment>();
 
     public void onCommand(Player player, String[] args) {
 //        PermissionAttachment attachment = player.addAttachment(JavaPlugin.getPlugin(ServerQuests.class));

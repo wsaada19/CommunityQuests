@@ -21,8 +21,8 @@ public class DonateQuestCommand extends SubCommand {
         }
 
         List<QuestController> controllerList = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
-        for(QuestController controller : controllerList) {
-            if(controller.getObjectiveType() == ObjectiveType.GUI) {
+        for (QuestController controller : controllerList) {
+            if (controller.getObjectiveType() == ObjectiveType.GUI) {
                 JavaPlugin.getPlugin(ServerQuests.class).getQuestsGui().openInventory(player);
                 return;
             }

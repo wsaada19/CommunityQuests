@@ -9,19 +9,22 @@ import org.bukkit.entity.Player;
 
 public class QuestBar {
 
+    public static String barColor;
     private BossBar bossBar;
 
     public QuestBar(String displayName) {
-        bossBar = Bukkit.getServer().createBossBar(ChatColor.YELLOW + "" + ChatColor.BOLD + displayName, BarColor.GREEN, BarStyle.SEGMENTED_12);
-        bossBar.setProgress(1.0);
+        BarColor color = BarColor.valueOf(barColor);
+        bossBar = Bukkit.getServer().createBossBar(ChatColor.translateAlternateColorCodes('&', displayName), color, BarStyle.SEGMENTED_12);
+        bossBar.setProgress(0.0);
         bossBar.setVisible(true);
     }
 
     public void updateBarProgress(double barRatio) {
-        bossBar.setProgress(barRatio);
+        bossBar.setProgress((1.0 - barRatio));
     }
 
     public void removeBossBar() {
+        bossBar.setVisible(false);
         bossBar.removeAll();
     }
 

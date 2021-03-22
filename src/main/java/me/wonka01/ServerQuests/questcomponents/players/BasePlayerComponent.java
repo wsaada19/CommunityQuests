@@ -41,7 +41,7 @@ public class BasePlayerComponent {
     }
 
     public void sendLeaderString() {
-        StringBuilder result = new StringBuilder("&e&n&lTop Contributors&r");
+        StringBuilder result = new StringBuilder("&e&lTop Contributors&r");
         int count = 1;
         for (UUID key : playerMap.keySet()) {
             if (count == 6) {
@@ -50,7 +50,7 @@ public class BasePlayerComponent {
 
             result.append("\n &f#");
             result.append(count);
-            result.append(". &a");
+            result.append(") &a");
             result.append(playerMap.get(key).getDisplayName());
             result.append(" &7- &f");
             result.append(playerMap.get(key).getAmountContributed());

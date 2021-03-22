@@ -10,9 +10,9 @@ import me.wonka01.ServerQuests.gui.StopGui;
 import me.wonka01.ServerQuests.gui.TypeGui;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.BarManager;
+import me.wonka01.ServerQuests.questcomponents.QuestBar;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -36,12 +36,12 @@ public class ServerQuests extends JavaPlugin {
         commandExecutor.setup();
 
         loadConfig();
-        loadQuestLibraryFromConfig();
         loadConfigurationLimits();
+        loadQuestLibraryFromConfig();
         loadSaveData();
 
         if (!setupEconomy()) {
-            getLogger().info( "Warning! No economy plugin found, a cash reward can not be added to a quest.");
+            getLogger().info("Warning! No economy plugin found, a cash reward can not be added to a quest.");
         }
 
         loadGuis();
@@ -77,6 +77,8 @@ public class ServerQuests extends JavaPlugin {
 
     private void loadConfigurationLimits() {
         int questLimit = getConfig().getInt("questLimit");
+        String barColor = getConfig().getString("barColor");
+        QuestBar.barColor = barColor;
         ActiveQuests.setQuestLimit(questLimit);
     }
 
