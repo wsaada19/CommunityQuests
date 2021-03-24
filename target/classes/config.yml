@@ -20,12 +20,12 @@ Quests:
       experience: 100
       money: 1000 # You must have Vault and an Economy plugin installed for this to work
       items:
-       - material: DIAMOND_SWORD
-         amount: 1
-         displayName: "&bPowerful Diamond Sword"
-       - material: APPLE
-         amount: 12
-         displayName: "&capples"
+        - material: DIAMOND_SWORD
+          amount: 1
+          displayName: "&bPowerful Diamond Sword"
+        - material: APPLE
+          amount: 12
+          displayName: "&capples"
 
 
   GuiQuest:
