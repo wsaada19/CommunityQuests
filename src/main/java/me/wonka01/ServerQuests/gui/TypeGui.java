@@ -21,6 +21,10 @@ public class TypeGui extends BaseGui implements Listener, InventoryHolder {
     private final String COMPETITIVE = ChatColor.GREEN + "Competitive";
     private final String COOPERATIVE = ChatColor.GREEN + "Cooperative";
 
+    private final int COOP_SLOT = 12;
+    private final int COMP_SLOT = 14;
+    private final int BACK_SLOT = 18;
+
     private Inventory inventory;
     private QuestModel model;
 
@@ -30,9 +34,9 @@ public class TypeGui extends BaseGui implements Listener, InventoryHolder {
 
     @Override
     public void initializeItems() {
-        inventory.setItem(12, createGuiItem(Material.PLAYER_HEAD, COOPERATIVE));
-        inventory.setItem(14, createGuiItem(Material.DIAMOND_SWORD, COMPETITIVE));
-        inventory.setItem(18, createGuiItem(Material.ARROW, ChatColor.GREEN + "Go Back",
+        inventory.setItem(COOP_SLOT, createGuiItem(Material.PLAYER_HEAD, COOPERATIVE));
+        inventory.setItem(COMP_SLOT, createGuiItem(Material.DIAMOND_SWORD, COMPETITIVE));
+        inventory.setItem(BACK_SLOT, createGuiItem(Material.ARROW, ChatColor.GREEN + "Go Back",
                 ChatColor.GRAY + "Go back to the event list"));
     }
 
@@ -58,7 +62,7 @@ public class TypeGui extends BaseGui implements Listener, InventoryHolder {
             ActiveQuests.getActiveQuestsInstance().InitializeQuestListener(model, EventType.COLLAB);
         } else if (clickedItem.getItemMeta().getDisplayName().equalsIgnoreCase(COMPETITIVE)) {
             ActiveQuests.getActiveQuestsInstance().InitializeQuestListener(model, EventType.COMPETITIVE);
-        } else if (e.getRawSlot() == 8) {
+        } else if (e.getRawSlot() == BACK_SLOT) {
             player.closeInventory();
             JavaPlugin.getPlugin(ServerQuests.class).getStartGui().openInventory(player);
             return;

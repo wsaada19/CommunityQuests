@@ -24,7 +24,7 @@ permissions:
     default: true
   communityquests.showmessages:
     description: If true the player will receive a message when they contribute to the quest
-    default: true
+    default: false
   communityquests.bossbar.hide:
     description: The player will not be shown the boss bar by default
     default: false

@@ -40,8 +40,6 @@ public abstract class BaseGui {
 
         ItemStack clickedItem = e.getCurrentItem();
 
-        if (clickedItem == null || clickedItem.getType() == Material.AIR) return false;
-
-        return true;
+        return clickedItem != null && clickedItem.getType() != Material.AIR;
     }
 }

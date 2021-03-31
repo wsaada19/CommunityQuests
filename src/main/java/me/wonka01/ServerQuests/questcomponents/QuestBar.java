@@ -20,7 +20,7 @@ public class QuestBar {
     }
 
     public void updateBarProgress(double barRatio) {
-        bossBar.setProgress((1.0 - barRatio));
+        bossBar.setProgress(barRatio);
     }
 
     public void removeBossBar() {

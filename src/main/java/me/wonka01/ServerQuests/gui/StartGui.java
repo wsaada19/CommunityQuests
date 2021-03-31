@@ -27,7 +27,6 @@ public class StartGui extends BaseGui implements InventoryHolder, Listener {
     public StartGui(TypeGui typeGui) {
         inventory = Bukkit.createInventory(this, 27, "Begin Server Event");
         questLibrary = JavaPlugin.getPlugin(ServerQuests.class).getQuestLibrary();
-        ;
         this.typeGui = typeGui;
     }
 

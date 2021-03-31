@@ -100,8 +100,8 @@ public class QuestController {
     }
 
     private void broadcastVictoryMessage() {
-        String message = ChatColor.translateAlternateColorCodes('&', "&a&lQUEST COMPLETE &f(" + questData.getDisplayName() + "&f)\n");
-        String questInfo = ChatColor.translateAlternateColorCodes('&', "Congrats on completing the quest! Below you can see a list of the top contributors.");
+        String message = ChatColor.translateAlternateColorCodes('&', "&a&lQUEST COMPLETE &f(" + questData.getDisplayName() + "&f)");
+        String questInfo = ChatColor.translateAlternateColorCodes('&', "Congrats on completing the quest! Below you can see a list of the top players.");
         Bukkit.getServer().broadcastMessage(message);
         Bukkit.getServer().broadcastMessage(questInfo);
     }

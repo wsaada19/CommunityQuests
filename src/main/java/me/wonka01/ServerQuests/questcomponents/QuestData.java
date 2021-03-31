@@ -22,7 +22,7 @@ public class QuestData {
     }
 
     public double getPercentageComplete() {
-        return 1.0 - ((double) amountCompleted / (double) questGoal);
+        return ((double) amountCompleted / (double) questGoal);
     }
 
     public void addToQuestProgress(int amountToIncrease) {
@@ -48,6 +48,4 @@ public class QuestData {
     public String getQuestType() {
         return questType;
     }
-
-
 }
