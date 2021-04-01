@@ -9,6 +9,7 @@ import me.wonka01.ServerQuests.gui.*;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.BarManager;
 import me.wonka01.ServerQuests.questcomponents.QuestBar;
+import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -78,6 +79,8 @@ public class ServerQuests extends JavaPlugin {
     private void loadConfigurationLimits() {
         int questLimit = getConfig().getInt("questLimit");
         String barColor = getConfig().getString("barColor");
+        int leaderBoardLimit = getConfig().getInt("leaderBoardSize");
+        BasePlayerComponent.setLeaderBoardSize(leaderBoardLimit);
         QuestBar.barColor = barColor;
         ActiveQuests.setQuestLimit(questLimit);
     }

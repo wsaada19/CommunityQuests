@@ -16,6 +16,8 @@ import java.util.UUID;
 
 public class BasePlayerComponent {
 
+    private static int leaderBoardSize = 5;
+
     protected Map<UUID, PlayerData> playerMap;
     protected ArrayList<Reward> rewardsList;
 
@@ -42,10 +44,14 @@ public class BasePlayerComponent {
     }
 
     public void sendLeaderString() {
+        if(leaderBoardSize <= 0){
+            return;
+        }
+
         StringBuilder result = new StringBuilder(LanguageConfig.getConfig().getMessages().getTopContributorsTitle());
         int count = 1;
         for (UUID key : playerMap.keySet()) {
-            if (count == 6) {
+            if (count == leaderBoardSize + 1) {
                 break;
             }
 
@@ -101,5 +107,9 @@ public class BasePlayerComponent {
                 reward.giveRewardToPlayer(player, playerContributionRatio);
             }
         }
+    }
+
+    public static void setLeaderBoardSize(int size){
+        leaderBoardSize = size;
     }
 }
