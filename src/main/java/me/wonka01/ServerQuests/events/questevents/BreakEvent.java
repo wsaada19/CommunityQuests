@@ -34,7 +34,7 @@ public class BreakEvent extends QuestListener implements Listener {
 
         List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
         for (QuestController controller : controllers) {
-            for (String blockType : controller.getEventConstraints().getMaterialNames()) {
+            for (String blockType : controller.getQuestConstraints().getMaterialNames()) {
                 if (blockName.equalsIgnoreCase(blockType)) {
                     event.getBlock().setMetadata(BROKEN, meta);
                     updateQuest(controller, event.getPlayer(), 1);
