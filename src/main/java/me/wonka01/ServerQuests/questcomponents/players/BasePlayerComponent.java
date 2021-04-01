@@ -13,17 +13,17 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
-public class PlayerComponent {
+public class BasePlayerComponent {
 
     protected Map<UUID, PlayerData> playerMap;
     protected ArrayList<Reward> rewardsList;
 
-    public PlayerComponent(ArrayList<Reward> rewardsList) {
+    public BasePlayerComponent(ArrayList<Reward> rewardsList) {
         this.rewardsList = rewardsList;
         this.playerMap = new TreeMap<UUID, PlayerData>();
     }
 
-    public PlayerComponent(ArrayList<Reward> rewardsList, Map<UUID, PlayerData> map) {
+    public BasePlayerComponent(ArrayList<Reward> rewardsList, Map<UUID, PlayerData> map) {
         this.rewardsList = rewardsList;
         this.playerMap = map;
     }

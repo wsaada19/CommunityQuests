@@ -20,7 +20,7 @@ public class GuiEvent extends QuestListener {
         for (QuestController controller : controllers) {
 
             // Add logic to check the item
-            List<String> materials = controller.getQuestConstraints().getMaterialNames();
+            List<String> materials = controller.getEventConstraints().getMaterialNames();
             if (materials.isEmpty() || containsMaterial(itemsToAdd.getType().toString(), materials)) {
                 updateQuest(controller, player, itemsToAdd.getAmount());
                 isItemUsed = true;
