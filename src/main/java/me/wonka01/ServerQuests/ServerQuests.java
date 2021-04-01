@@ -4,15 +4,12 @@ import me.wonka01.ServerQuests.commands.ServerQuestsCommands;
 import me.wonka01.ServerQuests.configuration.JsonQuestSave;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.events.questevents.*;
-import me.wonka01.ServerQuests.gui.DonateQuestGui;
-import me.wonka01.ServerQuests.gui.StartGui;
-import me.wonka01.ServerQuests.gui.StopGui;
-import me.wonka01.ServerQuests.gui.TypeGui;
+import me.wonka01.ServerQuests.gui.*;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.BarManager;
+import me.wonka01.ServerQuests.questcomponents.QuestBar;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,6 +22,7 @@ public class ServerQuests extends JavaPlugin {
     private StartGui startGui;
     private StopGui stopGui;
     private DonateQuestGui questGui;
+    private ViewGui viewGui;
 
     private ActiveQuests activeQuests;
     private JsonQuestSave jsonSave;
@@ -36,12 +34,12 @@ public class ServerQuests extends JavaPlugin {
         commandExecutor.setup();
 
         loadConfig();
-        loadQuestLibraryFromConfig();
         loadConfigurationLimits();
+        loadQuestLibraryFromConfig();
         loadSaveData();
 
         if (!setupEconomy()) {
-            getLogger().info(ChatColor.RED + " Warning! No economy plugin found, a cash reward can not be added to a quest.");
+            getLogger().info("Warning! No economy plugin found, a cash reward can not be added to a quest.");
         }
 
         loadGuis();
@@ -77,6 +75,8 @@ public class ServerQuests extends JavaPlugin {
 
     private void loadConfigurationLimits() {
         int questLimit = getConfig().getInt("questLimit");
+        String barColor = getConfig().getString("barColor");
+        QuestBar.barColor = barColor;
         ActiveQuests.setQuestLimit(questLimit);
     }
 
@@ -84,6 +84,7 @@ public class ServerQuests extends JavaPlugin {
         TypeGui typeGui = new TypeGui();
         typeGui.initializeItems();
         getServer().getPluginManager().registerEvents(typeGui, this);
+        viewGui = new ViewGui();
         startGui = new StartGui(typeGui);
         startGui.initializeItems();
         stopGui = new StopGui();
@@ -115,6 +116,8 @@ public class ServerQuests extends JavaPlugin {
         return questGui;
     }
 
+    public ViewGui getViewGui() {return viewGui;}
+
     private boolean setupEconomy() {
         try {
             Class.forName("net.milkbowl.vault.economy.Economy");
@@ -133,6 +136,7 @@ public class ServerQuests extends JavaPlugin {
         getServer().getPluginManager().registerEvents(questGui, this);
         getServer().getPluginManager().registerEvents(startGui, this);
         getServer().getPluginManager().registerEvents(stopGui, this);
+        getServer().getPluginManager().registerEvents(viewGui, this);
         getServer().getPluginManager().registerEvents(new BarManager(), this);
         getServer().getPluginManager().registerEvents(new BreakEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new CatchFishEvent(activeQuests), this);

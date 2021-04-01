@@ -1,68 +1,91 @@
 # Number of quests that can be in progress at a time
 questLimit: 5
 
+# MUST BE IN ALL CAPS!
+# See color options here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html
+barColor: "GREEN"
+
 Quests:
+
   TestQuest: # Quest identifier can be whatever you'd like as long as it's unique
-    displayName: Zombie and Pig Slayer
+    displayName: "&c&lZombie and Pig Slayer"
     type: mobkill # required, see type list for available types
     entities: # This is an optional parameter, if it doesn't exist the quest will count all mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
       - Zombie
       - Pig
       - Pig_Zombie
-    description: Kill 5 zombies before time runs out!
+    description: "&fKill 5 zombies as fast as you can!"
     goal: 5 # The goal is the amount of the task to be completed
     rewards:
       experience: 100
       money: 1000 # You must have Vault and an Economy plugin installed for this to work
-      diamondsword:
-        material: DIAMOND_SWORD
-        amount: 1
-      apples:
-        material: APPLE
-        amount: 12
+      items:
+        - material: DIAMOND_SWORD
+          amount: 1
+          displayName: "&bPowerful Diamond Sword"
+        - material: APPLE
+          amount: 12
+          displayName: "&capples"
+
+
   GuiQuest:
-    displayName: Bring us potatoes!
-    type: donate # required, see type list for available types
-    materials: # This is an optional parameter, if it doesn't exist the quest will count all mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
+    displayName: "&l&aGather 10 Potatoes"
+    type: donate
+    materials:
       - POTATO
-    description: Deliver 10 potatoes!
-    goal: 10 # The goal is the amount of the task to be completed
+      - APPLE
+    description: "&fDeliver 10 potatoes using the command /cq donate!"
+    goal: 10
     rewards:
       experience: 100
       money: 1000 # You must have Vault and an Economy plugin installed for this to work
-      diamondsword:
-        material: DIAMOND_SWORD
-        amount: 1
-        displayName: "&bPowerful Diamond Sword"
-      apples:
-        material: APPLE
-        amount: 12
-        displayName: "&capples"
-  MiningTest:
+      commands:
+        - give player stick 15 # player will be replaced with the name of the player receiving the reward.
+      items:
+        - material: DIAMOND_SWORD
+          amount: 1
+          displayName: "&bPowerful Diamond Sword"
+        - material: APPLE
+          amount: 12
+          displayName: "&capples"
+
+  DiamondHunter:
+    displayName: "&b&lDiamond Hunter"
+    type: blockbreak
+    materials:
+      - DIAMOND_ORE
+    description: "&fCollect 100 diamonds!"
+    goal: 100
+    rewards:
+      money: 100.0
+
+  WolfQuest:
     displayName: Wolf Lover
     type: tame
     description: Make some friends
     goal: 5
     rewards:
       money: 100.0
-  Milking:
-    displayName: Farming Challenge
-    type: milkcow
+
+  Fishing:
+    displayName: Catch Fish
+    type: catchfish
     description: Get some milk
     goal: 3
     rewards:
       experience: 100
+
   SheepShear:
     displayName: Shear Sheep
     type: shear
     description: Let's get that wool baby
-    goal: 5
+    goal: 1000
     rewards:
       experience: 100
-      money: 104
+
   PlantTree:
     displayName: Save the Planet
-    type: blockPlace
+    type: blockplace
     description: Place 10 trees to save the world!
     goal: 10
     materials:

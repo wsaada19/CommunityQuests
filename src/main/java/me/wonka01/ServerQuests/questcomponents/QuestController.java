@@ -1,6 +1,7 @@
 package me.wonka01.ServerQuests.questcomponents;
 
 import me.wonka01.ServerQuests.enums.ObjectiveType;
+import me.wonka01.ServerQuests.enums.PermissionConstants;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -47,7 +48,6 @@ public class QuestController {
         playerComponent.sendLeaderString();
         playerComponent.giveOutRewards(questData.getQuestGoal());
         questBar.removeBossBar();
-        BarManager.closeBar(questId);
         ActiveQuests.getActiveQuestsInstance().endQuest(questId);
     }
 
@@ -71,7 +71,7 @@ public class QuestController {
         return eventConstraints;
     }
 
-    public ObjectiveType getListenerType() {
+    public ObjectiveType getObjectiveType() {
         return objective;
     }
 
@@ -93,14 +93,23 @@ public class QuestController {
     }
 
     private void sendPlayerMessage(Player player) {
-        if (player.hasPermission("serverquests.showmessages")) {
-            String message = ChatColor.translateAlternateColorCodes('&', "&a+1 for the quest &e " + getQuestData().getDisplayName());
+        if (player.hasPermission(PermissionConstants.SHOW_MESSAGES)) {
+            String message = ChatColor.translateAlternateColorCodes('&', "&a+1 for the quest " + getQuestData().getDisplayName());
             player.sendMessage(message);
         }
     }
 
-    private void broadcastVictoryMessage() {
-        String message = ChatColor.translateAlternateColorCodes('&', "&a&lQUEST COMPLETE &f(" + "&e" + questData.getDisplayName() + "&f)\n\n");
+    public void broadcastStartMessage() {
+        String message = ChatColor.translateAlternateColorCodes('&', "&a&lA new server-wide quest has been started &f- " + questData.getDisplayName());
+        String questInfo = ChatColor.translateAlternateColorCodes('&', questData.getDescription());
         Bukkit.getServer().broadcastMessage(message);
+        Bukkit.getServer().broadcastMessage(questInfo);
+    }
+
+    private void broadcastVictoryMessage() {
+        String message = ChatColor.translateAlternateColorCodes('&', "&a&lQUEST COMPLETE &f(" + questData.getDisplayName() + "&f)");
+        String questInfo = ChatColor.translateAlternateColorCodes('&', "Congrats on completing the quest! Below you can see a list of the top players.");
+        Bukkit.getServer().broadcastMessage(message);
+        Bukkit.getServer().broadcastMessage(questInfo);
     }
 }

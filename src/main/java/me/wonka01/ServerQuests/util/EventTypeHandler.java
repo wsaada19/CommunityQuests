@@ -41,7 +41,7 @@ public class EventTypeHandler {
         QuestData data = getQuestData(questModel, amountComplete, playerComponent);
 
         QuestBar bar = new QuestBar(questModel.getDisplayName());
-        bar.updateBarProgress((double) 1 - (amountComplete / (double) questModel.getQuestGoal()));
+        bar.updateBarProgress(((double) amountComplete / (double) questModel.getQuestGoal()));
         EventConstraints eventConstraints = new EventConstraints(questModel.getItemNames(), questModel.getMobNames());
 
         return new QuestController(data, bar, playerComponent, eventConstraints, questModel.getObjective());

@@ -30,12 +30,17 @@ public class ActiveQuests {
         return activeQuestsInstance;
     }
 
-    // TODO Test this change
     public void endQuest(UUID questId) {
+        BarManager.closeBar(questId);
+        QuestController controller = getQuestById(questId);
+        controller.getQuestBar().removeBossBar();
         activeQuestsList.remove(getQuestById(questId));
+        if (activeQuestsList.size() > 1) {
+            BarManager.startShowingPlayersBar(activeQuestsList.get(0).getQuestId());
+        }
     }
 
-    public boolean InitializeQuestListener(QuestModel questModel, EventType eventType) {
+    public boolean beginNewQuest(QuestModel questModel, EventType eventType) {
         if (activeQuestsList.size() >= questLimit) {
             return false;
         } else {
@@ -43,12 +48,13 @@ public class ActiveQuests {
             QuestController controller = typeHandler.createQuestController(questModel);
 
             activeQuestsList.add(controller);
+            controller.broadcastStartMessage();
             BarManager.startShowingPlayersBar(controller.getQuestId()); // doesn't show if there are two active quests
             return true;
         }
     }
 
-    public void startQuestWithController(QuestController controller) {
+    public void beginQuestFromSave(QuestController controller) {
         activeQuestsList.add(controller);
         BarManager.startShowingPlayersBar(controller.getQuestId()); // doesn't show if there are two active quests
     }

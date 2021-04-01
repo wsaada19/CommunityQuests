@@ -20,23 +20,23 @@ public class TypeGui extends BaseGui implements Listener, InventoryHolder {
 
     private final String COMPETITIVE = ChatColor.GREEN + "Competitive";
     private final String COOPERATIVE = ChatColor.GREEN + "Cooperative";
-    private final String COMP_DESCRIPTION = ChatColor.WHITE + "See who can finish first! All players on the server will compete to finish the goal and fight for the rewards.";
-    private final String COOP_DESCRIPTION = ChatColor.WHITE + "All players on the server will work together to achieve the goal and share the rewards.";
+
+    private final int COOP_SLOT = 12;
+    private final int COMP_SLOT = 14;
+    private final int BACK_SLOT = 18;
 
     private Inventory inventory;
     private QuestModel model;
 
     public TypeGui() {
-        inventory = Bukkit.createInventory(this, 27, ChatColor.WHITE + "" + ChatColor.BOLD + "Select an Event Type");
+        inventory = Bukkit.createInventory(this, 27, "Select an Event Type");
     }
 
     @Override
     public void initializeItems() {
-        inventory.setItem(12, createGuiItem(Material.PLAYER_HEAD, COOPERATIVE,
-                COOP_DESCRIPTION));
-        inventory.setItem(13, createGuiItem(Material.DIAMOND_SWORD, COMPETITIVE,
-                COMP_DESCRIPTION));
-        inventory.setItem(8, createGuiItem(Material.ARROW, ChatColor.GREEN + "Go Back",
+        inventory.setItem(COOP_SLOT, createGuiItem(Material.PLAYER_HEAD, COOPERATIVE));
+        inventory.setItem(COMP_SLOT, createGuiItem(Material.DIAMOND_SWORD, COMPETITIVE));
+        inventory.setItem(BACK_SLOT, createGuiItem(Material.ARROW, ChatColor.GREEN + "Go Back",
                 ChatColor.GRAY + "Go back to the event list"));
     }
 
@@ -59,10 +59,10 @@ public class TypeGui extends BaseGui implements Listener, InventoryHolder {
         ItemStack clickedItem = e.getCurrentItem();
 
         if (clickedItem.getItemMeta().getDisplayName().equalsIgnoreCase(COOPERATIVE)) {
-            ActiveQuests.getActiveQuestsInstance().InitializeQuestListener(model, EventType.COLLAB);
+            ActiveQuests.getActiveQuestsInstance().beginNewQuest(model, EventType.COLLAB);
         } else if (clickedItem.getItemMeta().getDisplayName().equalsIgnoreCase(COMPETITIVE)) {
-            ActiveQuests.getActiveQuestsInstance().InitializeQuestListener(model, EventType.COMPETITIVE);
-        } else if (e.getRawSlot() == 8) {
+            ActiveQuests.getActiveQuestsInstance().beginNewQuest(model, EventType.COMPETITIVE);
+        } else if (e.getRawSlot() == BACK_SLOT) {
             player.closeInventory();
             JavaPlugin.getPlugin(ServerQuests.class).getStartGui().openInventory(player);
             return;

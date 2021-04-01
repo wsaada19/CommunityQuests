@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.questcomponents;
 
+import me.wonka01.ServerQuests.enums.PermissionConstants;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,8 +13,7 @@ import java.util.UUID;
 // This class smells pretty bad
 public class BarManager implements Listener {
 
-    private static final String HIDE_BAR_PERMISSION = "serverevents.bossbar.hide";
-    private static UUID[] questsToShow = new UUID[2];
+    private static UUID[] questsToShow = new UUID[1];
 
     public static void initializeDisplayBar() {
         ActiveQuests quests = ActiveQuests.getActiveQuestsInstance();
@@ -66,6 +66,9 @@ public class BarManager implements Listener {
     }
 
     public static void startShowingPlayerBar(Player player) {
+        if (player.getPlayer().hasPermission(PermissionConstants.HIDE_BAR)) {
+            return;
+        }
         for (UUID id : questsToShow) {
             QuestController controller = ActiveQuests.getActiveQuestsInstance().getQuestById(id);
             if (controller != null) {
@@ -78,24 +81,16 @@ public class BarManager implements Listener {
     // are active, this needs to get called before the object is destroyed
     public static void startShowingPlayersBar(UUID questId) {
         QuestController controller = ActiveQuests.getActiveQuestsInstance().getQuestById(questId);
-        if (controller == null) {
+        if (controller == null || !isSlotFree()) {
             return;
         }
 
-        if (isSlotFree()) {
-            int openSlot = 0;
-            for (int i = 0; i < questsToShow.length; i++) {
-                if (questsToShow[i] == null) {
-                    openSlot = i;
+        for (int i = 0; i < questsToShow.length; i++) {
+            if (questsToShow[i] == null) {
+                questsToShow[i] = questId;
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    startShowingPlayerBar(player);
                 }
-            }
-
-            questsToShow[openSlot] = controller.getQuestId();
-            for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-                if (player.getPlayer().hasPermission(HIDE_BAR_PERMISSION)) {
-                    return;
-                }
-                controller.getQuestBar().showBossBar(player);
             }
         }
     }
@@ -111,15 +106,12 @@ public class BarManager implements Listener {
 
     @EventHandler
     public void onPlayerLogin(PlayerJoinEvent joinEvent) {
-        if (joinEvent.getPlayer().hasPermission(HIDE_BAR_PERMISSION)) {
-            return;
-        }
         startShowingPlayerBar(joinEvent.getPlayer());
     }
 
     @EventHandler
     public void onPlayerLogout(PlayerQuitEvent quitEvent) {
-        if (quitEvent.getPlayer().hasPermission(HIDE_BAR_PERMISSION)) {
+        if (quitEvent.getPlayer().hasPermission(PermissionConstants.HIDE_BAR)) {
             return;
         }
         stopShowingPlayerBar(quitEvent.getPlayer());

@@ -26,26 +26,22 @@ public class ServerQuestsCommands implements CommandExecutor {
         subCommands.put("view", new ViewQuestsCommand());
         subCommands.put("reload", new ReloadCommand());
         subCommands.put("donate", new DonateQuestCommand());
+        subCommands.put("help", new HelpCommand());
     }
 
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
-
+        String invalidMessage = "&cInvalid command; available commands include /cq [start, stop, togglebar, view, reload, donate]";
         if (!(commandSender instanceof Player)) {
             return false;
         }
         Player player = (Player) commandSender;
-        if (args.length < 1) {
-            player.sendMessage(ChatColor.RED + "[ServerQuests] Invalid command");
-            return false;
-        }
-        String subCommandPrefix = args[0];
 
-        if (!subCommands.containsKey(subCommandPrefix)) {
-            player.sendMessage(ChatColor.RED + "[ServerQuests] Invalid command");
+        if (args.length < 1 || !subCommands.containsKey(args[0])) {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', invalidMessage));
             return false;
         }
 
-        subCommands.get(subCommandPrefix).onCommand(player, args);
+        subCommands.get(args[0]).onCommand(player, args);
         return true;
     }
 }

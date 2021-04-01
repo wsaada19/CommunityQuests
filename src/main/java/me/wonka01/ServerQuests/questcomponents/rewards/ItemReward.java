@@ -23,11 +23,15 @@ public class ItemReward implements Reward {
     }
 
     public void giveRewardToPlayer(OfflinePlayer player, double rewardPercentage) {
-        ItemStack itemStack = new ItemStack(Material.getMaterial(materialName), amount);
-        if (player.isOnline()) {
-            Player realPlayer = (Player) player;
-            realPlayer.getInventory().addItem(itemStack);
-            realPlayer.sendMessage(ChatColor.translateAlternateColorCodes('&', "- " + amount + " " + displayName));
+        Material material = Material.getMaterial(materialName);
+
+        if (material != null) {
+            ItemStack itemStack = new ItemStack(material, amount);
+            if (player.isOnline()) {
+                Player realPlayer = (Player) player;
+                realPlayer.getInventory().addItem(itemStack);
+                realPlayer.sendMessage(ChatColor.translateAlternateColorCodes('&', "- " + amount + " " + displayName));
+            }
         }
     }
 }

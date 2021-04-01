@@ -21,7 +21,7 @@ public class DonateQuestGui extends BaseGui implements InventoryHolder, Listener
     private GuiEvent eventHandler;
 
     public DonateQuestGui() {
-        inventory = Bukkit.createInventory(this, 45, ChatColor.GREEN + "Place item in the center slot!");
+        inventory = Bukkit.createInventory(this, 45, "Place item in the center slot!");
         initializeItems();
         eventHandler = new GuiEvent(ActiveQuests.getActiveQuestsInstance());
     }

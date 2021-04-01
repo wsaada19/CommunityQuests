@@ -10,21 +10,21 @@ commands:
     description: Commands for Community Quests Plugin
 
 permissions:
-  serverevents.start:
+  communityquests.start:
     description: The ability to start server events
     default: op
-  serverevents.stop:
+  communityquests.stop:
     description: The ability to stop an event
     default: op
-  serverevents.reload:
+  communityquests.reload:
     description: Can reload the plugins configurations
     default: op
-  serverevents.view:
+  communityquests.view:
     description: Can view all active quests for the server
     default: true
-  serverevents.showmessages:
+  communityquests.showmessages:
     description: If true the player will receive a message when they contribute to the quest
-    default: true
-  serverevents.bossbar.hide:
+    default: false
+  communityquests.bossbar.hide:
     description: The player will not be shown the boss bar by default
     default: false

@@ -26,7 +26,7 @@ public abstract class QuestListener {
         List<QuestController> controllers = new ArrayList<QuestController>();
 
         for (QuestController controller : activeQuests.getActiveQuestsList()) {
-            if (controller.getListenerType().equals(type)) {
+            if (controller.getObjectiveType() == type) {
                 controllers.add(controller);
             }
         }
