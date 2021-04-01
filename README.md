@@ -11,7 +11,7 @@ The Community Quests plugin allows server owners and administers to create serve
 working together or working against each other. 
 
 ## Installation
-The jar for this plugin can be downloaded here [Spigot Link]. Add the jar file to the plugin folder on your spigot server. See the guide below to configure quests to use on your server. There are no hard dependencies, however, if you have vault and 
+The jar for this plugin can be downloaded on [Spigot](https://www.spigotmc.org/resources/community-quests-13-0-16-5-%E2%AD%90run-server-wide-quests-%E2%AD%90.90798/). Add the jar file to the plugin folder on your spigot server. See the guide below to configure quests to use on your server. There are no hard dependencies, however, if you have vault and 
 an economy plugin installed you can give players money as a reward for completing quests.
 
 ## Commands 
