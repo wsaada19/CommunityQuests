@@ -1,14 +1,14 @@
 package me.wonka01.ServerQuests.questcomponents;
 
-import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
+import me.wonka01.ServerQuests.questcomponents.players.PlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 
 public class CompetitiveQuestData extends QuestData {
 
-    private BasePlayerComponent playersReference;
+    private PlayerComponent playersReference;
 
     public CompetitiveQuestData(int start, String displayName, String description,
-                                BasePlayerComponent playersReference, String questType, int amountComplete) {
+                                PlayerComponent playersReference, String questType, int amountComplete) {
         super(start, displayName, description, questType, amountComplete);
         this.playersReference = playersReference;
     }
