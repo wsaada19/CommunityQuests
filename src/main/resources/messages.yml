@@ -6,3 +6,19 @@ noActiveDonateQuests: "&cThere are no active quests that require you to donate i
 invalidQuestName: "&cThe quest name you entered does not exist"
 invalidQuestType: "&cYou must enter a quest type; coop or comp"
 noActiveQuests: "&cThere are currently no active quests running on the server."
+
+# In the below message the 'questName' value is replaced by the display name set by the quest in the configuration
+questCompleteMessage: "&a&lQUEST COMPLETE &f( questName &f) \n Congrats on completing the quest! Below you can see a list of the top players and the rewards you received if you qualify."
+
+# Message will be broadcast to the server when a quest is completed (questName is replaced with the name of the quest
+# AND questDescription is replaced by the specified quest description)
+questStartMessage: "&a&lA new server-wide quest has been started &f- questName \n questDescription"
+
+# message sent to player when they contribute if communityquests.showmessages permission is set to true.
+contributionMessage: "&a+1 for the quest questName"
+
+# This message will proceed the list of top players
+topContributorsTitle: "&e&lTop Contributors&r"
+
+# rewards title - show to player before receiving their rewards
+rewardsTitle: "&aRewards"

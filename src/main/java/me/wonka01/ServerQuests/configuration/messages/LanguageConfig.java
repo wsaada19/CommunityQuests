@@ -53,8 +53,15 @@ public class LanguageConfig {
         String invalidQuestType = yamlConfiguration.getString("invalidQuestType");
         String noActiveQuests = yamlConfiguration.getString("noActiveQuests");
 
+        String questComplete = yamlConfiguration.getString("questCompleteMessage");
+        String questStart = yamlConfiguration.getString("questStartMessage");
+        String contributionMessage = yamlConfiguration.getString("contributionMessage");
+        String topContributorsTitle = yamlConfiguration.getString("topContributorsTitle");
+        String rewardsTitle = yamlConfiguration.getString("rewardsTitle");
+
         messages = new Messages(noPermission, invalidCommand, reloadCommand, helpMessage,
-                noDonateQuests, invalidQuestName, invalidQuestType, noActiveQuests);
+                noDonateQuests, invalidQuestName, invalidQuestType, noActiveQuests, questComplete,
+                questStart, contributionMessage, topContributorsTitle, rewardsTitle);
         config = this;
     }
 }

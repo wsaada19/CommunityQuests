@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.questcomponents.players;
 
+import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -41,7 +42,7 @@ public class BasePlayerComponent {
     }
 
     public void sendLeaderString() {
-        StringBuilder result = new StringBuilder("&e&lTop Contributors&r");
+        StringBuilder result = new StringBuilder(LanguageConfig.getConfig().getMessages().getTopContributorsTitle());
         int count = 1;
         for (UUID key : playerMap.keySet()) {
             if (count == 6) {
@@ -92,7 +93,7 @@ public class BasePlayerComponent {
             if (player.isOnline()) {
                 Player onlinePlayer = (Player) player;
                 if (rewardsList.size() > 0) {
-                    onlinePlayer.sendMessage(ChatColor.GREEN + "Rewards");
+                    onlinePlayer.sendMessage(LanguageConfig.getConfig().getMessages().getRewardsTitle());
                 }
             }
 
