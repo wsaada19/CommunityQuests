@@ -46,7 +46,7 @@ public class StartCommand extends SubCommand {
             return;
         }
 
-        boolean questCreated = ActiveQuests.getActiveQuestsInstance().InitializeQuestListener(questModel, eventType);
+        boolean questCreated = ActiveQuests.getActiveQuestsInstance().beginNewQuest(questModel, eventType);
         if (!questCreated) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cThe quest could not be created, the number of active quests has reached its limit"));
         }

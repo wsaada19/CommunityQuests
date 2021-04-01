@@ -99,6 +99,13 @@ public class QuestController {
         }
     }
 
+    public void broadcastStartMessage() {
+        String message = ChatColor.translateAlternateColorCodes('&', "&a&lA new server-wide quest has been started &f- " + questData.getDisplayName());
+        String questInfo = ChatColor.translateAlternateColorCodes('&', questData.getDescription());
+        Bukkit.getServer().broadcastMessage(message);
+        Bukkit.getServer().broadcastMessage(questInfo);
+    }
+
     private void broadcastVictoryMessage() {
         String message = ChatColor.translateAlternateColorCodes('&', "&a&lQUEST COMPLETE &f(" + questData.getDisplayName() + "&f)");
         String questInfo = ChatColor.translateAlternateColorCodes('&', "Congrats on completing the quest! Below you can see a list of the top players.");

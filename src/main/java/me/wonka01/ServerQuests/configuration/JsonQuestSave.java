@@ -112,7 +112,7 @@ public class JsonQuestSave {
                     break;
                 }
                 QuestController controller = handler.createControllerFromSave(model, playerMap, (int) amountComplete);
-                activeQuests.startQuestWithController(controller);
+                activeQuests.beginQuestFromSave(controller);
             }
 
         } catch (IOException e) {

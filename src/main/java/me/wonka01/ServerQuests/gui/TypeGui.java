@@ -59,9 +59,9 @@ public class TypeGui extends BaseGui implements Listener, InventoryHolder {
         ItemStack clickedItem = e.getCurrentItem();
 
         if (clickedItem.getItemMeta().getDisplayName().equalsIgnoreCase(COOPERATIVE)) {
-            ActiveQuests.getActiveQuestsInstance().InitializeQuestListener(model, EventType.COLLAB);
+            ActiveQuests.getActiveQuestsInstance().beginNewQuest(model, EventType.COLLAB);
         } else if (clickedItem.getItemMeta().getDisplayName().equalsIgnoreCase(COMPETITIVE)) {
-            ActiveQuests.getActiveQuestsInstance().InitializeQuestListener(model, EventType.COMPETITIVE);
+            ActiveQuests.getActiveQuestsInstance().beginNewQuest(model, EventType.COMPETITIVE);
         } else if (e.getRawSlot() == BACK_SLOT) {
             player.closeInventory();
             JavaPlugin.getPlugin(ServerQuests.class).getStartGui().openInventory(player);
