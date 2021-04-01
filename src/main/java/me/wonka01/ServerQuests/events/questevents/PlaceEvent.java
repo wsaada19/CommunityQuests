@@ -34,7 +34,7 @@ public class PlaceEvent extends QuestListener implements Listener {
 
         List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
         for (QuestController controller : controllers) {
-            List<String> materials = controller.getQuestConstraints().getMaterialNames();
+            List<String> materials = controller.getEventConstraints().getMaterialNames();
             if (materials.isEmpty() || containsMaterial(block.getType().toString(), materials)) {
                 updateQuest(controller, event.getPlayer(), 1);
                 block.setMetadata(PLACED, meta);

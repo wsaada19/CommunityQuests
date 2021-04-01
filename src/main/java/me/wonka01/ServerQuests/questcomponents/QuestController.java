@@ -2,7 +2,7 @@ package me.wonka01.ServerQuests.questcomponents;
 
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.enums.PermissionConstants;
-import me.wonka01.ServerQuests.questcomponents.players.PlayerComponent;
+import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -13,19 +13,19 @@ public class QuestController {
 
     private QuestBar questBar;
     private QuestData questData;
-    private PlayerComponent playerComponent;
-    private QuestConstraints questConstraints;
+    private BasePlayerComponent playerComponent;
+    private EventConstraints eventConstraints;
     private UUID questId;
     private ObjectiveType objective;
 
     public QuestController(QuestData questData, QuestBar questBar,
-                           PlayerComponent playerComponent, QuestConstraints questConstraints,
+                           BasePlayerComponent playerComponent, EventConstraints eventConstraints,
                            ObjectiveType objective) {
         this.questData = questData;
         this.questBar = questBar;
         this.playerComponent = playerComponent;
         questId = UUID.randomUUID();
-        this.questConstraints = questConstraints;
+        this.eventConstraints = eventConstraints;
         this.objective = objective;
     }
 
@@ -63,12 +63,12 @@ public class QuestController {
         return questData;
     }
 
-    public PlayerComponent getPlayerComponent() {
+    public BasePlayerComponent getPlayerComponent() {
         return playerComponent;
     }
 
-    public QuestConstraints getQuestConstraints() {
-        return questConstraints;
+    public EventConstraints getEventConstraints() {
+        return eventConstraints;
     }
 
     public ObjectiveType getObjectiveType() {
