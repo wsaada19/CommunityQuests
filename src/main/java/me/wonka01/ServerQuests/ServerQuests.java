@@ -3,6 +3,7 @@ package me.wonka01.ServerQuests;
 import me.wonka01.ServerQuests.commands.ServerQuestsCommands;
 import me.wonka01.ServerQuests.configuration.JsonQuestSave;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
+import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.events.questevents.*;
 import me.wonka01.ServerQuests.gui.*;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
@@ -37,6 +38,7 @@ public class ServerQuests extends JavaPlugin {
         loadConfigurationLimits();
         loadQuestLibraryFromConfig();
         loadSaveData();
+        LanguageConfig.getConfig().setUpLanguageConfig();
 
         if (!setupEconomy()) {
             getLogger().info("Warning! No economy plugin found, a cash reward can not be added to a quest.");
@@ -98,6 +100,7 @@ public class ServerQuests extends JavaPlugin {
         ConfigurationSection serverQuestSection = getConfig().getConfigurationSection("Quests");
         questLibrary = new QuestLibrary();
         questLibrary.loadQuestConfiguration(serverQuestSection);
+        LanguageConfig.getConfig().setUpLanguageConfig();
     }
 
     public QuestLibrary getQuestLibrary() {

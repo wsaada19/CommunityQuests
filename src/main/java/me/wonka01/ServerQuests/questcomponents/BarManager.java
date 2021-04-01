@@ -22,7 +22,7 @@ public class BarManager implements Listener {
         for (QuestController quest : quests.getActiveQuestsList()) {
             questsToShow[questsIndex] = quest.getQuestId();
             questsIndex++;
-            if (questsIndex > 0) {
+            if (questsIndex >= questsToShow.length) {
                 break;
             }
         }
