@@ -1,6 +1,7 @@
 package me.wonka01.ServerQuests.commands;
 
 import me.wonka01.ServerQuests.ServerQuests;
+import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -30,14 +31,13 @@ public class CommunityQuestsCommands implements CommandExecutor {
     }
 
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
-        String invalidMessage = "&cInvalid command; available commands include /cq [start, stop, togglebar, view, reload, donate]";
         if (!(commandSender instanceof Player)) {
             return false;
         }
         Player player = (Player) commandSender;
 
         if (args.length < 1 || !subCommands.containsKey(args[0])) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', invalidMessage));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getInvalidCommand()));
             return false;
         }
 

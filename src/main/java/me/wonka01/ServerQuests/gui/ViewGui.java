@@ -2,6 +2,7 @@ package me.wonka01.ServerQuests.gui;
 
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
+import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -61,18 +62,26 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
     public void createItemStackForComp(QuestController controller, int index, Player player) {
 
         int goal = controller.getQuestData().getQuestGoal();
-
+        ItemStack item;
         String leaders = ChatColor.GRAY + "Leaders";
-        int topPlayerAmount = controller.getPlayerComponent().getTopPlayerData().getAmountContributed();
-        String topPlayerName = controller.getPlayerComponent().getTopPlayerData().getDisplayName();
-
-        ItemStack item = createGuiItem(Material.DIAMOND,
-                ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDisplayName()),
-                ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDescription()),
-                "",
-                leaders,
-                ChatColor.GRAY + topPlayerName + ": " + ChatColor.GREEN + topPlayerAmount + "/" + goal,
-                getPlayerProgress(controller, player));
+        PlayerData topPlayer = controller.getPlayerComponent().getTopPlayerData();
+        if(topPlayer == null) {
+            item = createGuiItem(Material.DIAMOND,
+                    ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDisplayName()),
+                    ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDescription()),
+                    "",
+                    leaders,
+                    ChatColor.GRAY + "none",
+                    getPlayerProgress(controller, player));
+        } else {
+            item = createGuiItem(Material.DIAMOND,
+                    ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDisplayName()),
+                    ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDescription()),
+                    "",
+                    leaders,
+                    ChatColor.GRAY + topPlayer.getDisplayName() + ": " + ChatColor.GREEN + topPlayer.getAmountContributed() + "/" + goal,
+                    getPlayerProgress(controller, player));
+        }
 
         inventory.setItem(index, item);
     }
