@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 
-public class ServerQuestsCommands implements CommandExecutor {
+public class CommunityQuestsCommands implements CommandExecutor {
 
     private HashMap<String, SubCommand> subCommands;
 
