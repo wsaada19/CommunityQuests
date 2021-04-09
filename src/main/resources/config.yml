@@ -1,6 +1,10 @@
 # Number of quests that can be in progress at a time
 questLimit: 5
 
+# When a quest is completed a leader board message is broadcast. Chose the maximum number of players to be displayed.
+# If this is set to 0 then the leader board message will be omitted.
+leaderBoardSize: 5
+
 # MUST BE IN ALL CAPS!
 # See color options here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html
 barColor: "GREEN"
@@ -70,7 +74,7 @@ Quests:
   Fishing:
     displayName: Catch Fish
     type: catchfish
-    description: Get some milk
+    description: Catch 3 fish!
     goal: 3
     rewards:
       experience: 100
@@ -89,4 +93,4 @@ Quests:
     description: Place 10 trees to save the world!
     goal: 10
     materials:
-      - Sapling
+      - OAK_SAPLING

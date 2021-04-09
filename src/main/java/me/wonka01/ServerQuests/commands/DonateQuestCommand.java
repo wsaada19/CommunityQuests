@@ -1,6 +1,8 @@
 package me.wonka01.ServerQuests.commands;
 
 import me.wonka01.ServerQuests.ServerQuests;
+import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
+import me.wonka01.ServerQuests.configuration.messages.Messages;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.enums.PermissionConstants;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
@@ -14,9 +16,9 @@ import java.util.List;
 public class DonateQuestCommand extends SubCommand {
     @Override
     public void onCommand(Player player, String[] args) {
-
+        Messages messages = LanguageConfig.getConfig().getMessages();
         if (!player.hasPermission(PermissionConstants.VIEW_QUEST)) {
-            player.sendMessage(ChatColor.RED + "You do not have permission for this command.");
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getNoPermission()));
             return;
         }
 
@@ -27,6 +29,6 @@ public class DonateQuestCommand extends SubCommand {
                 return;
             }
         }
-        player.sendMessage(ChatColor.RED + "There are no active quests that require you to donate items.");
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getNoActiveDonateQuests()));
     }
 }

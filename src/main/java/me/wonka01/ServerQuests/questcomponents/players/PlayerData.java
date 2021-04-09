@@ -1,7 +1,7 @@
 package me.wonka01.ServerQuests.questcomponents.players;
 
 // Stores data for each player who has contributed to a quest.
-public class PlayerData implements Comparable<PlayerData> {
+public class PlayerData {
 
     private int amountContributed;
     private String playerName;
@@ -27,10 +27,4 @@ public class PlayerData implements Comparable<PlayerData> {
     public void increaseContribution(int count) {
         amountContributed += count;
     }
-
-    // override equals and hashCode
-    public int compareTo(PlayerData playerData) {
-        return (this.amountContributed - playerData.getAmountContributed());
-    }
-
 }

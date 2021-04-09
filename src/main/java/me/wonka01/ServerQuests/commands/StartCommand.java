@@ -2,6 +2,8 @@ package me.wonka01.ServerQuests.commands;
 
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestModel;
+import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
+import me.wonka01.ServerQuests.configuration.messages.Messages;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.PermissionConstants;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
@@ -13,13 +15,14 @@ public class StartCommand extends SubCommand {
 
     public void onCommand(Player player, String[] args) {
 
+        Messages messages = LanguageConfig.getConfig().getMessages();
+
         if (!player.hasPermission(PermissionConstants.START_QUEST)) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou do not have permission to perform this action"));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getNoPermission()));
             return;
         }
 
         if (args.length < 2) {
-            //JavaPlugin.getPlugin(ServerQuests.class).getStartGui().initializeItems();
             JavaPlugin.getPlugin(ServerQuests.class).getStartGui().openInventory(player);
             return;
         }
@@ -27,12 +30,12 @@ public class StartCommand extends SubCommand {
         String questId = args[1];
         QuestModel questModel = JavaPlugin.getPlugin(ServerQuests.class).questLibrary.getQuestModelById(questId);
         if (questModel == null) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cThe quest name you entered does not exist"));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestName()));
             return;
         }
 
         if (args.length < 3) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\"You must enter a quest type; coop or comp\""));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestType()));
             return;
         }
         EventType eventType;
@@ -42,7 +45,7 @@ public class StartCommand extends SubCommand {
         } else if (args[2].equalsIgnoreCase("comp")) {
             eventType = EventType.COMPETITIVE;
         } else {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\"You must enter a quest type; coop or comp\""));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestType()));
             return;
         }
 

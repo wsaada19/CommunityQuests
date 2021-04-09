@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.questcomponents;
 
+import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.enums.PermissionConstants;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
@@ -94,22 +95,18 @@ public class QuestController {
 
     private void sendPlayerMessage(Player player) {
         if (player.hasPermission(PermissionConstants.SHOW_MESSAGES)) {
-            String message = ChatColor.translateAlternateColorCodes('&', "&a+1 for the quest " + getQuestData().getDisplayName());
+            String message = ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getContributionMessage(questData));
             player.sendMessage(message);
         }
     }
 
     public void broadcastStartMessage() {
-        String message = ChatColor.translateAlternateColorCodes('&', "&a&lA new server-wide quest has been started &f- " + questData.getDisplayName());
-        String questInfo = ChatColor.translateAlternateColorCodes('&', questData.getDescription());
+        String message = ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getQuestStarted(questData));
         Bukkit.getServer().broadcastMessage(message);
-        Bukkit.getServer().broadcastMessage(questInfo);
     }
 
     private void broadcastVictoryMessage() {
-        String message = ChatColor.translateAlternateColorCodes('&', "&a&lQUEST COMPLETE &f(" + questData.getDisplayName() + "&f)");
-        String questInfo = ChatColor.translateAlternateColorCodes('&', "Congrats on completing the quest! Below you can see a list of the top players.");
+        String message = ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getQuestComplete(questData));
         Bukkit.getServer().broadcastMessage(message);
-        Bukkit.getServer().broadcastMessage(questInfo);
     }
 }
