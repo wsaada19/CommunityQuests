@@ -15,12 +15,12 @@ public class BasePlayerComponent {
 
     private static int leaderBoardSize = 5;
 
-    protected Map<UUID, PlayerData> playerMap;
-    protected ArrayList<Reward> rewardsList;
+    private Map<UUID, PlayerData> playerMap;
+    private ArrayList<Reward> rewardsList;
 
     public BasePlayerComponent(ArrayList<Reward> rewardsList) {
         this.rewardsList = rewardsList;
-        this.playerMap = new TreeMap<UUID, PlayerData>(new SortByContributions(this));
+        this.playerMap = new TreeMap<UUID, PlayerData>();
     }
 
     public BasePlayerComponent(ArrayList<Reward> rewardsList, Map<UUID, PlayerData> map) {
@@ -47,8 +47,11 @@ public class BasePlayerComponent {
         }
 
         StringBuilder result = new StringBuilder(LanguageConfig.getConfig().getMessages().getTopContributorsTitle());
+        TreeMap<UUID, PlayerData> map = new TreeMap<UUID, PlayerData>(new SortByContributions(this.playerMap));
+        map.putAll(this.playerMap);
+
         int count = 1;
-        for (UUID key : playerMap.keySet()) {
+        for (UUID key : map.keySet()) {
             if (count == leaderBoardSize + 1) {
                 break;
             }
@@ -56,9 +59,9 @@ public class BasePlayerComponent {
             result.append("\n &f#");
             result.append(count);
             result.append(") &a");
-            result.append(playerMap.get(key).getDisplayName());
+            result.append(map.get(key).getDisplayName());
             result.append(" &7- &f");
-            result.append(playerMap.get(key).getAmountContributed());
+            result.append(map.get(key).getAmountContributed());
 
             count++;
         }
@@ -66,8 +69,11 @@ public class BasePlayerComponent {
     }
 
     public PlayerData getTopPlayerData() {
-        for (UUID key : playerMap.keySet()) {
-            return playerMap.get(key);
+        TreeMap<UUID, PlayerData> map = new TreeMap<UUID, PlayerData>(new SortByContributions(this.playerMap));
+        map.putAll(this.playerMap);
+
+        for (UUID key : map.keySet()) {
+            return map.get(key);
         }
         return null;
     }
@@ -97,7 +103,7 @@ public class BasePlayerComponent {
             if (player.isOnline()) {
                 Player onlinePlayer = (Player) player;
                 if (rewardsList.size() > 0) {
-                    onlinePlayer.sendMessage(LanguageConfig.getConfig().getMessages().getRewardsTitle());
+                    onlinePlayer.sendMessage(ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getRewardsTitle()));
                 }
             }
 

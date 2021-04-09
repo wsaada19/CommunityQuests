@@ -1,17 +1,18 @@
 package me.wonka01.ServerQuests.questcomponents.players;
 
 import java.util.Comparator;
+import java.util.Map;
 import java.util.UUID;
 
 public class SortByContributions implements Comparator<UUID>
 {
-    private BasePlayerComponent playerComponent;
+    private Map<UUID, PlayerData> map;
 
-    public SortByContributions(BasePlayerComponent playerComponent) {
-        this.playerComponent = playerComponent;
+    public SortByContributions(Map<UUID, PlayerData> playerComponent) {
+        this.map = playerComponent;
     }
 
     public int compare(UUID p1Id, UUID p2Id) {
-        return playerComponent.playerMap.get(p1Id).getAmountContributed() - playerComponent.playerMap.get(p2Id).getAmountContributed();
+        return map.get(p2Id).getAmountContributed() - map.get(p1Id).getAmountContributed();
     }
 }
