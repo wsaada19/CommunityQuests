@@ -73,11 +73,16 @@ public class LanguageConfig {
         String stop = yamlConfiguration.getString("stopQuest");
         String typeMenu = yamlConfiguration.getString("typeMenu");
         String donateMenu = yamlConfiguration.getString("donateMenu");
+        String endQuestText = yamlConfiguration.getString("endQuestText");
+        String goBack = yamlConfiguration.getString("goBack");
+        String goBackText = yamlConfiguration.getString("goBackText");
+        String clickToStart = yamlConfiguration.getString("clickToStart");
 
         messages = new Messages(noPermission, invalidCommand, reloadCommand, helpMessage,
                 noDonateQuests, invalidQuestName, invalidQuestType, noActiveQuests, questComplete,
                 questStart, contributionMessage, topContributorsTitle, rewardsTitle, questLimitReached, experience, competitive,
-                cooperative, goal, you, leader, progress, cantDonate, view, start, stop, typeMenu, donateMenu);
+                cooperative, goal, you, leader, progress, cantDonate, view, start, stop, typeMenu, donateMenu,
+                endQuestText, goBack, goBackText, clickToStart);
         config = this;
     }
 }

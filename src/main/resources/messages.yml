@@ -41,3 +41,8 @@ startQuest: "Begin Quest Menu"
 stopQuest: "End Quest Menu"
 typeMenu: "Select an Event Type"
 donateMenu: "Place item in the center slot!"
+
+endQuestText: "&eClick to end the quest"
+goBack: "&cGo Back"
+goBackText: "&7Go back to the event list"
+clickToStart: "&eClick to start the quest"

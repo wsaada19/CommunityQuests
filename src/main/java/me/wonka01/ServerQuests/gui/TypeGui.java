@@ -34,8 +34,8 @@ public class TypeGui extends BaseGui implements Listener, InventoryHolder {
     public void initializeItems() {
         inventory.setItem(COOP_SLOT, createGuiItem(Material.PLAYER_HEAD, LanguageConfig.getConfig().getMessages().getCooperative()));
         inventory.setItem(COMP_SLOT, createGuiItem(Material.DIAMOND_SWORD, LanguageConfig.getConfig().getMessages().getCompetitive()));
-        inventory.setItem(BACK_SLOT, createGuiItem(Material.ARROW,  "&cGo Back",
-                 "&7Go back to the event list"));
+        inventory.setItem(BACK_SLOT, createGuiItem(Material.ARROW,  LanguageConfig.getConfig().getMessages().getGoBack(),
+                 LanguageConfig.getConfig().getMessages().getGoBackText()));
     }
 
     public void openInventory(Player p, QuestModel model) {

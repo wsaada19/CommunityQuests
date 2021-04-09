@@ -1,7 +1,6 @@
 package me.wonka01.ServerQuests.configuration.messages;
 
 import me.wonka01.ServerQuests.questcomponents.QuestData;
-import org.bukkit.Bukkit;
 
 public class Messages {
     private String noPermission;
@@ -31,12 +30,17 @@ public class Messages {
     private String stopMenu;
     private String typeMenu;
     private String donateMenu;
+    private String endQuestText;
+    private String goBack;
+    private String goBackText;
+    private String clickToStart;
 
     public Messages(String noPermission, String invalidCommand, String reloadCommand, String helpMessage, String noActiveDonateQuests,
                     String invalidQuestName, String invalidQuestType, String noActiveQuests, String questComplete, String questStarted,
                     String contributionMessage, String topContributorsTitle, String rewardsTitle, String questLimitReached, String experience,
                     String competitive, String cooperative, String goal, String you, String leader, String progress, String cantDonate,
-                    String viewMenu, String startMenu, String stopMenu, String typeMenu, String donateMenu) {
+                    String viewMenu, String startMenu, String stopMenu, String typeMenu, String donateMenu, String endQuestText,
+                    String goBack, String goBackText, String clickToStart) {
         this.noPermission = noPermission;
         this.invalidCommand = invalidCommand;
         this.reloadCommand = reloadCommand;
@@ -64,6 +68,9 @@ public class Messages {
         this.stopMenu = stopMenu;
         this.typeMenu = typeMenu;
         this.donateMenu = donateMenu;
+        this.endQuestText = endQuestText;
+        this.goBack = goBack;
+        this.clickToStart = clickToStart;
     }
 
     public String getNoPermission() {
@@ -132,11 +139,12 @@ public class Messages {
     public String getViewMenu(){return viewMenu;}
     public String getStartMenu(){return startMenu;}
     public String getStopMenu(){return stopMenu;}
-    public String getTypeMenu(){
-        Bukkit.getServer().broadcastMessage(typeMenu);
-        return typeMenu;
-    }
+    public String getTypeMenu(){ return typeMenu; }
     public String getDonateMenu(){return donateMenu;}
+    public String getEndQuestText(){return endQuestText;}
+    public String getGoBack() {return goBack;}
+    public String getGoBackText() {return goBackText;}
+    public String getClickToStart() {return clickToStart;}
 
     private String convertQuestTokensToText(String message, QuestData data) {
         return message.replaceAll("questName", data.getDisplayName()).replaceAll("questDescription", data.getDescription());

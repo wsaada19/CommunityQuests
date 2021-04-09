@@ -40,7 +40,7 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
                     controller.getQuestData().getDescription(),
                     "",
                     progressString,
-                    "&eClick to end the quest");
+                    LanguageConfig.getConfig().getMessages().getEndQuestText());
 
             inventory.setItem(count, item);
             count++;

@@ -47,7 +47,8 @@ public class StartGui extends BaseGui implements InventoryHolder, Listener {
 
             inventory.setItem(count, createGuiItem(material, model.getDisplayName(),
                      model.getEventDescription(),
-                    LanguageConfig.getConfig().getMessages().getGoal() + ": &c" + model.getQuestGoal()));
+                    LanguageConfig.getConfig().getMessages().getGoal() + ": &c" + model.getQuestGoal(),
+                    LanguageConfig.getConfig().getMessages().getClickToStart()));
             count++;
         }
     }
