@@ -1,6 +1,6 @@
 package me.wonka01.ServerQuests;
 
-import me.wonka01.ServerQuests.commands.ServerQuestsCommands;
+import me.wonka01.ServerQuests.commands.CommunityQuestsCommands;
 import me.wonka01.ServerQuests.configuration.JsonQuestSave;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
@@ -20,7 +20,7 @@ public class ServerQuests extends JavaPlugin {
 
     public static Economy economy = null;
     public QuestLibrary questLibrary;
-    private ServerQuestsCommands commandExecutor;
+    private CommunityQuestsCommands commandExecutor;
     private StartGui startGui;
     private StopGui stopGui;
     private DonateQuestGui questGui;
@@ -32,7 +32,7 @@ public class ServerQuests extends JavaPlugin {
     @Override
     public void onEnable() {
         getLogger().info("Plugin is enabled");
-        commandExecutor = new ServerQuestsCommands();
+        commandExecutor = new CommunityQuestsCommands();
         commandExecutor.setup();
 
         loadConfig();
@@ -79,7 +79,9 @@ public class ServerQuests extends JavaPlugin {
     private void loadConfigurationLimits() {
         int questLimit = getConfig().getInt("questLimit");
         String barColor = getConfig().getString("barColor");
-        int leaderBoardLimit = getConfig().getInt("leaderBoardSize");
+        int leaderBoardLimit = getConfig().getInt("leaderBoardSize", 5);
+        boolean disableBossBar = getConfig().getBoolean("disableBossBar", false);
+        BarManager.setDisableBossBar(disableBossBar);
         BasePlayerComponent.setLeaderBoardSize(leaderBoardLimit);
         QuestBar.barColor = barColor;
         ActiveQuests.setQuestLimit(questLimit);
@@ -103,6 +105,7 @@ public class ServerQuests extends JavaPlugin {
         ConfigurationSection serverQuestSection = getConfig().getConfigurationSection("Quests");
         questLibrary = new QuestLibrary();
         questLibrary.loadQuestConfiguration(serverQuestSection);
+        loadConfigurationLimits();
         LanguageConfig.getConfig().setUpLanguageConfig();
     }
 

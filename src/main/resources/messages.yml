@@ -6,6 +6,7 @@ noActiveDonateQuests: "&cThere are no active quests that require you to donate i
 invalidQuestName: "&cThe quest name you entered does not exist"
 invalidQuestType: "&cYou must enter a quest type; coop or comp"
 noActiveQuests: "&cThere are currently no active quests running on the server."
+questLimitReached: "&cThe quest could not be created, the number of active quests has reached its limit"
 
 # In the below message the 'questName' value is replaced by the display name set by the quest in the configuration
 questCompleteMessage: "&a&lQUEST COMPLETE &f( questName &f) \n Congrats on completing the quest! Below you can see a list of the top players and the rewards you received if you qualify."
@@ -22,3 +23,21 @@ topContributorsTitle: "&e&lTop Contributors&r"
 
 # rewards title - show to player before receiving their rewards
 rewardsTitle: "&aRewards"
+
+cantDonateItem: "&cThe given item does not have an active donation quest"
+
+# Single words
+experience: "&eexperience"
+competitive: "&aCompetitive"
+cooperative: "&aCooperative"
+goal: "&7Goal"
+you: "&7You"
+leader: "&7Leader"
+progress: "&7Progress"
+
+# GUI titles
+viewQuests: "Active Quests"
+startQuest: "Begin Quest Menu"
+stopQuest: "End Quest Menu"
+typeMenu: "Select an Event Type"
+donateMenu: "Place item in the center slot!"

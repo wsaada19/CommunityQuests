@@ -52,16 +52,32 @@ public class LanguageConfig {
         String invalidQuestName = yamlConfiguration.getString("invalidQuestName");
         String invalidQuestType = yamlConfiguration.getString("invalidQuestType");
         String noActiveQuests = yamlConfiguration.getString("noActiveQuests");
+        String questLimitReached = yamlConfiguration.getString("questLimitReached");
 
         String questComplete = yamlConfiguration.getString("questCompleteMessage");
         String questStart = yamlConfiguration.getString("questStartMessage");
         String contributionMessage = yamlConfiguration.getString("contributionMessage");
         String topContributorsTitle = yamlConfiguration.getString("topContributorsTitle");
         String rewardsTitle = yamlConfiguration.getString("rewardsTitle");
+        String experience = yamlConfiguration.getString("experience");
+
+        String competitive = yamlConfiguration.getString("competitive");
+        String cooperative = yamlConfiguration.getString("cooperative");
+        String goal = yamlConfiguration.getString("goal");
+        String you = yamlConfiguration.getString("you");
+        String leader = yamlConfiguration.getString("leader");
+        String progress = yamlConfiguration.getString("progress");
+        String cantDonate = yamlConfiguration.getString("cantDonateItem");
+        String view = yamlConfiguration.getString("viewQuests");
+        String start = yamlConfiguration.getString("startQuest");
+        String stop = yamlConfiguration.getString("stopQuest");
+        String typeMenu = yamlConfiguration.getString("typeMenu");
+        String donateMenu = yamlConfiguration.getString("donateMenu");
 
         messages = new Messages(noPermission, invalidCommand, reloadCommand, helpMessage,
                 noDonateQuests, invalidQuestName, invalidQuestType, noActiveQuests, questComplete,
-                questStart, contributionMessage, topContributorsTitle, rewardsTitle);
+                questStart, contributionMessage, topContributorsTitle, rewardsTitle, questLimitReached, experience, competitive,
+                cooperative, goal, you, leader, progress, cantDonate, view, start, stop, typeMenu, donateMenu);
         config = this;
     }
 }

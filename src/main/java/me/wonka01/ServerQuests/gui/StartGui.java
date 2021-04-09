@@ -4,6 +4,7 @@ import com.sun.istack.internal.NotNull;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.configuration.QuestModel;
+import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.util.ObjectiveTypeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -25,7 +26,7 @@ public class StartGui extends BaseGui implements InventoryHolder, Listener {
     private TypeGui typeGui;
 
     public StartGui(TypeGui typeGui) {
-        inventory = Bukkit.createInventory(this, 27, "Begin Server Event");
+        inventory = Bukkit.createInventory(this, 27,  ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getStartMenu()));
         questLibrary = JavaPlugin.getPlugin(ServerQuests.class).getQuestLibrary();
         this.typeGui = typeGui;
     }
@@ -44,9 +45,9 @@ public class StartGui extends BaseGui implements InventoryHolder, Listener {
             QuestModel model = questLibrary.getQuestModelById(key);
             Material material = ObjectiveTypeUtil.getEventTypeDefaultMaterial(model.getObjective());
 
-            inventory.setItem(count, createGuiItem(material, ChatColor.translateAlternateColorCodes('&', model.getDisplayName()),
-                    ChatColor.translateAlternateColorCodes('&', model.getEventDescription()),
-                    ChatColor.GRAY + "Goal: " + ChatColor.GREEN + model.getQuestGoal()));
+            inventory.setItem(count, createGuiItem(material, model.getDisplayName(),
+                     model.getEventDescription(),
+                    LanguageConfig.getConfig().getMessages().getGoal() + ": &c" + model.getQuestGoal()));
             count++;
         }
     }

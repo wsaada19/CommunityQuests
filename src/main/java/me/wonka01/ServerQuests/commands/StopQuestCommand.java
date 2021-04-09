@@ -5,8 +5,10 @@ import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.enums.PermissionConstants;
 import me.wonka01.ServerQuests.gui.StopGui;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class StopQuestCommand extends SubCommand {
     @Override
@@ -19,5 +21,9 @@ public class StopQuestCommand extends SubCommand {
         StopGui stopGui = JavaPlugin.getPlugin(ServerQuests.class).getStopGui();
         stopGui.initializeItems();
         stopGui.openInventory(player);
+    }
+
+    public void onCommand(CommandSender sender, String[] args) {
+        throw new NotImplementedException();
     }
 }

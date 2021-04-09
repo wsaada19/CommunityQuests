@@ -1,6 +1,7 @@
 package me.wonka01.ServerQuests.configuration.messages;
 
 import me.wonka01.ServerQuests.questcomponents.QuestData;
+import org.bukkit.Bukkit;
 
 public class Messages {
     private String noPermission;
@@ -16,11 +17,26 @@ public class Messages {
     private String contributionMessage;
     private String topContributorsTitle;
     private String rewardsTitle;
-
+    private String questLimitReached;
+    private String experience;
+    private String competitive;
+    private String cooperative;
+    private String goal;
+    private String you;
+    private String leader;
+    private String progress;
+    private String cantDonate;
+    private String viewMenu;
+    private String startMenu;
+    private String stopMenu;
+    private String typeMenu;
+    private String donateMenu;
 
     public Messages(String noPermission, String invalidCommand, String reloadCommand, String helpMessage, String noActiveDonateQuests,
                     String invalidQuestName, String invalidQuestType, String noActiveQuests, String questComplete, String questStarted,
-                    String contributionMessage, String topContributorsTitle, String rewardsTitle) {
+                    String contributionMessage, String topContributorsTitle, String rewardsTitle, String questLimitReached, String experience,
+                    String competitive, String cooperative, String goal, String you, String leader, String progress, String cantDonate,
+                    String viewMenu, String startMenu, String stopMenu, String typeMenu, String donateMenu) {
         this.noPermission = noPermission;
         this.invalidCommand = invalidCommand;
         this.reloadCommand = reloadCommand;
@@ -34,6 +50,20 @@ public class Messages {
         this.contributionMessage = contributionMessage;
         this.topContributorsTitle = topContributorsTitle;
         this.rewardsTitle = rewardsTitle;
+        this.questLimitReached = questLimitReached;
+        this.experience = experience;
+        this.competitive = competitive;
+        this.cooperative = cooperative;
+        this.goal = goal;
+        this.you = you;
+        this.leader = leader;
+        this.progress = progress;
+        this.cantDonate = cantDonate;
+        this.viewMenu = viewMenu;
+        this.startMenu= startMenu;
+        this.stopMenu = stopMenu;
+        this.typeMenu = typeMenu;
+        this.donateMenu = donateMenu;
     }
 
     public String getNoPermission() {
@@ -87,6 +117,26 @@ public class Messages {
     public String getRewardsTitle() {
         return rewardsTitle;
     }
+
+    public String getQuestLimitReached(){return questLimitReached;}
+
+    public String getExperience() {return experience;}
+
+    public String getCompetitive() {return competitive;}
+    public String getCooperative() {return cooperative;}
+    public String getGoal() {return goal;}
+    public String getYou() {return you;}
+    public String getLeader() {return leader;}
+    public String getProgress() {return progress;}
+    public String getCantDonate() {return cantDonate;}
+    public String getViewMenu(){return viewMenu;}
+    public String getStartMenu(){return startMenu;}
+    public String getStopMenu(){return stopMenu;}
+    public String getTypeMenu(){
+        Bukkit.getServer().broadcastMessage(typeMenu);
+        return typeMenu;
+    }
+    public String getDonateMenu(){return donateMenu;}
 
     private String convertQuestTokensToText(String message, QuestData data) {
         return message.replaceAll("questName", data.getDisplayName()).replaceAll("questDescription", data.getDescription());

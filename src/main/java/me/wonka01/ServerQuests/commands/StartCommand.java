@@ -28,34 +28,7 @@ public class StartCommand extends SubCommand {
             return;
         }
 
-        String questId = args[1];
-        QuestModel questModel = JavaPlugin.getPlugin(ServerQuests.class).questLibrary.getQuestModelById(questId);
-        if (questModel == null) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestName()));
-            return;
-        }
-
-        if (args.length < 3) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestType()));
-            return;
-        }
-        EventType eventType;
-
-        if (args[2].equalsIgnoreCase("coop")) {
-            eventType = EventType.COLLAB;
-        } else if (args[2].equalsIgnoreCase("comp")) {
-            eventType = EventType.COMPETITIVE;
-        } else {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestType()));
-            return;
-        }
-
-        boolean questCreated = ActiveQuests.getActiveQuestsInstance().beginNewQuest(questModel, eventType);
-        if (!questCreated) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cThe quest could not be created, the number of active quests has reached its limit"));
-        }
-
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aQuest started!"));
+        startFromCommand(player, args);
 
     }
 
@@ -65,15 +38,21 @@ public class StartCommand extends SubCommand {
             return;
         }
 
+        startFromCommand(sender, args);
+    }
+
+    private void startFromCommand(CommandSender sender, String[] args) {
+        Messages messages = LanguageConfig.getConfig().getMessages();
+
         String questId = args[1];
         QuestModel questModel = JavaPlugin.getPlugin(ServerQuests.class).questLibrary.getQuestModelById(questId);
         if (questModel == null) {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cThe quest name you entered does not exist"));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestName()));
             return;
         }
 
         if (args.length < 3) {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\"You must enter a quest type; coop or comp\""));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestType()));
             return;
         }
         EventType eventType;
@@ -83,13 +62,13 @@ public class StartCommand extends SubCommand {
         } else if (args[2].equalsIgnoreCase("comp")) {
             eventType = EventType.COMPETITIVE;
         } else {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\"You must enter a quest type; coop or comp\""));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestType()));
             return;
         }
 
         boolean questCreated = ActiveQuests.getActiveQuestsInstance().beginNewQuest(questModel, eventType);
         if (!questCreated) {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cThe quest could not be created, the number of active quests has reached its limit"));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getQuestLimitReached()));
         }
     }
 }

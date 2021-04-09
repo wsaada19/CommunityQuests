@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.gui;
 
+import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
@@ -21,7 +22,7 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
     public Inventory inventory;
 
     public ViewGui() {
-        inventory = Bukkit.createInventory(this, 36, "Active Quests");
+        inventory = Bukkit.createInventory(this, 36, ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getViewMenu()));
     }
     @Override
     public void initializeItems() {
@@ -47,7 +48,7 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
         int progress = controller.getQuestData().getAmountCompleted();
         int goal = controller.getQuestData().getQuestGoal();
 
-        String progressString = ChatColor.GRAY + "Progress: " + ChatColor.GREEN + progress + "/" + goal;
+        String progressString = LanguageConfig.getConfig().getMessages().getProgress() + ": " + ChatColor.GREEN + progress + "/" + goal;
 
         ItemStack item = createGuiItem(Material.DIAMOND,
                 ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDisplayName()),
@@ -63,23 +64,23 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
 
         int goal = controller.getQuestData().getQuestGoal();
         ItemStack item;
-        String leaders = ChatColor.GRAY + "Leaders";
+        String leaders = LanguageConfig.getConfig().getMessages().getLeader();
         PlayerData topPlayer = controller.getPlayerComponent().getTopPlayerData();
         if(topPlayer == null) {
             item = createGuiItem(Material.DIAMOND,
-                    ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDisplayName()),
-                    ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDescription()),
+                    controller.getQuestData().getDisplayName(),
+                    controller.getQuestData().getDescription(),
                     "",
                     leaders,
-                    ChatColor.GRAY + "none",
+                    "&7n/a",
                     getPlayerProgress(controller, player));
         } else {
             item = createGuiItem(Material.DIAMOND,
-                    ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDisplayName()),
-                    ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDescription()),
+                     controller.getQuestData().getDisplayName(),
+                    controller.getQuestData().getDescription(),
                     "",
                     leaders,
-                    ChatColor.GRAY + topPlayer.getDisplayName() + ": " + ChatColor.GREEN + topPlayer.getAmountContributed() + "/" + goal,
+                    "&7" + topPlayer.getDisplayName() + ": " + "&a" + topPlayer.getAmountContributed() + "/" + goal,
                     getPlayerProgress(controller, player));
         }
 
@@ -88,7 +89,7 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
 
     private String getPlayerProgress(QuestController controller, Player player) {
         int playerProgress = controller.getPlayerComponent().getAmountContributed(player);
-        return (ChatColor.GRAY + "You: " + ChatColor.GREEN + playerProgress);
+        return (ChatColor.GRAY + LanguageConfig.getConfig().getMessages().getYou() + ": " + ChatColor.GREEN + playerProgress);
     }
 
     public void openInventory(Player player) {

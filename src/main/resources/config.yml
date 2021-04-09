@@ -9,6 +9,8 @@ leaderBoardSize: 5
 # See color options here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html
 barColor: "GREEN"
 
+disableBossBar: true
+
 Quests:
 
   TestQuest: # Quest identifier can be whatever you'd like as long as it's unique
