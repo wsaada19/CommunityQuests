@@ -9,10 +9,7 @@ import org.bukkit.entity.Player;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.UUID;
+import java.util.*;
 
 public class BasePlayerComponent {
 
@@ -23,7 +20,7 @@ public class BasePlayerComponent {
 
     public BasePlayerComponent(ArrayList<Reward> rewardsList) {
         this.rewardsList = rewardsList;
-        this.playerMap = new TreeMap<UUID, PlayerData>();
+        this.playerMap = new TreeMap<UUID, PlayerData>(new SortByContributions(this));
     }
 
     public BasePlayerComponent(ArrayList<Reward> rewardsList, Map<UUID, PlayerData> map) {
@@ -41,10 +38,11 @@ public class BasePlayerComponent {
 
             playerMap.put(player.getUniqueId(), playerData);
         }
+
     }
 
     public void sendLeaderString() {
-        if(leaderBoardSize <= 0){
+        if (leaderBoardSize <= 0) {
             return;
         }
 
@@ -109,7 +107,7 @@ public class BasePlayerComponent {
         }
     }
 
-    public static void setLeaderBoardSize(int size){
+    public static void setLeaderBoardSize(int size) {
         leaderBoardSize = size;
     }
 }

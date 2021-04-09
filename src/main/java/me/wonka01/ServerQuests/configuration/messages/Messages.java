@@ -89,8 +89,6 @@ public class Messages {
     }
 
     private String convertQuestTokensToText(String message, QuestData data) {
-        message.replaceAll("questName", data.getDisplayName());
-        message.replaceAll("questDescription", data.getDescription());
-        return message;
+        return message.replaceAll("questName", data.getDisplayName()).replaceAll("questDescription", data.getDescription());
     }
 }
