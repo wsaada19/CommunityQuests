@@ -8,8 +8,10 @@ import me.wonka01.ServerQuests.enums.PermissionConstants;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
@@ -30,5 +32,9 @@ public class DonateQuestCommand extends SubCommand {
             }
         }
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getNoActiveDonateQuests()));
+    }
+
+    public void onCommand(CommandSender sender, String[] args) {
+        throw new NotImplementedException();
     }
 }

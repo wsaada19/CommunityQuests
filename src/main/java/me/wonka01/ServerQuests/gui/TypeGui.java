@@ -2,6 +2,7 @@ package me.wonka01.ServerQuests.gui;
 
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestModel;
+import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import org.bukkit.Bukkit;
@@ -18,9 +19,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class TypeGui extends BaseGui implements Listener, InventoryHolder {
 
-    private final String COMPETITIVE = ChatColor.GREEN + "Competitive";
-    private final String COOPERATIVE = ChatColor.GREEN + "Cooperative";
-
     private final int COOP_SLOT = 12;
     private final int COMP_SLOT = 14;
     private final int BACK_SLOT = 18;
@@ -29,15 +27,15 @@ public class TypeGui extends BaseGui implements Listener, InventoryHolder {
     private QuestModel model;
 
     public TypeGui() {
-        inventory = Bukkit.createInventory(this, 27, "Select an Event Type");
+        inventory = Bukkit.createInventory(this, 27,  ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getTypeMenu()));
     }
 
     @Override
     public void initializeItems() {
-        inventory.setItem(COOP_SLOT, createGuiItem(Material.PLAYER_HEAD, COOPERATIVE));
-        inventory.setItem(COMP_SLOT, createGuiItem(Material.DIAMOND_SWORD, COMPETITIVE));
-        inventory.setItem(BACK_SLOT, createGuiItem(Material.ARROW, ChatColor.GREEN + "Go Back",
-                ChatColor.GRAY + "Go back to the event list"));
+        inventory.setItem(COOP_SLOT, createGuiItem(Material.GOLDEN_APPLE, LanguageConfig.getConfig().getMessages().getCooperative()));
+        inventory.setItem(COMP_SLOT, createGuiItem(Material.DIAMOND_SWORD, LanguageConfig.getConfig().getMessages().getCompetitive()));
+        inventory.setItem(BACK_SLOT, createGuiItem(Material.ARROW,  LanguageConfig.getConfig().getMessages().getGoBack(),
+                 LanguageConfig.getConfig().getMessages().getGoBackText()));
     }
 
     public void openInventory(Player p, QuestModel model) {
@@ -56,11 +54,10 @@ public class TypeGui extends BaseGui implements Listener, InventoryHolder {
             return;
         }
         Player player = (Player) e.getWhoClicked();
-        ItemStack clickedItem = e.getCurrentItem();
 
-        if (clickedItem.getItemMeta().getDisplayName().equalsIgnoreCase(COOPERATIVE)) {
+        if (e.getSlot() == COOP_SLOT) {
             ActiveQuests.getActiveQuestsInstance().beginNewQuest(model, EventType.COLLAB);
-        } else if (clickedItem.getItemMeta().getDisplayName().equalsIgnoreCase(COMPETITIVE)) {
+        } else if (e.getSlot() == COMP_SLOT) {
             ActiveQuests.getActiveQuestsInstance().beginNewQuest(model, EventType.COMPETITIVE);
         } else if (e.getRawSlot() == BACK_SLOT) {
             player.closeInventory();

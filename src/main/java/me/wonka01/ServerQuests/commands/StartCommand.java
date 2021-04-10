@@ -8,6 +8,7 @@ import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.PermissionConstants;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,15 +28,31 @@ public class StartCommand extends SubCommand {
             return;
         }
 
+        startFromCommand(player, args);
+
+    }
+
+    public void onCommand(CommandSender sender, String[] args) {
+
+        if (args.length < 2) {
+            return;
+        }
+
+        startFromCommand(sender, args);
+    }
+
+    private void startFromCommand(CommandSender sender, String[] args) {
+        Messages messages = LanguageConfig.getConfig().getMessages();
+
         String questId = args[1];
         QuestModel questModel = JavaPlugin.getPlugin(ServerQuests.class).questLibrary.getQuestModelById(questId);
         if (questModel == null) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestName()));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestName()));
             return;
         }
 
         if (args.length < 3) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestType()));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestType()));
             return;
         }
         EventType eventType;
@@ -45,16 +62,13 @@ public class StartCommand extends SubCommand {
         } else if (args[2].equalsIgnoreCase("comp")) {
             eventType = EventType.COMPETITIVE;
         } else {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestType()));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestType()));
             return;
         }
 
         boolean questCreated = ActiveQuests.getActiveQuestsInstance().beginNewQuest(questModel, eventType);
         if (!questCreated) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cThe quest could not be created, the number of active quests has reached its limit"));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getQuestLimitReached()));
         }
-
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aQuest started!"));
-
     }
 }

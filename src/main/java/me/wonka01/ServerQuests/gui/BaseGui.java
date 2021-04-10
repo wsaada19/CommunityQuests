@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.gui;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemFlag;
@@ -18,12 +19,12 @@ public abstract class BaseGui {
     protected ItemStack createGuiItem(Material material, String name, String... lore) {
         ItemStack item = new ItemStack(material, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(name);
+        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
         ArrayList<String> metalore = new ArrayList<String>();
 
         for (String lorecomments : lore) {
 
-            metalore.add(lorecomments);
+            metalore.add(ChatColor.translateAlternateColorCodes('&', lorecomments));
         }
 
         meta.setLore(metalore);

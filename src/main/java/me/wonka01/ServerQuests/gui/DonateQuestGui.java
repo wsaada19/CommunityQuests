@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.gui;
 
+import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.events.questevents.GuiEvent;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import org.bukkit.Bukkit;
@@ -21,13 +22,13 @@ public class DonateQuestGui extends BaseGui implements InventoryHolder, Listener
     private GuiEvent eventHandler;
 
     public DonateQuestGui() {
-        inventory = Bukkit.createInventory(this, 45, "Place item in the center slot!");
+        inventory = Bukkit.createInventory(this, 45,  ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getDonateMenu()));
         initializeItems();
         eventHandler = new GuiEvent(ActiveQuests.getActiveQuestsInstance());
     }
 
     public void initializeItems() {
-        ItemStack glass = createGuiItem(Material.GREEN_STAINED_GLASS_PANE, " ", "");
+        ItemStack glass = createGuiItem(Material.DIAMOND_BLOCK, " ", "");
         for (int index : GLASS_LOCATIONS) {
             inventory.setItem(index, glass);
         }
@@ -58,14 +59,14 @@ public class DonateQuestGui extends BaseGui implements InventoryHolder, Listener
             if (eventHandler.tryAddItemsToQuest(itemOnCursor, player)) {
                 player.setItemOnCursor(new ItemStack(Material.AIR));
             } else {
-                player.sendMessage(ChatColor.RED + "The specified item does not have an active donation quest");
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getCantDonate()));
             }
         } else if (e.getAction().equals(InventoryAction.PLACE_ONE)) {
             if (eventHandler.tryAddItemsToQuest(new ItemStack(itemOnCursor.getType()), player)) {
                 itemOnCursor.setAmount(itemOnCursor.getAmount() - 1);
                 player.setItemOnCursor(itemOnCursor);
             } else {
-                player.sendMessage(ChatColor.RED + "The specified item does not have an active donation quest");
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getCantDonate()));
             }
         } else {
             return;

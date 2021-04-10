@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.gui;
 
+import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.Bukkit;
@@ -21,7 +22,7 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
     private Inventory inventory;
 
     public StopGui() {
-        inventory = Bukkit.createInventory(this, 36, "End Quest Menu");
+        inventory = Bukkit.createInventory(this, 36,  ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getStopMenu()));
     }
 
     public void initializeItems() {
@@ -32,14 +33,14 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
             int progress = controller.getQuestData().getAmountCompleted();
             int goal = controller.getQuestData().getQuestGoal();
 
-            String progressString = ChatColor.GRAY + "Progress: " + ChatColor.GREEN + progress + "/" + goal;
+            String progressString = LanguageConfig.getConfig().getMessages().getProgress() + ": &a" +  progress + "/" + goal;
 
             ItemStack item = createGuiItem(Material.DIAMOND,
-                    ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDisplayName()),
-                    ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDescription()),
+                    controller.getQuestData().getDisplayName(),
+                    controller.getQuestData().getDescription(),
                     "",
                     progressString,
-                    ChatColor.YELLOW + "Click to end the quest");
+                    LanguageConfig.getConfig().getMessages().getEndQuestText());
 
             inventory.setItem(count, item);
             count++;

@@ -14,6 +14,7 @@ import java.util.UUID;
 public class BarManager implements Listener {
 
     private static UUID[] questsToShow = new UUID[1];
+    private static boolean disabled = false;
 
     public static void initializeDisplayBar() {
         ActiveQuests quests = ActiveQuests.getActiveQuestsInstance();
@@ -66,7 +67,7 @@ public class BarManager implements Listener {
     }
 
     public static void startShowingPlayerBar(Player player) {
-        if (player.getPlayer().hasPermission(PermissionConstants.HIDE_BAR)) {
+        if (disabled || player.getPlayer().hasPermission(PermissionConstants.HIDE_BAR)) {
             return;
         }
         for (UUID id : questsToShow) {
@@ -104,14 +105,21 @@ public class BarManager implements Listener {
         return false;
     }
 
+    public static void setDisableBossBar(boolean disabled) {
+        BarManager.disabled = disabled;
+    }
+
     @EventHandler
     public void onPlayerLogin(PlayerJoinEvent joinEvent) {
+        if (disabled || joinEvent.getPlayer().hasPermission(PermissionConstants.HIDE_BAR)) {
+            return;
+        }
         startShowingPlayerBar(joinEvent.getPlayer());
     }
 
     @EventHandler
     public void onPlayerLogout(PlayerQuitEvent quitEvent) {
-        if (quitEvent.getPlayer().hasPermission(PermissionConstants.HIDE_BAR)) {
+        if (disabled || quitEvent.getPlayer().hasPermission(PermissionConstants.HIDE_BAR)) {
             return;
         }
         stopShowingPlayerBar(quitEvent.getPlayer());
