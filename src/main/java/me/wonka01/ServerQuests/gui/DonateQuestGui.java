@@ -28,7 +28,7 @@ public class DonateQuestGui extends BaseGui implements InventoryHolder, Listener
     }
 
     public void initializeItems() {
-        ItemStack glass = createGuiItem(Material.GREEN_STAINED_GLASS_PANE, " ", "");
+        ItemStack glass = createGuiItem(Material.DIAMOND_BLOCK, " ", "");
         for (int index : GLASS_LOCATIONS) {
             inventory.setItem(index, glass);
         }

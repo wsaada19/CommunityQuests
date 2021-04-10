@@ -32,17 +32,17 @@ public class ObjectiveTypeUtil {
 
     public static Material getEventTypeDefaultMaterial(ObjectiveType eventType) {
         if (eventType == ObjectiveType.MOB_Kill) {
-            return Material.ZOMBIE_HEAD;
+            return Material.DIAMOND_SWORD;
         } else if (eventType == ObjectiveType.CATCH_FISH) {
             return Material.FISHING_ROD;
         } else if (eventType == ObjectiveType.PLAYER_KILL) {
-            return Material.PLAYER_HEAD;
+            return Material.CHAINMAIL_CHESTPLATE;
         } else if (eventType == ObjectiveType.BLOCK_BREAK) {
             return Material.DIAMOND_PICKAXE;
         } else if (eventType == ObjectiveType.PROJ_KILL) {
             return Material.BOW;
         } else if (eventType == ObjectiveType.BLOCK_PLACE) {
-            return Material.GRASS_BLOCK;
+            return Material.DIRT;
         } else if (eventType == ObjectiveType.SHEAR) {
             return Material.SHEARS;
         } else if (eventType == ObjectiveType.TAME) {
