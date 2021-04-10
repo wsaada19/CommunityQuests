@@ -70,6 +70,7 @@ public class Messages {
         this.donateMenu = donateMenu;
         this.endQuestText = endQuestText;
         this.goBack = goBack;
+        this.goBackText = goBackText;
         this.clickToStart = clickToStart;
     }
 
