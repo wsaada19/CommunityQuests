@@ -27,18 +27,21 @@ public class TypeGui extends BaseGui implements Listener, InventoryHolder {
     private QuestModel model;
 
     public TypeGui() {
-        inventory = Bukkit.createInventory(this, 27,  ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getTypeMenu()));
+        inventory = Bukkit.createInventory(this, 27, ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getTypeMenu()));
     }
 
     @Override
     public void initializeItems() {
-        inventory.setItem(COOP_SLOT, createGuiItem(Material.GOLDEN_APPLE, LanguageConfig.getConfig().getMessages().getCooperative()));
         inventory.setItem(COMP_SLOT, createGuiItem(Material.DIAMOND_SWORD, LanguageConfig.getConfig().getMessages().getCompetitive()));
-        inventory.setItem(BACK_SLOT, createGuiItem(Material.ARROW,  LanguageConfig.getConfig().getMessages().getGoBack(),
-                 LanguageConfig.getConfig().getMessages().getGoBackText()));
+        inventory.setItem(BACK_SLOT, createGuiItem(Material.ARROW, LanguageConfig.getConfig().getMessages().getGoBack(),
+            LanguageConfig.getConfig().getMessages().getGoBackText()));
     }
 
     public void openInventory(Player p, QuestModel model) {
+        inventory.setItem(COOP_SLOT, createGuiItem(Material.GOLDEN_APPLE, LanguageConfig.getConfig().getMessages().getCooperative()));
+        if(model.getQuestGoal() <= 0) {
+            inventory.setItem(COOP_SLOT, new ItemStack(Material.AIR));
+        }
         p.openInventory(inventory);
         this.model = model;
     }

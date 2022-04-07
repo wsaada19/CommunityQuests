@@ -39,17 +39,18 @@ public class QuestLibrary {
         String questId = section.getName();
         String displayName = section.getString("displayName");
         String description = section.getString("description");
-        int timeToComplete = section.getInt("timeToComplete");
-        int goal = section.getInt("goal");
+        int timeToComplete = section.getInt("timeToComplete", 0);
         List<String> mobNames = section.getStringList("entities");
         List<String> itemNames = section.getStringList("materials");
 
         ObjectiveType objectiveType = ObjectiveTypeUtil.parseEventTypeFromString(section.getString("type"));
+        int goal = section.getInt("goal", -1);
+
         ConfigurationSection rewardsSection = section.getConfigurationSection("rewards");
 
         ArrayList<Reward> rewards;
         if (rewardsSection == null) {
-            rewards = new ArrayList<Reward>();
+            rewards = new ArrayList<>();
         } else {
             rewards = getRewardsFromConfig(rewardsSection);
         }
@@ -60,7 +61,7 @@ public class QuestLibrary {
 
     // TODO Clean this up please
     private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {
-        ArrayList<Reward> rewards = new ArrayList<Reward>();
+        ArrayList<Reward> rewards = new ArrayList<>();
         for (String key : section.getKeys(false)) {
             Reward reward;
             if (key.equalsIgnoreCase("money")) {

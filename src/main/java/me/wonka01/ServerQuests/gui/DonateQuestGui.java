@@ -22,7 +22,7 @@ public class DonateQuestGui extends BaseGui implements InventoryHolder, Listener
     private GuiEvent eventHandler;
 
     public DonateQuestGui() {
-        inventory = Bukkit.createInventory(this, 45,  ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getDonateMenu()));
+        inventory = Bukkit.createInventory(this, 45, ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getDonateMenu()));
         initializeItems();
         eventHandler = new GuiEvent(ActiveQuests.getActiveQuestsInstance());
     }

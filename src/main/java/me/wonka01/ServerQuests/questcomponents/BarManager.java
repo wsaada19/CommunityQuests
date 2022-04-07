@@ -1,6 +1,6 @@
 package me.wonka01.ServerQuests.questcomponents;
 
-import me.wonka01.ServerQuests.enums.PermissionConstants;
+import me.wonka01.ServerQuests.enums.PermissionNode;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,6 +21,9 @@ public class BarManager implements Listener {
 
         int questsIndex = 0;
         for (QuestController quest : quests.getActiveQuestsList()) {
+            if(!quest.getQuestData().hasGoal()) {
+                continue;
+            }
             questsToShow[questsIndex] = quest.getQuestId();
             questsIndex++;
             if (questsIndex >= questsToShow.length) {
@@ -67,12 +70,12 @@ public class BarManager implements Listener {
     }
 
     public static void startShowingPlayerBar(Player player) {
-        if (disabled || player.getPlayer().hasPermission(PermissionConstants.HIDE_BAR)) {
+        if (disabled || player.getPlayer().hasPermission(PermissionNode.HIDE_BAR)) {
             return;
         }
         for (UUID id : questsToShow) {
             QuestController controller = ActiveQuests.getActiveQuestsInstance().getQuestById(id);
-            if (controller != null) {
+            if (controller != null && controller.getQuestData().hasGoal()) {
                 controller.getQuestBar().showBossBar(player);
             }
         }
@@ -82,7 +85,7 @@ public class BarManager implements Listener {
     // are active, this needs to get called before the object is destroyed
     public static void startShowingPlayersBar(UUID questId) {
         QuestController controller = ActiveQuests.getActiveQuestsInstance().getQuestById(questId);
-        if (controller == null || !isSlotFree()) {
+        if (controller == null || !isSlotFree() || !controller.getQuestData().hasGoal()) {
             return;
         }
 
@@ -111,7 +114,7 @@ public class BarManager implements Listener {
 
     @EventHandler
     public void onPlayerLogin(PlayerJoinEvent joinEvent) {
-        if (disabled || joinEvent.getPlayer().hasPermission(PermissionConstants.HIDE_BAR)) {
+        if (disabled || joinEvent.getPlayer().hasPermission(PermissionNode.HIDE_BAR)) {
             return;
         }
         startShowingPlayerBar(joinEvent.getPlayer());
@@ -119,7 +122,7 @@ public class BarManager implements Listener {
 
     @EventHandler
     public void onPlayerLogout(PlayerQuitEvent quitEvent) {
-        if (disabled || quitEvent.getPlayer().hasPermission(PermissionConstants.HIDE_BAR)) {
+        if (disabled || quitEvent.getPlayer().hasPermission(PermissionNode.HIDE_BAR)) {
             return;
         }
         stopShowingPlayerBar(quitEvent.getPlayer());

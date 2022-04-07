@@ -5,7 +5,7 @@ import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.configuration.messages.Messages;
 import me.wonka01.ServerQuests.enums.EventType;
-import me.wonka01.ServerQuests.enums.PermissionConstants;
+import me.wonka01.ServerQuests.enums.PermissionNode;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -18,7 +18,7 @@ public class StartCommand extends SubCommand {
 
         Messages messages = LanguageConfig.getConfig().getMessages();
 
-        if (!player.hasPermission(PermissionConstants.START_QUEST)) {
+        if (!player.hasPermission(PermissionNode.START_QUEST)) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getNoPermission()));
             return;
         }
@@ -59,6 +59,10 @@ public class StartCommand extends SubCommand {
 
         if (args[2].equalsIgnoreCase("coop")) {
             eventType = EventType.COLLAB;
+            if(questModel.getQuestGoal() <= 0) {
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getCoopQuestWithoutGoalErrorMessage()));
+                return;
+            }
         } else if (args[2].equalsIgnoreCase("comp")) {
             eventType = EventType.COMPETITIVE;
         } else {

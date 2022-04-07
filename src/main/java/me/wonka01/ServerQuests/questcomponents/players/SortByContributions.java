@@ -4,8 +4,7 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.UUID;
 
-public class SortByContributions implements Comparator<UUID>
-{
+public class SortByContributions implements Comparator<UUID> {
     private Map<UUID, PlayerData> map;
 
     public SortByContributions(Map<UUID, PlayerData> playerComponent) {

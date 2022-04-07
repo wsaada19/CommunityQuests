@@ -2,8 +2,9 @@ package me.wonka01.ServerQuests.questcomponents;
 
 import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
-import me.wonka01.ServerQuests.enums.PermissionConstants;
+import me.wonka01.ServerQuests.enums.PermissionNode;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
+import me.wonka01.ServerQuests.questcomponents.schedulers.QuestTimer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -28,26 +29,37 @@ public class QuestController {
         questId = UUID.randomUUID();
         this.eventConstraints = eventConstraints;
         this.objective = objective;
+
+        if (questData.getQuestDuration() > 0) {
+            new QuestTimer(this);
+        }
     }
 
-    public boolean updateQuest(int count, Player player) {
+    public void updateQuest(int count, Player player) {
         int amountToAdd = count;
-        if (count > questData.getQuestGoal() - questData.getAmountCompleted()) {
-            amountToAdd = questData.getQuestGoal() - questData.getAmountCompleted();
+
+        if (questData.hasGoal()) {
+            if(count > questData.getQuestGoal() - questData.getAmountCompleted()) {
+                amountToAdd = questData.getQuestGoal() - questData.getAmountCompleted();
+            }
+            questData.addToQuestProgress(amountToAdd);
         }
-        questData.addToQuestProgress(amountToAdd);
 
         playerComponent.savePlayerAction(player, amountToAdd);
         updateBossBar();
         sendPlayerMessage(player);
-
-        return questData.isQuestComplete();
     }
 
-    public void handleQuestComplete() {
-        broadcastVictoryMessage();
-        playerComponent.sendLeaderString();
-        playerComponent.giveOutRewards(questData.getQuestGoal());
+    public void endQuest() {
+        if(questData.hasGoal() && !questData.isGoalComplete() && questData.getQuestType().equalsIgnoreCase("coop")) {
+            broadcastQuestFailureMessage();
+            playerComponent.sendLeaderString();
+        } else {
+            broadcastVictoryMessage();
+            playerComponent.sendLeaderString();
+            playerComponent.giveOutRewards(questData.getQuestGoal());
+        }
+
         questBar.removeBossBar();
         ActiveQuests.getActiveQuestsInstance().endQuest(questId);
     }
@@ -94,7 +106,7 @@ public class QuestController {
     }
 
     private void sendPlayerMessage(Player player) {
-        if (player.hasPermission(PermissionConstants.SHOW_MESSAGES)) {
+        if (player.hasPermission(PermissionNode.SHOW_MESSAGES)) {
             String message = ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getContributionMessage(questData));
             player.sendMessage(message);
         }
@@ -107,6 +119,11 @@ public class QuestController {
 
     private void broadcastVictoryMessage() {
         String message = ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getQuestComplete(questData));
+        Bukkit.getServer().broadcastMessage(message);
+    }
+
+    private void broadcastQuestFailureMessage() {
+        String message = ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getQuestFailed(questData));
         Bukkit.getServer().broadcastMessage(message);
     }
 }

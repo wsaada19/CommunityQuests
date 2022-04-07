@@ -1,6 +1,5 @@
 package me.wonka01.ServerQuests.gui;
 
-import com.sun.istack.internal.NotNull;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.configuration.QuestModel;
@@ -17,6 +16,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 public class StartGui extends BaseGui implements InventoryHolder, Listener {
@@ -26,12 +26,11 @@ public class StartGui extends BaseGui implements InventoryHolder, Listener {
     private TypeGui typeGui;
 
     public StartGui(TypeGui typeGui) {
-        inventory = Bukkit.createInventory(this, 27,  ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getStartMenu()));
+        inventory = Bukkit.createInventory(this, 27, ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getStartMenu()));
         questLibrary = JavaPlugin.getPlugin(ServerQuests.class).getQuestLibrary();
         this.typeGui = typeGui;
     }
 
-    @NotNull
     public Inventory getInventory() {
         return inventory;
     }
@@ -45,10 +44,17 @@ public class StartGui extends BaseGui implements InventoryHolder, Listener {
             QuestModel model = questLibrary.getQuestModelById(key);
             Material material = ObjectiveTypeUtil.getEventTypeDefaultMaterial(model.getObjective());
 
+            ArrayList<String> lore = new ArrayList<>();
+            lore.add(model.getEventDescription());
+            if(model.getQuestGoal() > 0) {
+                lore.add(LanguageConfig.getConfig().getMessages().getGoal() + ": &c" + model.getQuestGoal());
+            }
+            if(model.getSecondsToComplete() > 0) {
+                lore.add(LanguageConfig.getConfig().getMessages().getDuration() + ": &c" + model.getSecondsToComplete() + "s");
+            }
+            lore.add(LanguageConfig.getConfig().getMessages().getClickToStart());
             inventory.setItem(count, createGuiItem(material, model.getDisplayName(),
-                     model.getEventDescription(),
-                    LanguageConfig.getConfig().getMessages().getGoal() + ": &c" + model.getQuestGoal(),
-                    LanguageConfig.getConfig().getMessages().getClickToStart()));
+                lore.toArray(new String[0])));
             count++;
         }
     }
@@ -80,7 +86,6 @@ public class StartGui extends BaseGui implements InventoryHolder, Listener {
         if (model == null) {
             return;
         }
-        player.closeInventory();
         typeGui.openInventory(player, model);
     }
 }

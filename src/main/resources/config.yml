@@ -40,7 +40,8 @@ Quests:
     materials:
       - POTATO
       - APPLE
-    description: "&fDeliver 10 potatoes using the command /cq donate!"
+    description: "&Donate 10 potatoes using the command /cq donate to complete the quest!"
+    timeToComplete: 60
     goal: 10
     rewards:
       experience: 100
@@ -92,7 +93,8 @@ Quests:
   PlantTree:
     displayName: Save the Planet
     type: blockplace
-    description: Place 10 trees to save the world!
+    description: Place 10 oak or acacia trees to save the world!
     goal: 10
     materials:
       - OAK_SAPLING
+      - ACACIA_SAPLING

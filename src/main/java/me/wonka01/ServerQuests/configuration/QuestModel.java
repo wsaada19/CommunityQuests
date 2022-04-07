@@ -11,7 +11,7 @@ public class QuestModel {
     private String questId;
     private String displayName;
     private String eventDescription;
-    private int secondsToComplete;
+    private int durationInSeconds;
     private int questGoal;
     private ObjectiveType objective;
     private List<String> mobNames;
@@ -19,12 +19,12 @@ public class QuestModel {
     private List<String> itemNames;
 
     public QuestModel(String questId, String displayName, String eventDescription,
-                      int secondsToComplete, int questGoal, ObjectiveType objective,
+                      int durationInSeconds, int questGoal, ObjectiveType objective,
                       List<String> mobNames, ArrayList<Reward> rewards, List<String> itemNames) {
         this.questId = questId;
         this.displayName = displayName;
         this.eventDescription = eventDescription;
-        this.secondsToComplete = secondsToComplete;
+        this.durationInSeconds = durationInSeconds;
         this.questGoal = questGoal;
         this.objective = objective;
         this.mobNames = mobNames;
@@ -45,7 +45,7 @@ public class QuestModel {
     }
 
     public int getSecondsToComplete() {
-        return secondsToComplete;
+        return durationInSeconds;
     }
 
     public int getQuestGoal() {

@@ -1,6 +1,5 @@
 package me.wonka01.ServerQuests.questcomponents;
 
-import com.sun.istack.internal.Nullable;
 import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.util.EventTypeHandler;
@@ -18,7 +17,7 @@ public class ActiveQuests {
     private List<QuestController> activeQuestsList;
 
     public ActiveQuests() {
-        activeQuestsList = new ArrayList<QuestController>();
+        activeQuestsList = new ArrayList<>();
         activeQuestsInstance = this;
     }
 
@@ -49,24 +48,23 @@ public class ActiveQuests {
 
             activeQuestsList.add(controller);
             controller.broadcastStartMessage();
-            BarManager.startShowingPlayersBar(controller.getQuestId()); // doesn't show if there are two active quests
+            BarManager.startShowingPlayersBar(controller.getQuestId());
             return true;
         }
     }
 
     public void beginQuestFromSave(QuestController controller) {
         activeQuestsList.add(controller);
-        BarManager.startShowingPlayersBar(controller.getQuestId()); // doesn't show if there are two active quests
+        BarManager.startShowingPlayersBar(controller.getQuestId());
     }
 
     public List<QuestController> getActiveQuestsList() {
         if (activeQuestsList == null) {
-            activeQuestsList = new ArrayList<QuestController>();
+            activeQuestsList = new ArrayList<>();
         }
         return activeQuestsList;
     }
 
-    @Nullable
     public QuestController getQuestById(UUID questId) {
         for (QuestController controller : activeQuestsList) {
             if (controller.getQuestId().equals(questId)) {

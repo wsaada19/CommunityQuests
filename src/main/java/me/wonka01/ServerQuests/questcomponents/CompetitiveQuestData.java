@@ -5,17 +5,17 @@ import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 
 public class CompetitiveQuestData extends QuestData {
 
-    private BasePlayerComponent playersReference;
+    private BasePlayerComponent players;
 
     public CompetitiveQuestData(int start, String displayName, String description,
-                                BasePlayerComponent playersReference, String questType, int amountComplete) {
-        super(start, displayName, description, questType, amountComplete);
-        this.playersReference = playersReference;
+                                BasePlayerComponent players, String questType, int amountComplete, int durationLeft) {
+        super(start, displayName, description, questType, amountComplete, durationLeft);
+        this.players = players;
     }
 
     @Override
     public int getAmountCompleted() {
-        PlayerData playerData = playersReference.getTopPlayerData();
+        PlayerData playerData = players.getTopPlayerData();
         if (playerData == null) {
             return 0;
         }
@@ -24,12 +24,12 @@ public class CompetitiveQuestData extends QuestData {
     }
 
     @Override
-    public boolean isQuestComplete() {
-        PlayerData playerData = playersReference.getTopPlayerData();
+    public boolean isGoalComplete() {
+        PlayerData playerData = players.getTopPlayerData();
         if (playerData == null) {
             return false;
         }
-        return (playerData.getAmountContributed() >= getQuestGoal());
+        return (getQuestGoal() > 0 && playerData.getAmountContributed() >= getQuestGoal());
 
     }
 }

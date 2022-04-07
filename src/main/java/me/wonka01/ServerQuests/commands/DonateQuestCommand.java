@@ -4,7 +4,7 @@ import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.configuration.messages.Messages;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
-import me.wonka01.ServerQuests.enums.PermissionConstants;
+import me.wonka01.ServerQuests.enums.PermissionNode;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.ChatColor;
@@ -16,10 +16,11 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.List;
 
 public class DonateQuestCommand extends SubCommand {
+
     @Override
     public void onCommand(Player player, String[] args) {
         Messages messages = LanguageConfig.getConfig().getMessages();
-        if (!player.hasPermission(PermissionConstants.VIEW_QUEST)) {
+        if (!player.hasPermission(PermissionNode.DONATE)) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getNoPermission()));
             return;
         }

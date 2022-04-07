@@ -20,7 +20,6 @@ public class ServerQuests extends JavaPlugin {
 
     public static Economy economy = null;
     public QuestLibrary questLibrary;
-    private CommunityQuestsCommands commandExecutor;
     private StartGui startGui;
     private StopGui stopGui;
     private DonateQuestGui questGui;
@@ -32,7 +31,7 @@ public class ServerQuests extends JavaPlugin {
     @Override
     public void onEnable() {
         getLogger().info("Plugin is enabled");
-        commandExecutor = new CommunityQuestsCommands();
+        CommunityQuestsCommands commandExecutor = new CommunityQuestsCommands();
         commandExecutor.setup();
 
         loadConfig();
@@ -42,7 +41,7 @@ public class ServerQuests extends JavaPlugin {
         LanguageConfig.getConfig().setUpLanguageConfig();
 
         if (!setupEconomy()) {
-            getLogger().info("Warning! No economy plugin found, a cash reward can not be added to a quest.");
+            getLogger().info("Warning! No economy plugin found, a cash reward can not be added to a quest in Community Quests.");
         }
 
         loadGuis();
@@ -56,12 +55,12 @@ public class ServerQuests extends JavaPlugin {
         BarManager.closeBar();
     }
 
-    public void loadConfig() {
+    private void loadConfig() {
         getConfig().options().copyDefaults(true);
         saveConfig();
     }
 
-    public void loadSaveData() {
+    private void loadSaveData() {
         jsonSave = new JsonQuestSave(getDataFolder(), activeQuests);
         if (jsonSave.getOrCreateQuestFile()) {
             jsonSave.readAndInitializeQuests();
@@ -69,7 +68,7 @@ public class ServerQuests extends JavaPlugin {
         }
     }
 
-    public void loadQuestLibraryFromConfig() {
+    private void loadQuestLibraryFromConfig() {
         ConfigurationSection serverQuestSection = getConfig().getConfigurationSection("Quests");
         questLibrary = new QuestLibrary();
         questLibrary.loadQuestConfiguration(serverQuestSection);
@@ -125,7 +124,9 @@ public class ServerQuests extends JavaPlugin {
         return questGui;
     }
 
-    public ViewGui getViewGui() {return viewGui;}
+    public ViewGui getViewGui() {
+        return viewGui;
+    }
 
     private boolean setupEconomy() {
         try {
