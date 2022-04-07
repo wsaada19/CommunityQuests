@@ -48,7 +48,7 @@ public class JsonQuestSave {
         JSONArray jsonArray = new JSONArray();
         for (QuestController questController : activeQuests.getActiveQuestsList()) {
 
-            if (questController.getQuestData().isQuestComplete()) {
+            if (questController.getQuestData().isGoalComplete()) {
                 continue;
             }
 
@@ -56,6 +56,7 @@ public class JsonQuestSave {
             jObject.put("id", questController.getQuestType());
             jObject.put("playerMap", questController.getPlayerComponent().getPlayerDataInJson());
             jObject.put("amountComplete", questController.getQuestData().getAmountCompleted());
+            jObject.put("timeLeft", questController.getQuestData().getQuestDuration());
             if (questController.getQuestData() instanceof CompetitiveQuestData) {
                 jObject.put("type", "comp");
             } else {
@@ -90,10 +91,11 @@ public class JsonQuestSave {
                 String questId = (String) questObject.get("id");
                 String questType = (String) questObject.get("type");
                 long amountComplete = (Long) questObject.get("amountComplete");
+                long questDuration = (Long) questObject.getOrDefault("timeLeft", 0);
 
                 JSONArray playerObject = (JSONArray) questObject.get("playerMap");
                 Iterator<JSONObject> pIterator = playerObject.iterator();
-                Map<UUID, PlayerData> playerMap = new TreeMap<UUID, PlayerData>();
+                Map<UUID, PlayerData> playerMap = new TreeMap<>();
                 while (pIterator.hasNext()) {
                     JSONObject obj = pIterator.next();
                     UUID uuid = UUID.fromString((String) obj.keySet().iterator().next());
@@ -104,14 +106,12 @@ public class JsonQuestSave {
 
                 EventTypeHandler handler = new EventTypeHandler(questType);
                 QuestModel model = JavaPlugin.getPlugin(ServerQuests.class).getQuestLibrary().getQuestModelById(questId);
-                if (model == null) {
+
+                if (model == null || (amountComplete >= model.getQuestGoal() && model.getQuestGoal() > 0)) {
+                    Bukkit.getLogger().info("The quest in the save file has expired and will not be initialized.");
                     continue;
                 }
-                if (amountComplete >= model.getQuestGoal()) {
-                    Bukkit.getLogger().info("The quest in the save file has expired and will not be initialized.");
-                    break;
-                }
-                QuestController controller = handler.createControllerFromSave(model, playerMap, (int) amountComplete);
+                QuestController controller = handler.createControllerFromSave(model, playerMap, (int) amountComplete, (int) questDuration);
                 activeQuests.beginQuestFromSave(controller);
             }
 

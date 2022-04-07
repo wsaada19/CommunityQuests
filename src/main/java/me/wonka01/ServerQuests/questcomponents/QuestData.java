@@ -5,12 +5,14 @@ public class QuestData {
     private String questType;
     private int questGoal;
     private int amountCompleted;
+    private int questDuration;
 
     private String displayName;
     private String description;
 
-    public QuestData(int start, String displayName, String description, String questType, int amountCompleted) {
-        questGoal = start;
+    public QuestData(int questGoal, String displayName, String description, String questType, int amountCompleted, int questDuration) {
+        this.questGoal = questGoal;
+        this.questDuration = questDuration;
         this.amountCompleted = amountCompleted;
         this.displayName = displayName;
         this.description = description;
@@ -29,9 +31,16 @@ public class QuestData {
         amountCompleted += amountToIncrease;
     }
 
-    public boolean isQuestComplete() {
-        return (amountCompleted >= questGoal);
+    public void decreaseDuration(int amountToDecrease) {
+        questDuration -= amountToDecrease;
     }
+
+    // Always false if no goal is set and the quest is using a timer...
+    public boolean isGoalComplete() {
+        return (hasGoal() && amountCompleted >= questGoal);
+    }
+
+    public boolean hasGoal() {return questGoal > 0;}
 
     public int getQuestGoal() {
         return questGoal;
@@ -48,4 +57,9 @@ public class QuestData {
     public String getQuestType() {
         return questType;
     }
+
+    public int getQuestDuration() {
+        return questDuration;
+    }
+
 }

@@ -34,13 +34,18 @@ public class Messages {
     private String goBack;
     private String goBackText;
     private String clickToStart;
+    private String coopQuestWithoutGoal;
+    private String timeRemaining;
+    private String questFailed;
+    private String duration;
 
     public Messages(String noPermission, String invalidCommand, String reloadCommand, String helpMessage, String noActiveDonateQuests,
                     String invalidQuestName, String invalidQuestType, String noActiveQuests, String questComplete, String questStarted,
                     String contributionMessage, String topContributorsTitle, String rewardsTitle, String questLimitReached, String experience,
                     String competitive, String cooperative, String goal, String you, String leader, String progress, String cantDonate,
                     String viewMenu, String startMenu, String stopMenu, String typeMenu, String donateMenu, String endQuestText,
-                    String goBack, String goBackText, String clickToStart) {
+                    String goBack, String goBackText, String clickToStart, String coopQuestWithoutGoal, String timeRemaining, String questFailed,
+                    String duration) {
         this.noPermission = noPermission;
         this.invalidCommand = invalidCommand;
         this.reloadCommand = reloadCommand;
@@ -72,6 +77,18 @@ public class Messages {
         this.goBack = goBack;
         this.goBackText = goBackText;
         this.clickToStart = clickToStart;
+        this.coopQuestWithoutGoal = coopQuestWithoutGoal;
+        this.timeRemaining = timeRemaining;
+        this.questFailed = questFailed;
+        this.duration = duration;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public String getTimeRemaining() {
+        return timeRemaining;
     }
 
     public String getNoPermission() {
@@ -118,8 +135,14 @@ public class Messages {
         return convertQuestTokensToText(questStarted, questData);
     }
 
+    public String getQuestFailed(QuestData questData) { return convertQuestTokensToText(questFailed, questData);}
+
     public String getContributionMessage(QuestData questData) {
         return convertQuestTokensToText(contributionMessage, questData);
+    }
+
+    public String getCoopQuestWithoutGoalErrorMessage() {
+        return coopQuestWithoutGoal;
     }
 
     public String getRewardsTitle() {

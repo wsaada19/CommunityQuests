@@ -7,19 +7,21 @@ invalidQuestName: "&cThe quest name you entered does not exist"
 invalidQuestType: "&cYou must enter a quest type; coop or comp"
 noActiveQuests: "&cThere are currently no active quests running on the server."
 questLimitReached: "&cThe quest could not be created, the number of active quests has reached its limit"
+cooperativeQuestMustHaveAGoal: "&cCould not start quest: quests without a goal cannot be cooperative!"
 
-# In the below message the 'questName' value is replaced by the display name set by the quest in the configuration
+# In the below messages the 'questName' value is replaced by the display name set by the quest in the configuration
 questCompleteMessage: "&a&lQUEST COMPLETE &f( questName &f) \n Congrats on completing the quest! Below you can see a list of the top players and the rewards you received if you qualify."
+questFailureMessage: "&4&lQUEST FAILED &f( questName &f) \n Unfortunately the quest could not be completed in the given time, better luck next time!"
 
 # Message will be broadcast to the server when a quest is completed (questName is replaced with the name of the quest
 # AND questDescription is replaced by the specified quest description)
-questStartMessage: "&a&lA new server-wide quest has been started &f- questName \n questDescription"
+questStartMessage: "&a&lA new server-wide quest has begun &f- questName \n questDescription"
 
 # message sent to player when they contribute if communityquests.showmessages permission is set to true.
 contributionMessage: "&a+1 for the quest questName"
 
 # This message will proceed the list of top players
-topContributorsTitle: "&e&lTop Contributors&r"
+topContributorsTitle: "&l&eTop Contributors&r"
 
 # rewards title - show to player before receiving their rewards
 rewardsTitle: "&aRewards"
@@ -31,8 +33,9 @@ experience: "&eexperience"
 competitive: "&aCompetitive"
 cooperative: "&aCooperative"
 goal: "&7Goal"
+duration: "&7Duration"
 you: "&7You"
-leader: "&7Leader"
+leader: "&n&7Leader"
 progress: "&7Progress"
 
 # GUI titles
@@ -46,3 +49,4 @@ endQuestText: "&eClick to end the quest"
 goBack: "&cGo Back"
 goBackText: "&7Go back to the event list"
 clickToStart: "&eClick to start the quest"
+timeRemaining: "&fTime remaining: &e"

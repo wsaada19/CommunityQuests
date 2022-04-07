@@ -55,6 +55,7 @@ public class LanguageConfig {
         String questLimitReached = yamlConfiguration.getString("questLimitReached");
 
         String questComplete = yamlConfiguration.getString("questCompleteMessage");
+        String questFailed = yamlConfiguration.getString("questFailureMessage");
         String questStart = yamlConfiguration.getString("questStartMessage");
         String contributionMessage = yamlConfiguration.getString("contributionMessage");
         String topContributorsTitle = yamlConfiguration.getString("topContributorsTitle");
@@ -77,12 +78,16 @@ public class LanguageConfig {
         String goBack = yamlConfiguration.getString("goBack");
         String goBackText = yamlConfiguration.getString("goBackText");
         String clickToStart = yamlConfiguration.getString("clickToStart");
+        String cooperativeQuestWithoutGoalMessage = yamlConfiguration.getString("cooperativeQuestMustHaveAGoal", "&cCould not start quest: quests without a goal cannot be cooperative!");
+        String timeRemaining = yamlConfiguration.getString("timeRemaining", "&fTime remaining: &e");
+        String duration = yamlConfiguration.getString("duration", "Duration");
 
         messages = new Messages(noPermission, invalidCommand, reloadCommand, helpMessage,
                 noDonateQuests, invalidQuestName, invalidQuestType, noActiveQuests, questComplete,
                 questStart, contributionMessage, topContributorsTitle, rewardsTitle, questLimitReached, experience, competitive,
                 cooperative, goal, you, leader, progress, cantDonate, view, start, stop, typeMenu, donateMenu,
-                endQuestText, goBack, goBackText, clickToStart);
+                endQuestText, goBack, goBackText, clickToStart, cooperativeQuestWithoutGoalMessage, timeRemaining, questFailed,
+                duration);
         config = this;
     }
 }

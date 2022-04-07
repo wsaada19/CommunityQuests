@@ -22,7 +22,7 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
     private Inventory inventory;
 
     public StopGui() {
-        inventory = Bukkit.createInventory(this, 36,  ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getStopMenu()));
+        inventory = Bukkit.createInventory(this, 36, ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getStopMenu()));
     }
 
     public void initializeItems() {
@@ -33,14 +33,14 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
             int progress = controller.getQuestData().getAmountCompleted();
             int goal = controller.getQuestData().getQuestGoal();
 
-            String progressString = LanguageConfig.getConfig().getMessages().getProgress() + ": &a" +  progress + "/" + goal;
+            String progressString = LanguageConfig.getConfig().getMessages().getProgress() + ": &a" + progress + "/" + goal;
 
             ItemStack item = createGuiItem(Material.DIAMOND,
-                    controller.getQuestData().getDisplayName(),
-                    controller.getQuestData().getDescription(),
-                    "",
-                    progressString,
-                    LanguageConfig.getConfig().getMessages().getEndQuestText());
+                controller.getQuestData().getDisplayName(),
+                controller.getQuestData().getDescription(),
+                "",
+                progressString,
+                LanguageConfig.getConfig().getMessages().getEndQuestText());
 
             inventory.setItem(count, item);
             count++;

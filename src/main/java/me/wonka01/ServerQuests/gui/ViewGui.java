@@ -3,6 +3,7 @@ package me.wonka01.ServerQuests.gui;
 import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
+import me.wonka01.ServerQuests.questcomponents.QuestData;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -13,8 +14,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewGui extends BaseGui implements Listener, InventoryHolder {
@@ -24,6 +25,7 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
     public ViewGui() {
         inventory = Bukkit.createInventory(this, 36, ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getViewMenu()));
     }
+
     @Override
     public void initializeItems() {
 
@@ -49,42 +51,50 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
         int goal = controller.getQuestData().getQuestGoal();
 
         String progressString = LanguageConfig.getConfig().getMessages().getProgress() + ": " + ChatColor.GREEN + progress + "/" + goal;
+        ArrayList<String> lore = getQuestDisplay(controller.getQuestData());
 
-        ItemStack item = createGuiItem(Material.DIAMOND,
-                ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDisplayName()),
-                ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDescription()),
-                "",
-                progressString,
-                getPlayerProgress(controller, player));
+        if (goal > 0) {
+            lore.add(progressString);
+        }
+        lore.add(getPlayerProgress(controller, player));
 
-        inventory.setItem(index, item);
+        inventory.setItem(index, createGuiItem(Material.DIAMOND,
+            ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDisplayName()),
+            lore.toArray(new String[0])));
     }
 
     public void createItemStackForComp(QuestController controller, int index, Player player) {
 
         int goal = controller.getQuestData().getQuestGoal();
-        ItemStack item;
         String leaders = LanguageConfig.getConfig().getMessages().getLeader();
         PlayerData topPlayer = controller.getPlayerComponent().getTopPlayerData();
-        if(topPlayer == null) {
-            item = createGuiItem(Material.DIAMOND,
-                    controller.getQuestData().getDisplayName(),
-                    controller.getQuestData().getDescription(),
-                    "",
-                    leaders,
-                    "&7n/a",
-                    getPlayerProgress(controller, player));
-        } else {
-            item = createGuiItem(Material.DIAMOND,
-                     controller.getQuestData().getDisplayName(),
-                    controller.getQuestData().getDescription(),
-                    "",
-                    leaders,
-                    "&7" + topPlayer.getDisplayName() + ": " + "&a" + topPlayer.getAmountContributed() + "/" + goal,
-                    getPlayerProgress(controller, player));
-        }
 
-        inventory.setItem(index, item);
+        ArrayList<String> lore = getQuestDisplay(controller.getQuestData());
+
+        lore.add(leaders);
+        if (topPlayer == null) {
+            lore.add("&7n/a");
+        } else {
+            String leaderString = "&7" + topPlayer.getDisplayName() + ": " + "&a" + topPlayer.getAmountContributed();
+            if (goal > 0) {
+                leaderString += "/" + goal;
+            }
+            lore.add(leaderString);
+        }
+        lore.add(getPlayerProgress(controller, player));
+
+        inventory.setItem(index, createGuiItem(Material.DIAMOND, controller.getQuestData().getDisplayName(), lore.toArray(new String[0])));
+    }
+
+    private ArrayList<String> getQuestDisplay(QuestData questData) {
+        ArrayList<String> lore = new ArrayList<>();
+        lore.add(ChatColor.translateAlternateColorCodes('&', questData.getDescription()));
+        lore.add("");
+        if (questData.getQuestDuration() > 0) {
+            lore.add(ChatColor.translateAlternateColorCodes('&',LanguageConfig.getConfig().getMessages().getTimeRemaining() + questData.getQuestDuration()));
+            lore.add("");
+        }
+        return lore;
     }
 
     private String getPlayerProgress(QuestController controller, Player player) {

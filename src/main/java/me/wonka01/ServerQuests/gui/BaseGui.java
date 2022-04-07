@@ -20,14 +20,13 @@ public abstract class BaseGui {
         ItemStack item = new ItemStack(material, 1);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
-        ArrayList<String> metalore = new ArrayList<String>();
+        ArrayList<String> metaLore = new ArrayList<>();
 
-        for (String lorecomments : lore) {
-
-            metalore.add(ChatColor.translateAlternateColorCodes('&', lorecomments));
+        for (String loreComments : lore) {
+            metaLore.add(ChatColor.translateAlternateColorCodes('&', loreComments));
         }
 
-        meta.setLore(metalore);
+        meta.setLore(metaLore);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
         return item;

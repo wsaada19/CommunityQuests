@@ -2,7 +2,6 @@ package me.wonka01.ServerQuests.commands;
 
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,7 +20,7 @@ public class CommunityQuestsCommands implements CommandExecutor {
         String commandPrefix = "cq";
 
         JavaPlugin.getPlugin(ServerQuests.class).getCommand(commandPrefix).setExecutor(this);
-        subCommands = new HashMap<String, SubCommand>();
+        subCommands = new HashMap<>();
         subCommands.put("start", new StartCommand());
         subCommands.put("stop", new StopQuestCommand());
         subCommands.put("togglebar", new ToggleBarCommand());
@@ -42,7 +41,7 @@ public class CommunityQuestsCommands implements CommandExecutor {
                     subCommands.get(args[0]).onCommand(commandSender, args);
                     return true;
                 }
-            } catch(NotImplementedException ex) {
+            } catch (NotImplementedException ex) {
                 commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getNoPermission()));
                 return false;
             }

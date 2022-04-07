@@ -68,8 +68,15 @@ A short description of the quest
 #### type (required)
 The quest type, see here for a list of types: 
 
-#### goal (required)
-The amount you'll need to complete to finish the quest
+#### goal (required if no timeToComplete is required)
+The amount you'll need to complete to finish the quest. To run a collaborative quest a goal is required
+even if you have a timeToComplete set. 
+
+####  timeToComplete (required if no goal is required)
+The time that the quest should run for in seconds, so if it is set to 60 the quest will last 
+for one minute. If both goal and time required are set then the quest will run until the goal is hit 
+or until the timeToComplete is hit, whichever comes first. 
+
 
 #### materials (optional)
 This is an optional parameter for the following quest types: 
@@ -82,7 +89,7 @@ If empty or not used then all mob types will be included.
 
 ## Rewards
 The rewards are given to players after completing the quest. There are four types of rewards: money, experience, command, and item rewards. Experience and money rewards are earned based on how much you contribute to the
-quest. Item rewards are given to everyone in cooperative quests, and to the winner in competitive quests.
+quest. Item rewards are given to everyone in cooperative quests, but only to the winner in competitive quests.
 More reward options will be added in the future. Command rewards allow you to run a command for a given player when the quest completes.
 
 **Note: Only money and command rewards are given to players who contributed but are offline when the quest is complete, I plan on addressing this in the future.**
@@ -109,14 +116,16 @@ GUI to pick the type. You can also do /sq start [QuestId] [coop/comp] . I plan o
 
 #### Cooperative 
 Cooperative quests involve everyone on the server working together to complete the goal. For example in the quest created in the configuration section, the quest will be complete once 100 zombies, pigs, and zombie pigmen have been killed. Note: This means 100 total of
-any combination of zombies/pigs/zombie pigman kills that add to 100. 
+any combination of zombies/pigs/zombie pigman kills that add to 100. If timeToComplete is set then the player's must complete the quest in the given time limit.
+If the quest is not completed no rewards will be given out.
 
 Player's are rewarded based on how much they contribute to the quest. If the reward is 1000 
 money and PlayerX kills 50 of the 100 zombies, PlayerX will receive 500. Item and command rewards are given to every player who contributes to the quest.
 
 #### Competitive
 Competitive quests put the players against each other to see who can complete a goal first. Using our zombie/pig example
-from above, the quest will end once a single player gets 100 kills for the correct mob types.
+from above, the quest will end once a single player gets 100 kills for the correct mob types. If a time limit is set and the quest ends before the goal is reached the top players will still get rewards based on their contributions.
+
 
 Money/experience awards work the same way as cooperative quests. If the money reward is 1000 the winner of the competition will get 1000. If Player1 came in second with 70 kills, he or she will get 700. The winner is the only person who will get items in a competitive quest.
 Think of it as more of a challenge than a quest.

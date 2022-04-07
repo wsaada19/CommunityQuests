@@ -3,7 +3,7 @@ package me.wonka01.ServerQuests.commands;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.configuration.messages.Messages;
-import me.wonka01.ServerQuests.enums.PermissionConstants;
+import me.wonka01.ServerQuests.enums.PermissionNode;
 import me.wonka01.ServerQuests.gui.ViewGui;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import org.bukkit.ChatColor;
@@ -16,7 +16,7 @@ public class ViewQuestsCommand extends SubCommand {
     @Override
     public void onCommand(Player player, String[] args) {
         Messages messages = LanguageConfig.getConfig().getMessages();
-        if (!player.hasPermission(PermissionConstants.VIEW_QUEST)) {
+        if (!player.hasPermission(PermissionNode.VIEW_QUEST)) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getNoPermission()));
             return;
         }

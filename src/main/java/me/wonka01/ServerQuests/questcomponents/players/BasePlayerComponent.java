@@ -9,7 +9,10 @@ import org.bukkit.entity.Player;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.UUID;
 
 public class BasePlayerComponent {
 
@@ -20,12 +23,16 @@ public class BasePlayerComponent {
 
     public BasePlayerComponent(ArrayList<Reward> rewardsList) {
         this.rewardsList = rewardsList;
-        this.playerMap = new TreeMap<UUID, PlayerData>();
+        this.playerMap = new TreeMap<>();
     }
 
     public BasePlayerComponent(ArrayList<Reward> rewardsList, Map<UUID, PlayerData> map) {
         this.rewardsList = rewardsList;
         this.playerMap = map;
+    }
+
+    public static void setLeaderBoardSize(int size) {
+        leaderBoardSize = size;
     }
 
     public void savePlayerAction(Player player, int count) {
@@ -46,6 +53,9 @@ public class BasePlayerComponent {
             return;
         }
 
+        if(this.playerMap.size() < 1) {
+            return;
+        }
         StringBuilder result = new StringBuilder(LanguageConfig.getConfig().getMessages().getTopContributorsTitle());
         TreeMap<UUID, PlayerData> map = new TreeMap<UUID, PlayerData>(new SortByContributions(this.playerMap));
         map.putAll(this.playerMap);
@@ -97,7 +107,14 @@ public class BasePlayerComponent {
 
     public void giveOutRewards(int questGoal) {
         for (UUID key : playerMap.keySet()) {
-            double playerContributionRatio = (double) playerMap.get(key).getAmountContributed() / (double) questGoal;
+            double playerContributionRatio;
+            double playerContribution = (double)playerMap.get(key).getAmountContributed();
+            if(questGoal > 0) {
+                playerContributionRatio = playerContribution / (double) questGoal;
+            } else {
+                playerContributionRatio = playerContribution / (double) getTopPlayerData().getAmountContributed();
+            }
+
             OfflinePlayer player = Bukkit.getServer().getOfflinePlayer(key);
 
             if (player.isOnline()) {
@@ -111,9 +128,5 @@ public class BasePlayerComponent {
                 reward.giveRewardToPlayer(player, playerContributionRatio);
             }
         }
-    }
-
-    public static void setLeaderBoardSize(int size) {
-        leaderBoardSize = size;
     }
 }
