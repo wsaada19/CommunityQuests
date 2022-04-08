@@ -9,6 +9,9 @@ commands:
     usage:
     description: Commands for Community Quests Plugin
 
+softdepend:
+    - Vault
+
 permissions:
   communityquests.start:
     description: The ability to start server events

@@ -26,6 +26,8 @@ public class ObjectiveTypeUtil {
             return ObjectiveType.MILK_COW;
         } else if (eventType.equalsIgnoreCase("donate")) {
             return ObjectiveType.GUI;
+        } else if (eventType.equalsIgnoreCase("craftitem")) {
+            return ObjectiveType.CRAFT_ITEM;
         }
         return null;
     }
@@ -51,6 +53,8 @@ public class ObjectiveTypeUtil {
             return Material.MILK_BUCKET;
         } else if (eventType == ObjectiveType.GUI) {
             return Material.CHEST;
+        } else if (eventType == ObjectiveType.CRAFT_ITEM) {
+            return Material.CRAFTING_TABLE;
         }
         return null;
     }

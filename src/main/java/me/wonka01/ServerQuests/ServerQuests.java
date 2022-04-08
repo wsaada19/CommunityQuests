@@ -11,7 +11,6 @@ import me.wonka01.ServerQuests.questcomponents.BarManager;
 import me.wonka01.ServerQuests.questcomponents.QuestBar;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import net.milkbowl.vault.economy.Economy;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,6 +23,7 @@ public class ServerQuests extends JavaPlugin {
     private StopGui stopGui;
     private DonateQuestGui questGui;
     private ViewGui viewGui;
+    private DonateOptions donateOptionsGui;
 
     private ActiveQuests activeQuests;
     private JsonQuestSave jsonSave;
@@ -96,6 +96,7 @@ public class ServerQuests extends JavaPlugin {
         stopGui = new StopGui();
         questGui = new DonateQuestGui();
         questGui.initializeItems();
+        donateOptionsGui = new DonateOptions(questGui);
     }
 
     public void reloadConfiguration() {
@@ -106,6 +107,7 @@ public class ServerQuests extends JavaPlugin {
         questLibrary.loadQuestConfiguration(serverQuestSection);
         loadConfigurationLimits();
         LanguageConfig.getConfig().setUpLanguageConfig();
+        loadGuis();
     }
 
     public QuestLibrary getQuestLibrary() {
@@ -124,22 +126,24 @@ public class ServerQuests extends JavaPlugin {
         return questGui;
     }
 
+    public DonateOptions getDonateOptionsGui() {
+        return donateOptionsGui;
+    }
+
     public ViewGui getViewGui() {
         return viewGui;
     }
 
     private boolean setupEconomy() {
-        try {
-            Class.forName("net.milkbowl.vault.economy.Economy");
-            RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
-            if (economyProvider != null) {
-                economy = economyProvider.getProvider();
-                Bukkit.getServer().getConsoleSender().sendMessage(economy.currencyNameSingular());
-            }
-            return (economy != null);
-        } catch (ClassNotFoundException exception) {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;
         }
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return false;
+        }
+        economy = rsp.getProvider();
+        return economy != null;
     }
 
     private void registerEvents() {
@@ -147,6 +151,7 @@ public class ServerQuests extends JavaPlugin {
         getServer().getPluginManager().registerEvents(startGui, this);
         getServer().getPluginManager().registerEvents(stopGui, this);
         getServer().getPluginManager().registerEvents(viewGui, this);
+        getServer().getPluginManager().registerEvents(donateOptionsGui, this);
         getServer().getPluginManager().registerEvents(new BarManager(), this);
         getServer().getPluginManager().registerEvents(new BreakEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new CatchFishEvent(activeQuests), this);
@@ -157,5 +162,6 @@ public class ServerQuests extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ShearEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new TameEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new MilkCowEvent(activeQuests), this);
+        getServer().getPluginManager().registerEvents(new CraftItemQuestEvent(activeQuests), this);
     }
 }

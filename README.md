@@ -142,3 +142,4 @@ Think of it as more of a challenge than a quest.
 - **shear** - shear sheep
 - **tame** - tame animals
 - **milkcow** - milk cow
+- **craftitem** - craft something
