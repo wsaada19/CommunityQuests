@@ -3,6 +3,7 @@ package me.wonka01.ServerQuests.gui;
 import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.events.questevents.GuiEvent;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
+import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -11,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -52,6 +54,9 @@ public class DonateQuestGui extends BaseGui implements InventoryHolder, Listener
         Player player = (Player) e.getWhoClicked();
 
         if (e.getRawSlot() != ITEM_SLOT || itemOnCursor == null) {
+            if(!e.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
+                e.setCancelled(true);
+            }
             return;
         }
 

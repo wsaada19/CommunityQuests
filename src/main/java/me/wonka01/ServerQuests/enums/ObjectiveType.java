@@ -10,5 +10,8 @@ public enum ObjectiveType {
     SHEAR,
     TAME,
     GUI,
-    MILK_COW
+    MILK_COW,
+    CRAFT_ITEM,
+    CONSUME_ITEM,
+    GIVE_MONEY
 }
