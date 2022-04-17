@@ -28,6 +28,9 @@ permissions:
   communityquests.donate:
     description: Can use the donate command to participate in quests
     default: true
+  communityquests.money:
+      description: Can use the command to contribute money to money quests
+      default: true
   communityquests.showmessages:
     description: If true the player will receive a message when they contribute to the quest
     default: false

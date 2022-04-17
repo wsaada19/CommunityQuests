@@ -132,7 +132,6 @@ Think of it as more of a challenge than a quest.
 
 ## Objectives
 - **donate**- these quests require players to donate a specified number of a given material. The /cq donate command will open a GUI where the player can donate their items. (The items will be gone forever once placed!)
-
 - **mobkill** - activated when you kill an entity, use entities list to set the mobs to be killed
 - **catchfish**- catch a given number of fish 
 - **playerkill**- kill other players
@@ -143,3 +142,5 @@ Think of it as more of a challenge than a quest.
 - **tame** - tame animals
 - **milkcow** - milk cow
 - **craftitem** - craft something
+- **consumeitem** - consume an item - like eating an apple
+- **enchantitem** - enchant something 

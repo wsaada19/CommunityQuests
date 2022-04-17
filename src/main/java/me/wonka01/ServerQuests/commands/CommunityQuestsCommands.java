@@ -2,6 +2,8 @@ package me.wonka01.ServerQuests.commands;
 
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
+import me.wonka01.ServerQuests.events.questevents.MoneyQuest;
+import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,19 +18,18 @@ public class CommunityQuestsCommands implements CommandExecutor {
 
     private HashMap<String, SubCommand> subCommands;
 
-    public void setup() {
+    public void setup(JavaPlugin plugin) {
         String commandPrefix = "cq";
-
-        JavaPlugin.getPlugin(ServerQuests.class).getCommand(commandPrefix).setExecutor(this);
+        plugin.getCommand(commandPrefix).setExecutor(this);
         subCommands = new HashMap<>();
         subCommands.put("start", new StartCommand());
         subCommands.put("stop", new StopQuestCommand());
         subCommands.put("togglebar", new ToggleBarCommand());
-        //subCommands.put("togglemessages", new ToggleMessageCommand());
         subCommands.put("view", new ViewQuestsCommand());
         subCommands.put("reload", new ReloadCommand());
         subCommands.put("donate", new DonateQuestCommand());
         subCommands.put("help", new HelpCommand());
+        /*subCommands.put("money", new MoneyQuestCommand(new MoneyQuest(ActiveQuests.getActiveQuestsInstance(), ServerQuests.economy)));*/
     }
 
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {

@@ -4,6 +4,7 @@ import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
+import me.wonka01.ServerQuests.util.MaterialUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -34,12 +35,11 @@ public class BreakEvent extends QuestListener implements Listener {
 
         List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
         for (QuestController controller : controllers) {
-            for (String blockType : controller.getEventConstraints().getMaterialNames()) {
-                if (blockName.equalsIgnoreCase(blockType)) {
-                    event.getBlock().setMetadata(BROKEN, meta);
-                    updateQuest(controller, event.getPlayer(), 1);
-                    break;
-                }
+            List<String> materials = controller.getEventConstraints().getMaterialNames();
+            if (materials.isEmpty() || MaterialUtil.containsMaterial(blockName, materials)) {
+                event.getBlock().setMetadata(BROKEN, meta);
+                updateQuest(controller, event.getPlayer(), 1);
+                break;
             }
         }
     }
