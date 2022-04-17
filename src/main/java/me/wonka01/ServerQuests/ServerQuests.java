@@ -32,7 +32,7 @@ public class ServerQuests extends JavaPlugin {
     public void onEnable() {
         getLogger().info("Plugin is enabled");
         CommunityQuestsCommands commandExecutor = new CommunityQuestsCommands();
-        commandExecutor.setup();
+        commandExecutor.setup(this);
 
         loadConfig();
         loadConfigurationLimits();
@@ -163,5 +163,7 @@ public class ServerQuests extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new TameEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new MilkCowEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new CraftItemQuestEvent(activeQuests), this);
+        getServer().getPluginManager().registerEvents(new ConsumeItemQuestEvent(activeQuests), this);
+        getServer().getPluginManager().registerEvents(new EnchantItemQuestEvent(activeQuests), this);
     }
 }

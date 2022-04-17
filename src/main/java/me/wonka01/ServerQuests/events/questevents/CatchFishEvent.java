@@ -25,6 +25,5 @@ public class CatchFishEvent extends QuestListener implements Listener {
                 updateQuest(controller, event.getPlayer(), 1);
             }
         }
-
     }
 }

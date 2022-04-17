@@ -8,4 +8,5 @@ public class PermissionNode {
     public final static String HIDE_BAR = "communityquests.bossbar.hide";
     public final static String SHOW_MESSAGES = "communityquests.showmessages";
     public final static String DONATE = "communityquests.donate";
+    public final static String MONEY = "communityquests.money";
 }

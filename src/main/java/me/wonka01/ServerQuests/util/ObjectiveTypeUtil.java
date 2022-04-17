@@ -28,6 +28,12 @@ public class ObjectiveTypeUtil {
             return ObjectiveType.GUI;
         } else if (eventType.equalsIgnoreCase("craftitem")) {
             return ObjectiveType.CRAFT_ITEM;
+        } else if (eventType.equalsIgnoreCase("consumeitem")) {
+            return ObjectiveType.CONSUME_ITEM;
+        } else if (eventType.equalsIgnoreCase("enchantitem")) {
+            return ObjectiveType.ENCHANT_ITEM;
+        } else if (eventType.equalsIgnoreCase("money")) {
+            return ObjectiveType.GIVE_MONEY;
         }
         return null;
     }
@@ -55,6 +61,12 @@ public class ObjectiveTypeUtil {
             return Material.CHEST;
         } else if (eventType == ObjectiveType.CRAFT_ITEM) {
             return Material.CRAFTING_TABLE;
+        } else if (eventType == ObjectiveType.CONSUME_ITEM) {
+            return Material.APPLE;
+        } else if (eventType == ObjectiveType.ENCHANT_ITEM) {
+            return Material.ENCHANTING_TABLE;
+        } else if (eventType == ObjectiveType.GIVE_MONEY) {
+            return Material.EMERALD;
         }
         return null;
     }

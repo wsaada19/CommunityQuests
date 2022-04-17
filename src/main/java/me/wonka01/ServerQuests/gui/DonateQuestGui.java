@@ -3,7 +3,6 @@ package me.wonka01.ServerQuests.gui;
 import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.events.questevents.GuiEvent;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
-import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

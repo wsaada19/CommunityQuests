@@ -13,5 +13,6 @@ public enum ObjectiveType {
     MILK_COW,
     CRAFT_ITEM,
     CONSUME_ITEM,
-    GIVE_MONEY
+    GIVE_MONEY,
+    ENCHANT_ITEM
 }
