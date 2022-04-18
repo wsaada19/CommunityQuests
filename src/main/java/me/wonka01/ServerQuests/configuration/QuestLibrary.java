@@ -17,15 +17,13 @@ public class QuestLibrary {
     }
 
     public QuestModel getQuestModelById(String questId) {
-        if (questList.containsKey(questId)) {
-            return questList.get(questId);
-        } else {
-            return null;
-        }
+
+        // Map automatically returns null if value doesn't exist
+        return questList.get(questId);
     }
 
     public void loadQuestConfiguration(ConfigurationSection serverQuestConfig) {
-        HashMap<String, QuestModel> map = new HashMap<String, QuestModel>();
+        HashMap<String, QuestModel> map = new HashMap<>();
         for (String questId : serverQuestConfig.getKeys(false)) {
             ConfigurationSection section = serverQuestConfig.getConfigurationSection(questId);
             QuestModel model = loadQuestFromConfig(section);
@@ -46,21 +44,73 @@ public class QuestLibrary {
         ObjectiveType objectiveType = ObjectiveTypeUtil.parseEventTypeFromString(section.getString("type"));
         int goal = section.getInt("goal", -1);
 
-        ConfigurationSection rewardsSection = section.getConfigurationSection("rewards");
+        /* A new List is created inside the method, so it cannot be null regardless cases
 
-        ArrayList<Reward> rewards;
-        if (rewardsSection == null) {
-            rewards = new ArrayList<>();
-        } else {
-            rewards = getRewardsFromConfig(rewardsSection);
-        }
+            if (rewardsSection == null) {
+              rewards = new ArrayList<>();
+            } else {
+               rewards = getRewardsFromConfig(rewardsSection);
+            }
+
+         */
+
+        ConfigurationSection rewardsSection = section.getConfigurationSection("rewards");
+        ArrayList<Reward> rewards = getRewards(rewardsSection);
+
 
         return new QuestModel(questId, displayName, description, timeToComplete, goal,
                 objectiveType, mobNames, rewards, itemNames);
     }
 
-    // TODO Clean this up please
+
+    private ArrayList<Reward> getRewards(ConfigurationSection sections){
+
+        ArrayList<Reward> rewards = new ArrayList<>();
+
+        for(String reward : sections.getKeys(false)){
+
+            Reward result = null;
+
+            switch (reward){
+                case "money":
+                    double money = sections.getDouble("money");
+                    result = new MoneyReward(money);
+                    break;
+                case "experience":
+                    int exp = sections.getInt("experience");
+                    result = new ExperienceReward(exp);
+                    break;
+                case "commands" :
+                    for(String cmd : sections.getStringList("commands"))
+                        rewards.add(new CommandReward(cmd));
+                    break;
+                case "items":
+                    for(Object obj : sections.getList(reward)){
+
+                        LinkedHashMap<?, ?> item = (LinkedHashMap<?, ?>) obj;
+                        int amount = (int) item.get("amount");
+                        String material = String.valueOf(item.get("material")),
+                            name = String.valueOf(item.get("displayName"));
+
+                        rewards.add( new ItemReward(amount, material, name));
+                    }
+                default:
+                    break;
+            }
+
+            if(result != null)
+                rewards.add(result);
+        }
+
+        return rewards;
+    }
+
+    // TODO Clean this up please - DONE
     private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {
+
+
+
+
         ArrayList<Reward> rewards = new ArrayList<>();
         for (String key : section.getKeys(false)) {
             Reward reward;

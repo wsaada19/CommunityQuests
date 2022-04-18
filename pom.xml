@@ -6,15 +6,47 @@
 
     <groupId>me.wonka01</groupId>
     <artifactId>CommunityQuests</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.2.4</version>
+
+    <contributors>
+        <contributor>
+            <name>wonka01</name>
+            <roles>
+                <role>owner</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>KnightHat</name>
+            <roles>
+                <role>contributor</role>
+                <role>tester</role>
+            </roles>
+        </contributor>
+    </contributors>
+
+    <name>CommunityQuests</name>
+    <description>Create custom objectives for players on your server to complete together!</description>
+
+    <!--
+    Using Java 11 library for better syntax and better compatibility
+    USing UTF-8 for different languages
+    -->
+    <properties>
+        <java.version>11</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <build>
+        <defaultGoal>deploy</defaultGoal>
+        <finalName>${project.name}-${project.version}</finalName>
+        <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
         </plugins>
@@ -34,7 +66,8 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.18.2-R0.1-SNAPSHOT</version>
+            <!-- Changed to version 1.12 for compatibility -->
+            <version>1.12-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -42,6 +75,20 @@
             <artifactId>VaultAPI</artifactId>
             <version>1.7</version>
             <scope>provided</scope>
+        </dependency>
+        <!-- Added lombok. Visit https://projectlombok.org/ for more information -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- @Nullable -->
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

@@ -15,7 +15,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
-public class DonateQuestCommand extends SubCommand {
+public class DonateQuestCommand implements SubCommand {
 
     @Override
     public void onCommand(Player player, String[] args) {

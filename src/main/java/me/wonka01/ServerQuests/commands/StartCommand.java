@@ -12,7 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class StartCommand extends SubCommand {
+public class StartCommand implements SubCommand {
 
     public void onCommand(Player player, String[] args) {
 

@@ -3,12 +3,10 @@ package me.wonka01.ServerQuests.commands;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public abstract class SubCommand {
+// Class didn't hold any variables so interface is the better choice
+public interface SubCommand {
 
-    public SubCommand() {
-    }
+    void onCommand(Player player, String[] args);
 
-    public abstract void onCommand(Player player, String[] args);
-
-    public abstract void onCommand(CommandSender player, String[] args);
+    void onCommand(CommandSender player, String[] args);
 }

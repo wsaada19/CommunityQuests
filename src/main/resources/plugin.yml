@@ -1,13 +1,13 @@
 name: CommunityQuests
-version: 1.0
-author: wonka01
+version: ${project.version}
+author: wonka01, knighthat
 main: me.wonka01.ServerQuests.ServerQuests
 api-version: 1.13
 
 commands:
-  cq:
-    usage:
-    description: Commands for Community Quests Plugin
+  communityquests:
+      aliases: cq, quests
+      description: Commands for Community Quests Plugin
 
 softdepend:
     - Vault

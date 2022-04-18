@@ -14,7 +14,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
-public class MoneyQuestCommand extends SubCommand {
+public class MoneyQuestCommand implements SubCommand {
     private MoneyQuest eventHandler;
 
     public MoneyQuestCommand(MoneyQuest eventHandler) {

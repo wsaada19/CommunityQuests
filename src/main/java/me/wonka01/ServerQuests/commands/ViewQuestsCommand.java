@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class ViewQuestsCommand extends SubCommand {
+public class ViewQuestsCommand implements SubCommand {
     @Override
     public void onCommand(Player player, String[] args) {
         Messages messages = LanguageConfig.getConfig().getMessages();

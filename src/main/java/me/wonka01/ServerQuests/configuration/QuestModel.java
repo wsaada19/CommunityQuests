@@ -1,11 +1,13 @@
 package me.wonka01.ServerQuests.configuration;
 
+import lombok.Getter;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class QuestModel {
 
     private String questId;
@@ -31,42 +33,4 @@ public class QuestModel {
         this.rewards = rewards;
         this.itemNames = itemNames;
     }
-
-    public String getQuestId() {
-        return questId;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public String getEventDescription() {
-        return eventDescription;
-    }
-
-    public int getSecondsToComplete() {
-        return durationInSeconds;
-    }
-
-    public int getQuestGoal() {
-        return questGoal;
-    }
-
-    public ObjectiveType getObjective() {
-        return objective;
-    }
-
-    public List<String> getMobNames() {
-        return mobNames;
-    }
-
-    public ArrayList<Reward> getRewards() {
-        return rewards;
-    }
-
-    public List<String> getItemNames() {
-        return itemNames;
-    }
-
-
 }

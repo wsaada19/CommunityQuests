@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class StopQuestCommand extends SubCommand {
+public class StopQuestCommand implements SubCommand {
     @Override
     public void onCommand(Player player, String[] args) {
 

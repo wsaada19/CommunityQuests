@@ -4,7 +4,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class ToggleMessageCommand extends SubCommand {
+public class ToggleMessageCommand implements SubCommand {
     //public HashMap<UUID, PermissionAttachment> map = new HashMap<UUID, PermissionAttachment>();
 
     public void onCommand(Player player, String[] args) {
