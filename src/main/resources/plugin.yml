@@ -6,7 +6,7 @@ api-version: 1.13
 
 commands:
   communityquests:
-      aliases: cq, quests
+      aliases: [cq, quests]
       description: Commands for Community Quests Plugin
 
 softdepend:

@@ -2,7 +2,7 @@ package me.wonka01.ServerQuests.commands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.apache.commons.lang.NotImplementedException;
 
 public class ToggleMessageCommand implements SubCommand {
     //public HashMap<UUID, PermissionAttachment> map = new HashMap<UUID, PermissionAttachment>();

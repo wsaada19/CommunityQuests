@@ -6,7 +6,7 @@ import me.wonka01.ServerQuests.questcomponents.BarManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.apache.commons.lang.NotImplementedException;
 
 public class ToggleBarCommand implements SubCommand {
 

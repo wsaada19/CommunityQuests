@@ -26,11 +26,6 @@
 
     <name>CommunityQuests</name>
     <description>Create custom objectives for players on your server to complete together!</description>
-
-    <!--
-    Using Java 11 library for better syntax and better compatibility
-    USing UTF-8 for different languages
-    -->
     <properties>
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -50,6 +45,15 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true
+                </filtering>
+            </resource>
+        </resources>
+
     </build>
     <repositories>
         <repository>

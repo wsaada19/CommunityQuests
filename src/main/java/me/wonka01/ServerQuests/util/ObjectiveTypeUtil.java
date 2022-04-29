@@ -60,11 +60,11 @@ public class ObjectiveTypeUtil {
         } else if (eventType == ObjectiveType.GUI) {
             return Material.CHEST;
         } else if (eventType == ObjectiveType.CRAFT_ITEM) {
-            return Material.CRAFTING_TABLE;
+            return Material.CHAINMAIL_HELMET;
         } else if (eventType == ObjectiveType.CONSUME_ITEM) {
             return Material.APPLE;
         } else if (eventType == ObjectiveType.ENCHANT_ITEM) {
-            return Material.ENCHANTING_TABLE;
+            return Material.GOLDEN_APPLE;
         } else if (eventType == ObjectiveType.GIVE_MONEY) {
             return Material.EMERALD;
         }

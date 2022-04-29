@@ -45,7 +45,8 @@ public class ServerQuests extends JavaPlugin {
         }
 
         loadGuis();
-        registerEvents();
+        registerGuiEvents();
+        registerQuestEvents();
     }
 
     @Override
@@ -108,6 +109,7 @@ public class ServerQuests extends JavaPlugin {
         loadConfigurationLimits();
         LanguageConfig.getConfig().setUpLanguageConfig();
         loadGuis();
+        registerGuiEvents();
     }
 
     public QuestLibrary getQuestLibrary() {
@@ -126,9 +128,9 @@ public class ServerQuests extends JavaPlugin {
         return questGui;
     }
 
-    public DonateOptions getDonateOptionsGui() {
-        return donateOptionsGui;
-    }
+//    public DonateOptions getDonateOptionsGui() {
+//        return donateOptionsGui;
+//    }
 
     public ViewGui getViewGui() {
         return viewGui;
@@ -146,12 +148,7 @@ public class ServerQuests extends JavaPlugin {
         return economy != null;
     }
 
-    private void registerEvents() {
-        getServer().getPluginManager().registerEvents(questGui, this);
-        getServer().getPluginManager().registerEvents(startGui, this);
-        getServer().getPluginManager().registerEvents(stopGui, this);
-        getServer().getPluginManager().registerEvents(viewGui, this);
-        getServer().getPluginManager().registerEvents(donateOptionsGui, this);
+    private void registerQuestEvents() {
         getServer().getPluginManager().registerEvents(new BarManager(), this);
         getServer().getPluginManager().registerEvents(new BreakEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new CatchFishEvent(activeQuests), this);
@@ -165,5 +162,13 @@ public class ServerQuests extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new CraftItemQuestEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new ConsumeItemQuestEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new EnchantItemQuestEvent(activeQuests), this);
+    }
+
+    private void registerGuiEvents() {
+        getServer().getPluginManager().registerEvents(questGui, this);
+        getServer().getPluginManager().registerEvents(startGui, this);
+        getServer().getPluginManager().registerEvents(stopGui, this);
+        getServer().getPluginManager().registerEvents(viewGui, this);
+        getServer().getPluginManager().registerEvents(donateOptionsGui, this);
     }
 }
