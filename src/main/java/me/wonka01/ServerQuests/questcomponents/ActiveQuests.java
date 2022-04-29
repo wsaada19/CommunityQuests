@@ -34,7 +34,7 @@ public class ActiveQuests {
         QuestController controller = getQuestById(questId);
         controller.getQuestBar().removeBossBar();
         activeQuestsList.remove(getQuestById(questId));
-        if (activeQuestsList.size() > 1) {
+        if (activeQuestsList.size() > 0) {
             BarManager.startShowingPlayersBar(activeQuestsList.get(0).getQuestId());
         }
     }
