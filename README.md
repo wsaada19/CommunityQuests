@@ -3,7 +3,7 @@
 * [Installation](#Installation)
 * [Commands](#Commands)
 * [Configuration](#Configuration)
-* [Rewards](#Reqards)
+* [Rewards](#Rewards)
 * [Objective Types](#Objectives)
 
 ## Summary
