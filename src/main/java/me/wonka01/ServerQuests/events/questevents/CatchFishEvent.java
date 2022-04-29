@@ -17,6 +17,7 @@ public class CatchFishEvent extends QuestListener implements Listener {
         super(activeQuests);
     }
 
+    //TODO Add event constraints for fish types like MobKillEvent
     @EventHandler
     public void onCatchFish(PlayerFishEvent event) {
         if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
