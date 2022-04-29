@@ -5,12 +5,14 @@ import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.scheduler.BukkitTask;
 
 public class QuestTimer {
     // checks every 2 seconds to see if the quest is complete (TODO make this configurable)
     private final long IntervalInSeconds = 2L;
 
     private QuestController controller;
+    private BukkitTask task;
 
     public QuestTimer(QuestController questController) {
         controller = questController;
@@ -23,8 +25,7 @@ public class QuestTimer {
 
     private void createScheduler() {
         BukkitScheduler scheduler = Bukkit.getScheduler();
-
-        scheduler.runTaskTimer(JavaPlugin.getPlugin(ServerQuests.class), task -> {
+        this.task = scheduler.runTaskTimer(JavaPlugin.getPlugin(ServerQuests.class), () -> {
             if (controller.getQuestData().isGoalComplete()) {
                 task.cancel();
             }

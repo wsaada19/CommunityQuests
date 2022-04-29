@@ -17,15 +17,11 @@ public class QuestLibrary {
     }
 
     public QuestModel getQuestModelById(String questId) {
-        if (questList.containsKey(questId)) {
-            return questList.get(questId);
-        } else {
-            return null;
-        }
+        return questList.get(questId);
     }
 
     public void loadQuestConfiguration(ConfigurationSection serverQuestConfig) {
-        HashMap<String, QuestModel> map = new HashMap<String, QuestModel>();
+        HashMap<String, QuestModel> map = new HashMap<>();
         for (String questId : serverQuestConfig.getKeys(false)) {
             ConfigurationSection section = serverQuestConfig.getConfigurationSection(questId);
             QuestModel model = loadQuestFromConfig(section);
@@ -47,21 +43,18 @@ public class QuestLibrary {
         int goal = section.getInt("goal", -1);
 
         ConfigurationSection rewardsSection = section.getConfigurationSection("rewards");
-
-        ArrayList<Reward> rewards;
-        if (rewardsSection == null) {
-            rewards = new ArrayList<>();
-        } else {
-            rewards = getRewardsFromConfig(rewardsSection);
-        }
+        ArrayList<Reward> rewards = getRewardsFromConfig(rewardsSection);
 
         return new QuestModel(questId, displayName, description, timeToComplete, goal,
-                objectiveType, mobNames, rewards, itemNames);
+            objectiveType, mobNames, rewards, itemNames);
     }
 
-    // TODO Clean this up please
     private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {
         ArrayList<Reward> rewards = new ArrayList<>();
+        if (section == null) {
+            return rewards;
+        }
+
         for (String key : section.getKeys(false)) {
             Reward reward;
             if (key.equalsIgnoreCase("money")) {

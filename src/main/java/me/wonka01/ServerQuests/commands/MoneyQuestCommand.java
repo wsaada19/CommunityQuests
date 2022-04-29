@@ -10,11 +10,11 @@ import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.apache.commons.lang.NotImplementedException;
 
 import java.util.List;
 
-public class MoneyQuestCommand extends SubCommand {
+public class MoneyQuestCommand implements SubCommand {
     private MoneyQuest eventHandler;
 
     public MoneyQuestCommand(MoneyQuest eventHandler) {

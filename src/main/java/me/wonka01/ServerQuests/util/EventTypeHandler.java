@@ -24,7 +24,7 @@ public class EventTypeHandler {
 
         QuestBar bar = new QuestBar(questModel.getDisplayName());
         BasePlayerComponent playerComponent = new BasePlayerComponent(questModel.getRewards());
-        QuestData data = getQuestData(questModel, 0, playerComponent, questModel.getSecondsToComplete());
+        QuestData data = getQuestData(questModel, 0, playerComponent, questModel.getDurationInSeconds());
         EventConstraints eventConstraints = new EventConstraints(questModel.getItemNames(), questModel.getMobNames());
 
         return new QuestController(data, bar, playerComponent, eventConstraints, questModel.getObjective());

@@ -1,16 +1,13 @@
 package me.wonka01.ServerQuests.commands;
 
-import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
-import me.wonka01.ServerQuests.events.questevents.MoneyQuest;
-import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
+import org.apache.commons.lang.NotImplementedException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.HashMap;
 
@@ -19,8 +16,7 @@ public class CommunityQuestsCommands implements CommandExecutor {
     private HashMap<String, SubCommand> subCommands;
 
     public void setup(JavaPlugin plugin) {
-        String commandPrefix = "cq";
-        plugin.getCommand(commandPrefix).setExecutor(this);
+        plugin.getCommand("communityquests").setExecutor(this);
         subCommands = new HashMap<>();
         subCommands.put("start", new StartCommand());
         subCommands.put("stop", new StopQuestCommand());
@@ -33,6 +29,7 @@ public class CommunityQuestsCommands implements CommandExecutor {
     }
 
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
+
         if (!(commandSender instanceof Player)) {
             try {
                 if (args.length < 1 || !subCommands.containsKey(args[0])) {

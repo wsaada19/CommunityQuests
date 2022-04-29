@@ -5,7 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class HelpCommand extends SubCommand {
+public class HelpCommand implements SubCommand {
     @Override
     public void onCommand(Player player, String[] args) {
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getHelpMessage()));
