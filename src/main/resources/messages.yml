@@ -1,3 +1,5 @@
+prefix: "&7[&cCommunity&6Quests&7] "
+
 noPermission: "&cYou do not have permission to perform this action!"
 invalidCommand: "&cInvalid command; available commands include /cq [start, stop, togglebar, view, reload, donate, help]"
 reloadCommand: "&AThe Community Quests configuration has reloaded successfully!"

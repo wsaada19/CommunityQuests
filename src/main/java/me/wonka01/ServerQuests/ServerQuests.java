@@ -1,5 +1,8 @@
 package me.wonka01.ServerQuests;
 
+import lombok.NonNull;
+import me.knighthat.apis.files.Config;
+import me.knighthat.apis.files.Messages;
 import me.wonka01.ServerQuests.commands.CommunityQuestsCommands;
 import me.wonka01.ServerQuests.configuration.JsonQuestSave;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
@@ -18,13 +21,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ServerQuests extends JavaPlugin {
 
     public static Economy economy = null;
+    private final @NonNull Config config = new Config(this);
+    private final @NonNull Messages messages = new Messages(this);
     public QuestLibrary questLibrary;
     private StartGui startGui;
     private StopGui stopGui;
     private DonateQuestGui questGui;
     private ViewGui viewGui;
     private DonateOptions donateOptionsGui;
-
     private ActiveQuests activeQuests;
     private JsonQuestSave jsonSave;
 

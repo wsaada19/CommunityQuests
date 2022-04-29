@@ -1,0 +1,9 @@
+Added new apis:
+  - Files (config.yml, messages.yml)
+    + Managing using abstraction
+  - Colorization:
+    + Modifying text
+
+Files:
+  - messages.yml
+    + Added prefix
