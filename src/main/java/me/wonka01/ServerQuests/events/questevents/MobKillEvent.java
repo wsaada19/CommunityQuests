@@ -27,13 +27,21 @@ public class MobKillEvent extends QuestListener implements Listener {
         }
 
         String mobName = event.getEntity().getName();
-
         List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
         for (QuestController controller : controllers) {
             List<String> mobTypes = controller.getEventConstraints().getMobNames();
-            if (mobTypes.isEmpty() || mobTypes.contains(mobName)) {
+            if (mobTypes.isEmpty() || containsMob(mobName, mobTypes)) {
                 updateQuest(controller, killer, 1);
             }
         }
+    }
+
+    private boolean containsMob(String mobName, List<String> mobs) {
+        for (String mob : mobs) {
+            if (mob.equalsIgnoreCase(mobName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

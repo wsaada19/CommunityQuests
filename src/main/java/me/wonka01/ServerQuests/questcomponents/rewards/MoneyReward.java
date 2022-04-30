@@ -21,7 +21,6 @@ public class MoneyReward implements Reward {
             return;
         }
         double weightedAmount = rewardPercentage * amount;
-
         economy.depositPlayer(player, weightedAmount);
 
         if (player.isOnline()) {

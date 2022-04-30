@@ -18,19 +18,22 @@ public class MoneyQuest extends QuestListener {
     public boolean tryAddItemsToQuest(double money, Player player) {
         List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.GIVE_MONEY);
         boolean hasMoneyQuest = false;
+        double amountToAdd = money;
+
         for (QuestController controller : controllers) {
-//            int goal = controller.getQuestData().getQuestGoal();
-//            int completed = controller.getQuestData().getAmountCompleted();
-//
-//            if (goal > 0 && completed + (int)money > goal) {
-//                double difference = completed + money - goal;
-//                economy.depositPlayer(player, difference);
-//            }
-            updateQuest(controller, player, (int)money);
+            int goal = controller.getQuestData().getQuestGoal();
+            double completed = controller.getQuestData().getAmountCompleted();
+            if (goal > 0 && completed + (int)money > goal) {
+                amountToAdd = money - completed + goal;
+                double difference = completed + money - goal;
+                economy.depositPlayer(player, difference);
+            }
+
+            updateQuest(controller, player, amountToAdd);
             hasMoneyQuest = true;
         }
         if(hasMoneyQuest) {
-            economy.withdrawPlayer(player, money);
+            economy.withdrawPlayer(player, amountToAdd);
         }
         return hasMoneyQuest;
     }

@@ -15,8 +15,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +47,7 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
     }
 
     public void createItemStackForCoop(QuestController controller, int index, Player player) {
-        double progress = controller.getQuestData().getAmountCompleted();
+        String progress = NumberUtil.getNumberDisplay(controller.getQuestData().getAmountCompleted());
 
         int goal = controller.getQuestData().getQuestGoal();
 
