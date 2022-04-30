@@ -9,4 +9,4 @@ Files:
     + Added prefix
     
 Changes:
-  - Isolated LanguageConfig class
+  - Migrated LangueConfig, Message from package me.wonka01.ServerQuests.configuration.messages to me.knighthat.apis.files.Messages
