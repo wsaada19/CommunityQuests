@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests;
 
+import lombok.Getter;
 import lombok.NonNull;
 import me.knighthat.apis.files.Config;
 import me.knighthat.apis.files.Messages;
@@ -21,7 +22,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ServerQuests extends JavaPlugin {
 
     public static Economy economy = null;
-    private final @NonNull Config config = new Config(this);
+
+    @Getter
+    private final @NonNull Config newConfig = new Config(this);
+    @Getter
     private final @NonNull Messages messages = new Messages(this);
     public QuestLibrary questLibrary;
     private StartGui startGui;
@@ -91,16 +95,16 @@ public class ServerQuests extends JavaPlugin {
     }
 
     private void loadGuis() {
-        TypeGui typeGui = new TypeGui();
+        TypeGui typeGui = new TypeGui(this);
         typeGui.initializeItems();
         getServer().getPluginManager().registerEvents(typeGui, this);
-        viewGui = new ViewGui();
-        startGui = new StartGui(typeGui);
+        viewGui = new ViewGui(this);
+        startGui = new StartGui(this, typeGui);
         startGui.initializeItems();
-        stopGui = new StopGui();
-        questGui = new DonateQuestGui();
+        stopGui = new StopGui(this);
+        questGui = new DonateQuestGui(this);
         questGui.initializeItems();
-        donateOptionsGui = new DonateOptions(questGui);
+        donateOptionsGui = new DonateOptions(this, questGui);
     }
 
     public void reloadConfiguration() {

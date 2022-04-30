@@ -1,12 +1,11 @@
 package me.wonka01.ServerQuests.gui;
 
+import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.configuration.QuestModel;
-import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.util.ObjectiveTypeUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,21 +13,27 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.List;
 
 public class StartGui extends BaseGui implements InventoryHolder, Listener {
 
-    private Inventory inventory;
-    private QuestLibrary questLibrary;
-    private TypeGui typeGui;
+    private final Inventory inventory;
+    private final TypeGui typeGui;
+    private final ServerQuests plugin;
 
-    public StartGui(TypeGui typeGui) {
-        inventory = Bukkit.createInventory(this, 27, ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getStartMenu()));
-        questLibrary = JavaPlugin.getPlugin(ServerQuests.class).getQuestLibrary();
+    public StartGui(ServerQuests plugin, TypeGui typeGui) {
+
+        this.plugin = plugin;
+        this.inventory = createInventory();
         this.typeGui = typeGui;
+    }
+
+    private @NonNull Inventory createInventory() {
+
+        String title = plugin.getMessages().string("startQuest");
+        return Bukkit.createInventory(this, 27, title);
     }
 
     public Inventory getInventory() {
@@ -37,26 +42,36 @@ public class StartGui extends BaseGui implements InventoryHolder, Listener {
 
     public void initializeItems() {
         inventory.clear();
-        questLibrary = JavaPlugin.getPlugin(ServerQuests.class).getQuestLibrary();
-        Set<String> keys = questLibrary.getAllQuestKeys();
-        int count = 0;
-        for (String key : keys) {
-            QuestModel model = questLibrary.getQuestModelById(key);
+
+        List<String> keys = new ArrayList<>(getQuestLibrary().getAllQuestKeys());
+        for (int i = 0; i < keys.size(); i++) {
+
+            String key = keys.get(i);
+            QuestModel model = getQuestLibrary().getQuestModelById(key);
             Material material = ObjectiveTypeUtil.getEventTypeDefaultMaterial(model.getObjective());
 
             ArrayList<String> lore = new ArrayList<>();
             lore.add(model.getEventDescription());
-            if(model.getQuestGoal() > 0) {
-                lore.add(LanguageConfig.getConfig().getMessages().getGoal() + ": &c" + model.getQuestGoal());
+            if (model.getQuestGoal() > 0) {
+
+                String goal = plugin.getMessages().string("goal");
+                lore.add(goal + ": &c" + model.getQuestGoal());
             }
-            if(model.getCompleteTime() > 0) {
-                lore.add(LanguageConfig.getConfig().getMessages().getDuration() + ": &c" + model.getCompleteTime() + "s");
+            if (model.getCompleteTime() > 0) {
+
+                String duration = plugin.getMessages().string("duration");
+                lore.add(duration + ": &c" + model.getCompleteTime() + "s");
             }
-            lore.add(LanguageConfig.getConfig().getMessages().getClickToStart());
-            inventory.setItem(count, createGuiItem(material, model.getDisplayName(),
+            String clickToStart = plugin.getMessages().string("clickToStart");
+            lore.add(clickToStart);
+
+            inventory.setItem(i, createGuiItem(material, model.getDisplayName(),
                 lore.toArray(new String[0])));
-            count++;
         }
+    }
+
+    private @NonNull QuestLibrary getQuestLibrary() {
+        return plugin.getQuestLibrary();
     }
 
     public void openInventory(Player p) {
@@ -75,9 +90,9 @@ public class StartGui extends BaseGui implements InventoryHolder, Listener {
         QuestModel model = null;
         int count = 0;
 
-        for (String modelKeys : questLibrary.getAllQuestKeys()) {
+        for (String modelKeys : getQuestLibrary().getAllQuestKeys()) {
             if (clickedSlot == count) {
-                model = questLibrary.getQuestModelById(modelKeys);
+                model = getQuestLibrary().getQuestModelById(modelKeys);
                 break;
             }
             count++;

@@ -1,12 +1,24 @@
 package me.wonka01.ServerQuests.commands;
 
+import lombok.Getter;
+import lombok.NonNull;
+import me.knighthat.apis.utils.Colorization;
+import me.wonka01.ServerQuests.ServerQuests;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-// Class didn't hold any variables so interface is the better choice
-public interface SubCommand {
+public abstract class SubCommand implements Colorization {
 
-    void onCommand(Player player, String[] args);
+    @Getter
+    private final ServerQuests plugin;
 
-    void onCommand(CommandSender player, String[] args);
+    protected SubCommand(ServerQuests plugin) {
+        this.plugin = plugin;
+    }
+
+    public abstract @NonNull String getPermission();
+
+    public abstract void onCommand(Player player, String[] args);
+
+    public abstract void onCommand(CommandSender player, String[] args);
 }

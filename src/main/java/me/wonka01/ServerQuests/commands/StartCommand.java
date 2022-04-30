@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.commands;
 
+import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
@@ -12,16 +13,18 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class StartCommand implements SubCommand {
+public class StartCommand extends SubCommand {
+
+    protected StartCommand(ServerQuests plugin) {
+        super(plugin);
+    }
+
+    @Override
+    public @NonNull String getPermission() {
+        return PermissionNode.START_QUEST;
+    }
 
     public void onCommand(Player player, String[] args) {
-
-        Messages messages = LanguageConfig.getConfig().getMessages();
-
-        if (!player.hasPermission(PermissionNode.START_QUEST)) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getNoPermission()));
-            return;
-        }
 
         if (args.length < 2) {
             JavaPlugin.getPlugin(ServerQuests.class).getStartGui().openInventory(player);
@@ -59,7 +62,7 @@ public class StartCommand implements SubCommand {
 
         if (args[2].equalsIgnoreCase("coop")) {
             eventType = EventType.COLLAB;
-            if(questModel.getQuestGoal() <= 0) {
+            if (questModel.getQuestGoal() <= 0) {
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getCoopQuestWithoutGoalErrorMessage()));
                 return;
             }

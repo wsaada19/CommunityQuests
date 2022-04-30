@@ -1,5 +1,7 @@
 package me.wonka01.ServerQuests.commands;
 
+import lombok.NonNull;
+import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.configuration.messages.Messages;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
@@ -10,16 +12,20 @@ import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
-public class MoneyQuestCommand implements SubCommand {
-    private MoneyQuest eventHandler;
+public class MoneyQuestCommand extends SubCommand {
+    private final MoneyQuest eventHandler;
 
-    public MoneyQuestCommand(MoneyQuest eventHandler) {
-        super();
+    public MoneyQuestCommand(ServerQuests plugin, MoneyQuest eventHandler) {
+        super(plugin);
         this.eventHandler = eventHandler;
+    }
+
+    @Override
+    public @NonNull String getPermission() {
+        return null;
     }
 
     @Override
@@ -44,13 +50,12 @@ public class MoneyQuestCommand implements SubCommand {
                 }
             }
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getNoActiveDonateQuests()));
-        } catch(NumberFormatException exception) {
+        } catch (NumberFormatException exception) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "Invalid number provided to "));
         }
 
     }
 
     public void onCommand(CommandSender sender, String[] args) {
-        throw new NotImplementedException();
     }
 }
