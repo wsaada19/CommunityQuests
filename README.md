@@ -1,4 +1,4 @@
--## Table of Contents
+## Table of Contents
 * [Summary](#Summary)
 * [Installation](#Installation)
 * [Commands](#Commands)
