@@ -7,3 +7,6 @@ Added new apis:
 Files:
   - messages.yml
     + Added prefix
+    
+Changes:
+  - Completely separated LanguageConfig from Command and GUI classes
