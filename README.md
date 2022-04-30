@@ -84,7 +84,7 @@ blockbreak, blockplace, donate. If the field is empty or nonexistent then all bl
 You can include patterns in the blocks list such as 'Ore', and every material that has ore in its name will be a part of the quest.
 
 #### entities (optional)
-This is an optional field for the following quest types: mobkill, projectilekill.
+This is an optional field for the following quest types: mobkill, projectilekill and catchfish.
 If empty or not used then all mob types will be included.
 
 ## Rewards
@@ -144,3 +144,5 @@ Think of it as more of a challenge than a quest.
 - **craftitem** - craft something
 - **consumeitem** - consume an item - like eating an apple
 - **enchantitem** - enchant something 
+- **money** - players can contribute money with /cq deposit <amount>
+

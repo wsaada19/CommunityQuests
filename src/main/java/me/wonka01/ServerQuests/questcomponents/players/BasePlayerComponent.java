@@ -80,7 +80,7 @@ public class BasePlayerComponent {
     }
 
     public PlayerData getTopPlayerData() {
-        TreeMap<UUID, PlayerData> map = new TreeMap<UUID, PlayerData>(new SortByContributions(this.playerMap));
+        TreeMap<UUID, PlayerData> map = new TreeMap<>(new SortByContributions(this.playerMap));
         map.putAll(this.playerMap);
 
         for (UUID key : map.keySet()) {
