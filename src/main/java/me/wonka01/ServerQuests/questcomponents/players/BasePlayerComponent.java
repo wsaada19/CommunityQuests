@@ -1,11 +1,12 @@
 package me.wonka01.ServerQuests.questcomponents.players;
 
-import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
+import me.knighthat.apis.utils.Colorization;
+import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -14,12 +15,12 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
-public class BasePlayerComponent {
+public class BasePlayerComponent implements Colorization {
 
     private static int leaderBoardSize = 5;
 
-    private Map<UUID, PlayerData> playerMap;
-    private ArrayList<Reward> rewardsList;
+    private final Map<UUID, PlayerData> playerMap;
+    private final ArrayList<Reward> rewardsList;
 
     public BasePlayerComponent(ArrayList<Reward> rewardsList) {
         this.rewardsList = rewardsList;
@@ -53,11 +54,12 @@ public class BasePlayerComponent {
             return;
         }
 
-        if(this.playerMap.size() < 1) {
+        if (this.playerMap.size() < 1) {
             return;
         }
-        StringBuilder result = new StringBuilder(LanguageConfig.getConfig().getMessages().getTopContributorsTitle());
-        TreeMap<UUID, PlayerData> map = new TreeMap<UUID, PlayerData>(new SortByContributions(this.playerMap));
+        ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
+        StringBuilder result = new StringBuilder(plugin.getMessages().string("topContributorsTitle"));
+        TreeMap<UUID, PlayerData> map = new TreeMap<>(new SortByContributions(this.playerMap));
         map.putAll(this.playerMap);
 
         int count = 1;
@@ -75,11 +77,11 @@ public class BasePlayerComponent {
 
             count++;
         }
-        Bukkit.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', result.toString()));
+        Bukkit.getServer().broadcastMessage(color(result.toString()));
     }
 
     public PlayerData getTopPlayerData() {
-        TreeMap<UUID, PlayerData> map = new TreeMap<UUID, PlayerData>(new SortByContributions(this.playerMap));
+        TreeMap<UUID, PlayerData> map = new TreeMap<>(new SortByContributions(this.playerMap));
         map.putAll(this.playerMap);
 
         for (UUID key : map.keySet()) {
@@ -108,8 +110,8 @@ public class BasePlayerComponent {
     public void giveOutRewards(int questGoal) {
         for (UUID key : playerMap.keySet()) {
             double playerContributionRatio;
-            double playerContribution = (double)playerMap.get(key).getAmountContributed();
-            if(questGoal > 0) {
+            double playerContribution = playerMap.get(key).getAmountContributed();
+            if (questGoal > 0) {
                 playerContributionRatio = playerContribution / (double) questGoal;
             } else {
                 playerContributionRatio = playerContribution / (double) getTopPlayerData().getAmountContributed();
@@ -120,7 +122,10 @@ public class BasePlayerComponent {
             if (player.isOnline()) {
                 Player onlinePlayer = (Player) player;
                 if (rewardsList.size() > 0) {
-                    onlinePlayer.sendMessage(ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getRewardsTitle()));
+
+                    ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
+                    String rewardTitle = plugin.getMessages().message("rewardsTitle");
+                    onlinePlayer.sendMessage(rewardTitle);
                 }
             }
 

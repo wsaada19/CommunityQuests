@@ -1,24 +1,31 @@
 package me.wonka01.ServerQuests.questcomponents.rewards;
 
-import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
-import org.bukkit.ChatColor;
+import me.wonka01.ServerQuests.ServerQuests;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.text.MessageFormat;
 
 public class ExperienceReward implements Reward {
 
-    private int experience;
+    private final int experience;
 
     public ExperienceReward(int experience) {
         this.experience = experience;
     }
 
-    public void giveRewardToPlayer(OfflinePlayer player, double rewardPercentage) {
-        if (player.isOnline()) {
-            int weightedExperience = (int) (rewardPercentage * (double) experience);
-            Player realPlayer = (Player) player;
-            realPlayer.giveExp(weightedExperience);
-            ((Player) player).sendMessage(ChatColor.translateAlternateColorCodes('&', "- &a" + experience + " " + LanguageConfig.getConfig().getMessages().getExperience()));
-        }
+    public void giveRewardToPlayer(OfflinePlayer offlinePlayer, double rewardPercentage) {
+
+        if (!offlinePlayer.isOnline()) return;
+
+        Player player = offlinePlayer.getPlayer();
+        int exp = (int) (rewardPercentage * experience);
+
+        player.giveExp(exp);
+
+        ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
+        String message = MessageFormat.format("- &a{0} {1}", exp, plugin.getMessages().message("experience"));
+        player.sendMessage(message);
     }
 }

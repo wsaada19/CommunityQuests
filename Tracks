@@ -9,4 +9,4 @@ Files:
     + Added prefix
     
 Changes:
-  - Completely separated LanguageConfig from Command and GUI classes
+  - Isolated LanguageConfig class

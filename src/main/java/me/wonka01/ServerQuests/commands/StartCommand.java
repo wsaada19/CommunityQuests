@@ -3,12 +3,9 @@ package me.wonka01.ServerQuests.commands;
 import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestModel;
-import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
-import me.wonka01.ServerQuests.configuration.messages.Messages;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.PermissionNode;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -32,7 +29,6 @@ public class StartCommand extends SubCommand {
         }
 
         startFromCommand(player, args);
-
     }
 
     public void onCommand(CommandSender sender, String[] args) {
@@ -45,37 +41,49 @@ public class StartCommand extends SubCommand {
     }
 
     private void startFromCommand(CommandSender sender, String[] args) {
-        Messages messages = LanguageConfig.getConfig().getMessages();
-
-        String questId = args[1];
-        QuestModel questModel = JavaPlugin.getPlugin(ServerQuests.class).questLibrary.getQuestModelById(questId);
-        if (questModel == null) {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestName()));
-            return;
-        }
 
         if (args.length < 3) {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestType()));
+
+            String invalidQuestType = getPlugin().getMessages().message("invalidQuestType");
+            sender.sendMessage(invalidQuestType);
             return;
         }
-        EventType eventType;
 
-        if (args[2].equalsIgnoreCase("coop")) {
-            eventType = EventType.COLLAB;
-            if (questModel.getQuestGoal() <= 0) {
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getCoopQuestWithoutGoalErrorMessage()));
+        QuestModel model = getPlugin().questLibrary.getQuestModelById(args[1]);
+
+        if (model == null) {
+
+            String invalidName = getPlugin().getMessages().message("invalidQuestName");
+            sender.sendMessage(invalidName);
+            return;
+        }
+
+        EventType type;
+        switch (args[2]) {
+
+            case "coop":
+                type = EventType.COLLAB;
+
+                if (model.getQuestGoal() <= 0) {
+                    String noGoal = getPlugin().getMessages().message("cooperativeQuestMustHaveAGoal");
+                    sender.sendMessage(noGoal);
+                    return;
+                }
+                break;
+
+            case "comp":
+                type = EventType.COMPETITIVE;
+                break;
+
+            default:
+                String invalidQuestType = getPlugin().getMessages().message("invalidQuestType");
+                sender.sendMessage(invalidQuestType);
                 return;
-            }
-        } else if (args[2].equalsIgnoreCase("comp")) {
-            eventType = EventType.COMPETITIVE;
-        } else {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestType()));
-            return;
         }
 
-        boolean questCreated = ActiveQuests.getActiveQuestsInstance().beginNewQuest(questModel, eventType);
-        if (!questCreated) {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getQuestLimitReached()));
+        if (!ActiveQuests.getActiveQuestsInstance().beginNewQuest(model, type)) {
+            String reachLimit = getPlugin().getMessages().message("questLimitReached");
+            sender.sendMessage(reachLimit);
         }
     }
 }
