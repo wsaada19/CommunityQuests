@@ -3,6 +3,7 @@ package me.wonka01.ServerQuests.events.questevents;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
+import me.wonka01.ServerQuests.util.EntityUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,18 +31,9 @@ public class MobKillEvent extends QuestListener implements Listener {
         List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
         for (QuestController controller : controllers) {
             List<String> mobTypes = controller.getEventConstraints().getMobNames();
-            if (mobTypes.isEmpty() || containsMob(mobName, mobTypes)) {
+            if (mobTypes.isEmpty() || EntityUtil.containsEntity(mobName, mobTypes)) {
                 updateQuest(controller, killer, 1);
             }
         }
-    }
-
-    private boolean containsMob(String mobName, List<String> mobs) {
-        for (String mob : mobs) {
-            if (mob.equalsIgnoreCase(mobName)) {
-                return true;
-            }
-        }
-        return false;
     }
 }
