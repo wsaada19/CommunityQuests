@@ -4,7 +4,7 @@ public class QuestData {
 
     private String questType;
     private int questGoal;
-    private int amountCompleted;
+    private double amountCompleted;
     private int questDuration;
 
     private String displayName;
@@ -19,15 +19,15 @@ public class QuestData {
         this.questType = questType;
     }
 
-    public int getAmountCompleted() {
+    public double getAmountCompleted() {
         return amountCompleted;
     }
 
     public double getPercentageComplete() {
-        return ((double) amountCompleted / (double) questGoal);
+        return (amountCompleted / (double) questGoal);
     }
 
-    public void addToQuestProgress(int amountToIncrease) {
+    public void addToQuestProgress(double amountToIncrease) {
         amountCompleted += amountToIncrease;
     }
 

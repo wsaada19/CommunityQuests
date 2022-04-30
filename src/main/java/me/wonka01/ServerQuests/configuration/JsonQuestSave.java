@@ -90,7 +90,7 @@ public class JsonQuestSave {
                 JSONObject questObject = (JSONObject) qIterator.next();
                 String questId = (String) questObject.get("id");
                 String questType = (String) questObject.get("type");
-                long amountComplete = (Long) questObject.get("amountComplete");
+                double amountComplete = (double)questObject.get("amountComplete");
                 long questDuration = (Long) questObject.getOrDefault("timeLeft", 0);
 
                 JSONArray playerObject = (JSONArray) questObject.get("playerMap");
@@ -100,7 +100,7 @@ public class JsonQuestSave {
                     JSONObject obj = pIterator.next();
                     UUID uuid = UUID.fromString((String) obj.keySet().iterator().next());
                     String playerName = Bukkit.getServer().getOfflinePlayer(uuid).getName();
-                    long pContributed = (Long) obj.get(uuid.toString());
+                    double pContributed = (double) obj.get(uuid.toString());
                     playerMap.put(uuid, new PlayerData(playerName, (int) pContributed));
                 }
 

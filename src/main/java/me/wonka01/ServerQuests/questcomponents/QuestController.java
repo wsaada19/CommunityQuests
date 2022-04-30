@@ -35,11 +35,11 @@ public class QuestController {
         }
     }
 
-    public void updateQuest(int count, Player player) {
-        int amountToAdd = count;
+    public void updateQuest(double count, Player player) {
+        double amountToAdd = count;
 
         if (questData.hasGoal()) {
-            if(count > questData.getQuestGoal() - questData.getAmountCompleted()) {
+            if(amountToAdd > questData.getQuestGoal() - questData.getAmountCompleted()) {
                 amountToAdd = questData.getQuestGoal() - questData.getAmountCompleted();
             }
             questData.addToQuestProgress(amountToAdd);

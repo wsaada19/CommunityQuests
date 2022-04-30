@@ -30,7 +30,7 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
         List<QuestController> controllers = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
         int count = 0;
         for (QuestController controller : controllers) {
-            int progress = controller.getQuestData().getAmountCompleted();
+            double progress = controller.getQuestData().getAmountCompleted();
             int goal = controller.getQuestData().getQuestGoal();
 
             String progressString = LanguageConfig.getConfig().getMessages().getProgress() + ": &a" + progress + "/" + goal;

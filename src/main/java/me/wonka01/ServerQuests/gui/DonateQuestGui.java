@@ -53,7 +53,7 @@ public class DonateQuestGui extends BaseGui implements InventoryHolder, Listener
         Player player = (Player) e.getWhoClicked();
 
         if (e.getRawSlot() != ITEM_SLOT || itemOnCursor == null) {
-            if(!e.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
+            if(e.getClickedInventory() == null || !e.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
                 e.setCancelled(true);
             }
             return;

@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests;
 
+import lombok.Getter;
 import me.wonka01.ServerQuests.commands.CommunityQuestsCommands;
 import me.wonka01.ServerQuests.configuration.JsonQuestSave;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
@@ -17,7 +18,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class ServerQuests extends JavaPlugin {
 
-    public static Economy economy = null;
+    @Getter
+    private Economy economy;
+
     public QuestLibrary questLibrary;
     private StartGui startGui;
     private StopGui stopGui;
@@ -107,7 +110,7 @@ public class ServerQuests extends JavaPlugin {
         questLibrary = new QuestLibrary();
         questLibrary.loadQuestConfiguration(serverQuestSection);
         loadConfigurationLimits();
-        LanguageConfig.getConfig().setUpLanguageConfig();
+        LanguageConfig.getConfig().reloadConfig();
         loadGuis();
         registerGuiEvents();
     }
@@ -127,10 +130,6 @@ public class ServerQuests extends JavaPlugin {
     public DonateQuestGui getQuestsGui() {
         return questGui;
     }
-
-//    public DonateOptions getDonateOptionsGui() {
-//        return donateOptionsGui;
-//    }
 
     public ViewGui getViewGui() {
         return viewGui;

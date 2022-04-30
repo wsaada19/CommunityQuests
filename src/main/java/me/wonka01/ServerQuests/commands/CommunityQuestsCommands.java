@@ -1,6 +1,8 @@
 package me.wonka01.ServerQuests.commands;
 
+import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
+import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import org.apache.commons.lang.NotImplementedException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -25,7 +27,7 @@ public class CommunityQuestsCommands implements CommandExecutor {
         subCommands.put("reload", new ReloadCommand());
         subCommands.put("donate", new DonateQuestCommand());
         subCommands.put("help", new HelpCommand());
-        /*subCommands.put("money", new MoneyQuestCommand(new MoneyQuest(ActiveQuests.getActiveQuestsInstance(), ServerQuests.economy)));*/
+        subCommands.put("deposit", new MoneyQuestCommand());
     }
 
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
