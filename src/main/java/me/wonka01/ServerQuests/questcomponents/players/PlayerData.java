@@ -3,7 +3,7 @@ package me.wonka01.ServerQuests.questcomponents.players;
 // Stores data for each player who has contributed to a quest.
 public class PlayerData {
 
-    private int amountContributed;
+    private double amountContributed;
     private String playerName;
 
     public PlayerData(String name) {
@@ -20,11 +20,11 @@ public class PlayerData {
         return playerName;
     }
 
-    public int getAmountContributed() {
+    public double getAmountContributed() {
         return amountContributed;
     }
 
-    public void increaseContribution(int count) {
+    public void increaseContribution(double count) {
         amountContributed += count;
     }
 }

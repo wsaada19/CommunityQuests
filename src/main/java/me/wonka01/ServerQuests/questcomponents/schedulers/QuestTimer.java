@@ -32,7 +32,9 @@ public class QuestTimer {
 
             controller.getQuestData().decreaseDuration((int) IntervalInSeconds);
             if (controller.getQuestData().getQuestDuration() <= 0) {
-                controller.endQuest();
+                if(controller != null) {
+                    controller.endQuest();
+                }
                 task.cancel();
             }
         }, 0L, 20L * IntervalInSeconds);

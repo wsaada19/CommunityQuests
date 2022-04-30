@@ -39,6 +39,14 @@ public class LanguageConfig {
         }
     }
 
+    public void reloadConfig() {
+        if (configFile == null){
+            configFile = new File(plugin.getDataFolder(), "messages.yml");
+        }
+        yamlConfiguration = YamlConfiguration.loadConfiguration(configFile);
+        setUpLanguageConfig();
+    }
+
     public Messages getMessages() {
         return messages;
     }

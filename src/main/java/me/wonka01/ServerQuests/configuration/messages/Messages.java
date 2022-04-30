@@ -2,6 +2,8 @@ package me.wonka01.ServerQuests.configuration.messages;
 
 import me.wonka01.ServerQuests.questcomponents.QuestData;
 
+import java.util.regex.Matcher;
+
 public class Messages {
     private String noPermission;
     private String invalidCommand;
@@ -171,6 +173,6 @@ public class Messages {
     public String getClickToStart() {return clickToStart;}
 
     private String convertQuestTokensToText(String message, QuestData data) {
-        return message.replaceAll("questName", data.getDisplayName()).replaceAll("questDescription", data.getDescription());
+        return message.replaceAll("questName",  Matcher.quoteReplacement(data.getDisplayName())).replaceAll("questDescription", Matcher.quoteReplacement(data.getDescription()));
     }
 }

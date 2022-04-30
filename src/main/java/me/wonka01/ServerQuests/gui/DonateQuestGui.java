@@ -19,7 +19,6 @@ import org.bukkit.inventory.ItemStack;
 public class DonateQuestGui extends BaseGui implements InventoryHolder, Listener {
     private final int ITEM_SLOT = 22;
     private Inventory inventory;
-    private int[] GLASS_LOCATIONS = {12, 13, 14, 21, 23, 30, 31, 32};
     private GuiEvent eventHandler;
 
     public DonateQuestGui() {
@@ -30,8 +29,11 @@ public class DonateQuestGui extends BaseGui implements InventoryHolder, Listener
 
     public void initializeItems() {
         ItemStack glass = createGuiItem(Material.DIAMOND_BLOCK, " ", "");
-        for (int index : GLASS_LOCATIONS) {
-            inventory.setItem(index, glass);
+        for(int i = 0; i < 45; i++) {
+            if(i == ITEM_SLOT) {
+                continue;
+            }
+            inventory.setItem(i, glass);
         }
     }
 
@@ -53,7 +55,10 @@ public class DonateQuestGui extends BaseGui implements InventoryHolder, Listener
         Player player = (Player) e.getWhoClicked();
 
         if (e.getRawSlot() != ITEM_SLOT || itemOnCursor == null) {
-            if(!e.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
+            if(e.getClickedInventory() == null || !e.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
+                e.setCancelled(true);
+            }
+            if(e.getRawSlot() < 45) {
                 e.setCancelled(true);
             }
             return;

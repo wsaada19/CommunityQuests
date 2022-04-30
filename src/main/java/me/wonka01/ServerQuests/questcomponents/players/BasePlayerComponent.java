@@ -2,6 +2,7 @@ package me.wonka01.ServerQuests.questcomponents.players;
 
 import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
+import me.wonka01.ServerQuests.util.NumberUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -35,7 +36,7 @@ public class BasePlayerComponent {
         leaderBoardSize = size;
     }
 
-    public void savePlayerAction(Player player, int count) {
+    public void savePlayerAction(Player player, double count) {
         if (playerMap.containsKey(player.getUniqueId())) {
             PlayerData playerData = playerMap.get(player.getUniqueId());
             playerData.increaseContribution(count);
@@ -53,7 +54,7 @@ public class BasePlayerComponent {
             return;
         }
 
-        if(this.playerMap.size() < 1) {
+        if (this.playerMap.size() < 1) {
             return;
         }
         StringBuilder result = new StringBuilder(LanguageConfig.getConfig().getMessages().getTopContributorsTitle());
@@ -71,7 +72,7 @@ public class BasePlayerComponent {
             result.append(") &a");
             result.append(map.get(key).getDisplayName());
             result.append(" &7- &f");
-            result.append(map.get(key).getAmountContributed());
+            result.append(NumberUtil.getNumberDisplay(map.get(key).getAmountContributed()));
 
             count++;
         }
@@ -79,7 +80,7 @@ public class BasePlayerComponent {
     }
 
     public PlayerData getTopPlayerData() {
-        TreeMap<UUID, PlayerData> map = new TreeMap<UUID, PlayerData>(new SortByContributions(this.playerMap));
+        TreeMap<UUID, PlayerData> map = new TreeMap<>(new SortByContributions(this.playerMap));
         map.putAll(this.playerMap);
 
         for (UUID key : map.keySet()) {
@@ -88,7 +89,7 @@ public class BasePlayerComponent {
         return null;
     }
 
-    public int getAmountContributed(Player player) {
+    public double getAmountContributed(Player player) {
         if (playerMap.containsKey(player.getUniqueId())) {
             return playerMap.get(player.getUniqueId()).getAmountContributed();
         }
@@ -108,11 +109,11 @@ public class BasePlayerComponent {
     public void giveOutRewards(int questGoal) {
         for (UUID key : playerMap.keySet()) {
             double playerContributionRatio;
-            double playerContribution = (double)playerMap.get(key).getAmountContributed();
-            if(questGoal > 0) {
+            double playerContribution = playerMap.get(key).getAmountContributed();
+            if (questGoal > 0) {
                 playerContributionRatio = playerContribution / (double) questGoal;
             } else {
-                playerContributionRatio = playerContribution / (double) getTopPlayerData().getAmountContributed();
+                playerContributionRatio = playerContribution / getTopPlayerData().getAmountContributed();
             }
 
             OfflinePlayer player = Bukkit.getServer().getOfflinePlayer(key);
