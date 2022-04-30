@@ -4,7 +4,7 @@ import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.enums.PermissionNode;
-import me.wonka01.ServerQuests.events.questevents.MoneyQuest;
+import me.wonka01.ServerQuests.events.MoneyQuest;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.ChatColor;

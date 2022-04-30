@@ -14,10 +14,9 @@ public class ActiveQuests {
     private static ActiveQuests activeQuestsInstance;
     private static int questLimit;
 
-    private List<QuestController> activeQuestsList;
+    private List<QuestController> activeQuestsList = new ArrayList<>();
 
     public ActiveQuests() {
-        activeQuestsList = new ArrayList<>();
         activeQuestsInstance = this;
     }
 
@@ -47,7 +46,8 @@ public class ActiveQuests {
             QuestController controller = typeHandler.createQuestController(questModel);
 
             activeQuestsList.add(controller);
-            controller.broadcastStartMessage();
+
+            controller.broadcast("questStartMessage");
             BarManager.startShowingPlayersBar(controller.getQuestId());
             return true;
         }

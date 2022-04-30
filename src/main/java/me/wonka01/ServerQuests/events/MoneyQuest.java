@@ -1,4 +1,4 @@
-package me.wonka01.ServerQuests.events.questevents;
+package me.wonka01.ServerQuests.events;
 
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
@@ -9,7 +9,8 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class MoneyQuest extends QuestListener {
-    private Economy economy;
+    private final Economy economy;
+
     public MoneyQuest(ActiveQuests activeQuests, Economy economy) {
         super(activeQuests);
         this.economy = economy;
@@ -26,10 +27,10 @@ public class MoneyQuest extends QuestListener {
 //                double difference = completed + money - goal;
 //                economy.depositPlayer(player, difference);
 //            }
-            updateQuest(controller, player, (int)money);
+            updateQuest(controller, player, (int) money);
             hasMoneyQuest = true;
         }
-        if(hasMoneyQuest) {
+        if (hasMoneyQuest) {
             economy.withdrawPlayer(player, money);
         }
         return hasMoneyQuest;

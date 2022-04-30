@@ -21,13 +21,13 @@ public class CommunityQuestsCommands implements CommandExecutor {
 
         plugin.getCommand("communityquests").setExecutor(this);
         subCommands = new HashMap<>();
-        subCommands.put("start", new StartCommand());
-        subCommands.put("stop", new StopQuestCommand());
-        subCommands.put("togglebar", new ToggleBarCommand());
+        subCommands.put("start", new StartCommand(plugin));
+        subCommands.put("stop", new StopQuestCommand(plugin));
+        subCommands.put("togglebar", new ToggleBarCommand(plugin));
         subCommands.put("view", new ViewQuestsCommand(plugin));
-        subCommands.put("reload", new ReloadCommand());
-        subCommands.put("donate", new DonateQuestCommand());
-        subCommands.put("help", new HelpCommand());
+        subCommands.put("reload", new ReloadCommand(plugin));
+        subCommands.put("donate", new DonateQuestCommand(plugin));
+        subCommands.put("help", new HelpCommand(plugin));
         /*subCommands.put("money", new MoneyQuestCommand(new MoneyQuest(ActiveQuests.getActiveQuestsInstance(), ServerQuests.economy)));*/
     }
 

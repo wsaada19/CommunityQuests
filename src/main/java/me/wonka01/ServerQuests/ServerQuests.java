@@ -7,8 +7,7 @@ import me.knighthat.apis.files.Messages;
 import me.wonka01.ServerQuests.commands.CommunityQuestsCommands;
 import me.wonka01.ServerQuests.configuration.JsonQuestSave;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
-import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
-import me.wonka01.ServerQuests.events.questevents.*;
+import me.wonka01.ServerQuests.events.*;
 import me.wonka01.ServerQuests.gui.*;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.BarManager;
@@ -46,7 +45,6 @@ public class ServerQuests extends JavaPlugin {
         loadConfigurationLimits();
         loadQuestLibraryFromConfig();
         loadSaveData();
-        LanguageConfig.getConfig().setUpLanguageConfig();
 
         if (!setupEconomy()) {
             getLogger().info("Warning! No economy plugin found, a cash reward can not be added to a quest in Community Quests.");
@@ -114,7 +112,6 @@ public class ServerQuests extends JavaPlugin {
         questLibrary = new QuestLibrary();
         questLibrary.loadQuestConfiguration(serverQuestSection);
         loadConfigurationLimits();
-        LanguageConfig.getConfig().setUpLanguageConfig();
         loadGuis();
     }
 

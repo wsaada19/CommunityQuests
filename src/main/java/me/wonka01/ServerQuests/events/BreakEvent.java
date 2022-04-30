@@ -1,4 +1,4 @@
-package me.wonka01.ServerQuests.events.questevents;
+package me.wonka01.ServerQuests.events;
 
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;

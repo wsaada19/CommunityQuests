@@ -2,7 +2,7 @@ package me.wonka01.ServerQuests.gui;
 
 import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
-import me.wonka01.ServerQuests.events.questevents.GuiEvent;
+import me.wonka01.ServerQuests.events.GuiEvent;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
