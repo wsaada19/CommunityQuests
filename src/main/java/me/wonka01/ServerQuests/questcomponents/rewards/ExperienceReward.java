@@ -14,6 +14,9 @@ public class ExperienceReward implements Reward {
     }
 
     public void giveRewardToPlayer(OfflinePlayer player, double rewardPercentage) {
+        if(experience <= 0) {
+            return;
+        }
         if (player.isOnline()) {
             int weightedExperience = (int) (rewardPercentage * (double) experience);
             Player realPlayer = (Player) player;

@@ -23,6 +23,9 @@ public class ItemReward implements Reward {
     }
 
     public void giveRewardToPlayer(OfflinePlayer player, double rewardPercentage) {
+        if(amount <= 0) {
+            return;
+        }
         Material material = Material.getMaterial(materialName);
 
         if (material != null) {
