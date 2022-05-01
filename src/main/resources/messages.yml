@@ -49,4 +49,6 @@ endQuestText: "&eClick to end the quest"
 goBack: "&cGo Back"
 goBackText: "&7Go back to the event list"
 clickToStart: "&eClick to start the quest"
+
+# shown before the time remaining on /cq view
 timeRemaining: "&fTime remaining: &e"

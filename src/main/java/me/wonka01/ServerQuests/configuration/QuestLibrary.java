@@ -22,6 +22,11 @@ public class QuestLibrary {
 
     public void loadQuestConfiguration(ConfigurationSection serverQuestConfig) {
         HashMap<String, QuestModel> map = new HashMap<>();
+        if (serverQuestConfig == null) {
+            questList = map;
+            return;
+        }
+
         for (String questId : serverQuestConfig.getKeys(false)) {
             ConfigurationSection section = serverQuestConfig.getConfigurationSection(questId);
             QuestModel model = loadQuestFromConfig(section);
