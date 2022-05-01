@@ -4,7 +4,6 @@ import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.util.EntityUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
