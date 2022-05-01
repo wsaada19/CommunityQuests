@@ -39,7 +39,7 @@ public class ProjectileKillEvent extends QuestListener implements Listener {
                 List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
                 for (QuestController controller : controllers) {
                     List<String> entities = controller.getEventConstraints().getMobNames();
-                    if(entities.isEmpty() || EntityUtil.containsEntity(event.getEntity().getName(), entities)) {
+                    if(entities.isEmpty() || EntityUtil.containsEntity(event.getEntity().getType().toString(), entities)) {
                         updateQuest(controller, player, 1);
                     }
                 }

@@ -15,7 +15,9 @@ public class MoneyReward implements Reward {
     }
 
     public void giveRewardToPlayer(OfflinePlayer player, double rewardPercentage) {
-
+        if(amount <= 0) {
+            return;
+        }
         Economy economy = JavaPlugin.getPlugin(ServerQuests.class).getEconomy();
         if (economy == null) {
             return;
