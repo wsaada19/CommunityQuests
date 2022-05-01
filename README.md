@@ -94,6 +94,9 @@ More reward options will be added in the future. Command rewards allow you to ru
 
 **Note: Only money and command rewards are given to players who contributed but are offline when the quest is complete, I plan on addressing this in the future.**
 
+**money, experience, commands and items are all optional, you do not need to specify the values you don't want to use.**
+
+
 Rewards example
 ```yaml 
 rewards:
