@@ -31,6 +31,12 @@ Opens up a GUI to end active quests
 #### /cq reload 
 Reloads the configuration file
 
+#### /cq donate
+Contribute to a donate quest
+
+#### /cq deposit <amount> 
+Contribute to a money quests
+    
 ## Configuration
 The config.yml provides a powerful customization system allowing you to create server-wide quests for your players to enjoy. All quests are created in the config.yml file and are started in-game.
 
