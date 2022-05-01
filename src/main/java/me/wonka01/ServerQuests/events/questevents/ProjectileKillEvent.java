@@ -4,6 +4,7 @@ import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.util.EntityUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -39,7 +40,7 @@ public class ProjectileKillEvent extends QuestListener implements Listener {
                 List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
                 for (QuestController controller : controllers) {
                     List<String> entities = controller.getEventConstraints().getMobNames();
-                    if(entities.isEmpty() || EntityUtil.containsEntity(event.getEntity().getName(), entities)) {
+                    if(entities.isEmpty() || EntityUtil.containsEntity(event.getEntity().getType().toString(), entities)) {
                         updateQuest(controller, player, 1);
                     }
                 }

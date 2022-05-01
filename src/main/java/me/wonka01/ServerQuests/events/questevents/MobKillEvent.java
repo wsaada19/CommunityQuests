@@ -27,7 +27,7 @@ public class MobKillEvent extends QuestListener implements Listener {
             return;
         }
 
-        String mobName = event.getEntity().getName();
+        String mobName = event.getEntity().getType().toString();
         List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
         for (QuestController controller : controllers) {
             List<String> mobTypes = controller.getEventConstraints().getMobNames();
