@@ -31,6 +31,12 @@ Opens up a GUI to end active quests
 #### /cq reload 
 Reloads the configuration file
 
+#### /cq donate
+Contribute to a donate quest
+
+#### /cq deposit <amount> 
+Contribute to a money quests
+    
 ## Configuration
 The config.yml provides a powerful customization system allowing you to create server-wide quests for your players to enjoy. All quests are created in the config.yml file and are started in-game.
 
@@ -48,7 +54,7 @@ Quests:
     entities: # This is an optional parameter, if it doesn't exist the quest will count ALL mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
       - Zombie
       - Pig
-      - Pig_Zombie
+      - ZOMBIFIED_PIGLIN
     description: Kill 100 zombies and pigs!
     goal: 100 # The goal is the amount of the task to be completed
     rewards: # set customized rewards for player's who contribute to the quest
@@ -93,6 +99,9 @@ quest. Item rewards are given to everyone in cooperative quests, but only to the
 More reward options will be added in the future. Command rewards allow you to run a command for a given player when the quest completes.
 
 **Note: Only money and command rewards are given to players who contributed but are offline when the quest is complete, I plan on addressing this in the future.**
+
+**money, experience, commands and items are all optional, you do not need to specify the values you don't want to use.**
+
 
 Rewards example
 ```yaml 
