@@ -54,7 +54,7 @@ Quests:
     entities: # This is an optional parameter, if it doesn't exist the quest will count ALL mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
       - Zombie
       - Pig
-      - Pig_Zombie
+      - ZOMBIFIED_PIGLIN
     description: Kill 100 zombies and pigs!
     goal: 100 # The goal is the amount of the task to be completed
     rewards: # set customized rewards for player's who contribute to the quest
