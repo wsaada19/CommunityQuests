@@ -39,10 +39,6 @@ public class DonateOptions extends BaseGui implements Listener, InventoryHolder 
 
     @Override
     public void initializeItems() {
-
-    }
-
-    public void initializeItems(Player player) {
         inventory.clear();
         List<QuestController> controllers = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
 

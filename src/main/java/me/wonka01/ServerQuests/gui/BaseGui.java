@@ -11,9 +11,6 @@ import java.util.ArrayList;
 
 public abstract class BaseGui {
 
-    public BaseGui() {
-    }
-
     public abstract void initializeItems();
 
     protected ItemStack createGuiItem(Material material, String name, String... lore) {

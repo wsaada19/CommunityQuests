@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.questcomponents.rewards;
 
+import lombok.Getter;
 import me.wonka01.ServerQuests.ServerQuests;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.OfflinePlayer;
@@ -7,7 +8,8 @@ import org.bukkit.entity.Player;
 
 public class MoneyReward implements Reward {
 
-    private double amount;
+    @Getter
+    private final double amount;
 
     public MoneyReward(double amount) {
         this.amount = amount;
