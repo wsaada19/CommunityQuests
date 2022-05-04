@@ -1,8 +1,6 @@
 package me.wonka01.ServerQuests.commands;
 
-import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
-import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import org.apache.commons.lang.NotImplementedException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

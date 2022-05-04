@@ -23,6 +23,7 @@ public class MoneyQuestCommand implements SubCommand {
 
         if (args.length < 2) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidCommand()));
+            return;
         }
 
         try {

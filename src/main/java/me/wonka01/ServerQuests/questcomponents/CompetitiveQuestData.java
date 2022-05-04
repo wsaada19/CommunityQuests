@@ -23,6 +23,15 @@ public class CompetitiveQuestData extends QuestData {
     }
 
     @Override
+    public double getPercentageComplete() {
+        PlayerData playerData = players.getTopPlayerData();
+        if (playerData != null) {
+            return playerData.getAmountContributed() / this.getQuestGoal();
+        }
+        return 0;
+    }
+
+    @Override
     public boolean isGoalComplete() {
         PlayerData playerData = players.getTopPlayerData();
         if (playerData == null) {
