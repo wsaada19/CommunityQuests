@@ -9,7 +9,7 @@ leaderBoardSize: 5
 # See color options here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html
 barColor: "GREEN"
 
-disableBossBar: true
+disableBossBar: false
 
 Quests:
 #    PlantTree:
