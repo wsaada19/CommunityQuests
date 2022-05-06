@@ -40,7 +40,6 @@ public class MoneyQuestCommand extends SubCommand {
                 player.sendMessage(noActiveDonateQuests);
             }
         } catch (NumberFormatException exception) {
-
             String message = color(args[1] + " is not a valid number!");
             player.sendMessage(message);
         }
