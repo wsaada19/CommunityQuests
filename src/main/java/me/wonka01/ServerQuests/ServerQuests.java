@@ -1,11 +1,14 @@
 package me.wonka01.ServerQuests;
 
 import lombok.Getter;
+import lombok.NonNull;
+import me.knighthat.apis.files.Config;
+import me.knighthat.apis.files.Messages;
+
 import me.wonka01.ServerQuests.commands.CommunityQuestsCommands;
 import me.wonka01.ServerQuests.configuration.JsonQuestSave;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
-import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
-import me.wonka01.ServerQuests.events.questevents.*;
+import me.wonka01.ServerQuests.events.*;
 import me.wonka01.ServerQuests.gui.*;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.BarManager;
@@ -18,6 +21,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class ServerQuests extends JavaPlugin {
 
+
+    @Getter
+    private final @NonNull Config newConfig = new Config(this);
+    @Getter
+    private final @NonNull Messages messages = new Messages(this);
     @Getter
     private Economy economy;
 
@@ -27,7 +35,6 @@ public class ServerQuests extends JavaPlugin {
     private DonateQuestGui questGui;
     private ViewGui viewGui;
     private DonateOptions donateOptionsGui;
-
     private ActiveQuests activeQuests;
     private JsonQuestSave jsonSave;
 
@@ -41,7 +48,6 @@ public class ServerQuests extends JavaPlugin {
         loadConfigurationLimits();
         loadQuestLibraryFromConfig();
         loadSaveData();
-        LanguageConfig.getConfig().setUpLanguageConfig();
 
         if (!setupEconomy()) {
             getLogger().info("Warning! No economy plugin found, a cash reward can not be added to a quest in Community Quests.");
@@ -91,16 +97,16 @@ public class ServerQuests extends JavaPlugin {
     }
 
     private void loadGuis() {
-        TypeGui typeGui = new TypeGui();
+        TypeGui typeGui = new TypeGui(this);
         typeGui.initializeItems();
         getServer().getPluginManager().registerEvents(typeGui, this);
-        viewGui = new ViewGui();
-        startGui = new StartGui(typeGui);
+        viewGui = new ViewGui(this);
+        startGui = new StartGui(this, typeGui);
         startGui.initializeItems();
-        stopGui = new StopGui();
-        questGui = new DonateQuestGui();
+        stopGui = new StopGui(this);
+        questGui = new DonateQuestGui(this);
         questGui.initializeItems();
-        donateOptionsGui = new DonateOptions(questGui);
+        donateOptionsGui = new DonateOptions(this, questGui);
     }
 
     public void reloadConfiguration() {
@@ -110,7 +116,7 @@ public class ServerQuests extends JavaPlugin {
         questLibrary = new QuestLibrary();
         questLibrary.loadQuestConfiguration(serverQuestSection);
         loadConfigurationLimits();
-        LanguageConfig.getConfig().reloadConfig();
+        messages.reload();
         loadGuis();
         registerGuiEvents();
     }

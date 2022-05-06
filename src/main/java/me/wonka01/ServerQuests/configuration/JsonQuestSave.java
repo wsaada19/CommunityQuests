@@ -115,9 +115,7 @@ public class JsonQuestSave {
                 activeQuests.beginQuestFromSave(controller);
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

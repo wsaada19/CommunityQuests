@@ -1,12 +1,11 @@
 package me.wonka01.ServerQuests.gui;
 
+import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestModel;
-import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,24 +21,37 @@ public class TypeGui extends BaseGui implements Listener, InventoryHolder {
     private final int COOP_SLOT = 12;
     private final int COMP_SLOT = 14;
     private final int BACK_SLOT = 18;
-
-    private Inventory inventory;
+    private final Inventory inventory;
+    private final ServerQuests plugin;
     private QuestModel model;
 
-    public TypeGui() {
-        inventory = Bukkit.createInventory(this, 27, ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getTypeMenu()));
+    public TypeGui(ServerQuests plugin) {
+        this.plugin = plugin;
+        this.inventory = createInventory();
+    }
+
+    private @NonNull Inventory createInventory() {
+
+        String title = plugin.getMessages().string("typeMenu");
+        return Bukkit.createInventory(this, 27, title);
     }
 
     @Override
     public void initializeItems() {
-        inventory.setItem(COMP_SLOT, createGuiItem(Material.DIAMOND_SWORD, LanguageConfig.getConfig().getMessages().getCompetitive()));
-        inventory.setItem(BACK_SLOT, createGuiItem(Material.ARROW, LanguageConfig.getConfig().getMessages().getGoBack(),
-            LanguageConfig.getConfig().getMessages().getGoBackText()));
+
+        String competitive = plugin.getMessages().string("competitive"),
+            goBack = plugin.getMessages().string("goBack"),
+            goBackText = plugin.getMessages().string("goBackText");
+        inventory.setItem(COMP_SLOT, createGuiItem(Material.DIAMOND_SWORD, competitive));
+        inventory.setItem(BACK_SLOT, createGuiItem(Material.ARROW, goBack,
+            goBackText));
     }
 
     public void openInventory(Player p, QuestModel model) {
-        inventory.setItem(COOP_SLOT, createGuiItem(Material.GOLDEN_APPLE, LanguageConfig.getConfig().getMessages().getCooperative()));
-        if(model.getQuestGoal() <= 0) {
+
+        String coop = plugin.getMessages().string("cooperative");
+        inventory.setItem(COOP_SLOT, createGuiItem(Material.GOLDEN_APPLE, coop));
+        if (model.getQuestGoal() <= 0) {
             inventory.setItem(COOP_SLOT, new ItemStack(Material.AIR));
         }
         p.openInventory(inventory);

@@ -1,28 +1,30 @@
 package me.wonka01.ServerQuests.questcomponents;
 
-import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
+import lombok.NonNull;
+import me.knighthat.apis.utils.Colorization;
+import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.enums.PermissionNode;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.schedulers.QuestTimer;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class QuestController {
+public class QuestController implements Colorization {
 
-    private QuestBar questBar;
-    private QuestData questData;
-    private BasePlayerComponent playerComponent;
-    private EventConstraints eventConstraints;
-    private UUID questId;
-    private ObjectiveType objective;
+    private final QuestBar questBar;
+    private final QuestData questData;
+    private final BasePlayerComponent playerComponent;
+    private final EventConstraints eventConstraints;
+    private final UUID questId;
+    private final ObjectiveType objective;
+    private final ServerQuests plugin;
 
-    public QuestController(QuestData questData, QuestBar questBar,
+    public QuestController(ServerQuests plugin, QuestData questData, QuestBar questBar,
                            BasePlayerComponent playerComponent, EventConstraints eventConstraints,
                            ObjectiveType objective) {
+        this.plugin = plugin;
         this.questData = questData;
         this.questBar = questBar;
         this.playerComponent = playerComponent;
@@ -39,7 +41,7 @@ public class QuestController {
         double amountToAdd = count;
 
         if (questData.hasGoal()) {
-            if(amountToAdd > questData.getQuestGoal() - questData.getAmountCompleted()) {
+            if (amountToAdd > questData.getQuestGoal() - questData.getAmountCompleted()) {
                 amountToAdd = questData.getQuestGoal() - questData.getAmountCompleted();
             }
             questData.addToQuestProgress(amountToAdd);
@@ -51,11 +53,11 @@ public class QuestController {
     }
 
     public void endQuest() {
-        if(questData.hasGoal() && !questData.isGoalComplete() && questData.getQuestType().equalsIgnoreCase("coop")) {
-            broadcastQuestFailureMessage();
+        if (questData.hasGoal() && !questData.isGoalComplete() && questData.getQuestType().equalsIgnoreCase("coop")) {
+            broadcast("questFailureMessage");
             playerComponent.sendLeaderString();
         } else {
-            broadcastVictoryMessage();
+            broadcast("questCompleteMessage");
             playerComponent.sendLeaderString();
             playerComponent.giveOutRewards(questData.getQuestGoal());
         }
@@ -106,24 +108,14 @@ public class QuestController {
     }
 
     private void sendPlayerMessage(Player player) {
-        if (player.hasPermission(PermissionNode.SHOW_MESSAGES)) {
-            String message = ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getContributionMessage(questData));
-            player.sendMessage(message);
-        }
+        if (!player.hasPermission(PermissionNode.SHOW_MESSAGES)) return;
+
+        String message = color(plugin.getMessages().message("contributionMessage"));
+        player.sendMessage(message);
     }
 
-    public void broadcastStartMessage() {
-        String message = ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getQuestStarted(questData));
-        Bukkit.getServer().broadcastMessage(message);
-    }
-
-    private void broadcastVictoryMessage() {
-        String message = ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getQuestComplete(questData));
-        Bukkit.getServer().broadcastMessage(message);
-    }
-
-    private void broadcastQuestFailureMessage() {
-        String message = ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getQuestFailed(questData));
-        Bukkit.getServer().broadcastMessage(message);
+    public void broadcast(@NonNull String messagePath) {
+        String message = color(plugin.getMessages().message(messagePath, questData));
+        plugin.getServer().broadcastMessage(message);
     }
 }

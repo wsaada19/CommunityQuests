@@ -1,0 +1,12 @@
+Added new apis:
+  - Files (config.yml, messages.yml)
+    + Managing using abstraction
+  - Colorization:
+    + Modifying text
+
+Files:
+  - messages.yml
+    + Added prefix
+    
+Changes:
+  - Migrated LangueConfig, Message from package me.wonka01.ServerQuests.configuration.messages to me.knighthat.apis.files.Messages

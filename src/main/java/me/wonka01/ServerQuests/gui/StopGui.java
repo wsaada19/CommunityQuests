@@ -1,10 +1,11 @@
 package me.wonka01.ServerQuests.gui;
 
-import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
+import lombok.NonNull;
+import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
+import me.wonka01.ServerQuests.util.NumberUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,11 +19,19 @@ import java.util.List;
 import java.util.UUID;
 
 public class StopGui extends BaseGui implements InventoryHolder, Listener {
-    private final int END_ALL = 17;
-    private Inventory inventory;
 
-    public StopGui() {
-        inventory = Bukkit.createInventory(this, 36, ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getStopMenu()));
+    private final ServerQuests plugin;
+    private final Inventory inventory;
+
+    public StopGui(ServerQuests plugin) {
+        this.plugin = plugin;
+        this.inventory = createInventory();
+    }
+
+    private @NonNull Inventory createInventory() {
+
+        String title = plugin.getMessages().string("stopQuest");
+        return Bukkit.createInventory(this, 36, title);
     }
 
     public void initializeItems() {
@@ -30,24 +39,21 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
         List<QuestController> controllers = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
         int count = 0;
         for (QuestController controller : controllers) {
-            double progress = controller.getQuestData().getAmountCompleted();
+            String progress = NumberUtil.getNumberDisplay(controller.getQuestData().getAmountCompleted());
             int goal = controller.getQuestData().getQuestGoal();
 
-            String progressString = LanguageConfig.getConfig().getMessages().getProgress() + ": &a" + progress + "/" + goal;
+            String progressString = plugin.getMessages().string("progress") + ": &a" + progress + "/" + goal;
 
             ItemStack item = createGuiItem(Material.DIAMOND,
                 controller.getQuestData().getDisplayName(),
                 controller.getQuestData().getDescription(),
                 "",
                 progressString,
-                LanguageConfig.getConfig().getMessages().getEndQuestText());
+                plugin.getMessages().string("endQuestText"));
 
             inventory.setItem(count, item);
             count++;
         }
-
-        //ItemStack redStone = createGuiItem(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "End All Quests", "");
-        //inventory.setItem(END_ALL, redStone);
     }
 
     public void openInventory(Player p) {
@@ -65,10 +71,6 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
         int slotNumber = e.getRawSlot();
         int counter = 0;
         QuestController controllerToRemove = null;
-
-        if (slotNumber == END_ALL) {
-            ActiveQuests.getActiveQuestsInstance().endAllQuests();
-        }
 
         for (QuestController controller : ActiveQuests.getActiveQuestsInstance().getActiveQuestsList()) {
             if (counter == slotNumber) {

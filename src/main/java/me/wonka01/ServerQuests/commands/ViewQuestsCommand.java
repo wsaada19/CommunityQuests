@@ -1,27 +1,32 @@
 package me.wonka01.ServerQuests.commands;
 
+import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
-import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
-import me.wonka01.ServerQuests.configuration.messages.Messages;
 import me.wonka01.ServerQuests.enums.PermissionNode;
 import me.wonka01.ServerQuests.gui.ViewGui;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.apache.commons.lang.NotImplementedException;
 
-public class ViewQuestsCommand implements SubCommand {
+public class ViewQuestsCommand extends SubCommand {
+
+    public ViewQuestsCommand(ServerQuests plugin) {
+        super(plugin);
+    }
+
+    @Override
+    public @NonNull String getPermission() {
+        return PermissionNode.VIEW_QUEST;
+    }
+
     @Override
     public void onCommand(Player player, String[] args) {
-        Messages messages = LanguageConfig.getConfig().getMessages();
-        if (!player.hasPermission(PermissionNode.VIEW_QUEST)) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getNoPermission()));
-            return;
-        }
+
         if (ActiveQuests.getActiveQuestsInstance().getActiveQuestsList().size() < 1) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getNoActiveQuests()));
+
+            String noActiveQuestMessage = getPlugin().getMessages().message("noActiveQuests");
+            player.sendMessage(noActiveQuestMessage);
             return;
         }
         ViewGui view = JavaPlugin.getPlugin(ServerQuests.class).getViewGui();
@@ -30,6 +35,5 @@ public class ViewQuestsCommand implements SubCommand {
     }
 
     public void onCommand(CommandSender sender, String[] args) {
-        throw new NotImplementedException();
     }
 }

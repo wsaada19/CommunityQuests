@@ -1,5 +1,7 @@
 package me.wonka01.ServerQuests.enums;
 
+import lombok.NonNull;
+
 public enum ObjectiveType {
     MOB_Kill,
     CATCH_FISH,
@@ -14,5 +16,18 @@ public enum ObjectiveType {
     CRAFT_ITEM,
     CONSUME_ITEM,
     GIVE_MONEY,
-    ENCHANT_ITEM
+    ENCHANT_ITEM,
+    UNKNOWN;
+
+    ObjectiveType() {
+    }
+
+    public static @NonNull ObjectiveType match(@NonNull String var) {
+
+        for (ObjectiveType type : values())
+            if (type.name().equalsIgnoreCase(var))
+                return type;
+
+        return UNKNOWN;
+    }
 }

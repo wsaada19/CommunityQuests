@@ -1,57 +1,64 @@
 package me.wonka01.ServerQuests.commands;
 
-import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
-import org.apache.commons.lang.NotImplementedException;
-import org.bukkit.ChatColor;
+import lombok.NonNull;
+import me.wonka01.ServerQuests.ServerQuests;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
+
 
 import java.util.HashMap;
 
 public class CommunityQuestsCommands implements CommandExecutor {
 
+    private ServerQuests plugin;
+
     private HashMap<String, SubCommand> subCommands;
 
-    public void setup(JavaPlugin plugin) {
+    public void setup(ServerQuests plugin) {
+        this.plugin = plugin;
         plugin.getCommand("communityquests").setExecutor(this);
         subCommands = new HashMap<>();
-        subCommands.put("start", new StartCommand());
-        subCommands.put("stop", new StopQuestCommand());
-        subCommands.put("togglebar", new ToggleBarCommand());
-        subCommands.put("view", new ViewQuestsCommand());
-        subCommands.put("reload", new ReloadCommand());
-        subCommands.put("donate", new DonateQuestCommand());
-        subCommands.put("help", new HelpCommand());
-        subCommands.put("deposit", new MoneyQuestCommand());
+        subCommands.put("start", new StartCommand(plugin));
+        subCommands.put("stop", new StopQuestCommand(plugin));
+        subCommands.put("togglebar", new ToggleBarCommand(plugin));
+        subCommands.put("view", new ViewQuestsCommand(plugin));
+        subCommands.put("reload", new ReloadCommand(plugin));
+        subCommands.put("donate", new DonateQuestCommand(plugin));
+        subCommands.put("help", new HelpCommand(plugin));
+        subCommands.put("deposit", new MoneyQuestCommand(plugin));
     }
 
-    public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        try {
+            SubCommand cmd = getSubCommand(args[0]);
 
-        if (!(commandSender instanceof Player)) {
-            try {
-                if (args.length < 1 || !subCommands.containsKey(args[0])) {
-                    commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getInvalidCommand()));
-                    return false;
-                } else {
-                    subCommands.get(args[0]).onCommand(commandSender, args);
-                    return true;
-                }
-            } catch (NotImplementedException ex) {
-                commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getNoPermission()));
-                return false;
+            if (!sender.hasPermission(cmd.getPermission())) {
+                String noPermMsg = plugin.getMessages().message("noPermission");
+                sender.sendMessage(noPermMsg);
+                return true;
             }
-        }
-        Player player = (Player) commandSender;
 
-        if (args.length < 1 || !subCommands.containsKey(args[0])) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getInvalidCommand()));
-            return false;
-        }
+            if (sender instanceof Player) {
+                cmd.onCommand((Player) sender, args);
+            } else {
+                cmd.onCommand(sender, args);
+            }
 
-        subCommands.get(args[0]).onCommand(player, args);
+        } catch (IndexOutOfBoundsException ignored) {
+            String invalidMessage = plugin.getMessages().message("invalidCommand");
+            sender.sendMessage(invalidMessage);
+        }
         return true;
+    }
+
+    private @NonNull SubCommand getSubCommand(@NonNull String arg) {
+
+        for (String name : subCommands.keySet())
+            if (name.equalsIgnoreCase(arg))
+                return subCommands.get(name);
+
+        return getSubCommand("help");
     }
 }

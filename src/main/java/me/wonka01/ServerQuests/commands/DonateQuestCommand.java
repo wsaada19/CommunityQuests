@@ -1,29 +1,30 @@
 package me.wonka01.ServerQuests.commands;
 
+import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
-import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
-import me.wonka01.ServerQuests.configuration.messages.Messages;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.enums.PermissionNode;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
-import org.apache.commons.lang.NotImplementedException;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 
-public class DonateQuestCommand implements SubCommand {
+public class DonateQuestCommand extends SubCommand {
+
+    protected DonateQuestCommand(ServerQuests plugin) {
+        super(plugin);
+    }
+
+    @Override
+    public @NonNull String getPermission() {
+        return PermissionNode.DONATE;
+    }
 
     @Override
     public void onCommand(Player player, String[] args) {
-        Messages messages = LanguageConfig.getConfig().getMessages();
-        if (!player.hasPermission(PermissionNode.DONATE)) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getNoPermission()));
-            return;
-        }
 
         List<QuestController> controllerList = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
         for (QuestController controller : controllerList) {
@@ -32,10 +33,10 @@ public class DonateQuestCommand implements SubCommand {
                 return;
             }
         }
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getNoActiveDonateQuests()));
+        String noActiveQuest = getPlugin().getMessages().message("noActiveDonateQuests");
+        player.sendMessage(noActiveQuest);
     }
 
     public void onCommand(CommandSender sender, String[] args) {
-        throw new NotImplementedException();
     }
 }
