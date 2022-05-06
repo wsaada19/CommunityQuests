@@ -4,9 +4,9 @@ import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
+import me.wonka01.ServerQuests.questcomponents.QuestData;
 import me.wonka01.ServerQuests.util.NumberUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -40,13 +40,14 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
         int count = 0;
         for (QuestController controller : controllers) {
             String progress = NumberUtil.getNumberDisplay(controller.getQuestData().getAmountCompleted());
-            int goal = controller.getQuestData().getQuestGoal();
+            QuestData data = controller.getQuestData();
+            int goal = data.getQuestGoal();
 
             String progressString = plugin.getMessages().string("progress") + ": &a" + progress + "/" + goal;
 
-            ItemStack item = createGuiItem(Material.DIAMOND,
-                controller.getQuestData().getDisplayName(),
-                controller.getQuestData().getDescription(),
+            ItemStack item = createGuiItem(data.getDisplayItem(),
+                data.getDisplayName(),
+                data.getDescription(),
                 "",
                 progressString,
                 plugin.getMessages().string("endQuestText"));

@@ -9,7 +9,6 @@ import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 import me.wonka01.ServerQuests.util.NumberUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -32,7 +31,6 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
     }
 
     private @NonNull Inventory createInventory() {
-
         String title = plugin.getMessages().string("viewQuests");
         return Bukkit.createInventory(this, 36, title);
     }
@@ -58,27 +56,28 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
     }
 
     public void createItemStackForCoop(QuestController controller, int index, Player player) {
-        String progress = NumberUtil.getNumberDisplay(controller.getQuestData().getAmountCompleted());
+        QuestData data = controller.getQuestData();
+        String progress = NumberUtil.getNumberDisplay(data.getAmountCompleted());
 
-        int goal = controller.getQuestData().getQuestGoal();
+        int goal = data.getQuestGoal();
 
         String progressString = plugin.getMessages().string("progress");
         progressString += ": " + ChatColor.GREEN + progress + "/" + goal;
-        ArrayList<String> lore = getQuestDisplay(controller.getQuestData());
+        ArrayList<String> lore = getQuestDisplay(data);
 
         if (goal > 0) {
             lore.add(progressString);
         }
         lore.add(getPlayerProgress(controller, player));
 
-
-        inventory.setItem(index, createGuiItem(Material.DIAMOND, color(controller.getQuestData().getDisplayName()),
+        inventory.setItem(index, createGuiItem(data.getDisplayItem(),
+            color(data.getDisplayName()),
             lore.toArray(new String[0])));
     }
 
     public void createItemStackForComp(QuestController controller, int index, Player player) {
-
-        int goal = controller.getQuestData().getQuestGoal();
+        QuestData data = controller.getQuestData();
+        int goal = data.getQuestGoal();
 
         String leaders = plugin.getMessages().string("leader");
         PlayerData topPlayer = controller.getPlayerComponent().getTopPlayerData();
@@ -97,7 +96,7 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
         }
         lore.add(getPlayerProgress(controller, player));
 
-        inventory.setItem(index, createGuiItem(Material.DIAMOND, controller.getQuestData().getDisplayName(), lore.toArray(new String[0])));
+        inventory.setItem(index, createGuiItem(data.getDisplayItem(), color(data.getDisplayName()), lore.toArray(new String[0])));
     }
 
     private ArrayList<String> getQuestDisplay(QuestData questData) {
@@ -105,7 +104,6 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
         lore.add(color(questData.getDescription()));
         lore.add("");
         if (questData.getQuestDuration() > 0) {
-
             String remaining = plugin.getMessages().string("timeRemaining");
             remaining += questData.getQuestDuration();
             lore.add(remaining);
@@ -123,13 +121,11 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
     }
 
     public void openInventory(Player player) {
-
         player.openInventory(inventory);
     }
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-
         if (!clickEventCheck(e, this)) {
             return;
         }

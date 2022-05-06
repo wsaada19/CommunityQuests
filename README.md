@@ -51,6 +51,7 @@ Quests:
   ExampleQuest: # this value can be anything but it must be unique
     displayName: "&cZombie and Pig Slayer"
     type: mobkill # required, see type list for available types
+    displayItem: ZOMBIE_HEAD # optional parameter to set the item used in GUIs for a given quest
     entities: # This is an optional parameter, if it doesn't exist the quest will count ALL mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
       - Zombie
       - Pig
@@ -67,9 +68,14 @@ Quests:
 
 The name that will be shown for the quest you've created
 
+### displayItem (optional)
+
+The material that will be used to display a quest in /cq view, start and stop commands.View [this list](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) 
+for available materials.
+
 ### description (required)
 
-A short description of the quest
+A short description of the quest used in messages and displays.
 
 ### type (required)
 The quest type, see here for a list of types: 
@@ -149,6 +155,7 @@ Think of it as more of a challenge than a quest.
  Fishing:
     displayName: Catch Fish
     type: catchfish
+    displayItem: FISHING_ROD
     entities:
     - Raw cod
     - Raw salmon

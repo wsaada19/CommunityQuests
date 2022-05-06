@@ -4,9 +4,7 @@ import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.configuration.QuestModel;
-import me.wonka01.ServerQuests.util.ObjectiveTypeUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -48,7 +46,6 @@ public class StartGui extends BaseGui implements InventoryHolder, Listener {
 
             String key = keys.get(i);
             QuestModel model = getQuestLibrary().getQuestModelById(key);
-            Material material = ObjectiveTypeUtil.getEventTypeDefaultMaterial(model.getObjective());
 
             ArrayList<String> lore = new ArrayList<>();
             lore.add(model.getEventDescription());
@@ -63,7 +60,7 @@ public class StartGui extends BaseGui implements InventoryHolder, Listener {
             String clickToStart = plugin.getMessages().string("clickToStart");
             lore.add(clickToStart);
 
-            inventory.setItem(i, createGuiItem(material, model.getDisplayName(),
+            inventory.setItem(i, createGuiItem(model.getDisplayItem(), model.getDisplayName(),
                 lore.toArray(new String[0])));
         }
     }
