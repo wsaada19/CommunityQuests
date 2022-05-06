@@ -16,25 +16,25 @@ an economy plugin installed you can give players money as a reward for completin
 
 ## Commands 
 
-#### /cq start
+### /cq start
 Opens up a GUI to begin a new quest 
 
-#### /cq start [QuestId] [coop, comp]
+### /cq start [QuestId] [coop, comp]
 Starts a quest with the given ID and quest type
 
-#### /cq view 
+### /cq view 
 Opens up a GUI to see the progress of all active quests
 
-#### /cq stop
+### /cq stop
 Opens up a GUI to end active quests
 
-#### /cq reload 
+### /cq reload 
 Reloads the configuration file
 
-#### /cq donate
+### /cq donate
 Contribute to a donate quest
 
-#### /cq deposit <amount> 
+### /cq deposit <amount> 
 Contribute to a money quests
     
 ## Configuration
@@ -63,33 +63,33 @@ Quests:
     Other quest info...
 ```
 
-#### displayName (required) 
+### displayName (required) 
 
 The name that will be shown for the quest you've created
 
-#### description (required)
+### description (required)
 
 A short description of the quest
 
-#### type (required)
+### type (required)
 The quest type, see here for a list of types: 
 
-#### goal (required if no timeToComplete is required)
+### goal (required if no timeToComplete is required)
 The amount you'll need to complete to finish the quest. To run a collaborative quest a goal is required
 even if you have a timeToComplete set. 
 
-####  timeToComplete (required if no goal is required)
+###  timeToComplete (required if no goal is required)
 The time that the quest should run for in seconds, so if it is set to 60 the quest will last 
 for one minute. If both goal and time required are set then the quest will run until the goal is hit 
 or until the timeToComplete is hit, whichever comes first. 
 
 
-#### materials (optional)
+### materials (optional)
 This is an optional parameter for the following quest types: 
 blockbreak, blockplace, donate. If the field is empty or nonexistent then all blocks will be considered.
 You can include patterns in the blocks list such as 'Ore', and every material that has ore in its name will be a part of the quest.
 
-#### entities (optional)
+### entities (optional)
 This is an optional field for the following quest types: mobkill, projectilekill and catchfish.
 If empty or not used then all mob types will be included.
 
@@ -119,11 +119,11 @@ rewards:
         displayName: "&capples"
 ```
 
-### Competitive vs. Cooperative
+## Competitive vs. Cooperative
 There are two quest types to chose from: competitive and cooperative. If you're using the GUI which is opened from the /sp start command, after choosing the quest you'd like to run you're presented with a 
 GUI to pick the type. You can also do /sq start [QuestId] [coop/comp] . I plan on adding the option to bind a quest to a specific type in the config in a later update.
 
-#### Cooperative 
+### Cooperative 
 Cooperative quests involve everyone on the server working together to complete the goal. For example in the quest created in the configuration section, the quest will be complete once 100 zombies, pigs, and zombie pigmen have been killed. Note: This means 100 total of
 any combination of zombies/pigs/zombie pigman kills that add to 100. If timeToComplete is set then the player's must complete the quest in the given time limit.
 If the quest is not completed no rewards will be given out.
@@ -131,7 +131,7 @@ If the quest is not completed no rewards will be given out.
 Player's are rewarded based on how much they contribute to the quest. If the reward is 1000 
 money and PlayerX kills 50 of the 100 zombies, PlayerX will receive 500. Item and command rewards are given to every player who contributes to the quest.
 
-#### Competitive
+### Competitive
 Competitive quests put the players against each other to see who can complete a goal first. Using our zombie/pig example
 from above, the quest will end once a single player gets 100 kills for the correct mob types. If a time limit is set and the quest ends before the goal is reached the top players will still get rewards based on their contributions.
 
@@ -143,6 +143,21 @@ Think of it as more of a challenge than a quest.
 - **donate**- these quests require players to donate a specified number of a given material. The /cq donate command will open a GUI where the player can donate their items. (The items will be gone forever once placed!)
 - **mobkill** - activated when you kill an entity, use entities list to set the mobs to be killed
 - **catchfish**- catch a given number of fish 
+
+**Fishing Example:** use the fish names from this list in the entities field: https://minecraft.fandom.com/wiki/Fishing 
+```yaml
+ Fishing:
+    displayName: Catch Fish
+    type: catchfish
+    entities:
+    - Raw cod
+    - Raw salmon
+    - Pufferfish
+    description: Catch 3 fish!
+    goal: 10
+    rewards:
+      experience: 100
+```
 - **playerkill**- kill other players
 - **blockbreak**- break a block specified in the materials list in the configuration  
 - **blockplace**- place a block specified in the materials list in the configuration 
