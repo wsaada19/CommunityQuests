@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,12 +71,11 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
         lore.add(getPlayerProgress(controller, player));
 
         inventory.setItem(index, createGuiItem(data.getDisplayItem(),
-            ChatColor.translateAlternateColorCodes('&', data.getDisplayName()),
+            color(data.getDisplayName()),
             lore.toArray(new String[0])));
     }
 
     public void createItemStackForComp(QuestController controller, int index, Player player) {
-
         QuestData data = controller.getQuestData();
         int goal = data.getQuestGoal();
 
@@ -96,15 +96,14 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
         }
         lore.add(getPlayerProgress(controller, player));
 
-        inventory.setItem(index, createGuiItem(data.getDisplayItem(), data.getDisplayName(), lore.toArray(new String[0])));
+        inventory.setItem(index, createGuiItem(data.getDisplayItem(), color(data.getDisplayName()), lore.toArray(new String[0])));
     }
 
     private ArrayList<String> getQuestDisplay(QuestData questData) {
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.translateAlternateColorCodes('&', questData.getDescription()));
+        lore.add(color(questData.getDescription()));
         lore.add("");
         if (questData.getQuestDuration() > 0) {
-
             String remaining = plugin.getMessages().string("timeRemaining");
             remaining += questData.getQuestDuration();
             lore.add(remaining);
@@ -122,13 +121,11 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
     }
 
     public void openInventory(Player player) {
-
         player.openInventory(inventory);
     }
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-
         if (!clickEventCheck(e, this)) {
             return;
         }

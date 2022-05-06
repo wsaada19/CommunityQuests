@@ -7,7 +7,6 @@ import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -59,7 +58,7 @@ public class DonateOptions extends BaseGui implements Listener, InventoryHolder 
 
     private ArrayList<String> getQuestDisplay(QuestData questData) {
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.translateAlternateColorCodes('&', questData.getDescription()));
+        lore.add(color(questData.getDescription()));
         lore.add("");
         if (questData.getQuestDuration() > 0) {
 
