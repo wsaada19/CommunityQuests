@@ -20,7 +20,6 @@ public class ToggleBarCommand extends SubCommand {
 
     @Override
     public void onCommand(Player player, String[] args) {
-
         BarManager.toggleShowPlayerBar(player);
     }
 

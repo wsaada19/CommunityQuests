@@ -27,7 +27,6 @@ public class StartCommand extends SubCommand {
             JavaPlugin.getPlugin(ServerQuests.class).getStartGui().openInventory(player);
             return;
         }
-
         startFromCommand(player, args);
     }
 
@@ -36,14 +35,12 @@ public class StartCommand extends SubCommand {
         if (args.length < 2) {
             return;
         }
-
         startFromCommand(sender, args);
     }
 
     private void startFromCommand(CommandSender sender, String[] args) {
 
         if (args.length < 3) {
-
             String invalidQuestType = getPlugin().getMessages().message("invalidQuestType");
             sender.sendMessage(invalidQuestType);
             return;
@@ -52,7 +49,6 @@ public class StartCommand extends SubCommand {
         QuestModel model = getPlugin().questLibrary.getQuestModelById(args[1]);
 
         if (model == null) {
-
             String invalidName = getPlugin().getMessages().message("invalidQuestName");
             sender.sendMessage(invalidName);
             return;
@@ -60,21 +56,17 @@ public class StartCommand extends SubCommand {
 
         EventType type;
         switch (args[2]) {
-
             case "coop":
                 type = EventType.COLLAB;
-
                 if (model.getQuestGoal() <= 0) {
                     String noGoal = getPlugin().getMessages().message("cooperativeQuestMustHaveAGoal");
                     sender.sendMessage(noGoal);
                     return;
                 }
                 break;
-
             case "comp":
                 type = EventType.COMPETITIVE;
                 break;
-
             default:
                 String invalidQuestType = getPlugin().getMessages().message("invalidQuestType");
                 sender.sendMessage(invalidQuestType);

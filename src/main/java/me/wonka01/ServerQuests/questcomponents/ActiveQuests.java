@@ -33,24 +33,20 @@ public class ActiveQuests {
         QuestController controller = getQuestById(questId);
         controller.getQuestBar().removeBossBar();
         activeQuestsList.remove(getQuestById(questId));
-        if (activeQuestsList.size() > 1) {
+        if (activeQuestsList.size() > 0) {
             BarManager.startShowingPlayersBar(activeQuestsList.get(0).getQuestId());
         }
     }
 
     public boolean beginNewQuest(QuestModel questModel, EventType eventType) {
-        if (activeQuestsList.size() >= questLimit) {
-            return false;
-        } else {
-            EventTypeHandler typeHandler = new EventTypeHandler(eventType);
-            QuestController controller = typeHandler.createQuestController(questModel);
+        if (activeQuestsList.size() >= questLimit) return false;
 
-            activeQuestsList.add(controller);
-
-            controller.broadcast("questStartMessage");
-            BarManager.startShowingPlayersBar(controller.getQuestId());
-            return true;
-        }
+        EventTypeHandler typeHandler = new EventTypeHandler(eventType);
+        QuestController controller = typeHandler.createQuestController(questModel);
+        activeQuestsList.add(controller);
+        controller.broadcast("questStartMessage");
+        BarManager.startShowingPlayersBar(controller.getQuestId());
+        return true;
     }
 
     public void beginQuestFromSave(QuestController controller) {

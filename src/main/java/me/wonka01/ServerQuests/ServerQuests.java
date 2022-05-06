@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import me.knighthat.apis.files.Config;
 import me.knighthat.apis.files.Messages;
+
 import me.wonka01.ServerQuests.commands.CommunityQuestsCommands;
 import me.wonka01.ServerQuests.configuration.JsonQuestSave;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
@@ -20,12 +21,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class ServerQuests extends JavaPlugin {
 
-    public static Economy economy = null;
 
     @Getter
     private final @NonNull Config newConfig = new Config(this);
     @Getter
     private final @NonNull Messages messages = new Messages(this);
+    @Getter
+    private Economy economy;
+
     public QuestLibrary questLibrary;
     private StartGui startGui;
     private StopGui stopGui;
@@ -51,7 +54,8 @@ public class ServerQuests extends JavaPlugin {
         }
 
         loadGuis();
-        registerEvents();
+        registerGuiEvents();
+        registerQuestEvents();
     }
 
     @Override
@@ -112,7 +116,9 @@ public class ServerQuests extends JavaPlugin {
         questLibrary = new QuestLibrary();
         questLibrary.loadQuestConfiguration(serverQuestSection);
         loadConfigurationLimits();
+        messages.reload();
         loadGuis();
+        registerGuiEvents();
     }
 
     public QuestLibrary getQuestLibrary() {
@@ -131,10 +137,6 @@ public class ServerQuests extends JavaPlugin {
         return questGui;
     }
 
-    public DonateOptions getDonateOptionsGui() {
-        return donateOptionsGui;
-    }
-
     public ViewGui getViewGui() {
         return viewGui;
     }
@@ -151,12 +153,7 @@ public class ServerQuests extends JavaPlugin {
         return economy != null;
     }
 
-    private void registerEvents() {
-        getServer().getPluginManager().registerEvents(questGui, this);
-        getServer().getPluginManager().registerEvents(startGui, this);
-        getServer().getPluginManager().registerEvents(stopGui, this);
-        getServer().getPluginManager().registerEvents(viewGui, this);
-        getServer().getPluginManager().registerEvents(donateOptionsGui, this);
+    private void registerQuestEvents() {
         getServer().getPluginManager().registerEvents(new BarManager(), this);
         getServer().getPluginManager().registerEvents(new BreakEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new CatchFishEvent(activeQuests), this);
@@ -170,5 +167,13 @@ public class ServerQuests extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new CraftItemQuestEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new ConsumeItemQuestEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new EnchantItemQuestEvent(activeQuests), this);
+    }
+
+    private void registerGuiEvents() {
+        getServer().getPluginManager().registerEvents(questGui, this);
+        getServer().getPluginManager().registerEvents(startGui, this);
+        getServer().getPluginManager().registerEvents(stopGui, this);
+        getServer().getPluginManager().registerEvents(viewGui, this);
+        getServer().getPluginManager().registerEvents(donateOptionsGui, this);
     }
 }

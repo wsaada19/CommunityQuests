@@ -23,7 +23,7 @@ public class GuiEvent extends QuestListener {
             // Add logic to check the item
             List<String> materials = controller.getEventConstraints().getMaterialNames();
             int goal = controller.getQuestData().getQuestGoal();
-            int completed = controller.getQuestData().getAmountCompleted();
+            int completed = (int)controller.getQuestData().getAmountCompleted();
             if (materials.isEmpty() || MaterialUtil.containsMaterial(itemsToAdd.getType().toString(), materials)) {
                 if (goal > 0 && completed + itemsToAdd.getAmount() > goal) {
                     int difference = completed + itemsToAdd.getAmount() - goal;

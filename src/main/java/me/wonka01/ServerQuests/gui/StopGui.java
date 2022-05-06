@@ -4,6 +4,7 @@ import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
+import me.wonka01.ServerQuests.util.NumberUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -19,7 +20,6 @@ import java.util.UUID;
 
 public class StopGui extends BaseGui implements InventoryHolder, Listener {
 
-    private final int END_ALL = 17;
     private final ServerQuests plugin;
     private final Inventory inventory;
 
@@ -39,9 +39,8 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
         List<QuestController> controllers = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
         int count = 0;
         for (QuestController controller : controllers) {
-            int progress = controller.getQuestData().getAmountCompleted();
+            String progress = NumberUtil.getNumberDisplay(controller.getQuestData().getAmountCompleted());
             int goal = controller.getQuestData().getQuestGoal();
-
 
             String progressString = plugin.getMessages().string("progress") + ": &a" + progress + "/" + goal;
 
@@ -55,9 +54,6 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
             inventory.setItem(count, item);
             count++;
         }
-
-        //ItemStack redStone = createGuiItem(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "End All Quests", "");
-        //inventory.setItem(END_ALL, redStone);
     }
 
     public void openInventory(Player p) {
@@ -75,10 +71,6 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
         int slotNumber = e.getRawSlot();
         int counter = 0;
         QuestController controllerToRemove = null;
-
-        if (slotNumber == END_ALL) {
-            ActiveQuests.getActiveQuestsInstance().endAllQuests();
-        }
 
         for (QuestController controller : ActiveQuests.getActiveQuestsInstance().getActiveQuestsList()) {
             if (counter == slotNumber) {

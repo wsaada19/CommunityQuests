@@ -38,12 +38,14 @@ public class EventTypeHandler {
         ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
 
         QuestBar bar = new QuestBar(model.getDisplayName());
-        if (completed > 0)
+        if (completed > 0) {
             bar.updateBarProgress((double) completed / model.getQuestGoal());
+        }
 
         BasePlayerComponent pComponent = new BasePlayerComponent(model.getRewards());
-        if (players != null)
+        if (players != null) {
             pComponent = new BasePlayerComponent(model.getRewards(), players);
+        }
 
         QuestData data = getQuestData(model, completed, pComponent, timeLeft);
         EventConstraints event = new EventConstraints(model.getItemNames(), model.getMobNames());

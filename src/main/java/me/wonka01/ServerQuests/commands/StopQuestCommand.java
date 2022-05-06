@@ -21,7 +21,6 @@ public class StopQuestCommand extends SubCommand {
 
     @Override
     public void onCommand(Player player, String[] args) {
-
         StopGui stopGui = JavaPlugin.getPlugin(ServerQuests.class).getStopGui();
         stopGui.initializeItems();
         stopGui.openInventory(player);

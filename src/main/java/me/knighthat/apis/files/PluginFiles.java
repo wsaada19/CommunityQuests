@@ -32,7 +32,6 @@ public abstract class PluginFiles {
     }
 
     private void startup() {
-
         file = new File(plugin.getDataFolder(), getFileName());
         createIfNotExist();
 
@@ -40,7 +39,6 @@ public abstract class PluginFiles {
     }
 
     public void reload() {
-
         if (file == null)
             startup();
 
@@ -48,7 +46,6 @@ public abstract class PluginFiles {
     }
 
     public @NonNull FileConfiguration get() {
-
         if (yaml == null)
             reload();
 
@@ -61,7 +58,6 @@ public abstract class PluginFiles {
             reload();
 
         try {
-
             yaml.save(file);
 
             return true;

@@ -3,6 +3,7 @@ package me.wonka01.ServerQuests.questcomponents.players;
 import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
+import me.wonka01.ServerQuests.util.NumberUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -36,7 +37,7 @@ public class BasePlayerComponent implements Colorization {
         leaderBoardSize = size;
     }
 
-    public void savePlayerAction(Player player, int count) {
+    public void savePlayerAction(Player player, double count) {
         if (playerMap.containsKey(player.getUniqueId())) {
             PlayerData playerData = playerMap.get(player.getUniqueId());
             playerData.increaseContribution(count);
@@ -73,7 +74,7 @@ public class BasePlayerComponent implements Colorization {
             result.append(") &a");
             result.append(map.get(key).getDisplayName());
             result.append(" &7- &f");
-            result.append(map.get(key).getAmountContributed());
+            result.append(NumberUtil.getNumberDisplay(map.get(key).getAmountContributed()));
 
             count++;
         }
@@ -90,7 +91,7 @@ public class BasePlayerComponent implements Colorization {
         return null;
     }
 
-    public int getAmountContributed(Player player) {
+    public double getAmountContributed(Player player) {
         if (playerMap.containsKey(player.getUniqueId())) {
             return playerMap.get(player.getUniqueId()).getAmountContributed();
         }
@@ -114,7 +115,7 @@ public class BasePlayerComponent implements Colorization {
             if (questGoal > 0) {
                 playerContributionRatio = playerContribution / (double) questGoal;
             } else {
-                playerContributionRatio = playerContribution / (double) getTopPlayerData().getAmountContributed();
+                playerContributionRatio = playerContribution / getTopPlayerData().getAmountContributed();
             }
 
             OfflinePlayer player = Bukkit.getServer().getOfflinePlayer(key);

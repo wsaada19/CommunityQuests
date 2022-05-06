@@ -1,6 +1,7 @@
 package me.wonka01.ServerQuests.questcomponents;
 
 import lombok.NonNull;
+import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.enums.PermissionNode;
@@ -10,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class QuestController {
+public class QuestController implements Colorization {
 
     private final QuestBar questBar;
     private final QuestData questData;
@@ -32,15 +33,15 @@ public class QuestController {
         this.objective = objective;
 
         if (questData.getQuestDuration() > 0) {
-            new QuestTimer(plugin, this);
+            new QuestTimer(this);
         }
     }
 
-    public void updateQuest(int count, Player player) {
-        int amountToAdd = count;
+    public void updateQuest(double count, Player player) {
+        double amountToAdd = count;
 
         if (questData.hasGoal()) {
-            if (count > questData.getQuestGoal() - questData.getAmountCompleted()) {
+            if (amountToAdd > questData.getQuestGoal() - questData.getAmountCompleted()) {
                 amountToAdd = questData.getQuestGoal() - questData.getAmountCompleted();
             }
             questData.addToQuestProgress(amountToAdd);
@@ -53,11 +54,9 @@ public class QuestController {
 
     public void endQuest() {
         if (questData.hasGoal() && !questData.isGoalComplete() && questData.getQuestType().equalsIgnoreCase("coop")) {
-
             broadcast("questFailureMessage");
             playerComponent.sendLeaderString();
         } else {
-
             broadcast("questCompleteMessage");
             playerComponent.sendLeaderString();
             playerComponent.giveOutRewards(questData.getQuestGoal());
@@ -109,16 +108,14 @@ public class QuestController {
     }
 
     private void sendPlayerMessage(Player player) {
-
         if (!player.hasPermission(PermissionNode.SHOW_MESSAGES)) return;
 
-        String message = plugin.getMessages().message("contributionMessage");
+        String message = color(plugin.getMessages().message("contributionMessage"));
         player.sendMessage(message);
     }
 
     public void broadcast(@NonNull String messagePath) {
-
-        String message = plugin.getMessages().message(messagePath, questData);
+        String message = color(plugin.getMessages().message(messagePath, questData));
         plugin.getServer().broadcastMessage(message);
     }
 }

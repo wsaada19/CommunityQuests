@@ -1,6 +1,7 @@
 package me.wonka01.ServerQuests.questcomponents.rewards;
 
 import lombok.Getter;
+import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -8,7 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.text.MessageFormat;
 
-public class ExperienceReward implements Reward {
+public class ExperienceReward implements Reward, Colorization {
 
     @Getter
     private final int experience;
@@ -18,8 +19,7 @@ public class ExperienceReward implements Reward {
     }
 
     public void giveRewardToPlayer(OfflinePlayer offlinePlayer, double rewardPercentage) {
-
-        if (!offlinePlayer.isOnline()) return;
+        if (!offlinePlayer.isOnline() || experience <= 0) return;
 
         Player player = offlinePlayer.getPlayer();
         int exp = (int) (rewardPercentage * experience);
@@ -28,6 +28,6 @@ public class ExperienceReward implements Reward {
 
         ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
         String message = MessageFormat.format("- &a{0} {1}", exp, plugin.getMessages().message("experience"));
-        player.sendMessage(message);
+        player.sendMessage(color(message));
     }
 }

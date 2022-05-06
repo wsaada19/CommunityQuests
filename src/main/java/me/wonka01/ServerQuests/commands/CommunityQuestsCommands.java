@@ -7,6 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+
 import java.util.HashMap;
 
 public class CommunityQuestsCommands implements CommandExecutor {
@@ -16,9 +17,7 @@ public class CommunityQuestsCommands implements CommandExecutor {
     private HashMap<String, SubCommand> subCommands;
 
     public void setup(ServerQuests plugin) {
-
         this.plugin = plugin;
-
         plugin.getCommand("communityquests").setExecutor(this);
         subCommands = new HashMap<>();
         subCommands.put("start", new StartCommand(plugin));
@@ -28,35 +27,29 @@ public class CommunityQuestsCommands implements CommandExecutor {
         subCommands.put("reload", new ReloadCommand(plugin));
         subCommands.put("donate", new DonateQuestCommand(plugin));
         subCommands.put("help", new HelpCommand(plugin));
-        /*subCommands.put("money", new MoneyQuestCommand(new MoneyQuest(ActiveQuests.getActiveQuestsInstance(), ServerQuests.economy)));*/
+        subCommands.put("deposit", new MoneyQuestCommand(plugin));
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
         try {
-
-            SubCommand cmd = getSubCommand(args[1]);
+            SubCommand cmd = getSubCommand(args[0]);
 
             if (!sender.hasPermission(cmd.getPermission())) {
-
                 String noPermMsg = plugin.getMessages().message("noPermission");
                 sender.sendMessage(noPermMsg);
                 return true;
             }
 
             if (sender instanceof Player) {
-
                 cmd.onCommand((Player) sender, args);
-            } else
+            } else {
                 cmd.onCommand(sender, args);
-
+            }
 
         } catch (IndexOutOfBoundsException ignored) {
-
             String invalidMessage = plugin.getMessages().message("invalidCommand");
             sender.sendMessage(invalidMessage);
         }
-
         return true;
     }
 

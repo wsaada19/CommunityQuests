@@ -15,7 +15,7 @@ public abstract class QuestListener {
         this.activeQuests = activeQuests;
     }
 
-    protected void updateQuest(QuestController controller, Player player, int amount) {
+    protected void updateQuest(QuestController controller, Player player, double amount) {
         controller.updateQuest(amount, player);
         if (controller.getQuestData().isGoalComplete()) {
             controller.endQuest();
