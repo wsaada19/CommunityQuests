@@ -16,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,8 +71,8 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
         }
         lore.add(getPlayerProgress(controller, player));
 
-        inventory.setItem(index, createGuiItem(Material.DIAMOND,
-            ChatColor.translateAlternateColorCodes('&', controller.getQuestData().getDisplayName()),
+
+        inventory.setItem(index, createGuiItem(Material.DIAMOND, color(controller.getQuestData().getDisplayName()),
             lore.toArray(new String[0])));
     }
 
@@ -101,7 +102,7 @@ public class ViewGui extends BaseGui implements Listener, InventoryHolder {
 
     private ArrayList<String> getQuestDisplay(QuestData questData) {
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.translateAlternateColorCodes('&', questData.getDescription()));
+        lore.add(color(questData.getDescription()));
         lore.add("");
         if (questData.getQuestDuration() > 0) {
 

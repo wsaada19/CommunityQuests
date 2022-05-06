@@ -5,7 +5,6 @@ import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.PermissionNode;
 import me.wonka01.ServerQuests.events.MoneyQuest;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -36,12 +35,14 @@ public class MoneyQuestCommand extends SubCommand {
             MoneyQuest moneyQuest = new MoneyQuest(ActiveQuests.getActiveQuestsInstance(), JavaPlugin.getPlugin(ServerQuests.class).getEconomy());
             boolean questFound = moneyQuest.tryAddItemsToQuest(money, player);
 
-            if(!questFound) {
+            if (!questFound) {
                 String noActiveDonateQuests = getPlugin().getMessages().message("noActiveDonateQuests");
                 player.sendMessage(noActiveDonateQuests);
             }
         } catch (NumberFormatException exception) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "Invalid number provided to "));
+
+            String message = color(args[1] + " is not a valid number!");
+            player.sendMessage(message);
         }
 
     }
