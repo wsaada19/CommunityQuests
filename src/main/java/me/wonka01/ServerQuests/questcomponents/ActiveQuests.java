@@ -69,8 +69,4 @@ public class ActiveQuests {
         }
         return null;
     }
-
-    public void endAllQuests() {
-        activeQuestsList.clear();
-    }
 }

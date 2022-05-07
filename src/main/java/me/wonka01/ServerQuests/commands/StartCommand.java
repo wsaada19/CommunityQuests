@@ -16,7 +16,6 @@ public class StartCommand extends PluginCommand {
         super(plugin, true);
     }
 
-
     @Override
     public @NonNull String getName() {
         return "start";
@@ -29,9 +28,7 @@ public class StartCommand extends PluginCommand {
 
     @Override
     public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
-
         if (args.length >= 3) {
-
             QuestModel model = getPlugin().questLibrary.getQuestModelById(args[1]);
             if (model == null) {
                 String invalidName = getPlugin().getMessages().message("invalidQuestName");
@@ -63,13 +60,10 @@ public class StartCommand extends PluginCommand {
                 sender.sendMessage(reachLimit);
             }
         } else if (args.length == 2) {
-
             String invalidQuestType = getPlugin().getMessages().message("invalidQuestType");
             sender.sendMessage(invalidQuestType);
-        } else if (args.length < 2 && sender instanceof Player) {
-
+        } else if (sender instanceof Player) {
             getPlugin().getStartGui().openInventory((Player) sender);
         }
-
     }
 }

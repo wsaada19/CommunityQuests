@@ -4,7 +4,6 @@ import me.wonka01.ServerQuests.enums.ObjectiveType;
 import org.bukkit.Material;
 
 public class ObjectiveTypeUtil {
-
     public static ObjectiveType parseEventTypeFromString(String eventType) {
         if (eventType.equalsIgnoreCase("mobkill")) {
             return ObjectiveType.MOB_Kill;

@@ -30,7 +30,6 @@ public class DonateCommand extends PluginCommand {
 
     @Override
     public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
-
         Player player = (Player) sender;
 
         List<QuestController> controllerList = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();

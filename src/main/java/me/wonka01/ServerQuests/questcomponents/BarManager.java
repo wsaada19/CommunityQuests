@@ -9,8 +9,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.UUID;
 
-// This class smells pretty bad
-// KnightHat: It does LOL
+// TODO: Cleanup
 public class BarManager implements Listener {
 
     public final static String HIDE_BAR = "communityquests.bossbar.hide";

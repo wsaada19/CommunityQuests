@@ -3,6 +3,7 @@ package me.wonka01.ServerQuests.commands;
 import lombok.NonNull;
 import me.knighthat.apis.commands.PluginCommand;
 import me.wonka01.ServerQuests.ServerQuests;
+import me.wonka01.ServerQuests.gui.StopGui;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +25,8 @@ public class StopCommand extends PluginCommand {
 
     @Override
     public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
-
-        getPlugin().getStopGui().openInventory((Player) sender);
+        StopGui stopGui = getPlugin().getStopGui();
+        stopGui.initializeItems();
+        stopGui.openInventory((Player) sender);
     }
 }

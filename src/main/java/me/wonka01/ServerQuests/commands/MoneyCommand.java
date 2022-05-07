@@ -17,7 +17,7 @@ public class MoneyCommand extends PluginCommand {
 
     @Override
     public @NonNull String getName() {
-        return "money";
+        return "deposit";
     }
 
     @Override
@@ -27,7 +27,6 @@ public class MoneyCommand extends PluginCommand {
 
     @Override
     public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
-
         Player player = (Player) sender;
 
         if (args.length < 2) {
@@ -37,17 +36,14 @@ public class MoneyCommand extends PluginCommand {
         }
 
         try {
-
             double money = Double.parseDouble(args[1]);
             MoneyQuest moneyQuest = new MoneyQuest(ActiveQuests.getActiveQuestsInstance(), getPlugin().getEconomy());
 
             if (!moneyQuest.tryAddItemsToQuest(money, player)) {
-
                 String noActiveDonateQuests = getPlugin().getMessages().message("noActiveDonateQuests");
                 player.sendMessage(noActiveDonateQuests);
             }
         } catch (NumberFormatException exception) {
-
             String message = color(args[1] + " is not a valid number!");
             player.sendMessage(message);
         }

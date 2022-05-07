@@ -1,6 +1,7 @@
-package me.knighthat.apis.commands;
+package me.wonka01.ServerQuests.commands;
 
 import lombok.NonNull;
+import me.knighthat.apis.commands.PluginCommand;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.commands.*;
 import org.bukkit.command.Command;
@@ -26,32 +27,27 @@ public class CommandManager implements CommandExecutor {
 
         commands.add(new HelpCommand(plugin));
         commands.add(new ReloadCommand(plugin));
-
         commands.add(new StartCommand(plugin));
         commands.add(new StopCommand(plugin));
         commands.add(new ViewCommand(plugin));
         commands.add(new DonateCommand(plugin));
         commands.add(new MoneyCommand(plugin));
-
         commands.add(new ToggleBarCommand(plugin));
         commands.add(new ToggleMessageCommand(plugin));
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
         try {
-
-            if (args.length >= 1)
-                getCommand(sender, args[1]).execute(sender, args);
+            if (args.length >= 1) {
+                getCommand(sender, args[0]).execute(sender, args);
+            }
         } catch (NullPointerException ignored) {
         }
-
         return true;
     }
 
     private @Nullable PluginCommand getCommand(@NonNull CommandSender sender, @NonNull String arg) {
-
         for (PluginCommand cmd : commands)
             if (cmd.getName().equalsIgnoreCase(arg)) {
 
@@ -64,7 +60,6 @@ public class CommandManager implements CommandExecutor {
                 String message = plugin.getMessages().message("noPermission");
                 sender.sendMessage(message);
             }
-
         return null;
     }
 }

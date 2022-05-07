@@ -26,11 +26,9 @@ public class ViewCommand extends PluginCommand {
 
     @Override
     public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
-
         Player player = (Player) sender;
 
         if (ActiveQuests.getActiveQuestsInstance().getActiveQuestsList().size() < 1) {
-
             String noActiveQuestMessage = getPlugin().getMessages().message("noActiveQuests");
             player.sendMessage(noActiveQuestMessage);
             return;

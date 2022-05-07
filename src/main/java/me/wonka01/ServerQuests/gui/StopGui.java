@@ -26,7 +26,6 @@ public class StopGui extends BaseGui implements InventoryHolder, Listener {
     public StopGui(ServerQuests plugin) {
         this.plugin = plugin;
         this.inventory = createInventory();
-        initializeItems();
     }
 
     private @NonNull Inventory createInventory() {

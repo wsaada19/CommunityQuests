@@ -26,7 +26,6 @@ public class ToggleBarCommand extends PluginCommand {
 
     @Override
     public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
-
         BarManager.toggleShowPlayerBar((Player) sender);
     }
 }
