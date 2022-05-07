@@ -11,7 +11,8 @@ Files:
     
 Changes:
   - Migrated LangueConfig, Message from package me.wonka01.ServerQuests.configuration.messages to me.knighthat.apis.files.Messages
-  - Update readability and accesibility of commands
-  - Reduce java version to Java8 to support Server 1.12.x
-  
+  - Updated readability and accesibility of commands
+  - Reduced java version to Java8 to support Server 1.12.x
+  - Removed PermissionNode class as it was unused
+   
 
