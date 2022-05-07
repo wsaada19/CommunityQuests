@@ -5,7 +5,6 @@ questLimit: 5
 # If this is set to 0 then the leader board message will be omitted.
 leaderBoardSize: 5
 
-# MUST BE IN ALL CAPS!
 # See color options here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html
 barColor: "GREEN"
 

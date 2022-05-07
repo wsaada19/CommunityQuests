@@ -2,10 +2,9 @@ package me.wonka01.ServerQuests;
 
 import lombok.Getter;
 import lombok.NonNull;
+import me.knighthat.apis.commands.CommandManager;
 import me.knighthat.apis.files.Config;
 import me.knighthat.apis.files.Messages;
-
-import me.wonka01.ServerQuests.commands.CommunityQuestsCommands;
 import me.wonka01.ServerQuests.configuration.JsonQuestSave;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.events.*;
@@ -19,6 +18,8 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Locale;
+
 public class ServerQuests extends JavaPlugin {
 
 
@@ -26,10 +27,9 @@ public class ServerQuests extends JavaPlugin {
     private final @NonNull Config newConfig = new Config(this);
     @Getter
     private final @NonNull Messages messages = new Messages(this);
+    public QuestLibrary questLibrary;
     @Getter
     private Economy economy;
-
-    public QuestLibrary questLibrary;
     private StartGui startGui;
     private StopGui stopGui;
     private DonateQuestGui questGui;
@@ -40,9 +40,8 @@ public class ServerQuests extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getLogger().info("Plugin is enabled");
-        CommunityQuestsCommands commandExecutor = new CommunityQuestsCommands();
-        commandExecutor.setup(this);
+
+        new CommandManager(this);
 
         loadConfig();
         loadConfigurationLimits();
@@ -56,6 +55,8 @@ public class ServerQuests extends JavaPlugin {
         loadGuis();
         registerGuiEvents();
         registerQuestEvents();
+
+        getLogger().info("Plugin is enabled");
     }
 
     @Override
@@ -87,7 +88,7 @@ public class ServerQuests extends JavaPlugin {
 
     private void loadConfigurationLimits() {
         int questLimit = getConfig().getInt("questLimit");
-        String barColor = getConfig().getString("barColor");
+        String barColor = getConfig().getString("barColor").toUpperCase(Locale.ROOT);
         int leaderBoardLimit = getConfig().getInt("leaderBoardSize", 5);
         boolean disableBossBar = getConfig().getBoolean("disableBossBar", false);
         BarManager.setDisableBossBar(disableBossBar);

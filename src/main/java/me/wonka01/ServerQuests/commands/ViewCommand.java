@@ -1,27 +1,33 @@
 package me.wonka01.ServerQuests.commands;
 
 import lombok.NonNull;
+import me.knighthat.apis.commands.PluginCommand;
 import me.wonka01.ServerQuests.ServerQuests;
-import me.wonka01.ServerQuests.enums.PermissionNode;
 import me.wonka01.ServerQuests.gui.ViewGui;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
-public class ViewQuestsCommand extends SubCommand {
+public class ViewCommand extends PluginCommand {
+    public ViewCommand(ServerQuests plugin) {
+        super(plugin, true);
+    }
 
-    public ViewQuestsCommand(ServerQuests plugin) {
-        super(plugin);
+    @Override
+    public @NonNull String getName() {
+        return "view";
     }
 
     @Override
     public @NonNull String getPermission() {
-        return PermissionNode.VIEW_QUEST;
+        return "communityquests.view";
     }
 
     @Override
-    public void onCommand(Player player, String[] args) {
+    public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
+
+        Player player = (Player) sender;
 
         if (ActiveQuests.getActiveQuestsInstance().getActiveQuestsList().size() < 1) {
 
@@ -29,11 +35,9 @@ public class ViewQuestsCommand extends SubCommand {
             player.sendMessage(noActiveQuestMessage);
             return;
         }
-        ViewGui view = JavaPlugin.getPlugin(ServerQuests.class).getViewGui();
+
+        ViewGui view = getPlugin().getViewGui();
         view.initializeItems(player);
         view.openInventory(player);
-    }
-
-    public void onCommand(CommandSender sender, String[] args) {
     }
 }

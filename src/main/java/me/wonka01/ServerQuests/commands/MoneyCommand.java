@@ -1,28 +1,34 @@
 package me.wonka01.ServerQuests.commands;
 
 import lombok.NonNull;
+import me.knighthat.apis.commands.PluginCommand;
 import me.wonka01.ServerQuests.ServerQuests;
-import me.wonka01.ServerQuests.enums.PermissionNode;
 import me.wonka01.ServerQuests.events.MoneyQuest;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
+public class MoneyCommand extends PluginCommand {
 
-public class MoneyQuestCommand extends SubCommand {
+    public MoneyCommand(ServerQuests plugin) {
+        super(plugin, true);
+    }
 
-    public MoneyQuestCommand(ServerQuests plugin) {
-        super(plugin);
+    @Override
+    public @NonNull String getName() {
+        return "money";
     }
 
     @Override
     public @NonNull String getPermission() {
-        return PermissionNode.MONEY;
+        return "communityquests.money";
     }
 
     @Override
-    public void onCommand(Player player, String[] args) {
+    public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
+
+        Player player = (Player) sender;
 
         if (args.length < 2) {
             String invalidCmd = getPlugin().getMessages().message("invalidCommand");
@@ -31,21 +37,19 @@ public class MoneyQuestCommand extends SubCommand {
         }
 
         try {
-            double money = Double.parseDouble(args[1]);
-            MoneyQuest moneyQuest = new MoneyQuest(ActiveQuests.getActiveQuestsInstance(), JavaPlugin.getPlugin(ServerQuests.class).getEconomy());
-            boolean questFound = moneyQuest.tryAddItemsToQuest(money, player);
 
-            if (!questFound) {
+            double money = Double.parseDouble(args[1]);
+            MoneyQuest moneyQuest = new MoneyQuest(ActiveQuests.getActiveQuestsInstance(), getPlugin().getEconomy());
+
+            if (!moneyQuest.tryAddItemsToQuest(money, player)) {
+
                 String noActiveDonateQuests = getPlugin().getMessages().message("noActiveDonateQuests");
                 player.sendMessage(noActiveDonateQuests);
             }
         } catch (NumberFormatException exception) {
+
             String message = color(args[1] + " is not a valid number!");
             player.sendMessage(message);
         }
-
-    }
-
-    public void onCommand(CommandSender sender, String[] args) {
     }
 }
