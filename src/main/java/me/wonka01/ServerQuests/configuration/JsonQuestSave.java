@@ -90,7 +90,7 @@ public class JsonQuestSave {
                 JSONObject questObject = (JSONObject) qIterator.next();
                 String questId = (String) questObject.get("id");
                 String questType = (String) questObject.get("type");
-                double amountComplete = (double)questObject.get("amountComplete");
+                double amountComplete = (double) questObject.get("amountComplete");
                 long questDuration = (Long) questObject.getOrDefault("timeLeft", 0);
 
                 JSONArray playerObject = (JSONArray) questObject.get("playerMap");
@@ -114,7 +114,6 @@ public class JsonQuestSave {
                 QuestController controller = handler.createControllerFromSave(model, playerMap, (int) amountComplete, (int) questDuration);
                 activeQuests.beginQuestFromSave(controller);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

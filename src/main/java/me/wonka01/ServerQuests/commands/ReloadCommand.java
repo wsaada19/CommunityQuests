@@ -1,32 +1,29 @@
 package me.wonka01.ServerQuests.commands;
 
 import lombok.NonNull;
+import me.knighthat.apis.commands.PluginCommand;
 import me.wonka01.ServerQuests.ServerQuests;
-import me.wonka01.ServerQuests.enums.PermissionNode;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-public class ReloadCommand extends SubCommand {
+public class ReloadCommand extends PluginCommand {
 
     public ReloadCommand(ServerQuests plugin) {
-        super(plugin);
+        super(plugin, false);
+    }
+
+    @Override
+    public @NonNull String getName() {
+        return "reload";
     }
 
     @Override
     public @NonNull String getPermission() {
-        return PermissionNode.RELOAD_QUEST;
+        return "communityquests.reload";
     }
 
-    public void onCommand(Player player, String[] args) {
-        reload(player);
-    }
-
-    public void onCommand(CommandSender sender, String[] args) {
-        reload(sender);
-    }
-
-    private void reload(CommandSender sender) {
-
+    @Override
+    public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
         getPlugin().reloadConfiguration();
         getPlugin().getMessages().reload();
 

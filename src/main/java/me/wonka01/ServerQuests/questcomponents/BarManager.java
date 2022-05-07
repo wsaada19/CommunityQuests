@@ -1,6 +1,5 @@
 package me.wonka01.ServerQuests.questcomponents;
 
-import me.wonka01.ServerQuests.enums.PermissionNode;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,10 +9,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.UUID;
 
-// This class smells pretty bad
+// TODO: Cleanup
 public class BarManager implements Listener {
 
-    private static UUID[] questsToShow = new UUID[1];
+    public final static String HIDE_BAR = "communityquests.bossbar.hide";
+    private static final UUID[] questsToShow = new UUID[1];
     private static boolean disabled = false;
 
     public static void initializeDisplayBar() {
@@ -21,7 +21,7 @@ public class BarManager implements Listener {
 
         int questsIndex = 0;
         for (QuestController quest : quests.getActiveQuestsList()) {
-            if(!quest.getQuestData().hasGoal()) {
+            if (!quest.getQuestData().hasGoal()) {
                 continue;
             }
             questsToShow[questsIndex] = quest.getQuestId();
@@ -70,7 +70,7 @@ public class BarManager implements Listener {
     }
 
     public static void startShowingPlayerBar(Player player) {
-        if (disabled || player.getPlayer().hasPermission(PermissionNode.HIDE_BAR)) {
+        if (disabled || player.getPlayer().hasPermission(HIDE_BAR)) {
             return;
         }
         for (UUID id : questsToShow) {
@@ -114,7 +114,7 @@ public class BarManager implements Listener {
 
     @EventHandler
     public void onPlayerLogin(PlayerJoinEvent joinEvent) {
-        if (disabled || joinEvent.getPlayer().hasPermission(PermissionNode.HIDE_BAR)) {
+        if (disabled || joinEvent.getPlayer().hasPermission(HIDE_BAR)) {
             return;
         }
         startShowingPlayerBar(joinEvent.getPlayer());
@@ -122,7 +122,7 @@ public class BarManager implements Listener {
 
     @EventHandler
     public void onPlayerLogout(PlayerQuitEvent quitEvent) {
-        if (disabled || quitEvent.getPlayer().hasPermission(PermissionNode.HIDE_BAR)) {
+        if (disabled || quitEvent.getPlayer().hasPermission(HIDE_BAR)) {
             return;
         }
         stopShowingPlayerBar(quitEvent.getPlayer());

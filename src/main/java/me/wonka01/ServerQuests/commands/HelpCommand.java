@@ -1,14 +1,19 @@
 package me.wonka01.ServerQuests.commands;
 
 import lombok.NonNull;
+import me.knighthat.apis.commands.PluginCommand;
 import me.wonka01.ServerQuests.ServerQuests;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-public class HelpCommand extends SubCommand {
-
+public class HelpCommand extends PluginCommand {
     public HelpCommand(ServerQuests plugin) {
-        super(plugin);
+        super(plugin, false);
+    }
+
+    @Override
+    public @NonNull String getName() {
+        return "help";
     }
 
     @Override
@@ -17,15 +22,7 @@ public class HelpCommand extends SubCommand {
     }
 
     @Override
-    public void onCommand(Player player, String[] args) {
-        player.sendMessage(getHelpMessage());
-    }
-
-    public void onCommand(CommandSender sender, String[] args) {
-        sender.sendMessage(getHelpMessage());
-    }
-
-    private @NonNull String getHelpMessage() {
-        return getPlugin().getMessages().message("helpMessage");
+    public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
+        getPlugin().getMessages().message("helpMessage");
     }
 }
