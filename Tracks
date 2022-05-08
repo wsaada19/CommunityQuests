@@ -4,6 +4,8 @@ Added new apis:
   - Colorization:
     + Modifying text
     + Command's blueprint
+    + Menu & MenuEvents
+    + Double to String converter
 
 Files:
   - messages.yml
