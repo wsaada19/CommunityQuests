@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 public class HelpCommand extends PluginCommand {
+    
     public HelpCommand(ServerQuests plugin) {
         super(plugin, false);
     }

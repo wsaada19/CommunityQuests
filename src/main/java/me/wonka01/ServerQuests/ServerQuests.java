@@ -2,13 +2,13 @@ package me.wonka01.ServerQuests;
 
 import lombok.Getter;
 import lombok.NonNull;
-import me.wonka01.ServerQuests.commands.CommandManager;
 import me.knighthat.apis.files.Config;
 import me.knighthat.apis.files.Messages;
+import me.knighthat.apis.menus.MenuEvents;
+import me.wonka01.ServerQuests.commands.CommandManager;
 import me.wonka01.ServerQuests.configuration.JsonQuestSave;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.events.*;
-import me.wonka01.ServerQuests.gui.*;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.BarManager;
 import me.wonka01.ServerQuests.questcomponents.QuestBar;
@@ -30,11 +30,6 @@ public class ServerQuests extends JavaPlugin {
     public QuestLibrary questLibrary;
     @Getter
     private Economy economy;
-    private StartGui startGui;
-    private StopGui stopGui;
-    private DonateQuestGui questGui;
-    private ViewGui viewGui;
-    private DonateOptions donateOptionsGui;
     private ActiveQuests activeQuests;
     private JsonQuestSave jsonSave;
 
@@ -52,7 +47,6 @@ public class ServerQuests extends JavaPlugin {
             getLogger().info("Warning! No economy plugin found, a cash reward can not be added to a quest in Community Quests.");
         }
 
-        loadGuis();
         registerGuiEvents();
         registerQuestEvents();
 
@@ -61,9 +55,11 @@ public class ServerQuests extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        getLogger().info("Plugin is disabled");
+
         jsonSave.saveQuestsInProgress();
         BarManager.closeBar();
+
+        getLogger().info("Plugin is disabled");
     }
 
     private void loadConfig() {
@@ -97,19 +93,6 @@ public class ServerQuests extends JavaPlugin {
         ActiveQuests.setQuestLimit(questLimit);
     }
 
-    private void loadGuis() {
-        TypeGui typeGui = new TypeGui(this);
-        typeGui.initializeItems();
-        getServer().getPluginManager().registerEvents(typeGui, this);
-        viewGui = new ViewGui(this);
-        startGui = new StartGui(this, typeGui);
-        startGui.initializeItems();
-        stopGui = new StopGui(this);
-        questGui = new DonateQuestGui(this);
-        questGui.initializeItems();
-        donateOptionsGui = new DonateOptions(this, questGui);
-    }
-
     public void reloadConfiguration() {
         reloadConfig();
         saveConfig();
@@ -118,28 +101,11 @@ public class ServerQuests extends JavaPlugin {
         questLibrary.loadQuestConfiguration(serverQuestSection);
         loadConfigurationLimits();
         messages.reload();
-        loadGuis();
         registerGuiEvents();
     }
 
     public QuestLibrary getQuestLibrary() {
         return questLibrary;
-    }
-
-    public StartGui getStartGui() {
-        return startGui;
-    }
-
-    public StopGui getStopGui() {
-        return stopGui;
-    }
-
-    public DonateQuestGui getQuestsGui() {
-        return questGui;
-    }
-
-    public ViewGui getViewGui() {
-        return viewGui;
     }
 
     private boolean setupEconomy() {
@@ -171,10 +137,7 @@ public class ServerQuests extends JavaPlugin {
     }
 
     private void registerGuiEvents() {
-        getServer().getPluginManager().registerEvents(questGui, this);
-        getServer().getPluginManager().registerEvents(startGui, this);
-        getServer().getPluginManager().registerEvents(stopGui, this);
-        getServer().getPluginManager().registerEvents(viewGui, this);
-        getServer().getPluginManager().registerEvents(donateOptionsGui, this);
+
+        getServer().getPluginManager().registerEvents(new MenuEvents(), this);
     }
 }

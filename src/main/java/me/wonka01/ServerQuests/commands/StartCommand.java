@@ -5,6 +5,7 @@ import me.knighthat.apis.commands.PluginCommand;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.enums.EventType;
+import me.wonka01.ServerQuests.gui.StartMenu;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -63,7 +64,8 @@ public class StartCommand extends PluginCommand {
             String invalidQuestType = getPlugin().getMessages().message("invalidQuestType");
             sender.sendMessage(invalidQuestType);
         } else if (sender instanceof Player) {
-            getPlugin().getStartGui().openInventory((Player) sender);
+
+            new StartMenu(getPlugin(), (Player) sender);
         }
     }
 }
