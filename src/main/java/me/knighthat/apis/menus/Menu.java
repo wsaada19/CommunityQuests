@@ -44,7 +44,7 @@ public abstract class Menu implements InventoryHolder, Colorization {
         this.owner = owner;
         this.slots = slots;
 
-        String title = plugin.getMessages().string(titlePath);
+        String title = plugin.messages().string(titlePath);
         this.inventory = Bukkit.createInventory(this, slots, title);
     }
 
@@ -102,7 +102,7 @@ public abstract class Menu implements InventoryHolder, Colorization {
         int duration = d.getQuestDuration();
         if (duration > 0) {
 
-            String remaining = getPlugin().getMessages().string("timeRemaining");
+            String remaining = getPlugin().messages().string("timeRemaining");
             lore.add(color(remaining + duration));
             lore.add(" ");
         }

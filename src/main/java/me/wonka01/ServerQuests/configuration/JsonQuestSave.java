@@ -7,11 +7,9 @@ import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 import me.wonka01.ServerQuests.util.EventTypeHandler;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.FileReader;
@@ -23,12 +21,15 @@ import java.util.TreeMap;
 import java.util.UUID;
 
 public class JsonQuestSave {
-    private File path;
-    private ActiveQuests activeQuests;
 
-    public JsonQuestSave(File path, ActiveQuests activeQuests) {
+    private final ServerQuests plugin;
+    private final File path;
+    private final ActiveQuests activeQuests;
+
+    public JsonQuestSave(ServerQuests plugin, File path) {
+        this.plugin = plugin;
         this.path = new File(path + "/questSave.json");
-        this.activeQuests = activeQuests;
+        this.activeQuests = plugin.config().getActiveQuests();
     }
 
     public boolean getOrCreateQuestFile() {
@@ -105,7 +106,7 @@ public class JsonQuestSave {
                 }
 
                 EventTypeHandler handler = new EventTypeHandler(questType);
-                QuestModel model = JavaPlugin.getPlugin(ServerQuests.class).getQuestLibrary().getQuestModelById(questId);
+                QuestModel model = plugin.config().getQuestLibrary().getQuestModelById(questId);
 
                 if (model == null || (amountComplete >= model.getQuestGoal() && model.getQuestGoal() > 0)) {
                     Bukkit.getLogger().info("The quest in the save file has expired and will not be initialized.");

@@ -29,7 +29,7 @@ public class ViewCommand extends PluginCommand {
         Player player = (Player) sender;
 
         if (ActiveQuests.getActiveQuestsInstance().getActiveQuestsList().isEmpty()) {
-            String noActiveQuestMessage = getPlugin().getMessages().message("noActiveQuests");
+            String noActiveQuestMessage = getPlugin().messages().message("noActiveQuests");
             player.sendMessage(noActiveQuestMessage);
             return;
         }

@@ -37,7 +37,7 @@ public class EventTypeHandler {
 
         ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
 
-        QuestBar bar = new QuestBar(model.getDisplayName());
+        QuestBar bar = new QuestBar(model.getDisplayName(), plugin.getConfig().getString("barColor", ""));
         if (completed > 0) {
             bar.updateBarProgress((double) completed / model.getQuestGoal());
         }

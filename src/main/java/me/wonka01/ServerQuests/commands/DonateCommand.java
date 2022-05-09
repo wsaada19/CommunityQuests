@@ -41,7 +41,7 @@ public class DonateCommand extends PluginCommand {
                 return;
             }
 
-        String noActiveQuest = getPlugin().getMessages().message("noActiveDonateQuests");
+        String noActiveQuest = getPlugin().messages().message("noActiveDonateQuests");
         player.sendMessage(noActiveQuest);
     }
 }

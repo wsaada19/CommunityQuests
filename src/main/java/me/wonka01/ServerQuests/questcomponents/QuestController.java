@@ -109,12 +109,12 @@ public class QuestController implements Colorization {
     private void sendPlayerMessage(Player player) {
         if (!player.hasPermission("communityquests.showmessages")) return;
 
-        String message = color(plugin.getMessages().message("contributionMessage"));
+        String message = color(plugin.messages().message("contributionMessage"));
         player.sendMessage(message);
     }
 
     public void broadcast(@NonNull String messagePath) {
-        String message = color(plugin.getMessages().message(messagePath, questData));
+        String message = color(plugin.messages().message(messagePath, questData));
         plugin.getServer().broadcastMessage(message);
     }
 }

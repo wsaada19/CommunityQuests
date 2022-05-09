@@ -28,8 +28,8 @@ public class TypeMenu extends Menu {
     @Override
     protected void setButtons() {
 
-        String title = getPlugin().getMessages().string("goBack"),
-            description = getPlugin().getMessages().string("goBackText");
+        String title = getPlugin().messages().string("goBack"),
+            description = getPlugin().messages().string("goBackText");
         ItemStack backButton = super.createItemStack(Material.ARROW, title, Collections.singletonList(description));
 
         getInventory().addItem(backButton);
@@ -45,7 +45,7 @@ public class TypeMenu extends Menu {
     private @NonNull ItemStack getCompItem() {
 
         Material material = Material.DIAMOND_SWORD;
-        String title = getPlugin().getMessages().string("competitive");
+        String title = getPlugin().messages().string("competitive");
 
         return super.createItemStack(material, title);
     }
@@ -53,7 +53,7 @@ public class TypeMenu extends Menu {
     private @NonNull ItemStack getCoopItem() {
 
         Material material = model.getQuestGoal() < 0 ? Material.GOLDEN_APPLE : Material.AIR;
-        String title = getPlugin().getMessages().string("cooperative");
+        String title = getPlugin().messages().string("cooperative");
 
         return super.createItemStack(material, title);
     }

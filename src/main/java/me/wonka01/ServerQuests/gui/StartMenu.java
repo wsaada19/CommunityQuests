@@ -30,15 +30,15 @@ public class StartMenu extends Menu {
             int goalTime = model.getQuestGoal(), completeTime = model.getCompleteTime();
             if (goalTime > 0) {
 
-                String goal = getPlugin().getMessages().string("goal");
+                String goal = getPlugin().messages().string("goal");
                 lore.add(goal + ": &c" + goalTime);
             }
             if (completeTime > 0) {
 
-                String duration = getPlugin().getMessages().string("duration");
+                String duration = getPlugin().messages().string("duration");
                 lore.add(duration + ": &c " + completeTime);
             }
-            String clickToStart = getPlugin().getMessages().string("clickToStart");
+            String clickToStart = getPlugin().messages().string("clickToStart");
             lore.add(clickToStart);
 
             ItemStack item = super.createItemStack(model.getDisplayItem(), model.getDisplayName(), lore);
@@ -61,7 +61,7 @@ public class StartMenu extends Menu {
     }
 
     private @NonNull QuestLibrary getLibrary() {
-        return getPlugin().getQuestLibrary();
+        return getPlugin().config().getQuestLibrary();
     }
 
     private @NonNull QuestModel getQuestModel(@NonNull String id) {

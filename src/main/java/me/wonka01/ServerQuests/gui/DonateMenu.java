@@ -32,7 +32,7 @@ public class DonateMenu extends Menu {
     protected void onItemClick(@NonNull InventoryClickEvent event) {
 
 
-        String cannotDonate = getPlugin().getMessages().message("canDonateItem");
+        String cannotDonate = getPlugin().messages().message("canDonateItem");
         GuiEvent handler = new GuiEvent(ActiveQuests.getActiveQuestsInstance());
         ItemStack atCursor = event.getCursor().clone();
 

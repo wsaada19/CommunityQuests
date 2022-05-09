@@ -33,7 +33,7 @@ public class ViewMenu extends Menu {
         if (data.getQuestGoal() > 0) {
 
             String completed = Utils.decimals(data.getAmountCompleted(), 1),
-                progressStr = getPlugin().getMessages().string("progress");
+                progressStr = getPlugin().messages().string("progress");
             progressStr += ": &a" + completed + "/" + data.getQuestGoal();
 
             lore.add(progressStr);
@@ -48,7 +48,7 @@ public class ViewMenu extends Menu {
         QuestData data = ctrl.getQuestData();
         List<String> lore = super.getLoreFromData(data);
 
-        String leaders = getPlugin().getMessages().string("leader");
+        String leaders = getPlugin().messages().string("leader");
         lore.add(leaders);
 
         String topsList = "&7n/a";
@@ -68,7 +68,7 @@ public class ViewMenu extends Menu {
     private @NonNull String getPlayerProgress(@NonNull QuestController ctrl) {
 
         double progress = ctrl.getPlayerComponent().getAmountContributed(getOwner());
-        String progressStr = getPlugin().getMessages().string("you");
+        String progressStr = getPlugin().messages().string("you");
         progressStr += ": &a" + Utils.decimals(progress, 1);
         return color(progressStr);
     }

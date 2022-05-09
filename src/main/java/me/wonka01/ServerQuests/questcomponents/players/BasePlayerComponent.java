@@ -59,7 +59,7 @@ public class BasePlayerComponent implements Colorization {
             return;
         }
         ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
-        StringBuilder result = new StringBuilder(plugin.getMessages().string("topContributorsTitle"));
+        StringBuilder result = new StringBuilder(plugin.messages().string("topContributorsTitle"));
         TreeMap<UUID, PlayerData> map = new TreeMap<>(new SortByContributions(this.playerMap));
         map.putAll(this.playerMap);
 
@@ -125,7 +125,7 @@ public class BasePlayerComponent implements Colorization {
                 if (rewardsList.size() > 0) {
 
                     ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
-                    String rewardTitle = plugin.getMessages().message("rewardsTitle");
+                    String rewardTitle = plugin.messages().message("rewardsTitle");
                     onlinePlayer.sendMessage(rewardTitle);
                 }
             }

@@ -30,9 +30,9 @@ public class StartCommand extends PluginCommand {
     @Override
     public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
         if (args.length >= 3) {
-            QuestModel model = getPlugin().questLibrary.getQuestModelById(args[1]);
+            QuestModel model = getPlugin().config().getQuestLibrary().getQuestModelById(args[1]);
             if (model == null) {
-                String invalidName = getPlugin().getMessages().message("invalidQuestName");
+                String invalidName = getPlugin().messages().message("invalidQuestName");
                 sender.sendMessage(invalidName);
                 return;
             }
@@ -42,7 +42,7 @@ public class StartCommand extends PluginCommand {
                 case "coop":
                     type = EventType.COLLAB;
                     if (model.getQuestGoal() <= 0) {
-                        String noGoal = getPlugin().getMessages().message("cooperativeQuestMustHaveAGoal");
+                        String noGoal = getPlugin().messages().message("cooperativeQuestMustHaveAGoal");
                         sender.sendMessage(noGoal);
                         return;
                     }
@@ -51,17 +51,17 @@ public class StartCommand extends PluginCommand {
                     type = EventType.COMPETITIVE;
                     break;
                 default:
-                    String invalidQuestType = getPlugin().getMessages().message("invalidQuestType");
+                    String invalidQuestType = getPlugin().messages().message("invalidQuestType");
                     sender.sendMessage(invalidQuestType);
                     return;
             }
 
             if (!ActiveQuests.getActiveQuestsInstance().beginNewQuest(model, type)) {
-                String reachLimit = getPlugin().getMessages().message("questLimitReached");
+                String reachLimit = getPlugin().messages().message("questLimitReached");
                 sender.sendMessage(reachLimit);
             }
         } else if (args.length == 2) {
-            String invalidQuestType = getPlugin().getMessages().message("invalidQuestType");
+            String invalidQuestType = getPlugin().messages().message("invalidQuestType");
             sender.sendMessage(invalidQuestType);
         } else if (sender instanceof Player) {
 
