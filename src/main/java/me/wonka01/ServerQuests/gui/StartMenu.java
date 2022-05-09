@@ -56,7 +56,7 @@ public class StartMenu extends Menu {
             QuestModel model = getQuestModel(keys.get(slot));
 
             new TypeMenu(getPlugin(), getOwner(), model);
-        } catch (NullPointerException ignored) {
+        } catch (NullPointerException | IndexOutOfBoundsException ignored) {
         }
     }
 

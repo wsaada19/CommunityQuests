@@ -50,7 +50,7 @@ public class StopMenu extends Menu {
             ActiveQuests.getActiveQuestsInstance().endQuest(id);
 
             getOwner().closeInventory();
-        } catch (NullPointerException ignored) {
+        } catch (NullPointerException | IndexOutOfBoundsException ignored) {
         }
     }
 }

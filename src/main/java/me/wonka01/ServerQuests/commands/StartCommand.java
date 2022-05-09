@@ -65,7 +65,7 @@ public class StartCommand extends PluginCommand {
             sender.sendMessage(invalidQuestType);
         } else if (sender instanceof Player) {
 
-            new StartMenu(getPlugin(), (Player) sender);
+            new StartMenu(getPlugin(), (Player) sender).open();
         }
     }
 }
