@@ -22,10 +22,11 @@ public class QuestModel {
     private ArrayList<Reward> rewards;
     private List<String> itemNames;
     private Material displayItem;
+    private List<String> worlds;
 
     public QuestModel(String questId, String displayName, String eventDescription,
                       int completeTime, int questGoal, ObjectiveType objective,
-                      List<String> mobNames, ArrayList<Reward> rewards, List<String> itemNames, String displayItem) {
+                      List<String> mobNames, ArrayList<Reward> rewards, List<String> itemNames, String displayItem, List<String> worlds) {
         this.questId = questId;
         this.displayName = displayName;
         this.eventDescription = eventDescription;
@@ -35,6 +36,7 @@ public class QuestModel {
         this.mobNames = mobNames;
         this.rewards = rewards;
         this.itemNames = itemNames;
+        this.worlds = worlds;
         this.displayItem = Material.getMaterial(displayItem.toUpperCase());
         if(this.displayItem == null) {
             this.displayItem = ObjectiveTypeUtil.getEventTypeDefaultMaterial(objective);

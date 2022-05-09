@@ -10,10 +10,12 @@ import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.events.*;
 import me.wonka01.ServerQuests.gui.*;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
-import me.wonka01.ServerQuests.questcomponents.BarManager;
-import me.wonka01.ServerQuests.questcomponents.QuestBar;
+import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
+import me.wonka01.ServerQuests.questcomponents.bossbar.QuestBar;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
+import me.wonka01.placeholders.CommunityQuestsPlaceholders;
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,7 +23,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Locale;
 
 public class ServerQuests extends JavaPlugin {
-
 
     @Getter
     private final @NonNull Config newConfig = new Config(this);
@@ -40,7 +41,6 @@ public class ServerQuests extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
         new CommandManager(this);
 
         loadConfig();
@@ -50,6 +50,10 @@ public class ServerQuests extends JavaPlugin {
 
         if (!setupEconomy()) {
             getLogger().info("Warning! No economy plugin found, a cash reward can not be added to a quest in Community Quests.");
+        }
+
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new CommunityQuestsPlaceholders().register();
         }
 
         loadGuis();

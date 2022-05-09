@@ -5,13 +5,12 @@ import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.CompetitiveQuestData;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
-import me.wonka01.ServerQuests.util.EventTypeHandler;
+import me.wonka01.ServerQuests.questcomponents.QuestTypeHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.FileReader;
@@ -104,7 +103,7 @@ public class JsonQuestSave {
                     playerMap.put(uuid, new PlayerData(playerName, (int) pContributed));
                 }
 
-                EventTypeHandler handler = new EventTypeHandler(questType);
+                QuestTypeHandler handler = new QuestTypeHandler(questType);
                 QuestModel model = JavaPlugin.getPlugin(ServerQuests.class).getQuestLibrary().getQuestModelById(questId);
 
                 if (model == null || (amountComplete >= model.getQuestGoal() && model.getQuestGoal() > 0)) {

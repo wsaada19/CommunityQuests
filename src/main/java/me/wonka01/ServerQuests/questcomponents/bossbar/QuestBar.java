@@ -1,4 +1,4 @@
-package me.wonka01.ServerQuests.questcomponents;
+package me.wonka01.ServerQuests.questcomponents.bossbar;
 
 import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
