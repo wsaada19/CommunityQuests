@@ -24,6 +24,7 @@ public class ReloadCommand extends PluginCommand {
 
     @Override
     public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
+
         getPlugin().reloadConfiguration();
         getPlugin().getMessages().reload();
 

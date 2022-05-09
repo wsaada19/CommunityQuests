@@ -20,7 +20,7 @@ Quests:
 #        description: "&fKill 5 zombies as fast as you can!"
 #        goal: 5 # The goal is the amount of the task to be completed
 #        rewards:
-#            experience: 100
+#            experience: 100z
 #            money: 1000 # You must have Vault and an Economy plugin installed for this to work
 #            items:
 #                -   material: DIAMOND_SWORD

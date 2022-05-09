@@ -3,9 +3,10 @@ package me.wonka01.ServerQuests.enums;
 import lombok.Getter;
 import lombok.NonNull;
 import org.bukkit.Material;
+import org.jetbrains.annotations.Nullable;
 
 public enum ObjectiveType {
-    MOB_Kill("mobkill", Material.DIAMOND_SWORD),
+    MOB_KILL("mobkill", Material.DIAMOND_SWORD),
     CATCH_FISH("catchfish", Material.FISHING_ROD),
     PLAYER_KILL("playerkill", Material.CHAINMAIL_CHESTPLATE),
     BLOCK_BREAK("blockbreak", Material.DIAMOND_PICKAXE),
@@ -31,12 +32,13 @@ public enum ObjectiveType {
         this.defaultMaterial = defaultMaterial;
     }
 
-    public static @NonNull ObjectiveType match(@NonNull String var) {
+    public static @NonNull ObjectiveType match(@Nullable String var) {
 
-        for (ObjectiveType type : values())
-            if (type.name().equalsIgnoreCase(var) ||
-                type.string.equalsIgnoreCase(var))
-                return type;
+        if (var != null)
+            for (ObjectiveType type : values())
+                if (type.name().equalsIgnoreCase(var) ||
+                    type.string.equalsIgnoreCase(var))
+                    return type;
 
         return UNKNOWN;
     }
