@@ -5,7 +5,7 @@ import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
-import me.wonka01.ServerQuests.questcomponents.BarManager;
+import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import org.bukkit.configuration.ConfigurationSection;
 

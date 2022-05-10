@@ -3,7 +3,7 @@ package me.wonka01.ServerQuests.events;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
-import me.wonka01.ServerQuests.util.MaterialUtil;
+import me.wonka01.ServerQuests.utils.MaterialUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

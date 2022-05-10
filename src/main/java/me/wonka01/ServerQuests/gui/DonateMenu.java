@@ -30,9 +30,7 @@ public class DonateMenu extends Menu {
 
     @Override
     protected void onItemClick(@NonNull InventoryClickEvent event) {
-
-
-        String cannotDonate = getPlugin().messages().message("canDonateItem");
+        String cantDonateMessage = getPlugin().messages().message("cantDonateItem");
         GuiEvent handler = new GuiEvent(ActiveQuests.getActiveQuestsInstance());
         ItemStack atCursor = event.getCursor().clone();
 
@@ -56,22 +54,18 @@ public class DonateMenu extends Menu {
                         getOwner().setItemOnCursor(new ItemStack(Material.AIR));
                     } else {
 
-                        getOwner().sendMessage(cannotDonate);
+                        getOwner().sendMessage(cantDonateMessage);
                     }
                 break;
 
             case PLACE_ONE:
 
                 if (event.getCursor() != null) {
-
                     atCursor.setAmount(atCursor.getAmount() - 1);
-
                     if (handler.tryAddItemsToQuest(atCursor, getOwner())) {
-
                         getOwner().setItemOnCursor(atCursor);
                     } else {
-
-                        getOwner().sendMessage(cannotDonate);
+                        getOwner().sendMessage(cantDonateMessage);
                     }
                 }
             default:

@@ -1,9 +1,10 @@
 package me.wonka01.ServerQuests.questcomponents;
 
 import lombok.NonNull;
-import me.knighthat.apis.utils.Colorization;
+import me.wonka01.ServerQuests.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
+import me.wonka01.ServerQuests.questcomponents.bossbar.QuestBar;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.schedulers.QuestTimer;
 import org.bukkit.entity.Player;

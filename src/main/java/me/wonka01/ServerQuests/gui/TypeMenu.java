@@ -15,65 +15,53 @@ import java.util.Collections;
 
 public class TypeMenu extends Menu {
 
-    private final int coop = 12, comp = 14, back = 18;
+    private final int COOP = 12, COMP = 14, BACK = 18;
 
     private final @NonNull QuestModel model;
 
     public TypeMenu(ServerQuests plugin, @NonNull Player owner, @NonNull QuestModel model) {
-
         super(plugin, owner, "typeMenu", 27);
         this.model = model;
     }
 
     @Override
     protected void setButtons() {
-
         String title = getPlugin().messages().string("goBack"),
             description = getPlugin().messages().string("goBackText");
-        ItemStack backButton = super.createItemStack(Material.ARROW, title, Collections.singletonList(description));
+        ItemStack backButton = createItemStack(Material.ARROW, title, Collections.singletonList(description));
 
-        getInventory().addItem(backButton);
+        getInventory().setItem(BACK, backButton);
     }
 
     @Override
     protected void setContents() {
-
-        getInventory().setItem(comp, getCompItem());
-        getInventory().setItem(coop, getCoopItem());
+        getInventory().setItem(COMP, getCompItem());
+        getInventory().setItem(COOP, getCoopItem());
     }
 
     private @NonNull ItemStack getCompItem() {
-
         Material material = Material.DIAMOND_SWORD;
         String title = getPlugin().messages().string("competitive");
-
-        return super.createItemStack(material, title);
+        return createItemStack(material, title);
     }
 
     private @NonNull ItemStack getCoopItem() {
-
-        Material material = model.getQuestGoal() < 0 ? Material.GOLDEN_APPLE : Material.AIR;
+        Material material = model.getQuestGoal() > 0 ? Material.GOLDEN_APPLE : Material.AIR;
         String title = getPlugin().messages().string("cooperative");
-
-        return super.createItemStack(material, title);
+        return createItemStack(material, title);
     }
 
     @Override
     protected void onItemClick(@NonNull InventoryClickEvent event) {
-
         switch (event.getSlot()) {
-
-            case comp:
-
+            case COMP:
                 startQuest(EventType.COMPETITIVE);
                 break;
-            case coop:
-
+            case COOP:
                 startQuest(EventType.COLLAB);
                 break;
-            case back:
-
-                new StartMenu(getPlugin(), getOwner());
+            case BACK:
+                new StartMenu(getPlugin(), getOwner()).open();
             default:
                 return;
         }

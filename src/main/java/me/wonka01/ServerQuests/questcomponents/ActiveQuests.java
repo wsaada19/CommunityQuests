@@ -2,7 +2,8 @@ package me.wonka01.ServerQuests.questcomponents;
 
 import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.enums.EventType;
-import me.wonka01.ServerQuests.util.EventTypeHandler;
+import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
+import me.wonka01.ServerQuests.utils.EventTypeHandler;
 
 import java.util.ArrayList;
 import java.util.List;

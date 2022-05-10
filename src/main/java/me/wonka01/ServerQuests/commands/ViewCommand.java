@@ -33,7 +33,6 @@ public class ViewCommand extends PluginCommand {
             player.sendMessage(noActiveQuestMessage);
             return;
         }
-
         new ViewMenu(getPlugin(), player).open();
     }
 }

@@ -32,12 +32,12 @@ public enum ObjectiveType {
         this.defaultMaterial = defaultMaterial;
     }
 
-    public static @NonNull ObjectiveType match(@Nullable String var) {
+    public static @NonNull ObjectiveType match(@Nullable String objective) {
 
-        if (var != null)
+        if (objective != null)
             for (ObjectiveType type : values())
-                if (type.name().equalsIgnoreCase(var) ||
-                    type.string.equalsIgnoreCase(var))
+                if (type.name().equalsIgnoreCase(objective) ||
+                    type.string.equalsIgnoreCase(objective))
                     return type;
 
         return UNKNOWN;

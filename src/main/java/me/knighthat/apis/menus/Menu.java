@@ -3,7 +3,7 @@ package me.knighthat.apis.menus;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
-import me.knighthat.apis.utils.Colorization;
+import me.wonka01.ServerQuests.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
@@ -64,27 +64,23 @@ public abstract class Menu implements InventoryHolder, Colorization {
     }
 
     public void open() {
-
         setBorder();
         setButtons();
         setContents();
-
         owner.openInventory(inventory);
     }
 
-    protected @NonNull ItemStack createItemStack(@NonNull Material m, @NonNull String n) {
-        return createItemStack(m, n, new ArrayList<>());
+    protected @NonNull ItemStack createItemStack(@NonNull Material material, @NonNull String name) {
+        return createItemStack(material, name, new ArrayList<>());
     }
 
-    protected @NonNull ItemStack createItemStack(@NonNull Material m, @NonNull String n, @NonNull List<String> l) {
+    protected @NonNull ItemStack createItemStack(@NonNull Material material, @NonNull String name, @NonNull List<String> l) {
 
-        ItemStack item = new ItemStack(m);
+        ItemStack item = new ItemStack(material);
 
         try {
-
             ItemMeta meta = item.getItemMeta();
-
-            meta.setDisplayName(color(n));
+            meta.setDisplayName(color(name));
             meta.setLore(l.stream().map(this::color).collect(Collectors.toList()));
             meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
@@ -95,18 +91,16 @@ public abstract class Menu implements InventoryHolder, Colorization {
         return item;
     }
 
-    protected @NonNull List<String> getLoreFromData(@NonNull QuestData d) {
+    protected @NonNull List<String> getLoreFromData(@NonNull QuestData data) {
+        List<String> lore = new ArrayList<>(Arrays.asList(color(data.getDescription()), " "));
 
-        List<String> lore = Arrays.asList(color(d.getDescription()), " ");
-
-        int duration = d.getQuestDuration();
+        int duration = data.getQuestDuration();
         if (duration > 0) {
 
             String remaining = getPlugin().messages().string("timeRemaining");
             lore.add(color(remaining + duration));
             lore.add(" ");
         }
-
         return lore;
     }
 }

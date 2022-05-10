@@ -1,7 +1,7 @@
-package me.wonka01.ServerQuests.questcomponents;
+package me.wonka01.ServerQuests.questcomponents.bossbar;
 
 import lombok.NonNull;
-import me.knighthat.apis.utils.Colorization;
+import me.wonka01.ServerQuests.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
@@ -12,20 +12,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class QuestBar implements Colorization {
 
-    public static String barColor;
-
     private final @NonNull BarColor color;
     private final BossBar bar;
 
     public QuestBar(@NonNull String name, @NonNull String color) {
-
         this.color = getBarColor(color);
-        this.bar = Bukkit.createBossBar(color(name), this.color, BarStyle.SEGMENTED_12);
-        this.bar.setVisible(true);
+        bar = Bukkit.createBossBar(color(name), this.color, BarStyle.SEGMENTED_12);
+        bar.setVisible(true);
+        bar.setProgress(0.0);
     }
 
     private @NonNull BarColor getBarColor(@NonNull String color) {
-
         for (BarColor c : BarColor.values())
             if (c.name().equalsIgnoreCase(color))
                 return c;

@@ -5,6 +5,7 @@ import me.knighthat.apis.menus.Menu;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.configuration.QuestModel;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -23,18 +24,16 @@ public class StartMenu extends Menu {
     protected void setContents() {
 
         for (String key : getLibrary().getAllQuestKeys()) {
-
             QuestModel model = getQuestModel(key);
 
-            List<String> lore = Arrays.asList(model.getEventDescription());
+            List<String> lore = new ArrayList<>(Arrays.asList(model.getEventDescription()));
             int goalTime = model.getQuestGoal(), completeTime = model.getCompleteTime();
-            if (goalTime > 0) {
 
+            if (goalTime > 0) {
                 String goal = getPlugin().messages().string("goal");
                 lore.add(goal + ": &c" + goalTime);
             }
             if (completeTime > 0) {
-
                 String duration = getPlugin().messages().string("duration");
                 lore.add(duration + ": &c " + completeTime);
             }
@@ -48,14 +47,11 @@ public class StartMenu extends Menu {
 
     @Override
     protected void onItemClick(@NonNull InventoryClickEvent event) {
-
         try {
-
             int slot = event.getRawSlot();
             List<String> keys = new ArrayList<>(getLibrary().getAllQuestKeys());
             QuestModel model = getQuestModel(keys.get(slot));
-
-            new TypeMenu(getPlugin(), getOwner(), model);
+            new TypeMenu(getPlugin(), getOwner(), model).open();
         } catch (NullPointerException | IndexOutOfBoundsException ignored) {
         }
     }

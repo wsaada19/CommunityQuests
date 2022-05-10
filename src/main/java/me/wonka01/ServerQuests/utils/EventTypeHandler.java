@@ -1,10 +1,11 @@
-package me.wonka01.ServerQuests.util;
+package me.wonka01.ServerQuests.utils;
 
 import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.questcomponents.*;
+import me.wonka01.ServerQuests.questcomponents.bossbar.QuestBar;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 import org.bukkit.plugin.java.JavaPlugin;

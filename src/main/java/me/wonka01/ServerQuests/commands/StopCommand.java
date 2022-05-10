@@ -25,7 +25,6 @@ public class StopCommand extends PluginCommand {
 
     @Override
     public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
-
-        new StopMenu(getPlugin(), (Player) sender);
+        new StopMenu(getPlugin(), (Player) sender).open();
     }
 }

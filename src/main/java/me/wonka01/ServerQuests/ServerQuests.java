@@ -9,7 +9,7 @@ import me.wonka01.ServerQuests.commands.CommandManager;
 import me.wonka01.ServerQuests.configuration.JsonQuestSave;
 import me.wonka01.ServerQuests.events.*;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
-import me.wonka01.ServerQuests.questcomponents.BarManager;
+import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,7 +25,6 @@ public class ServerQuests extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
         new CommandManager(this);
 
         loadConfig();
@@ -43,10 +42,8 @@ public class ServerQuests extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
         jsonSave.saveQuestsInProgress();
         BarManager.closeBar();
-
         getLogger().info("Plugin is disabled");
     }
 
@@ -84,9 +81,7 @@ public class ServerQuests extends JavaPlugin {
     }
 
     private void registerQuestEvents() {
-
         ActiveQuests activeQuests = config.getActiveQuests();
-
         getServer().getPluginManager().registerEvents(new BarManager(), this);
         getServer().getPluginManager().registerEvents(new BreakEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new CatchFishEvent(activeQuests), this);
@@ -103,7 +98,6 @@ public class ServerQuests extends JavaPlugin {
     }
 
     private void registerGuiEvents() {
-
         getServer().getPluginManager().registerEvents(new MenuEvents(), this);
     }
 }

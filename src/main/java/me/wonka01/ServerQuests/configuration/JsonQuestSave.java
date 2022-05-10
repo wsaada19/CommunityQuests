@@ -5,7 +5,7 @@ import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.CompetitiveQuestData;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
-import me.wonka01.ServerQuests.util.EventTypeHandler;
+import me.wonka01.ServerQuests.utils.EventTypeHandler;
 import org.bukkit.Bukkit;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

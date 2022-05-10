@@ -2,7 +2,7 @@ package me.wonka01.ServerQuests.gui;
 
 import lombok.NonNull;
 import me.knighthat.apis.menus.Menu;
-import me.knighthat.apis.utils.Utils;
+import me.wonka01.ServerQuests.utils.NumberUtils;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
@@ -23,12 +23,10 @@ public class StopMenu extends Menu {
 
     @Override
     protected void setContents() {
-
-        for (QuestController ctrl : getControllers()) {
-
-            String completed = Utils.decimals(ctrl.getQuestData().getAmountCompleted(), 1),
+        for (QuestController controller : getControllers()) {
+            String completed = NumberUtils.decimals(controller.getQuestData().getAmountCompleted()),
                 progressStr = getPlugin().messages().string("progress");
-            QuestData data = ctrl.getQuestData();
+            QuestData data = controller.getQuestData();
 
             List<String> lore = new ArrayList<>();
             lore.add(data.getDescription());
@@ -43,12 +41,9 @@ public class StopMenu extends Menu {
 
     @Override
     protected void onItemClick(@NonNull InventoryClickEvent event) {
-
         try {
-
             UUID id = getControllers().get(event.getRawSlot()).getQuestId();
             ActiveQuests.getActiveQuestsInstance().endQuest(id);
-
             getOwner().closeInventory();
         } catch (NullPointerException | IndexOutOfBoundsException ignored) {
         }
