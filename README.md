@@ -92,7 +92,7 @@ or until the timeToComplete is hit, whichever comes first.
 
 ### materials (optional)
 This is an optional parameter for the following quest types: 
-blockbreak, blockplace, donate. If the field is empty or nonexistent then all blocks will be considered.
+blockbreak, blockplace, donate, enchantitem, craftitem and consumeitem. If the field is empty or nonexistent then all blocks will be considered.
 You can include patterns in the blocks list such as 'Ore', and every material that has ore in its name will be a part of the quest.
 
 ### entities (optional)

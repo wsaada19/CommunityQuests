@@ -10,6 +10,9 @@ barColor: "GREEN"
 
 disableBossBar: false
 
+# Material used in the donate quest menu.
+donateMenuItem: OBSIDIAN
+
 Quests:
 #    TestQuest: # Quest identifier can be whatever you'd like as long as it's unique
 #        displayName: "&c&lZombie Pig Slayer"

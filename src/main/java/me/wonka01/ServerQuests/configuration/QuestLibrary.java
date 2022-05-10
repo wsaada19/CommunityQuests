@@ -29,7 +29,6 @@ public class QuestLibrary {
         for (String questId : serverQuestConfig.getKeys(false)) {
             ConfigurationSection section = serverQuestConfig.getConfigurationSection(questId);
             QuestModel model = loadQuestFromConfig(section);
-
             map.put(questId, model);
         }
         questList = map;

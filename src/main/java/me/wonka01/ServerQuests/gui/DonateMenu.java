@@ -13,15 +13,20 @@ import org.bukkit.inventory.ItemStack;
 public class DonateMenu extends Menu {
 
     private final int inputSlot = 22;
+    private Material menuItem;
 
     public DonateMenu(ServerQuests plugin, @NonNull Player owner) {
         super(plugin, owner, "donateMenu", 45);
+        menuItem = Material.getMaterial(getPlugin().getConfig().getString("donateMenuItem"));
+        if(menuItem == null) {
+            menuItem = Material.DIAMOND_BLOCK;
+        }
     }
 
     @Override
     protected void setContents() {
 
-        ItemStack item = super.createItemStack(Material.DIAMOND_BLOCK, " ");
+        ItemStack item = super.createItemStack(menuItem, " ");
 
         for (int slot = 0; slot < getSlots(); slot++)
             if (slot != inputSlot)

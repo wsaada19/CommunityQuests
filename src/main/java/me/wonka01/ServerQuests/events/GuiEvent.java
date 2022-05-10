@@ -20,7 +20,6 @@ public class GuiEvent extends QuestListener {
         boolean isItemUsed = false;
         for (QuestController controller : controllers) {
 
-            // Add logic to check the item
             List<String> materials = controller.getEventConstraints().getMaterialNames();
             int goal = controller.getQuestData().getQuestGoal();
             int completed = (int)controller.getQuestData().getAmountCompleted();
