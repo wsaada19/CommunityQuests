@@ -1,4 +1,4 @@
-package me.wonka01.ServerQuests.util;
+package me.wonka01.ServerQuests.utils;
 
 import java.util.List;
 

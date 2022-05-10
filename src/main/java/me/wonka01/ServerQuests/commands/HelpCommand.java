@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 public class HelpCommand extends PluginCommand {
+
     public HelpCommand(ServerQuests plugin) {
         super(plugin, false);
     }
@@ -23,6 +24,6 @@ public class HelpCommand extends PluginCommand {
 
     @Override
     public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
-        getPlugin().getMessages().message("helpMessage");
+        getPlugin().messages().message("helpMessage");
     }
 }

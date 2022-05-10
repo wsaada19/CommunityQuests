@@ -4,6 +4,7 @@ import lombok.NonNull;
 import me.knighthat.apis.commands.PluginCommand;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
+import me.wonka01.ServerQuests.gui.DonateMenu;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.command.CommandSender;
@@ -35,13 +36,11 @@ public class DonateCommand extends PluginCommand {
         List<QuestController> controllerList = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
         for (QuestController controller : controllerList)
             if (controller.getObjectiveType() == ObjectiveType.GUI) {
-
-                getPlugin().getQuestsGui().openInventory(player);
-
+                new DonateMenu(getPlugin(), player).open();
                 return;
             }
 
-        String noActiveQuest = getPlugin().getMessages().message("noActiveDonateQuests");
+        String noActiveQuest = getPlugin().messages().message("noActiveDonateQuests");
         player.sendMessage(noActiveQuest);
     }
 }

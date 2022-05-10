@@ -1,7 +1,7 @@
 package me.wonka01.ServerQuests.questcomponents.rewards;
 
 import lombok.Getter;
-import me.knighthat.apis.utils.Colorization;
+import me.wonka01.ServerQuests.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -27,7 +27,7 @@ public class ExperienceReward implements Reward, Colorization {
         player.giveExp(exp);
 
         ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
-        String message = MessageFormat.format("- &a{0} {1}", exp, plugin.getMessages().message("experience"));
+        String message = MessageFormat.format("- &a{0} {1}", exp, plugin.messages().message("experience"));
         player.sendMessage(color(message));
     }
 }

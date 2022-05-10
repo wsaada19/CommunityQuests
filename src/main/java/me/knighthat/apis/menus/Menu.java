@@ -1,0 +1,106 @@
+package me.knighthat.apis.menus;
+
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NonNull;
+import me.wonka01.ServerQuests.utils.Colorization;
+import me.wonka01.ServerQuests.ServerQuests;
+import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
+import me.wonka01.ServerQuests.questcomponents.QuestController;
+import me.wonka01.ServerQuests.questcomponents.QuestData;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Getter
+public abstract class Menu implements InventoryHolder, Colorization {
+
+    @Getter(value = AccessLevel.PROTECTED)
+    private final ServerQuests plugin;
+
+    private final @NonNull Inventory inventory;
+
+    private final int slots;
+
+    private final @NonNull Player owner;
+
+    private final @NonNull List<QuestController> controllers = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
+
+    protected Menu(ServerQuests plugin, @NonNull Player owner, @NonNull String titlePath, int slots) {
+
+        this.plugin = plugin;
+        this.owner = owner;
+        this.slots = slots;
+
+        String title = plugin.messages().string(titlePath);
+        this.inventory = Bukkit.createInventory(this, slots, title);
+    }
+
+    protected void setBorder() {
+    }
+
+    protected void setButtons() {
+    }
+
+    protected void setContents() {
+    }
+
+    protected void onItemClick(@NonNull final InventoryClickEvent event) {
+    }
+
+    protected void onClose(@NonNull final InventoryCloseEvent event) {
+    }
+
+    public void open() {
+        setBorder();
+        setButtons();
+        setContents();
+        owner.openInventory(inventory);
+    }
+
+    protected @NonNull ItemStack createItemStack(@NonNull Material material, @NonNull String name) {
+        return createItemStack(material, name, new ArrayList<>());
+    }
+
+    protected @NonNull ItemStack createItemStack(@NonNull Material material, @NonNull String name, @NonNull List<String> l) {
+
+        ItemStack item = new ItemStack(material);
+
+        try {
+            ItemMeta meta = item.getItemMeta();
+            meta.setDisplayName(color(name));
+            meta.setLore(l.stream().map(this::color).collect(Collectors.toList()));
+            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+
+            item.setItemMeta(meta);
+        } catch (NullPointerException ignored) {
+        }
+
+        return item;
+    }
+
+    protected @NonNull List<String> getLoreFromData(@NonNull QuestData data) {
+        List<String> lore = new ArrayList<>(Arrays.asList(color(data.getDescription()), " "));
+
+        int duration = data.getQuestDuration();
+        if (duration > 0) {
+
+            String remaining = getPlugin().messages().string("timeRemaining");
+            lore.add(color(remaining + duration));
+            lore.add(" ");
+        }
+        return lore;
+    }
+}

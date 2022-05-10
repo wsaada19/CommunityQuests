@@ -4,15 +4,21 @@ Added new apis:
   - Colorization:
     + Modifying text
     + Command's blueprint
+    + MenuAPI & MenuEvents
+    + Double to String converter
 
 Files:
   - messages.yml
     + Added prefix
+  - config.yml
+    + Replacement for default plugin's config
     
 Changes:
   - Migrated LangueConfig, Message from package me.wonka01.ServerQuests.configuration.messages to me.knighthat.apis.files.Messages
   - Updated readability and accesibility of commands
   - Reduced java version to Java8 to support Server 1.12.x
   - Removed PermissionNode class as it was unused
+  - Merged ObjectiveTypeUtil to ObjectiveType
+  - Moved default config to external source
    
 

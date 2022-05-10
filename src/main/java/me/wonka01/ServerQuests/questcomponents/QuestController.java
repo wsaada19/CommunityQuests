@@ -1,7 +1,7 @@
 package me.wonka01.ServerQuests.questcomponents;
 
 import lombok.NonNull;
-import me.knighthat.apis.utils.Colorization;
+import me.wonka01.ServerQuests.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.bossbar.QuestBar;
@@ -110,12 +110,12 @@ public class QuestController implements Colorization {
     private void sendPlayerMessage(Player player) {
         if (!player.hasPermission("communityquests.showmessages")) return;
 
-        String message = color(plugin.getMessages().message("contributionMessage"));
+        String message = color(plugin.messages().message("contributionMessage"));
         player.sendMessage(message);
     }
 
     public void broadcast(@NonNull String messagePath) {
-        String message = color(plugin.getMessages().message(messagePath, questData));
+        String message = color(plugin.messages().message(messagePath, questData));
         plugin.getServer().broadcastMessage(message);
     }
 }
