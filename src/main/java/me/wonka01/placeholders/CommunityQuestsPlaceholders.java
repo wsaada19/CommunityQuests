@@ -30,9 +30,16 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion {
     }
 
     @Override
+    public boolean persist() {
+        return true;
+    }
+
+    @Override
     public String onRequest(OfflinePlayer player, String identifier) {
 
-        if (identifier.equals("goal")) {
+        String questId = identifier.substring(identifier.lastIndexOf("_") + 1);
+
+        if (identifier.startsWith("goal")) {
             List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
             if(quests.size() > 0) {
                 return String.valueOf(quests.get(0).getQuestData().getQuestGoal());
@@ -40,7 +47,7 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion {
             return "0";
         }
 
-        if (identifier.equals("complete")) {
+        if (identifier.startsWith("complete")) {
             List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
             if(quests.size() > 0) {
                 return String.valueOf(quests.get(0).getQuestData().getAmountCompleted());
@@ -48,7 +55,7 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion {
             return "0";
         }
 
-        if (identifier.equals("time_remaining")) {
+        if (identifier.startsWith("time_remaining")) {
             List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
             if(quests.size() > 0) {
                 return String.valueOf(quests.get(0).getQuestData().getQuestDuration());
@@ -56,7 +63,7 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion {
             return "0";
         }
 
-        if (identifier.equals("name")) {
+        if (identifier.startsWith("name")) {
             List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
             if(quests.size() > 0) {
                 return String.valueOf(quests.get(0).getQuestData().getDisplayName());
@@ -64,7 +71,7 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion {
             return "";
         }
 
-        if (identifier.equals("description")) {
+        if (identifier.startsWith("description")) {
             List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
             if(quests.size() > 0) {
                 return String.valueOf(quests.get(0).getQuestData().getDescription());

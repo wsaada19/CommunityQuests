@@ -21,7 +21,7 @@ public class QuestModel {
     private final ArrayList<Reward> rewards;
     private final List<String> itemNames;
     private Material displayItem;
-    private List<String> worlds;
+    private final List<String> worlds;
 
     public QuestModel(String questId, String displayName, String eventDescription,
                       int completeTime, int questGoal, ObjectiveType objective,

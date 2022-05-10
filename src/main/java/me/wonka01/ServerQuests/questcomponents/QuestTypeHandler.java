@@ -56,10 +56,10 @@ public class QuestTypeHandler {
     private QuestData getQuestData(QuestModel questModel, int amountComplete, BasePlayerComponent playerComponent, int timeLeft) {
         if (eventType == EventType.COMPETITIVE) {
             return new CompetitiveQuestData(questModel.getQuestGoal(), questModel.getDisplayName(),
-                questModel.getEventDescription(), playerComponent, questModel.getQuestId(), amountComplete, timeLeft, questModel.getDisplayItem());
+                questModel.getEventDescription(), playerComponent, questModel.getQuestId(), amountComplete, timeLeft, questModel.getDisplayItem(), questModel.getQuestId());
         } else {
             return new QuestData(questModel.getQuestGoal(), questModel.getDisplayName(),
-                questModel.getEventDescription(), questModel.getQuestId(), amountComplete, timeLeft, questModel.getDisplayItem());
+                questModel.getEventDescription(), questModel.getQuestId(), amountComplete, timeLeft, questModel.getDisplayItem(), questModel.getQuestId());
         }
     }
 }

@@ -53,7 +53,7 @@ public class QuestController implements Colorization {
     }
 
     public void endQuest() {
-        if (questData.hasGoal() && !questData.isGoalComplete() && questData.getQuestType().equalsIgnoreCase("coop")) {
+        if (questData.hasGoal() && !questData.isGoalComplete() && !(questData instanceof CompetitiveQuestData)) {
             broadcast("questFailureMessage");
             playerComponent.sendLeaderString();
         } else {
@@ -92,10 +92,6 @@ public class QuestController implements Colorization {
 
     public boolean isCompetitive() {
         return (questData instanceof CompetitiveQuestData);
-    }
-
-    public String getQuestType() {
-        return questData.getQuestType();
     }
 
     public QuestBar getQuestBar() {
