@@ -4,7 +4,7 @@ import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
-import me.wonka01.ServerQuests.util.MaterialUtil;
+import me.wonka01.ServerQuests.utils.MaterialUtil;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +18,6 @@ import java.util.List;
 
 public class PlaceEvent extends QuestListener implements Listener {
 
-    private final ObjectiveType TYPE = ObjectiveType.BLOCK_PLACE;
     private final String PLACED = "PLACED";
     private final MetadataValue meta = new FixedMetadataValue(JavaPlugin.getPlugin(ServerQuests.class), true);
 
@@ -33,7 +32,7 @@ public class PlaceEvent extends QuestListener implements Listener {
             return;
         }
 
-        List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.BLOCK_PLACE);
         for (QuestController controller : controllers) {
             List<String> materials = controller.getEventConstraints().getMaterialNames();
             if (materials.isEmpty() || MaterialUtil.containsMaterial(block.getType().toString(), materials)) {

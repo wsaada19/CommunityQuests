@@ -1,32 +1,28 @@
 package me.wonka01.ServerQuests.questcomponents;
 
 import lombok.Getter;
+import me.wonka01.ServerQuests.enums.EventType;
 import org.bukkit.Material;
 
+@Getter
 public class QuestData {
 
-    private String questType;
+    private String questId;
     private int questGoal;
     private double amountCompleted;
     private int questDuration;
-
     private String displayName;
     private String description;
-    @Getter
     private Material displayItem;
 
-    public QuestData(int questGoal, String displayName, String description, String questType, int amountCompleted, int questDuration, Material displayItem) {
+    public QuestData(int questGoal, String displayName, String description, String questType, int amountCompleted, int questDuration, Material displayItem, String questId) {
         this.questGoal = questGoal;
         this.questDuration = questDuration;
         this.amountCompleted = amountCompleted;
         this.displayName = displayName;
         this.description = description;
-        this.questType = questType;
+        this.questId = questType;
         this.displayItem = displayItem;
-    }
-
-    public double getAmountCompleted() {
-        return amountCompleted;
     }
 
     public double getPercentageComplete() {
@@ -50,24 +46,7 @@ public class QuestData {
         return questGoal > 0;
     }
 
-    public int getQuestGoal() {
-        return questGoal;
+    public EventType getEventType() {
+        return EventType.COLLAB;
     }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getQuestType() {
-        return questType;
-    }
-
-    public int getQuestDuration() {
-        return questDuration;
-    }
-
 }

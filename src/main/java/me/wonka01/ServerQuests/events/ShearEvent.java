@@ -11,15 +11,13 @@ import java.util.List;
 
 public class ShearEvent extends QuestListener implements Listener {
 
-    private final ObjectiveType TYPE = ObjectiveType.SHEAR;
-
     public ShearEvent(ActiveQuests activeQuests) {
         super(activeQuests);
     }
 
     @EventHandler
     public void onSheer(PlayerShearEntityEvent shearEvent) {
-        List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.SHEAR);
         for (QuestController controller : controllers) {
             updateQuest(controller, shearEvent.getPlayer(), 1);
         }

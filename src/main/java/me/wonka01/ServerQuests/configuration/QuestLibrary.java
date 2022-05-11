@@ -3,7 +3,6 @@ package me.wonka01.ServerQuests.configuration;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.rewards.*;
-import me.wonka01.ServerQuests.util.ObjectiveTypeUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -30,7 +29,6 @@ public class QuestLibrary {
         for (String questId : serverQuestConfig.getKeys(false)) {
             ConfigurationSection section = serverQuestConfig.getConfigurationSection(questId);
             QuestModel model = loadQuestFromConfig(section);
-
             map.put(questId, model);
         }
         questList = map;
@@ -43,16 +41,17 @@ public class QuestLibrary {
         int timeToComplete = section.getInt("timeToComplete", 0);
         List<String> mobNames = section.getStringList("entities");
         List<String> itemNames = section.getStringList("materials");
+        List<String> worlds = section.getStringList("worlds");
         String displayItem = section.getString("displayItem", "");
 
-        ObjectiveType objectiveType = ObjectiveTypeUtil.parseEventTypeFromString(section.getString("type"));
+        ObjectiveType type = ObjectiveType.match(section.getString("type"));
         int goal = section.getInt("goal", -1);
 
         ConfigurationSection rewardsSection = section.getConfigurationSection("rewards");
         ArrayList<Reward> rewards = getRewardsFromConfig(rewardsSection);
 
         return new QuestModel(questId, displayName, description, timeToComplete, goal,
-            objectiveType, mobNames, rewards, itemNames, displayItem);
+            type, mobNames, rewards, itemNames, displayItem, worlds);
     }
 
     private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {

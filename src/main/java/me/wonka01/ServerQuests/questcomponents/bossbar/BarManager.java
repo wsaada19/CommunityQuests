@@ -1,5 +1,7 @@
-package me.wonka01.ServerQuests.questcomponents;
+package me.wonka01.ServerQuests.questcomponents.bossbar;
 
+import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
+import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

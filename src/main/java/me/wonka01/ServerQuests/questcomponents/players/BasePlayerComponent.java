@@ -1,9 +1,9 @@
 package me.wonka01.ServerQuests.questcomponents.players;
 
-import me.knighthat.apis.utils.Colorization;
+import me.wonka01.ServerQuests.utils.Colorization;
+import me.wonka01.ServerQuests.utils.NumberUtils;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
-import me.wonka01.ServerQuests.util.NumberUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -47,7 +47,6 @@ public class BasePlayerComponent implements Colorization {
 
             playerMap.put(player.getUniqueId(), playerData);
         }
-
     }
 
     public void sendLeaderString() {
@@ -59,7 +58,7 @@ public class BasePlayerComponent implements Colorization {
             return;
         }
         ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
-        StringBuilder result = new StringBuilder(plugin.getMessages().string("topContributorsTitle"));
+        StringBuilder result = new StringBuilder(plugin.messages().string("topContributorsTitle"));
         TreeMap<UUID, PlayerData> map = new TreeMap<>(new SortByContributions(this.playerMap));
         map.putAll(this.playerMap);
 
@@ -72,9 +71,9 @@ public class BasePlayerComponent implements Colorization {
             result.append("\n &f#");
             result.append(count);
             result.append(") &a");
-            result.append(map.get(key).getDisplayName());
+            result.append(map.get(key).getName());
             result.append(" &7- &f");
-            result.append(NumberUtil.getNumberDisplay(map.get(key).getAmountContributed()));
+            result.append(NumberUtils.decimals(map.get(key).getAmountContributed()));
 
             count++;
         }
@@ -98,7 +97,7 @@ public class BasePlayerComponent implements Colorization {
         return 0;
     }
 
-    public JSONArray getPlayerDataInJson() {
+    public JSONArray toJSONArray() {
         JSONArray jArray = new JSONArray();
         for (UUID key : playerMap.keySet()) {
             JSONObject jsonObject = new JSONObject();
@@ -125,7 +124,7 @@ public class BasePlayerComponent implements Colorization {
                 if (rewardsList.size() > 0) {
 
                     ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
-                    String rewardTitle = plugin.getMessages().message("rewardsTitle");
+                    String rewardTitle = plugin.messages().message("rewardsTitle");
                     onlinePlayer.sendMessage(rewardTitle);
                 }
             }

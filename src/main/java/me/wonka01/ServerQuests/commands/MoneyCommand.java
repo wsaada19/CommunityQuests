@@ -30,7 +30,7 @@ public class MoneyCommand extends PluginCommand {
         Player player = (Player) sender;
 
         if (args.length < 2) {
-            String invalidCmd = getPlugin().getMessages().message("invalidCommand");
+            String invalidCmd = getPlugin().messages().message("invalidCommand");
             player.sendMessage(invalidCmd);
             return;
         }
@@ -40,7 +40,7 @@ public class MoneyCommand extends PluginCommand {
             MoneyQuest moneyQuest = new MoneyQuest(ActiveQuests.getActiveQuestsInstance(), getPlugin().getEconomy());
 
             if (!moneyQuest.tryAddItemsToQuest(money, player)) {
-                String noActiveDonateQuests = getPlugin().getMessages().message("noActiveDonateQuests");
+                String noActiveDonateQuests = getPlugin().messages().message("noActiveDonateQuests");
                 player.sendMessage(noActiveDonateQuests);
             }
         } catch (NumberFormatException exception) {

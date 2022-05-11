@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 
 public class NPCInteractEvent extends QuestListener implements Listener {
 
-    private final ObjectiveType TYPE = ObjectiveType.MOB_Kill;
+    private final ObjectiveType TYPE = ObjectiveType.MOB_KILL;
 
     public NPCInteractEvent(ActiveQuests activeQuests) {
 

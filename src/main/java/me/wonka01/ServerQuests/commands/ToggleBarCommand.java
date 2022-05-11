@@ -3,7 +3,7 @@ package me.wonka01.ServerQuests.commands;
 import lombok.NonNull;
 import me.knighthat.apis.commands.PluginCommand;
 import me.wonka01.ServerQuests.ServerQuests;
-import me.wonka01.ServerQuests.questcomponents.BarManager;
+import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

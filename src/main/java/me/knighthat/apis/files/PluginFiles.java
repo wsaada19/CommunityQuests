@@ -39,9 +39,11 @@ public abstract class PluginFiles {
     }
 
     public void reload() {
+
         if (file == null)
             startup();
-
+        createIfNotExist();
+        
         yaml = YamlConfiguration.loadConfiguration(file);
     }
 

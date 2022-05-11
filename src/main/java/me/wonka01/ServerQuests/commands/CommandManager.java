@@ -3,7 +3,6 @@ package me.wonka01.ServerQuests.commands;
 import lombok.NonNull;
 import me.knighthat.apis.commands.PluginCommand;
 import me.wonka01.ServerQuests.ServerQuests;
-import me.wonka01.ServerQuests.commands.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -57,7 +56,7 @@ public class CommandManager implements CommandExecutor {
                 if (cmd.getPermission().isEmpty() || sender.hasPermission(cmd.getPermission()))
                     return cmd;
 
-                String message = plugin.getMessages().message("noPermission");
+                String message = plugin.messages().message("noPermission");
                 sender.sendMessage(message);
             }
         return null;

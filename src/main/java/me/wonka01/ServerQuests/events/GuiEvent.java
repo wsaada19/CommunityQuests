@@ -3,7 +3,7 @@ package me.wonka01.ServerQuests.events;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
-import me.wonka01.ServerQuests.util.MaterialUtil;
+import me.wonka01.ServerQuests.utils.MaterialUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -20,7 +20,6 @@ public class GuiEvent extends QuestListener {
         boolean isItemUsed = false;
         for (QuestController controller : controllers) {
 
-            // Add logic to check the item
             List<String> materials = controller.getEventConstraints().getMaterialNames();
             int goal = controller.getQuestData().getQuestGoal();
             int completed = (int)controller.getQuestData().getAmountCompleted();

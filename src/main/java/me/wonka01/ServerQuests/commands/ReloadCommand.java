@@ -24,10 +24,14 @@ public class ReloadCommand extends PluginCommand {
 
     @Override
     public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
-        getPlugin().reloadConfiguration();
-        getPlugin().getMessages().reload();
 
-        String reloadMessage = getPlugin().getMessages().message("reloadCommand");
+        getPlugin().config().reload();
+        getPlugin().config().initializeVariables();
+        getPlugin().config().initializeQuests();
+
+        getPlugin().messages().reload();
+
+        String reloadMessage = getPlugin().messages().message("reloadCommand");
         sender.sendMessage(reloadMessage);
     }
 }
