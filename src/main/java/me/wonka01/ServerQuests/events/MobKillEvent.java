@@ -14,7 +14,6 @@ import java.util.List;
 
 public class MobKillEvent extends QuestListener implements Listener {
 
-
     public MobKillEvent(ActiveQuests activeQuests) {
         super(activeQuests);
     }

@@ -12,8 +12,6 @@ import java.util.List;
 
 public class KillPlayerEvent extends QuestListener implements Listener {
 
-    private final ObjectiveType TYPE = ObjectiveType.PLAYER_KILL;
-
     public KillPlayerEvent(ActiveQuests activeQuests) {
         super(activeQuests);
     }
@@ -26,7 +24,7 @@ public class KillPlayerEvent extends QuestListener implements Listener {
             return;
         }
 
-        List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.PLAYER_KILL);
         for (QuestController controller : controllers) {
             updateQuest(controller, killer, 1);
         }

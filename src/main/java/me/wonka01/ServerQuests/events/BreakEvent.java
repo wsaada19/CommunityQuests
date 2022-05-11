@@ -16,7 +16,6 @@ import java.util.List;
 
 public class BreakEvent extends QuestListener implements Listener {
 
-    private final ObjectiveType TYPE = ObjectiveType.BLOCK_BREAK;
     private final String BROKEN = "BROKEN";
     private final MetadataValue meta = new FixedMetadataValue(JavaPlugin.getPlugin(ServerQuests.class), true);
 
@@ -33,7 +32,7 @@ public class BreakEvent extends QuestListener implements Listener {
 
         String blockName = event.getBlock().getType().toString();
 
-        List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.BLOCK_BREAK);
         for (QuestController controller : controllers) {
             List<String> materials = controller.getEventConstraints().getMaterialNames();
             if (materials.isEmpty() || MaterialUtil.containsMaterial(blockName, materials)) {

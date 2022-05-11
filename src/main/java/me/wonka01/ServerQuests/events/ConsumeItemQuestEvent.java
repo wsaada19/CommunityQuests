@@ -12,7 +12,6 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import java.util.List;
 
 public class ConsumeItemQuestEvent extends QuestListener implements Listener {
-    private final ObjectiveType TYPE = ObjectiveType.CONSUME_ITEM;
 
     public ConsumeItemQuestEvent(ActiveQuests activeQuests) {
         super(activeQuests);
@@ -23,7 +22,7 @@ public class ConsumeItemQuestEvent extends QuestListener implements Listener {
         Player player = event.getPlayer();
         String materialName = event.getItem().getType().toString();
 
-        List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.CONSUME_ITEM);
         for (QuestController controller : controllers) {
             List<String> materials = controller.getEventConstraints().getMaterialNames();
             if (materials.isEmpty() || MaterialUtil.containsMaterial(materialName, materials)) {

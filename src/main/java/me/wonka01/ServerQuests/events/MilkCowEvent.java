@@ -15,8 +15,6 @@ import java.util.List;
 
 public class MilkCowEvent extends QuestListener implements Listener {
 
-    private final ObjectiveType TYPE = ObjectiveType.MILK_COW;
-
     public MilkCowEvent(ActiveQuests activeQuests) {
         super(activeQuests);
     }
@@ -28,7 +26,7 @@ public class MilkCowEvent extends QuestListener implements Listener {
         if (!(cow instanceof Cow) || !(player.getInventory().getItemInMainHand().getType().equals(Material.BUCKET))) {
             return;
         }
-        List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.MILK_COW);
         for (QuestController controller : controllers) {
             updateQuest(controller, player, 1);
         }

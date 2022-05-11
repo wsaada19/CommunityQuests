@@ -12,7 +12,6 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import java.util.List;
 
 public class CraftItemQuestEvent extends QuestListener implements Listener {
-    private final ObjectiveType TYPE = ObjectiveType.CRAFT_ITEM;
 
     public CraftItemQuestEvent(ActiveQuests activeQuests) {
         super(activeQuests);
@@ -25,7 +24,7 @@ public class CraftItemQuestEvent extends QuestListener implements Listener {
         int amount = event.getRecipe().getResult().getAmount();
         String materialName = event.getRecipe().getResult().getType().toString();
 
-        List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.CRAFT_ITEM);
         for (QuestController controller : controllers) {
             List<String> materials = controller.getEventConstraints().getMaterialNames();
             if (materials.isEmpty() || MaterialUtil.containsMaterial(materialName, materials)) {

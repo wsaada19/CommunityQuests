@@ -16,8 +16,6 @@ import java.util.List;
 
 public class ProjectileKillEvent extends QuestListener implements Listener {
 
-    private final ObjectiveType TYPE = ObjectiveType.PROJ_KILL;
-
     public ProjectileKillEvent(ActiveQuests activeQuests) {
         super(activeQuests);
     }
@@ -36,7 +34,7 @@ public class ProjectileKillEvent extends QuestListener implements Listener {
             if (projectile.getShooter() != null && projectile.getShooter() instanceof Player) {
                 Player player = (Player) projectile.getShooter();
 
-                List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+                List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.PROJ_KILL);
                 for (QuestController controller : controllers) {
                     List<String> entities = controller.getEventConstraints().getMobNames();
                     if(entities.isEmpty() || EntityUtil.containsEntity(event.getEntity().getType().toString(), entities)) {
