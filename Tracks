@@ -1,0 +1,18 @@
+Added new apis:
+  - Files (config.yml, messages.yml)
+    + Managing using abstraction
+  - Colorization:
+    + Modifying text
+    + Command's blueprint
+
+Files:
+  - messages.yml
+    + Added prefix
+    
+Changes:
+  - Migrated LangueConfig, Message from package me.wonka01.ServerQuests.configuration.messages to me.knighthat.apis.files.Messages
+  - Updated readability and accesibility of commands
+  - Reduced java version to Java8 to support Server 1.12.x
+  - Removed PermissionNode class as it was unused
+   
+

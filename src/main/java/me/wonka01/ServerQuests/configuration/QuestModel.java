@@ -3,6 +3,8 @@ package me.wonka01.ServerQuests.configuration;
 import lombok.Getter;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
+import me.wonka01.ServerQuests.util.ObjectiveTypeUtil;
+import org.bukkit.Material;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,24 +15,29 @@ public class QuestModel {
     private String questId;
     private String displayName;
     private String eventDescription;
-    private int durationInSeconds;
+    private int completeTime;
     private int questGoal;
     private ObjectiveType objective;
     private List<String> mobNames;
     private ArrayList<Reward> rewards;
     private List<String> itemNames;
+    private Material displayItem;
 
     public QuestModel(String questId, String displayName, String eventDescription,
-                      int durationInSeconds, int questGoal, ObjectiveType objective,
-                      List<String> mobNames, ArrayList<Reward> rewards, List<String> itemNames) {
+                      int completeTime, int questGoal, ObjectiveType objective,
+                      List<String> mobNames, ArrayList<Reward> rewards, List<String> itemNames, String displayItem) {
         this.questId = questId;
         this.displayName = displayName;
         this.eventDescription = eventDescription;
-        this.durationInSeconds = durationInSeconds;
+        this.completeTime = completeTime;
         this.questGoal = questGoal;
         this.objective = objective;
         this.mobNames = mobNames;
         this.rewards = rewards;
         this.itemNames = itemNames;
+        this.displayItem = Material.getMaterial(displayItem.toUpperCase());
+        if(this.displayItem == null) {
+            this.displayItem = ObjectiveTypeUtil.getEventTypeDefaultMaterial(objective);
+        }
     }
 }

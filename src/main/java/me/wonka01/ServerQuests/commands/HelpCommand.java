@@ -1,17 +1,28 @@
 package me.wonka01.ServerQuests.commands;
 
-import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
-import org.bukkit.ChatColor;
+import lombok.NonNull;
+import me.knighthat.apis.commands.PluginCommand;
+import me.wonka01.ServerQuests.ServerQuests;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-public class HelpCommand implements SubCommand {
-    @Override
-    public void onCommand(Player player, String[] args) {
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getHelpMessage()));
+public class HelpCommand extends PluginCommand {
+    public HelpCommand(ServerQuests plugin) {
+        super(plugin, false);
     }
 
-    public void onCommand(CommandSender sender, String[] args) {
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getHelpMessage()));
+    @Override
+    public @NonNull String getName() {
+        return "help";
+    }
+
+    @Override
+    public @NonNull String getPermission() {
+        return "";
+    }
+
+    @Override
+    public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
+        getPlugin().getMessages().message("helpMessage");
     }
 }

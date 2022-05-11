@@ -1,5 +1,8 @@
 package me.wonka01.ServerQuests.questcomponents;
 
+import lombok.Getter;
+import org.bukkit.Material;
+
 public class QuestData {
 
     private String questType;
@@ -9,14 +12,17 @@ public class QuestData {
 
     private String displayName;
     private String description;
+    @Getter
+    private Material displayItem;
 
-    public QuestData(int questGoal, String displayName, String description, String questType, int amountCompleted, int questDuration) {
+    public QuestData(int questGoal, String displayName, String description, String questType, int amountCompleted, int questDuration, Material displayItem) {
         this.questGoal = questGoal;
         this.questDuration = questDuration;
         this.amountCompleted = amountCompleted;
         this.displayName = displayName;
         this.description = description;
         this.questType = questType;
+        this.displayItem = displayItem;
     }
 
     public double getAmountCompleted() {
@@ -40,7 +46,9 @@ public class QuestData {
         return (hasGoal() && amountCompleted >= questGoal);
     }
 
-    public boolean hasGoal() {return questGoal > 0;}
+    public boolean hasGoal() {
+        return questGoal > 0;
+    }
 
     public int getQuestGoal() {
         return questGoal;

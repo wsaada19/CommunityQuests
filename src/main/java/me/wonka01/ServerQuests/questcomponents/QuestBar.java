@@ -1,28 +1,28 @@
 package me.wonka01.ServerQuests.questcomponents;
 
+import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class QuestBar {
+public class QuestBar implements Colorization {
 
     public static String barColor;
-    private BossBar bossBar;
+    private final BossBar bossBar;
 
     public QuestBar(String displayName) {
         BarColor color = BarColor.valueOf(barColor);
-        bossBar = Bukkit.getServer().createBossBar(ChatColor.translateAlternateColorCodes('&', displayName), color, BarStyle.SEGMENTED_12);
+        bossBar = Bukkit.getServer().createBossBar(color(displayName), color, BarStyle.SEGMENTED_12);
         bossBar.setProgress(0.0);
         bossBar.setVisible(true);
     }
 
     public void updateBarProgress(double barRatio) {
-        if(barRatio < 0.0 || barRatio > 1.0) {
+        if (barRatio < 0.0 || barRatio > 1.0) {
             JavaPlugin.getPlugin(ServerQuests.class).getLogger().info("Invalid bar ratio provided");
             return;
         }

@@ -1,31 +1,33 @@
 package me.wonka01.ServerQuests.commands;
 
+import lombok.NonNull;
+import me.knighthat.apis.commands.PluginCommand;
 import me.wonka01.ServerQuests.ServerQuests;
-import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
-import me.wonka01.ServerQuests.enums.PermissionNode;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
-public class ReloadCommand implements SubCommand {
-    public void onCommand(Player player, String[] args) {
+public class ReloadCommand extends PluginCommand {
 
-        if (!player.hasPermission(PermissionNode.RELOAD_QUEST)) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getNoPermission()));
-            return;
-        }
-        reload(player);
+    public ReloadCommand(ServerQuests plugin) {
+        super(plugin, false);
     }
 
-    public void onCommand(CommandSender sender, String[] args) {
-        reload(sender);
+    @Override
+    public @NonNull String getName() {
+        return "reload";
     }
 
-    private void reload(CommandSender sender) {
-        ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
+    @Override
+    public @NonNull String getPermission() {
+        return "communityquests.reload";
+    }
 
-        plugin.reloadConfiguration();
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', LanguageConfig.getConfig().getMessages().getReloadCommand()));
+    @Override
+    public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
+        getPlugin().reloadConfiguration();
+        getPlugin().getMessages().reload();
+
+        String reloadMessage = getPlugin().getMessages().message("reloadCommand");
+        sender.sendMessage(reloadMessage);
     }
 }

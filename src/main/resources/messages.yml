@@ -1,11 +1,13 @@
+prefix: "&7[&cCommunity&6Quests&7] "
+
 noPermission: "&cYou do not have permission to perform this action!"
 invalidCommand: "&cInvalid command; available commands include /cq [start, stop, togglebar, view, reload, donate, help, deposit]"
 reloadCommand: "&AThe Community Quests configuration has reloaded successfully!"
-helpMessage: "&eThe Community Quests plugin allows servers to run quests that the entire server either works together or competes against one another to complete an objective. To view active quests use /cq view, to begin a new quests use /cq start. For donation quests, use the /cq donate command to open up the donation GUI."
+helpMessage: "&eThe Community Quests plugin manages competitive and collaborative server-wide objectives. To view active quests use /cq view, to begin a new quests use /cq start. For donation quests, use the /cq donate command to open up the donation GUI."
 noActiveDonateQuests: "&cThere are no active quests that require you to donate items."
 invalidQuestName: "&cThe quest name you entered does not exist"
 invalidQuestType: "&cYou must enter a quest type; coop or comp"
-noActiveQuests: "&cThere are currently no active quests running on the server."
+noActiveQuests: "&cThere are no active quests running on the server."
 questLimitReached: "&cThe quest could not be created, the number of active quests has reached its limit"
 cooperativeQuestMustHaveAGoal: "&cCould not start quest: quests without a goal cannot be cooperative!"
 

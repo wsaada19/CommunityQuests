@@ -1,78 +1,69 @@
 package me.wonka01.ServerQuests.commands;
 
+import lombok.NonNull;
+import me.knighthat.apis.commands.PluginCommand;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestModel;
-import me.wonka01.ServerQuests.configuration.messages.LanguageConfig;
-import me.wonka01.ServerQuests.configuration.messages.Messages;
 import me.wonka01.ServerQuests.enums.EventType;
-import me.wonka01.ServerQuests.enums.PermissionNode;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
-public class StartCommand implements SubCommand {
+public class StartCommand extends PluginCommand {
 
-    public void onCommand(Player player, String[] args) {
-
-        Messages messages = LanguageConfig.getConfig().getMessages();
-
-        if (!player.hasPermission(PermissionNode.START_QUEST)) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getNoPermission()));
-            return;
-        }
-
-        if (args.length < 2) {
-            JavaPlugin.getPlugin(ServerQuests.class).getStartGui().openInventory(player);
-            return;
-        }
-
-        startFromCommand(player, args);
-
+    public StartCommand(ServerQuests plugin) {
+        super(plugin, true);
     }
 
-    public void onCommand(CommandSender sender, String[] args) {
-
-        if (args.length < 2) {
-            return;
-        }
-
-        startFromCommand(sender, args);
+    @Override
+    public @NonNull String getName() {
+        return "start";
     }
 
-    private void startFromCommand(CommandSender sender, String[] args) {
-        Messages messages = LanguageConfig.getConfig().getMessages();
+    @Override
+    public @NonNull String getPermission() {
+        return "communityquests.start";
+    }
 
-        String questId = args[1];
-        QuestModel questModel = JavaPlugin.getPlugin(ServerQuests.class).questLibrary.getQuestModelById(questId);
-        if (questModel == null) {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestName()));
-            return;
-        }
-
-        if (args.length < 3) {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestType()));
-            return;
-        }
-        EventType eventType;
-
-        if (args[2].equalsIgnoreCase("coop")) {
-            eventType = EventType.COLLAB;
-            if(questModel.getQuestGoal() <= 0) {
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getCoopQuestWithoutGoalErrorMessage()));
+    @Override
+    public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
+        if (args.length >= 3) {
+            QuestModel model = getPlugin().questLibrary.getQuestModelById(args[1]);
+            if (model == null) {
+                String invalidName = getPlugin().getMessages().message("invalidQuestName");
+                sender.sendMessage(invalidName);
                 return;
             }
-        } else if (args[2].equalsIgnoreCase("comp")) {
-            eventType = EventType.COMPETITIVE;
-        } else {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getInvalidQuestType()));
-            return;
-        }
 
-        boolean questCreated = ActiveQuests.getActiveQuestsInstance().beginNewQuest(questModel, eventType);
-        if (!questCreated) {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getQuestLimitReached()));
+            EventType type;
+            switch (args[2]) {
+                case "coop":
+                    type = EventType.COLLAB;
+                    if (model.getQuestGoal() <= 0) {
+                        String noGoal = getPlugin().getMessages().message("cooperativeQuestMustHaveAGoal");
+                        sender.sendMessage(noGoal);
+                        return;
+                    }
+                    break;
+                case "comp":
+                    type = EventType.COMPETITIVE;
+                    break;
+                default:
+                    String invalidQuestType = getPlugin().getMessages().message("invalidQuestType");
+                    sender.sendMessage(invalidQuestType);
+                    return;
+            }
+
+            if (!ActiveQuests.getActiveQuestsInstance().beginNewQuest(model, type)) {
+                String reachLimit = getPlugin().getMessages().message("questLimitReached");
+                sender.sendMessage(reachLimit);
+            }
+        } else if (args.length == 2) {
+            String invalidQuestType = getPlugin().getMessages().message("invalidQuestType");
+            sender.sendMessage(invalidQuestType);
+        } else if (sender instanceof Player) {
+            getPlugin().getStartGui().openInventory((Player) sender);
         }
     }
 }

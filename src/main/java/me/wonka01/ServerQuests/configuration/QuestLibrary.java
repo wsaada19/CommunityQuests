@@ -43,6 +43,7 @@ public class QuestLibrary {
         int timeToComplete = section.getInt("timeToComplete", 0);
         List<String> mobNames = section.getStringList("entities");
         List<String> itemNames = section.getStringList("materials");
+        String displayItem = section.getString("displayItem", "");
 
         ObjectiveType objectiveType = ObjectiveTypeUtil.parseEventTypeFromString(section.getString("type"));
         int goal = section.getInt("goal", -1);
@@ -51,7 +52,7 @@ public class QuestLibrary {
         ArrayList<Reward> rewards = getRewardsFromConfig(rewardsSection);
 
         return new QuestModel(questId, displayName, description, timeToComplete, goal,
-            objectiveType, mobNames, rewards, itemNames);
+            objectiveType, mobNames, rewards, itemNames, displayItem);
     }
 
     private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {
@@ -100,5 +101,4 @@ public class QuestLibrary {
     public Set<String> getAllQuestKeys() {
         return questList.keySet();
     }
-
 }

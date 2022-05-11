@@ -1,4 +1,4 @@
-package me.wonka01.ServerQuests.events.questevents;
+package me.wonka01.ServerQuests.events;
 
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
@@ -6,29 +6,24 @@ import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.enchantment.EnchantItemEvent;
 
 import java.util.List;
 
-public class KillPlayerEvent extends QuestListener implements Listener {
+public class EnchantItemQuestEvent extends QuestListener implements Listener {
+    private final ObjectiveType TYPE = ObjectiveType.ENCHANT_ITEM;
 
-    private final ObjectiveType TYPE = ObjectiveType.PLAYER_KILL;
-
-    public KillPlayerEvent(ActiveQuests activeQuests) {
+    public EnchantItemQuestEvent(ActiveQuests activeQuests) {
         super(activeQuests);
     }
 
     @EventHandler
-    public void onKillPlayer(PlayerDeathEvent event) {
-
-        Player killer = event.getEntity().getKiller();
-        if (killer == null) {
-            return;
-        }
+    public void onEnchantItem(EnchantItemEvent event) {
+        Player player = event.getEnchanter();
 
         List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
         for (QuestController controller : controllers) {
-            updateQuest(controller, killer, 1);
+            updateQuest(controller, player, 1);
         }
     }
 }
