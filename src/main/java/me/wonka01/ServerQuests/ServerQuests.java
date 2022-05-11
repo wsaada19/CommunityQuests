@@ -36,10 +36,7 @@ public class ServerQuests extends JavaPlugin {
             getLogger().info("Warning! No economy plugin found, a cash reward can not be added to a quest in Community Quests.");
         }
 
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new CommunityQuestsPlaceholders().register();
-        }
-
+        registerPlaceholders();
         registerGuiEvents();
         registerQuestEvents();
 
@@ -105,5 +102,11 @@ public class ServerQuests extends JavaPlugin {
 
     private void registerGuiEvents() {
         getServer().getPluginManager().registerEvents(new MenuEvents(), this);
+    }
+
+    private void registerPlaceholders() {
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new CommunityQuestsPlaceholders().register();
+        }
     }
 }

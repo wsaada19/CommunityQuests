@@ -1,6 +1,7 @@
 package me.wonka01.ServerQuests.questcomponents;
 
 import lombok.NonNull;
+import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
@@ -53,7 +54,7 @@ public class QuestController implements Colorization {
     }
 
     public void endQuest() {
-        if (questData.hasGoal() && !questData.isGoalComplete() && !(questData instanceof CompetitiveQuestData)) {
+        if (questData.hasGoal() && !questData.isGoalComplete() && questData.getEventType().equals(EventType.COLLAB)) {
             broadcast("questFailureMessage");
             playerComponent.sendLeaderString();
         } else {

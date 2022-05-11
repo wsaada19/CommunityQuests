@@ -55,8 +55,8 @@ public class JsonQuestSave {
             }
 
             JSONObject jObject = new JSONObject();
-            jObject.put("id", questController.getQuestId());
-            jObject.put("playerMap", questController.getPlayerComponent().getPlayerDataInJson());
+            jObject.put("id", questController.getQuestData().getQuestId());
+            jObject.put("playerMap", questController.getPlayerComponent().toJSONArray());
             jObject.put("amountComplete", questController.getQuestData().getAmountCompleted());
             jObject.put("timeLeft", questController.getQuestData().getQuestDuration());
             if (questController.getQuestData() instanceof CompetitiveQuestData) {

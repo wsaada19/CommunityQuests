@@ -5,6 +5,7 @@
 * [Configuration](#Configuration)
 * [Rewards](#Rewards)
 * [Objective Types](#Objectives)
+* [Placeholders](#Placeholders)
 
 ## Summary
 The Community Quests plugin allows server owners and administers to create server-wide quests for players to participate in either
@@ -52,6 +53,8 @@ Quests:
     displayName: "&cZombie and Pig Slayer"
     type: mobkill # required, see type list for available types
     displayItem: ZOMBIE_HEAD # optional parameter to set the item used in GUIs for a given quest
+    worlds: # this parameter is optional, if included the quest will only occur in the specified worlds
+      - world
     entities: # This is an optional parameter, if it doesn't exist the quest will count ALL mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
       - Zombie
       - Pig
@@ -89,6 +92,9 @@ The time that the quest should run for in seconds, so if it is set to 60 the que
 for one minute. If both goal and time required are set then the quest will run until the goal is hit 
 or until the timeToComplete is hit, whichever comes first. 
 
+### worlds (optional)
+Use this parameter to restrict quests to specific worlds. All worlds in the list will be able to participate in quests. When no value
+is provided for worlds then the quest will be enabled in every world.
 
 ### materials (optional)
 This is an optional parameter for the following quest types: 
@@ -106,7 +112,7 @@ More reward options will be added in the future. Command rewards allow you to ru
 
 **Note: Only money and command rewards are given to players who contributed but are offline when the quest is complete, I plan on addressing this in the future.**
 
-**money, experience, commands and items are all optional, you do not need to specify the values you don't want to use.**
+**Note: money, experience, commands and items are all optional, you do not need to specify the values you don't want to use.**
 
 
 Rewards example
@@ -141,7 +147,6 @@ money and PlayerX kills 50 of the 100 zombies, PlayerX will receive 500. Item an
 Competitive quests put the players against each other to see who can complete a goal first. Using our zombie/pig example
 from above, the quest will end once a single player gets 100 kills for the correct mob types. If a time limit is set and the quest ends before the goal is reached the top players will still get rewards based on their contributions.
 
-
 Money/experience awards work the same way as cooperative quests. If the money reward is 1000 the winner of the competition will get 1000. If Player1 came in second with 70 kills, he or she will get 700. The winner is the only person who will get items in a competitive quest.
 Think of it as more of a challenge than a quest.
 
@@ -165,15 +170,26 @@ Think of it as more of a challenge than a quest.
     rewards:
       experience: 100
 ```
-- **playerkill**- kill other players
-- **blockbreak**- break a block specified in the materials list in the configuration  
-- **blockplace**- place a block specified in the materials list in the configuration 
-- **projectilekill**- kill entities with a projectile specify entities in the configuration 
-- **shear** - shear sheep
-- **tame** - tame animals
-- **milkcow** - milk cow
-- **craftitem** - craft something
-- **consumeitem** - consume an item - like eating an apple
-- **enchantitem** - enchant something 
-- **money** - players can contribute money with /cq deposit <amount>
+- ```playerkill```: kill other players
+- ```blockbreak```: break a block specified in the materials list in the configuration  
+- ```blockplace```: place a block specified in the materials list in the configuration 
+- ```projectilekill```: kill entities with a projectile specify entities in the configuration 
+- ```shear```: shear sheep
+- ```tame```: tame animals
+- ```milkcow```: milk cow
+- ```craftitem```: craft something
+- ```consumeitem```: consume an item - like eating an apple
+- ```enchantitem```: enchant something 
+- ```money```: players can contribute money with /cq deposit <amount>
+
+## Placeholders
+The questId is the key used in the yml file. In the quest above the id would be Fishing. If multiple
+quests with the same id are live it will chose the one that was created first.
+
+- ```%communityquests_goal_<questId>%```: quest goal
+- ```%communityquests_complete_<questId>%```: amount complete for a quest
+- ```%communityquests_time_remaining_<questId>%```: time remaining in the quest
+- ```%communityquests_name_<questId>%```: the quest display name
+- ```%communityquests_description_<questId>%```: the quest description
+
 

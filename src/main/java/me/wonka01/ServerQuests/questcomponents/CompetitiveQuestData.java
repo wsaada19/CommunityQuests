@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.questcomponents;
 
+import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 import org.bukkit.Material;
@@ -39,5 +40,10 @@ public class CompetitiveQuestData extends QuestData {
             return false;
         }
         return (getQuestGoal() > 0 && playerData.getAmountContributed() >= getQuestGoal());
+    }
+
+    @Override
+    public EventType getEventType() {
+        return EventType.COMPETITIVE;
     }
 }

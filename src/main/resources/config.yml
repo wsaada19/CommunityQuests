@@ -21,6 +21,9 @@ Quests:
 #            - Zombie
 #            - Pig
 #        description: "&fKill 5 zombies as fast as you can!"
+#        displayItem: ZOMBIE_HEAD
+#        worlds:
+#           - World
 #        goal: 5 # The goal is the amount of the task to be completed
 #        rewards:
 #            experience: 100z

@@ -3,11 +3,15 @@ package me.wonka01.placeholders;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
+import me.wonka01.ServerQuests.questcomponents.QuestData;
+import me.wonka01.ServerQuests.utils.Colorization;
+import me.wonka01.ServerQuests.utils.NumberUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import java.util.List;
 
-public class CommunityQuestsPlaceholders extends PlaceholderExpansion {
+public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements Colorization {
 
     @Override
     public boolean canRegister() {
@@ -26,7 +30,7 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion {
 
     @Override
     public String getVersion() {
-        return "2.16";
+        return "1.3.4";
     }
 
     @Override
@@ -36,49 +40,44 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion {
 
     @Override
     public String onRequest(OfflinePlayer player, String identifier) {
-
         String questId = identifier.substring(identifier.lastIndexOf("_") + 1);
+        List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
+        QuestData questData = null;
 
+        for (QuestController controller : quests) {
+            if (controller.getQuestData().getQuestId().equals(questId)) {
+                questData = controller.getQuestData();
+            }
+        }
+
+        if (questData == null) {
+            return "no quest found";
+        }
+
+        // %communityquests_goal_<questId>%
         if (identifier.startsWith("goal")) {
-            List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
-            if(quests.size() > 0) {
-                return String.valueOf(quests.get(0).getQuestData().getQuestGoal());
-            }
-            return "0";
+            return String.valueOf(questData.getQuestGoal());
         }
 
+        // %communityquests_complete_questId%
         if (identifier.startsWith("complete")) {
-            List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
-            if(quests.size() > 0) {
-                return String.valueOf(quests.get(0).getQuestData().getAmountCompleted());
-            }
-            return "0";
+            return NumberUtils.decimals(questData.getAmountCompleted());
         }
 
+        // %communityquests_time_remaining_questId%
         if (identifier.startsWith("time_remaining")) {
-            List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
-            if(quests.size() > 0) {
-                return String.valueOf(quests.get(0).getQuestData().getQuestDuration());
-            }
-            return "0";
+            return String.valueOf(questData.getQuestDuration());
         }
 
+        // %communityquests_name_questId%
         if (identifier.startsWith("name")) {
-            List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
-            if(quests.size() > 0) {
-                return String.valueOf(quests.get(0).getQuestData().getDisplayName());
-            }
-            return "";
+            return color(questData.getDisplayName());
         }
 
+        // %communityquests_description_questId%
         if (identifier.startsWith("description")) {
-            List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
-            if(quests.size() > 0) {
-                return String.valueOf(quests.get(0).getQuestData().getDescription());
-            }
-            return "";
+            return color(questData.getDescription());
         }
-
         return null;
     }
 }

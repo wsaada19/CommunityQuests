@@ -27,7 +27,6 @@ public abstract class QuestListener {
 
     protected List<QuestController> tryGetControllersOfEventType(ObjectiveType type) {
         List<QuestController> controllers = new ArrayList<>();
-
         for (QuestController controller : activeQuests.getActiveQuestsList()) {
             if (controller.getObjectiveType() == type) {
                 controllers.add(controller);

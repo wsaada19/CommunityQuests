@@ -1,6 +1,7 @@
 package me.wonka01.ServerQuests.questcomponents;
 
 import lombok.Getter;
+import me.wonka01.ServerQuests.enums.EventType;
 import org.bukkit.Material;
 
 @Getter
@@ -43,5 +44,9 @@ public class QuestData {
 
     public boolean hasGoal() {
         return questGoal > 0;
+    }
+
+    public EventType getEventType() {
+        return EventType.COLLAB;
     }
 }

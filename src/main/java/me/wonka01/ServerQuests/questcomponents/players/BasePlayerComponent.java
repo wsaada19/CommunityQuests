@@ -97,7 +97,7 @@ public class BasePlayerComponent implements Colorization {
         return 0;
     }
 
-    public JSONArray getPlayerDataInJson() {
+    public JSONArray toJSONArray() {
         JSONArray jArray = new JSONArray();
         for (UUID key : playerMap.keySet()) {
             JSONObject jsonObject = new JSONObject();
