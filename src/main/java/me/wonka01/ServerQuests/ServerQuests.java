@@ -29,7 +29,6 @@ public class ServerQuests extends JavaPlugin {
     public void onEnable() {
         new CommandManager(this);
 
-        loadConfig();
         loadSaveData();
 
         if (!setupEconomy()) {
@@ -39,6 +38,7 @@ public class ServerQuests extends JavaPlugin {
         registerPlaceholders();
         registerGuiEvents();
         registerQuestEvents();
+
 
         getLogger().info("Plugin is enabled");
     }
@@ -56,11 +56,6 @@ public class ServerQuests extends JavaPlugin {
 
     public @NonNull Messages messages() {
         return this.messages;
-    }
-
-    private void loadConfig() {
-        getConfig().options().copyDefaults(true);
-        saveConfig();
     }
 
     private void loadSaveData() {

@@ -22,7 +22,7 @@ public class GuiEvent extends QuestListener {
 
             List<String> materials = controller.getEventConstraints().getMaterialNames();
             int goal = controller.getQuestData().getQuestGoal();
-            int completed = (int)controller.getQuestData().getAmountCompleted();
+            int completed = controller.getQuestData().getQuestGoal();
             if (materials.isEmpty() || MaterialUtil.containsMaterial(itemsToAdd.getType().toString(), materials)) {
                 if (goal > 0 && completed + itemsToAdd.getAmount() > goal) {
                     int difference = completed + itemsToAdd.getAmount() - goal;

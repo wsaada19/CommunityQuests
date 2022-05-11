@@ -1,6 +1,7 @@
 package me.wonka01.ServerQuests.configuration;
 
 import lombok.Getter;
+import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
 import org.bukkit.Material;
@@ -20,7 +21,7 @@ public class QuestModel {
     private final List<String> mobNames;
     private final ArrayList<Reward> rewards;
     private final List<String> itemNames;
-    private Material displayItem;
+    private final Material displayItem;
     private final List<String> worlds;
 
     public QuestModel(String questId, String displayName, String eventDescription,
@@ -36,8 +37,12 @@ public class QuestModel {
         this.rewards = rewards;
         this.itemNames = itemNames;
         this.worlds = worlds;
-        this.displayItem = Material.getMaterial(displayItem.toUpperCase());
-        if (this.displayItem == null)
+        if (Utils.contains(Material.values(), displayItem)) {
+
+            this.displayItem = Material.matchMaterial(displayName);
+        } else {
+
             this.displayItem = objective.getDefaultMaterial();
+        }
     }
 }

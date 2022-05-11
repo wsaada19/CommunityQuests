@@ -10,20 +10,16 @@ public final class Messages extends Getters {
         super(plugin);
     }
 
+    public @NonNull String message(@NonNull String path, @NonNull QuestData data) {
+        return getPrefix() + string(path, data);
+    }
+
     public @NonNull String getPrefix() {
         return color(string("prefix"));
     }
 
     public @NonNull String message(@NonNull String path) {
         return !get().contains(path) ? "" : color(getPrefix() + string(path));
-    }
-
-    public @NonNull String message(@NonNull String path, @NonNull QuestData quest) {
-
-        String result = message(path).replace("questName", quest.getDisplayName());
-        result = result.replace("questDescription", quest.getDescription());
-
-        return result;
     }
 
     public @NonNull String string(@NonNull String path, @NonNull QuestData quest) {
