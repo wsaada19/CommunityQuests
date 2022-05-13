@@ -14,7 +14,6 @@ import java.util.UUID;
 // TODO: Cleanup
 public class BarManager implements Listener {
 
-    public final static String HIDE_BAR = "communityquests.bossbar.hide";
     private static final UUID[] questsToShow = new UUID[1];
     private static boolean disabled = false;
 
@@ -72,9 +71,8 @@ public class BarManager implements Listener {
     }
 
     public static void startShowingPlayerBar(Player player) {
-        if (disabled || player.getPlayer().hasPermission(HIDE_BAR)) {
-            return;
-        }
+        if (disabled) return;
+
         for (UUID id : questsToShow) {
             QuestController controller = ActiveQuests.getActiveQuestsInstance().getQuestById(id);
             if (controller != null && controller.getQuestData().hasGoal()) {
@@ -102,10 +100,8 @@ public class BarManager implements Listener {
     }
 
     private static boolean isSlotFree() {
-        for (int i = 0; i < questsToShow.length; i++) {
-            if (questsToShow[i] == null) {
-                return true;
-            }
+        for (UUID questId : questsToShow) {
+            if (questId == null) return true;
         }
         return false;
     }
@@ -116,7 +112,7 @@ public class BarManager implements Listener {
 
     @EventHandler
     public void onPlayerLogin(PlayerJoinEvent joinEvent) {
-        if (disabled || joinEvent.getPlayer().hasPermission(HIDE_BAR)) {
+        if (disabled) {
             return;
         }
         startShowingPlayerBar(joinEvent.getPlayer());
@@ -124,7 +120,7 @@ public class BarManager implements Listener {
 
     @EventHandler
     public void onPlayerLogout(PlayerQuitEvent quitEvent) {
-        if (disabled || quitEvent.getPlayer().hasPermission(HIDE_BAR)) {
+        if (disabled) {
             return;
         }
         stopShowingPlayerBar(quitEvent.getPlayer());
