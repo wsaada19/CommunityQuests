@@ -13,7 +13,6 @@ public abstract class PluginCommand implements Colorization {
     private final boolean requiresPlayer;
 
     protected PluginCommand(ServerQuests plugin, boolean requiresPlayer) {
-
         this.plugin = plugin;
         this.requiresPlayer = requiresPlayer;
     }
