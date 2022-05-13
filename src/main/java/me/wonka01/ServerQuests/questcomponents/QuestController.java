@@ -2,13 +2,13 @@ package me.wonka01.ServerQuests.questcomponents;
 
 import lombok.Getter;
 import lombok.NonNull;
+import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.bossbar.QuestBar;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.schedulers.QuestTimer;
-import me.knighthat.apis.utils.Colorization;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -74,7 +74,7 @@ public class QuestController implements Colorization {
     }
 
     public boolean isCompetitive() {
-        return (questData instanceof CompetitiveQuestData);
+        return (questData.getEventType().equals(EventType.COMPETITIVE));
     }
 
     private void updateBossBar() {

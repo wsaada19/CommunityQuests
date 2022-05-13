@@ -10,7 +10,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class StartMenu extends Menu {
@@ -23,7 +22,6 @@ public class StartMenu extends Menu {
     protected void setContents() {
 
         for (String key : getLibrary().getAllQuestKeys()) {
-
             QuestModel model = getQuestModel(key);
 
             List<String> lore = new ArrayList<>();
@@ -50,9 +48,7 @@ public class StartMenu extends Menu {
 
     @Override
     protected void onItemClick(@NonNull InventoryClickEvent event) {
-
         try {
-
             int slot = event.getRawSlot();
             List<String> keys = new ArrayList<>(getLibrary().getAllQuestKeys());
             QuestModel model = getQuestModel(keys.get(slot));

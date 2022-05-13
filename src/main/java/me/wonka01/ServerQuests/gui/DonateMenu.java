@@ -13,18 +13,20 @@ import org.bukkit.inventory.ItemStack;
 public class DonateMenu extends Menu {
 
     private final int inputSlot = 22;
-    private final @NonNull Material borderItem;
+    private @NonNull Material borderItem;
 
     public DonateMenu(ServerQuests plugin, @NonNull Player owner) {
         super(plugin, owner, "donateMenu", 45);
 
-        borderItem = Material.DIAMOND_BLOCK;
+        borderItem = Material.getMaterial(getPlugin().getConfig().getString("donateMenuItem"));
+        if(borderItem == null) {
+            borderItem = Material.DIAMOND_BLOCK;
+        }
     }
 
     @Override
     protected void setContents() {
-
-        ItemStack item = super.createItemStack(Material.DIAMOND_BLOCK, " ");
+        ItemStack item = super.createItemStack(borderItem, " ");
 
         for (int slot = 0; slot < getSlots(); slot++)
             if (slot != inputSlot)
@@ -33,8 +35,7 @@ public class DonateMenu extends Menu {
 
     @Override
     protected void onItemClick(@NonNull InventoryClickEvent event) {
-
-        String cannotDonate = getPlugin().messages().message("canDonateItem");
+        String cannotDonate = getPlugin().messages().message("cantDonateItem");
         GuiEvent handler = new GuiEvent(ActiveQuests.getActiveQuestsInstance());
         ItemStack atCursor = event.getCursor().clone();
 
