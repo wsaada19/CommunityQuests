@@ -71,7 +71,6 @@ public class BarManager implements Listener {
     }
 
     public static void startShowingPlayerBar(Player player) {
-        if (disabled || player.getPlayer().hasPermission(HIDE_BAR)) {
         if (disabled) return;
 
         for (UUID id : questsToShow) {
