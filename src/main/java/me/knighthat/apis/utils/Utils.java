@@ -1,7 +1,9 @@
 package me.knighthat.apis.utils;
 
+import lombok.NonNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,5 +26,10 @@ public interface Utils {
 
         List<F> fromList = new ArrayList<>(Arrays.asList(from));
         return contains(fromList, value);
+    }
+
+    static @NonNull String decimalToString(double a) {
+        DecimalFormat format = new DecimalFormat("0.#");
+        return format.format(a);
     }
 }

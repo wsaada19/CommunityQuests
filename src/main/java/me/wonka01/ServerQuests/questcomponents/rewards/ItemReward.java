@@ -2,7 +2,7 @@ package me.wonka01.ServerQuests.questcomponents.rewards;
 
 import lombok.Getter;
 import lombok.NonNull;
-import me.wonka01.ServerQuests.utils.Colorization;
+import me.knighthat.apis.utils.Colorization;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;

@@ -4,6 +4,7 @@ import lombok.Getter;
 import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
 import java.util.ArrayList;
@@ -37,9 +38,10 @@ public class QuestModel {
         this.rewards = rewards;
         this.itemNames = itemNames;
         this.worlds = worlds;
+
         if (Utils.contains(Material.values(), displayItem)) {
 
-            this.displayItem = Material.matchMaterial(displayName);
+            this.displayItem = Material.valueOf(displayItem);
         } else {
 
             this.displayItem = objective.getDefaultMaterial();

@@ -2,7 +2,7 @@ package me.wonka01.ServerQuests.gui;
 
 import lombok.NonNull;
 import me.knighthat.apis.menus.Menu;
-import me.wonka01.ServerQuests.utils.NumberUtils;
+import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
@@ -24,7 +24,9 @@ public class StopMenu extends Menu {
     @Override
     protected void setContents() {
         for (QuestController controller : getControllers()) {
-            String completed = NumberUtils.decimals(controller.getQuestData().getAmountCompleted()),
+
+
+            String completed = Utils.decimalToString(controller.getQuestData().getAmountCompleted()),
                 progressStr = getPlugin().messages().string("progress");
             QuestData data = controller.getQuestData();
 

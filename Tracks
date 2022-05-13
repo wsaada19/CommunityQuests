@@ -20,5 +20,6 @@ Changes:
   - Removed PermissionNode class as it was unused
   - Merged ObjectiveTypeUtil to ObjectiveType
   - Moved default config to external source
+  - Merged NumberUtils, EntityUtils, MaterialUtils into one single file
    
 

@@ -1,7 +1,7 @@
 package me.wonka01.ServerQuests.questcomponents.players;
 
-import me.wonka01.ServerQuests.utils.Colorization;
-import me.wonka01.ServerQuests.utils.NumberUtils;
+import me.knighthat.apis.utils.Colorization;
+import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
 import org.bukkit.Bukkit;
@@ -73,7 +73,7 @@ public class BasePlayerComponent implements Colorization {
             result.append(") &a");
             result.append(map.get(key).getName());
             result.append(" &7- &f");
-            result.append(NumberUtils.decimals(map.get(key).getAmountContributed()));
+            result.append(Utils.decimalToString(map.get(key).getAmountContributed()));
 
             count++;
         }

@@ -1,9 +1,9 @@
 package me.wonka01.ServerQuests.events;
 
+import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
-import me.wonka01.ServerQuests.utils.MaterialUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,14 +20,13 @@ public class ConsumeItemQuestEvent extends QuestListener implements Listener {
     @EventHandler
     public void onConsumeItem(PlayerItemConsumeEvent event) {
         Player player = event.getPlayer();
-        String materialName = event.getItem().getType().toString();
 
         List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.CONSUME_ITEM);
         for (QuestController controller : controllers) {
             List<String> materials = controller.getEventConstraints().getMaterialNames();
-            if (materials.isEmpty() || MaterialUtil.containsMaterial(materialName, materials)) {
+
+            if (materials.isEmpty() || Utils.contains(materials, event.getItem().getType()))
                 updateQuest(controller, player, 1);
-            }
         }
     }
 }

@@ -1,9 +1,9 @@
 package me.wonka01.ServerQuests.events;
 
+import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
-import me.wonka01.ServerQuests.utils.MaterialUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -23,7 +23,8 @@ public class GuiEvent extends QuestListener {
             List<String> materials = controller.getEventConstraints().getMaterialNames();
             int goal = controller.getQuestData().getQuestGoal();
             int completed = controller.getQuestData().getQuestGoal();
-            if (materials.isEmpty() || MaterialUtil.containsMaterial(itemsToAdd.getType().toString(), materials)) {
+
+            if (materials.isEmpty() || Utils.contains(materials, itemsToAdd.getType())) {
                 if (goal > 0 && completed + itemsToAdd.getAmount() > goal) {
                     int difference = completed + itemsToAdd.getAmount() - goal;
                     ItemStack itemsToReturn = new ItemStack(itemsToAdd.getType(), difference);

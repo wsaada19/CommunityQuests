@@ -8,7 +8,7 @@ import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.bossbar.QuestBar;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.schedulers.QuestTimer;
-import me.wonka01.ServerQuests.utils.Colorization;
+import me.knighthat.apis.utils.Colorization;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
