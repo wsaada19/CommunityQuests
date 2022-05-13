@@ -13,20 +13,20 @@ import org.bukkit.inventory.ItemStack;
 public class DonateMenu extends Menu {
 
     private final int inputSlot = 22;
-    private Material menuItem;
+    private @NonNull Material borderItem;
 
     public DonateMenu(ServerQuests plugin, @NonNull Player owner) {
         super(plugin, owner, "donateMenu", 45);
-        menuItem = Material.getMaterial(getPlugin().getConfig().getString("donateMenuItem"));
-        if(menuItem == null) {
-            menuItem = Material.DIAMOND_BLOCK;
+
+        borderItem = Material.getMaterial(getPlugin().getConfig().getString("donateMenuItem"));
+        if(borderItem == null) {
+            borderItem = Material.DIAMOND_BLOCK;
         }
     }
 
     @Override
     protected void setContents() {
-
-        ItemStack item = super.createItemStack(menuItem, " ");
+        ItemStack item = super.createItemStack(borderItem, " ");
 
         for (int slot = 0; slot < getSlots(); slot++)
             if (slot != inputSlot)
@@ -35,9 +35,12 @@ public class DonateMenu extends Menu {
 
     @Override
     protected void onItemClick(@NonNull InventoryClickEvent event) {
-        String cantDonateMessage = getPlugin().messages().message("cantDonateItem");
+        String cannotDonate = getPlugin().messages().message("cantDonateItem");
         GuiEvent handler = new GuiEvent(ActiveQuests.getActiveQuestsInstance());
         ItemStack atCursor = event.getCursor().clone();
+
+        if (event.getRawSlot() > getSlots())
+            event.setCancelled(false);
 
         switch (event.getAction()) {
 
@@ -59,7 +62,7 @@ public class DonateMenu extends Menu {
                         getOwner().setItemOnCursor(new ItemStack(Material.AIR));
                     } else {
 
-                        getOwner().sendMessage(cantDonateMessage);
+                        getOwner().sendMessage(cannotDonate);
                     }
                 break;
 
@@ -70,7 +73,7 @@ public class DonateMenu extends Menu {
                     if (handler.tryAddItemsToQuest(atCursor, getOwner())) {
                         getOwner().setItemOnCursor(atCursor);
                     } else {
-                        getOwner().sendMessage(cantDonateMessage);
+                        getOwner().sendMessage(cannotDonate);
                     }
                 }
             default:

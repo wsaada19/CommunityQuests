@@ -1,4 +1,4 @@
-package me.wonka01.ServerQuests.utils;
+package me.knighthat.apis.utils;
 
 import lombok.NonNull;
 import org.bukkit.ChatColor;

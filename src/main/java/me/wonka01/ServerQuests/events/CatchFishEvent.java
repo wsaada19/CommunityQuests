@@ -1,9 +1,9 @@
 package me.wonka01.ServerQuests.events;
 
+import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
-import me.wonka01.ServerQuests.utils.EntityUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
@@ -24,9 +24,8 @@ public class CatchFishEvent extends QuestListener implements Listener {
 
             for (QuestController controller : controllers) {
                 List<String> entities = controller.getEventConstraints().getMobNames();
-                if (entities.isEmpty() || EntityUtil.containsEntity(fishName, entities)) {
+                if(entities.isEmpty() || Utils.contains(entities, fishName))
                     updateQuest(controller, event.getPlayer(), 1);
-                }
             }
         }
     }

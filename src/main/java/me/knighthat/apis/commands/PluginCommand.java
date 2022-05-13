@@ -2,7 +2,7 @@ package me.knighthat.apis.commands;
 
 import lombok.Getter;
 import lombok.NonNull;
-import me.wonka01.ServerQuests.utils.Colorization;
+import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import org.bukkit.command.CommandSender;
 

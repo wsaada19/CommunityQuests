@@ -2,7 +2,7 @@ package me.wonka01.ServerQuests.gui;
 
 import lombok.NonNull;
 import me.knighthat.apis.menus.Menu;
-import me.wonka01.ServerQuests.utils.NumberUtils;
+import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
@@ -30,7 +30,7 @@ public class ViewMenu extends Menu {
 
         if (data.getQuestGoal() > 0) {
 
-            String completed = NumberUtils.decimals(data.getAmountCompleted()),
+            String completed = Utils.decimalToString(data.getAmountCompleted()),
                 progressStr = getPlugin().messages().string("progress");
             progressStr += ": &a" + completed + "/" + data.getQuestGoal();
 
@@ -53,7 +53,7 @@ public class ViewMenu extends Menu {
         if (topPlayers != null && data.getQuestGoal() > 0) {
 
             topsList = "&7" + topPlayers.getName() + ": &a";
-            topsList += NumberUtils.decimals(topPlayers.getAmountContributed()) + "/" + data.getQuestGoal();
+            topsList += Utils.decimalToString(topPlayers.getAmountContributed()) + "/" + data.getQuestGoal();
         }
 
         lore.add(color(topsList));
@@ -65,7 +65,7 @@ public class ViewMenu extends Menu {
     private @NonNull String getPlayerProgress(@NonNull QuestController ctrl) {
         double progress = ctrl.getPlayerComponent().getAmountContributed(getOwner());
         String progressStr = getPlugin().messages().string("you");
-        progressStr += ": &a" + NumberUtils.decimals(progress);
+        progressStr += ": &a" + Utils.decimalToString(progress);
         return color(progressStr);
     }
 }

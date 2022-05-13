@@ -1,7 +1,7 @@
 package me.knighthat.apis.files;
 
 import lombok.NonNull;
-import me.wonka01.ServerQuests.utils.Colorization;
+import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 
 public abstract class Getters extends PluginFiles implements Colorization {

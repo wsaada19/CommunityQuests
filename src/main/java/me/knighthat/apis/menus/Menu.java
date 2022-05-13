@@ -3,11 +3,11 @@ package me.knighthat.apis.menus;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
-import me.wonka01.ServerQuests.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
+import me.knighthat.apis.utils.Colorization;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -20,7 +20,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,23 +63,27 @@ public abstract class Menu implements InventoryHolder, Colorization {
     }
 
     public void open() {
+
         setBorder();
         setButtons();
         setContents();
+
         owner.openInventory(inventory);
     }
 
-    protected @NonNull ItemStack createItemStack(@NonNull Material material, @NonNull String name) {
-        return createItemStack(material, name, new ArrayList<>());
+    protected @NonNull ItemStack createItemStack(@NonNull Material m, @NonNull String n) {
+        return createItemStack(m, n, new ArrayList<>());
     }
 
-    protected @NonNull ItemStack createItemStack(@NonNull Material material, @NonNull String name, @NonNull List<String> l) {
+    protected @NonNull ItemStack createItemStack(@NonNull Material m, @NonNull String n, @NonNull List<String> l) {
 
-        ItemStack item = new ItemStack(material);
+        ItemStack item = new ItemStack(m);
 
         try {
+
             ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(color(name));
+
+            meta.setDisplayName(color(n));
             meta.setLore(l.stream().map(this::color).collect(Collectors.toList()));
             meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
@@ -92,7 +95,10 @@ public abstract class Menu implements InventoryHolder, Colorization {
     }
 
     protected @NonNull List<String> getLoreFromData(@NonNull QuestData data) {
-        List<String> lore = new ArrayList<>(Arrays.asList(color(data.getDescription()), " "));
+
+        List<String> lore = new ArrayList<>();
+        lore.add(color(data.getDescription()));
+        lore.add(" ");
 
         int duration = data.getQuestDuration();
         if (duration > 0) {
@@ -101,6 +107,7 @@ public abstract class Menu implements InventoryHolder, Colorization {
             lore.add(color(remaining + duration));
             lore.add(" ");
         }
+
         return lore;
     }
 }

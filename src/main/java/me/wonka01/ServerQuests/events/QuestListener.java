@@ -16,7 +16,7 @@ public abstract class QuestListener {
     }
 
     protected void updateQuest(QuestController controller, Player player, double amount) {
-        if(!isEnabledInWorld(controller.getEventConstraints().getWorlds(), player.getWorld().getName())){
+        if (!isEnabledInWorld(controller.getEventConstraints().getWorlds(), player.getWorld().getName())) {
             return;
         }
         controller.updateQuest(amount, player);
@@ -28,7 +28,7 @@ public abstract class QuestListener {
     protected List<QuestController> tryGetControllersOfEventType(ObjectiveType type) {
         List<QuestController> controllers = new ArrayList<>();
         for (QuestController controller : activeQuests.getActiveQuestsList()) {
-            if (controller.getObjectiveType() == type) {
+            if (controller.getObjective().equals(type)) {
                 controllers.add(controller);
             }
         }

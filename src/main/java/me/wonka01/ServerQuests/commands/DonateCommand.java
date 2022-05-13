@@ -35,7 +35,7 @@ public class DonateCommand extends PluginCommand {
 
         List<QuestController> controllerList = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
         for (QuestController controller : controllerList)
-            if (controller.getObjectiveType() == ObjectiveType.GUI) {
+            if (controller.getObjective().equals(ObjectiveType.GUI)) {
                 new DonateMenu(getPlugin(), player).open();
                 return;
             }

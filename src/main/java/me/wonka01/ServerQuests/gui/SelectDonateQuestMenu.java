@@ -23,7 +23,7 @@ public class SelectDonateQuestMenu extends Menu {
     protected void setContents() {
 
         for (QuestController ctrl : super.getControllers())
-            if (ctrl.getObjectiveType().equals(ObjectiveType.GUI)) {
+            if (ctrl.getObjective().equals(ObjectiveType.GUI)) {
 
                 QuestData data = ctrl.getQuestData();
 
@@ -42,7 +42,7 @@ public class SelectDonateQuestMenu extends Menu {
 
             int slot = event.getRawSlot();
             if (super.getControllers().get(slot) != null)
-                new DonateMenu(getPlugin(), getOwner());
+                new DonateMenu(getPlugin(), getOwner()).open();
         } catch (IndexOutOfBoundsException ignored) {
         }
     }

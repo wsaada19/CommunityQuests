@@ -1,12 +1,11 @@
 package me.wonka01.placeholders;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import me.knighthat.apis.utils.Colorization;
+import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
-import me.wonka01.ServerQuests.utils.Colorization;
-import me.wonka01.ServerQuests.utils.NumberUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import java.util.List;
@@ -61,7 +60,7 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
 
         // %communityquests_complete_questId%
         if (identifier.startsWith("complete")) {
-            return NumberUtils.decimals(questData.getAmountCompleted());
+            return Utils.decimalToString(questData.getAmountCompleted());
         }
 
         // %communityquests_time_remaining_questId%
