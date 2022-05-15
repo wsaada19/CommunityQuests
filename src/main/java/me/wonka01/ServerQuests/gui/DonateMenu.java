@@ -14,10 +14,14 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class DonateMenu extends Menu {
 
@@ -35,7 +39,7 @@ public class DonateMenu extends Menu {
     }
 
     @Override
-    protected void setContents() {
+    protected void setBorder() {
         ItemStack item = super.createItemStack(borderItem, " ");
 
         for (int slot = 0; slot < getSlots(); slot++)
@@ -68,47 +72,78 @@ public class DonateMenu extends Menu {
             case PLACE_ALL:
             case PLACE_ONE:
 
-                if (event.getRawSlot() != inputSlot)
+                if (event.getRawSlot() != inputSlot) {
                     return;
+                } else
+                    event.setCancelled(false);
 
-                ItemStack putDown = getInventory().getItem(getInputSlot());
-                boolean isAcceptable = false;
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
 
-                for (QuestController ctrl : getControllers()) {
+                        ItemStack putDown = getInventory().getItem(getInputSlot());
+                        boolean isAcceptable = false;
 
-                    QuestData data = ctrl.getQuestData();
-                    double total = data.getAmountCompleted() + putDown.getAmount();
-                    int goal = data.getQuestGoal();
+                        for (QuestController ctrl : getControllers()) {
 
-                    List<String> requirements = ctrl.getEventConstraints().getMaterialNames();
-                    if (requirements.isEmpty() || Utils.contains(requirements, putDown)) {
+                            QuestData data = ctrl.getQuestData();
+                            double total = data.getAmountCompleted() + putDown.getAmount();
+                            int goal = data.getQuestGoal();
 
-                        if (total > goal) {
+                            List<String> requirements = ctrl.getEventConstraints().getMaterialNames();
+                            if (requirements.isEmpty() || Utils.contains(requirements, putDown.getType())) {
 
-                            int diff = (int) total - goal;
+                                int remaining = 0;
 
-                            putDown.setAmount(putDown.getAmount() - diff);
-                            getOwner().updateInventory();
+                                if (total > goal) {
 
-                            ItemStack toCursor = event.getCursor().clone();
-                            toCursor.setAmount(toCursor.getAmount() + diff);
+                                    int diff = (int) total - goal;
+                                    remaining = diff;
 
-                            getOwner().setItemOnCursor(toCursor);
+                                    ItemStack toCursor = event.getCursor().clone();
+                                    toCursor.setAmount(toCursor.getAmount() + diff);
+
+                                    getOwner().setItemOnCursor(toCursor);
+                                }
+
+                                updateQuest(ctrl, putDown);
+                                isAcceptable = true;
+
+                                putDown.setAmount(remaining);
+                                getOwner().updateInventory();
+                            }
                         }
 
-                        updateQuest(ctrl, putDown);
-                        isAcceptable = true;
+                        if (!isAcceptable) {
+
+                            String cannotDonate = getPlugin().messages().message("cantDonateItem");
+                            getOwner().sendMessage(cannotDonate);
+                        }
+
                     }
-                }
-
-                if (!isAcceptable) {
-
-                    String cannotDonate = getPlugin().messages().message("cantDonateItem");
-                    getOwner().sendMessage(cannotDonate);
-                }
+                }.runTaskLater(getPlugin(), 1);
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onClose(@NonNull InventoryCloseEvent event) {
+
+        ItemStack leftover = getInventory().getItem(getInputSlot());
+        if (leftover == null) return;
+
+        PlayerInventory inventory = getOwner().getInventory();
+        if (inventory.firstEmpty() > -1) {
+
+            Map<Integer, ItemStack> items = inventory.addItem(leftover);
+            items.forEach((slot, item) -> dropIt(item));
+        } else
+            dropIt(leftover);
+    }
+
+    private void dropIt(@NonNull ItemStack item) {
+        getOwner().getWorld().dropItemNaturally(getOwner().getLocation(), item);
     }
 
     @Override
