@@ -40,7 +40,7 @@ public class QuestController implements Colorization {
         }
     }
 
-    public void updateQuest(double count, Player player) {
+    public boolean updateQuest(double count, Player player) {
         double amountToAdd = count;
 
         if (questData.hasGoal()) {
@@ -53,6 +53,8 @@ public class QuestController implements Colorization {
         playerComponent.savePlayerAction(player, amountToAdd);
         updateBossBar();
         sendPlayerMessage(player);
+
+        return getQuestData().isGoalComplete();
     }
 
     public void endQuest() {
