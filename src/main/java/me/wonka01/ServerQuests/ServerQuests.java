@@ -7,13 +7,16 @@ import me.knighthat.apis.files.Messages;
 import me.knighthat.apis.menus.MenuEvents;
 import me.wonka01.ServerQuests.commands.CommandManager;
 import me.wonka01.ServerQuests.configuration.JsonQuestSave;
-import me.wonka01.ServerQuests.events.*;
-import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
+import me.wonka01.ServerQuests.events.entities.*;
+import me.wonka01.ServerQuests.events.materials.ConsumeEvent;
+import me.wonka01.ServerQuests.events.materials.CraftingEvent;
+import me.wonka01.ServerQuests.events.materials.EnchantEvent;
+import me.wonka01.ServerQuests.events.materials.blocks.BreakEvent;
+import me.wonka01.ServerQuests.events.materials.blocks.PlaceEvent;
 import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
 import me.wonka01.placeholders.CommunityQuestsPlaceholders;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
-
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -79,20 +82,22 @@ public class ServerQuests extends JavaPlugin {
     }
 
     private void registerQuestEvents() {
-        ActiveQuests activeQuests = config.getActiveQuests();
+
+        new MobKillEvent(this);
+        new BreakEvent(this);
+        new CraftingEvent(this);
+        new KillPlayerEvent(this);
+        new MilkingEvent(this);
+        new PlaceEvent(this);
+        new ProjectileKillEvent(this);
+        new ShearEvent(this);
+        new TameEvent(this);
+        new ConsumeEvent(this);
+        new CatchFishEvent(this);
+        new EnchantEvent(this);
+        new NPCInteractEvent(this);
+
         getServer().getPluginManager().registerEvents(new BarManager(), this);
-        getServer().getPluginManager().registerEvents(new BreakEvent(activeQuests), this);
-        getServer().getPluginManager().registerEvents(new CatchFishEvent(activeQuests), this);
-        getServer().getPluginManager().registerEvents(new KillPlayerEvent(activeQuests), this);
-        getServer().getPluginManager().registerEvents(new MobKillEvent(activeQuests), this);
-        getServer().getPluginManager().registerEvents(new ProjectileKillEvent(activeQuests), this);
-        getServer().getPluginManager().registerEvents(new PlaceEvent(activeQuests), this);
-        getServer().getPluginManager().registerEvents(new ShearEvent(activeQuests), this);
-        getServer().getPluginManager().registerEvents(new TameEvent(activeQuests), this);
-        getServer().getPluginManager().registerEvents(new MilkCowEvent(activeQuests), this);
-        getServer().getPluginManager().registerEvents(new CraftItemQuestEvent(activeQuests), this);
-        getServer().getPluginManager().registerEvents(new ConsumeItemQuestEvent(activeQuests), this);
-        getServer().getPluginManager().registerEvents(new EnchantItemQuestEvent(activeQuests), this);
     }
 
     private void registerGuiEvents() {

@@ -13,7 +13,7 @@ public enum ObjectiveType {
     PROJ_KILL("projectilekill", Material.BOW),
     BLOCK_PLACE("blockplace", Material.DIRT),
     SHEAR("shear", Material.SHEARS),
-    TAME("team", Material.BONE),
+    TAME("tame", Material.BONE),
     GUI("donate", Material.MILK_BUCKET),
     MILK_COW("milkcow", Material.CHEST),
     CRAFT_ITEM("craftitem", Material.CHAINMAIL_HELMET),
