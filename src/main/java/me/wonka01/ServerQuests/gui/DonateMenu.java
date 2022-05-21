@@ -50,81 +50,72 @@ public class DonateMenu extends Menu {
     @Override
     protected void onItemClick(@NonNull InventoryClickEvent event) {
 
-        if (event.getRawSlot() > getSlots()) {
-            event.setCancelled(false);
-            return;
-        }
-
         InventoryAction action = event.getAction();
         switch (action) {
-
-            case PICKUP_ALL:
-            case PICKUP_HALF:
-            case PICKUP_ONE:
-            case PICKUP_SOME:
-
-                if (getInventory().getItem(getInputSlot()) != null)
-                    event.setCancelled(false);
-
-                break;
 
             case PLACE_SOME:
             case PLACE_ALL:
             case PLACE_ONE:
 
-                if (event.getRawSlot() != inputSlot) {
-                    return;
-                } else
-                    event.setCancelled(false);
+                if (event.getSlot() == inputSlot)
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
 
-                new BukkitRunnable() {
-                    @Override
-                    public void run() {
+                            ItemStack putDown = getInventory().getItem(getInputSlot());
+                            boolean isAcceptable = false;
 
-                        ItemStack putDown = getInventory().getItem(getInputSlot());
-                        boolean isAcceptable = false;
+                            for (QuestController ctrl : getControllers()) {
 
-                        for (QuestController ctrl : getControllers()) {
+                                QuestData data = ctrl.getQuestData();
+                                double total = data.getAmountCompleted() + putDown.getAmount();
+                                int goal = data.getQuestGoal();
 
-                            QuestData data = ctrl.getQuestData();
-                            double total = data.getAmountCompleted() + putDown.getAmount();
-                            int goal = data.getQuestGoal();
+                                List<String> requirements = ctrl.getEventConstraints().getMaterialNames();
+                                if (requirements.isEmpty() || Utils.contains(requirements, putDown.getType())) {
 
-                            List<String> requirements = ctrl.getEventConstraints().getMaterialNames();
-                            if (requirements.isEmpty() || Utils.contains(requirements, putDown.getType())) {
+                                    int remaining = 0;
 
-                                int remaining = 0;
+                                    if (total > goal) {
 
-                                if (total > goal) {
+                                        int diff = (int) total - goal;
+                                        remaining = diff;
 
-                                    int diff = (int) total - goal;
-                                    remaining = diff;
+                                        ItemStack toCursor = event.getCursor().clone();
+                                        toCursor.setAmount(toCursor.getAmount() + diff);
 
-                                    ItemStack toCursor = event.getCursor().clone();
-                                    toCursor.setAmount(toCursor.getAmount() + diff);
+                                        getOwner().setItemOnCursor(toCursor);
+                                    }
 
-                                    getOwner().setItemOnCursor(toCursor);
+                                    updateQuest(ctrl, putDown);
+                                    isAcceptable = true;
+
+                                    putDown.setAmount(remaining);
+                                    getOwner().updateInventory();
                                 }
-
-                                updateQuest(ctrl, putDown);
-                                isAcceptable = true;
-
-                                putDown.setAmount(remaining);
-                                getOwner().updateInventory();
                             }
+
+                            if (!isAcceptable) {
+
+                                String cannotDonate = getPlugin().messages().message("cantDonateItem");
+                                getOwner().sendMessage(cannotDonate);
+                            }
+
                         }
+                    }.runTaskLater(getPlugin(), 3);
 
-                        if (!isAcceptable) {
+            case PICKUP_ALL:
+            case PICKUP_HALF:
+            case PICKUP_ONE:
+            case PICKUP_SOME:
+                if (event.getSlot() == inputSlot) {
+                    break;
+                } else return;
 
-                            String cannotDonate = getPlugin().messages().message("cantDonateItem");
-                            getOwner().sendMessage(cannotDonate);
-                        }
-
-                    }
-                }.runTaskLater(getPlugin(), 1);
             default:
-                break;
+                return;
         }
+        event.setCancelled(false);
     }
 
     @Override
