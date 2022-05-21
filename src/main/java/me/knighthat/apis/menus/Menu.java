@@ -3,11 +3,11 @@ package me.knighthat.apis.menus;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
+import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
-import me.knighthat.apis.utils.Colorization;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -45,6 +45,7 @@ public abstract class Menu implements InventoryHolder, Colorization {
 
         String title = plugin.messages().string(titlePath);
         this.inventory = Bukkit.createInventory(this, slots, title);
+
     }
 
     protected void setBorder() {

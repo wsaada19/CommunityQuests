@@ -3,11 +3,18 @@ package me.wonka01.ServerQuests.commands;
 import lombok.NonNull;
 import me.knighthat.apis.commands.PluginCommand;
 import me.wonka01.ServerQuests.ServerQuests;
-import me.wonka01.ServerQuests.events.MoneyQuest;
+import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
+import me.wonka01.ServerQuests.questcomponents.QuestController;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Range;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MoneyCommand extends PluginCommand {
 
@@ -36,10 +43,9 @@ public class MoneyCommand extends PluginCommand {
         }
 
         try {
-            double money = Double.parseDouble(args[1]);
-            MoneyQuest moneyQuest = new MoneyQuest(ActiveQuests.getActiveQuestsInstance(), getPlugin().getEconomy());
 
-            if (!moneyQuest.tryAddItemsToQuest(money, player)) {
+            double money = Double.parseDouble(args[1]);
+            if (!deposit(money, player)) {
                 String noActiveDonateQuests = getPlugin().messages().message("noActiveDonateQuests");
                 player.sendMessage(noActiveDonateQuests);
             }
@@ -47,5 +53,43 @@ public class MoneyCommand extends PluginCommand {
             String message = color(args[1] + " is not a valid number!");
             player.sendMessage(message);
         }
+    }
+
+    private boolean deposit(@Range(from = 0, to = Long.MAX_VALUE) double amount, @NonNull Player player) {
+
+        Economy economy = getPlugin().getEconomy();
+        boolean canWithdraw = false;
+        double money = amount;
+
+        for (QuestController ctrl : this.getControllers()) {
+
+            int goal = ctrl.getQuestData().getQuestGoal();
+            double completed = ctrl.getQuestData().getAmountCompleted();
+
+            if (goal > 0 && (completed + amount) > goal) {
+
+                money = amount - completed - goal;
+                economy.depositPlayer(player, completed + money - goal);
+            }
+
+            canWithdraw = true;
+
+            if (ctrl.updateQuest(money, player))
+                ctrl.endQuest();
+        }
+
+        if (canWithdraw)
+            economy.withdrawPlayer(player, money);
+
+
+        return canWithdraw;
+    }
+
+    private @NonNull List<QuestController> getControllers() {
+
+        ActiveQuests activeQuests = ActiveQuests.getActiveQuestsInstance();
+        Stream<QuestController> result = activeQuests.getActiveQuestsList().stream();
+        result = result.filter(ins -> ins.getObjective().equals(ObjectiveType.GIVE_MONEY));
+        return result.collect(Collectors.toList());
     }
 }
