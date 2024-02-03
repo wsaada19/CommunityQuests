@@ -1,9 +1,9 @@
 package me.wonka01.ServerQuests.events;
 
+import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
-import me.wonka01.ServerQuests.util.EntityUtil;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -15,8 +15,6 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import java.util.List;
 
 public class ProjectileKillEvent extends QuestListener implements Listener {
-
-    private final ObjectiveType TYPE = ObjectiveType.PROJ_KILL;
 
     public ProjectileKillEvent(ActiveQuests activeQuests) {
         super(activeQuests);
@@ -36,12 +34,11 @@ public class ProjectileKillEvent extends QuestListener implements Listener {
             if (projectile.getShooter() != null && projectile.getShooter() instanceof Player) {
                 Player player = (Player) projectile.getShooter();
 
-                List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+                List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.PROJ_KILL);
                 for (QuestController controller : controllers) {
                     List<String> entities = controller.getEventConstraints().getMobNames();
-                    if(entities.isEmpty() || EntityUtil.containsEntity(event.getEntity().getType().toString(), entities)) {
+                    if(entities.isEmpty() || Utils.contains(entities, event.getEntity().getType()))
                         updateQuest(controller, player, 1);
-                    }
                 }
             }
         }

@@ -4,31 +4,33 @@ import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.CompetitiveQuestData;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
+import me.wonka01.ServerQuests.questcomponents.QuestTypeHandler;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
-import me.wonka01.ServerQuests.util.EventTypeHandler;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
 public class JsonQuestSave {
-    private File path;
-    private ActiveQuests activeQuests;
 
-    public JsonQuestSave(File path, ActiveQuests activeQuests) {
+    private final ServerQuests plugin;
+    private final File path;
+    private final ActiveQuests activeQuests;
+
+    public JsonQuestSave(ServerQuests plugin, File path) {
+        this.plugin = plugin;
         this.path = new File(path + "/questSave.json");
-        this.activeQuests = activeQuests;
+        this.activeQuests = plugin.config().getActiveQuests();
     }
 
     public boolean getOrCreateQuestFile() {
@@ -53,8 +55,8 @@ public class JsonQuestSave {
             }
 
             JSONObject jObject = new JSONObject();
-            jObject.put("id", questController.getQuestType());
-            jObject.put("playerMap", questController.getPlayerComponent().getPlayerDataInJson());
+            jObject.put("id", questController.getQuestData().getQuestId());
+            jObject.put("playerMap", questController.getPlayerComponent().toJSONArray());
             jObject.put("amountComplete", questController.getQuestData().getAmountCompleted());
             jObject.put("timeLeft", questController.getQuestData().getQuestDuration());
             if (questController.getQuestData() instanceof CompetitiveQuestData) {
@@ -81,8 +83,10 @@ public class JsonQuestSave {
         }
 
         JSONParser parser = new JSONParser();
+
         try {
-            JSONObject object = (JSONObject) parser.parse(new FileReader(path.getPath()));
+            FileReader reader = new FileReader(path.getPath());
+            JSONObject object = (JSONObject) parser.parse(reader);
             JSONArray questArray = (JSONArray) object.get("activeQuests");
             Iterator qIterator = questArray.iterator();
 
@@ -100,20 +104,32 @@ public class JsonQuestSave {
                     JSONObject obj = pIterator.next();
                     UUID uuid = UUID.fromString((String) obj.keySet().iterator().next());
                     String playerName = Bukkit.getServer().getOfflinePlayer(uuid).getName();
+                    if (playerName == null) {
+                        // ArrayList<String> randomNames = new ArrayList<>();
+                        // randomNames.add("NotSoJuicyJuan");
+                        // randomNames.add("Notch");
+                        // randomNames.add("Availer");
+                        // randomNames.add("Taco");
+                        // randomNames.add("Cheeseburger");
+                        // randomNames.add("Sword4000");
+                        playerName = "UNKNOWN";
+                    }
                     double pContributed = (double) obj.get(uuid.toString());
-                    playerMap.put(uuid, new PlayerData(playerName, (int) pContributed));
+                    playerMap.put(uuid, new PlayerData(playerName, (int) pContributed, uuid));
                 }
 
-                EventTypeHandler handler = new EventTypeHandler(questType);
-                QuestModel model = JavaPlugin.getPlugin(ServerQuests.class).getQuestLibrary().getQuestModelById(questId);
+                QuestTypeHandler handler = new QuestTypeHandler(questType);
+                QuestModel model = plugin.config().getQuestLibrary().getQuestModelById(questId);
 
                 if (model == null || (amountComplete >= model.getQuestGoal() && model.getQuestGoal() > 0)) {
                     Bukkit.getLogger().info("The quest in the save file has expired and will not be initialized.");
                     continue;
                 }
-                QuestController controller = handler.createControllerFromSave(model, playerMap, (int) amountComplete, (int) questDuration);
+                QuestController controller = handler.createControllerFromSave(model, playerMap, (int) amountComplete,
+                        (int) questDuration);
                 activeQuests.beginQuestFromSave(controller);
             }
+            reader.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

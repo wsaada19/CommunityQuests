@@ -7,6 +7,7 @@ import net.milkbowl.vault.economy.Economy;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.json.simple.JSONObject;
 
 public class MoneyReward implements Reward, Colorization {
 
@@ -18,7 +19,7 @@ public class MoneyReward implements Reward, Colorization {
     }
 
     public void giveRewardToPlayer(OfflinePlayer player, double rewardPercentage) {
-        if(amount <= 0) {
+        if (amount <= 0) {
             return;
         }
         Economy economy = JavaPlugin.getPlugin(ServerQuests.class).getEconomy();
@@ -32,5 +33,23 @@ public class MoneyReward implements Reward, Colorization {
             String message = "- " + weightedAmount + " " + economy.currencyNamePlural();
             ((Player) player).sendMessage(color(message));
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Money \n Amount: " + amount;
+    }
+
+    @Override
+    public String getType() {
+        return "money";
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("type", getType());
+        json.put("amount", amount);
+        return json;
     }
 }

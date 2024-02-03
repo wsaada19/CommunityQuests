@@ -1,15 +1,19 @@
 package me.wonka01.ServerQuests.questcomponents;
 
+import lombok.Getter;
 import lombok.NonNull;
 import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
+import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
+import me.wonka01.ServerQuests.questcomponents.bossbar.QuestBar;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.schedulers.QuestTimer;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
+@Getter
 public class QuestController implements Colorization {
 
     private final QuestBar questBar;
@@ -21,8 +25,8 @@ public class QuestController implements Colorization {
     private final ServerQuests plugin;
 
     public QuestController(ServerQuests plugin, QuestData questData, QuestBar questBar,
-                           BasePlayerComponent playerComponent, EventConstraints eventConstraints,
-                           ObjectiveType objective) {
+            BasePlayerComponent playerComponent, EventConstraints eventConstraints,
+            ObjectiveType objective) {
         this.plugin = plugin;
         this.questData = questData;
         this.questBar = questBar;
@@ -36,7 +40,7 @@ public class QuestController implements Colorization {
         }
     }
 
-    public void updateQuest(double count, Player player) {
+    public boolean updateQuest(double count, Player player) {
         double amountToAdd = count;
 
         if (questData.hasGoal()) {
@@ -49,10 +53,12 @@ public class QuestController implements Colorization {
         playerComponent.savePlayerAction(player, amountToAdd);
         updateBossBar();
         sendPlayerMessage(player);
+
+        return getQuestData().isGoalComplete();
     }
 
     public void endQuest() {
-        if (questData.hasGoal() && !questData.isGoalComplete() && questData.getQuestType().equalsIgnoreCase("coop")) {
+        if (questData.hasGoal() && !questData.isGoalComplete() && questData.getEventType().equals(EventType.COLLAB)) {
             broadcast("questFailureMessage");
             playerComponent.sendLeaderString();
         } else {
@@ -61,7 +67,6 @@ public class QuestController implements Colorization {
             playerComponent.giveOutRewards(questData.getQuestGoal());
         }
 
-        questBar.removeBossBar();
         ActiveQuests.getActiveQuestsInstance().endQuest(questId);
     }
 
@@ -69,36 +74,8 @@ public class QuestController implements Colorization {
         questBar.removeBossBar();
     }
 
-    public UUID getQuestId() {
-        return questId;
-    }
-
-    public QuestData getQuestData() {
-        return questData;
-    }
-
-    public BasePlayerComponent getPlayerComponent() {
-        return playerComponent;
-    }
-
-    public EventConstraints getEventConstraints() {
-        return eventConstraints;
-    }
-
-    public ObjectiveType getObjectiveType() {
-        return objective;
-    }
-
     public boolean isCompetitive() {
-        return (questData instanceof CompetitiveQuestData);
-    }
-
-    public String getQuestType() {
-        return questData.getQuestType();
-    }
-
-    public QuestBar getQuestBar() {
-        return questBar;
+        return (questData.getEventType().equals(EventType.COMPETITIVE));
     }
 
     private void updateBossBar() {
@@ -107,14 +84,15 @@ public class QuestController implements Colorization {
     }
 
     private void sendPlayerMessage(Player player) {
-        if (!player.hasPermission("communityquests.showmessages")) return;
+        if (!player.hasPermission("communityquests.showmessages"))
+            return;
 
-        String message = color(plugin.getMessages().message("contributionMessage"));
+        String message = color(plugin.messages().message("contributionMessage"));
         player.sendMessage(message);
     }
 
     public void broadcast(@NonNull String messagePath) {
-        String message = color(plugin.getMessages().message(messagePath, questData));
+        String message = color(plugin.messages().message(messagePath, questData));
         plugin.getServer().broadcastMessage(message);
     }
 }

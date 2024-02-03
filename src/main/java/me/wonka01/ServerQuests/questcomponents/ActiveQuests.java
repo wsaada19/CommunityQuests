@@ -2,7 +2,7 @@ package me.wonka01.ServerQuests.questcomponents;
 
 import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.enums.EventType;
-import me.wonka01.ServerQuests.util.EventTypeHandler;
+import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public class ActiveQuests {
         BarManager.closeBar(questId);
         QuestController controller = getQuestById(questId);
         controller.getQuestBar().removeBossBar();
-        activeQuestsList.remove(getQuestById(questId));
+        activeQuestsList.remove(controller);
         if (activeQuestsList.size() > 0) {
             BarManager.startShowingPlayersBar(activeQuestsList.get(0).getQuestId());
         }
@@ -41,7 +41,7 @@ public class ActiveQuests {
     public boolean beginNewQuest(QuestModel questModel, EventType eventType) {
         if (activeQuestsList.size() >= questLimit) return false;
 
-        EventTypeHandler typeHandler = new EventTypeHandler(eventType);
+        QuestTypeHandler typeHandler = new QuestTypeHandler(eventType);
         QuestController controller = typeHandler.createQuestController(questModel);
         activeQuestsList.add(controller);
         controller.broadcast("questStartMessage");

@@ -1,4 +1,4 @@
-package me.knighthat.apis.commands;
+package me.wonka01.ServerQuests.commands;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -13,7 +13,6 @@ public abstract class PluginCommand implements Colorization {
     private final boolean requiresPlayer;
 
     protected PluginCommand(ServerQuests plugin, boolean requiresPlayer) {
-
         this.plugin = plugin;
         this.requiresPlayer = requiresPlayer;
     }

@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.events;
 
+import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
@@ -11,7 +12,6 @@ import org.bukkit.event.enchantment.EnchantItemEvent;
 import java.util.List;
 
 public class EnchantItemQuestEvent extends QuestListener implements Listener {
-    private final ObjectiveType TYPE = ObjectiveType.ENCHANT_ITEM;
 
     public EnchantItemQuestEvent(ActiveQuests activeQuests) {
         super(activeQuests);
@@ -21,9 +21,15 @@ public class EnchantItemQuestEvent extends QuestListener implements Listener {
     public void onEnchantItem(EnchantItemEvent event) {
         Player player = event.getEnchanter();
 
-        List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+        String materialName = event.getItem().getType().toString();
+
+        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.ENCHANT_ITEM);
         for (QuestController controller : controllers) {
-            updateQuest(controller, player, 1);
+            List<String> materials = controller.getEventConstraints().getMaterialNames();
+
+            if (materials.isEmpty() || Utils.contains(materials, materialName)) {
+                updateQuest(controller, player, 1);
+            }
         }
     }
 }

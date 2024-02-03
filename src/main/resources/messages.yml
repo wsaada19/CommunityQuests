@@ -1,18 +1,16 @@
-prefix: "&7[&cCommunity&6Quests&7] "
-
 noPermission: "&cYou do not have permission to perform this action!"
-invalidCommand: "&cInvalid command; available commands include /cq [start, stop, togglebar, view, reload, donate, help, deposit]"
-reloadCommand: "&AThe Community Quests configuration has reloaded successfully!"
-helpMessage: "&eThe Community Quests plugin manages competitive and collaborative server-wide objectives. To view active quests use /cq view, to begin a new quests use /cq start. For donation quests, use the /cq donate command to open up the donation GUI."
+invalidCommand: "&cInvalid command! A list of available commands include /cq [start, stop, togglebar, view, reload, donate, help, deposit]"
+reloadCommand: "&AThe Community Quests configuration has reloaded successfully!!!"
+helpMessage: "&eThe Community Quests plugin allows servers to run quests that the entire server either works together or competes against one another to complete an objective. To view active quests use /cq view, to begin a new quests use /cq start. For donation quests, use the /cq donate command to open up the donation GUI."
 noActiveDonateQuests: "&cThere are no active quests that require you to donate items."
 invalidQuestName: "&cThe quest name you entered does not exist"
 invalidQuestType: "&cYou must enter a quest type; coop or comp"
-noActiveQuests: "&cThere are no active quests running on the server."
+noActiveQuests: "&cThere are currently no active quests running on the server."
 questLimitReached: "&cThe quest could not be created, the number of active quests has reached its limit"
 cooperativeQuestMustHaveAGoal: "&cCould not start quest: quests without a goal cannot be cooperative!"
 
 # In the below messages the 'questName' value is replaced by the display name set by the quest in the configuration
-questCompleteMessage: "&a&lQUEST COMPLETE &f( questName &f) \n Congrats on completing the quest! Below you can see a list of the top players and the rewards you received if you qualify."
+questCompleteMessage: "&a&lQUEST COMPLETE &f( questName &f) \n Congrats on completing the quest! See the top players below!"
 questFailureMessage: "&4&lQUEST FAILED &f( questName &f) \n Unfortunately the quest could not be completed in the given time, better luck next time!"
 
 # Message will be broadcast to the server when a quest is completed (questName is replaced with the name of the quest
@@ -27,7 +25,8 @@ topContributorsTitle: "&l&eTop Contributors&r"
 
 # rewards title - show to player before receiving their rewards
 rewardsTitle: "&aRewards"
-
+rewardsMessage: "&bYou have been given a reward for competing in the quest, use /cq rewards to claim them!"
+noRewards: "&cYou have no rewards to claim."
 cantDonateItem: "&cThe given item does not have an active donation quest"
 
 # Single words
@@ -36,9 +35,10 @@ competitive: "&aCompetitive"
 cooperative: "&aCooperative"
 goal: "&7Goal"
 duration: "&7Duration"
-you: "&7You"
+you: "&fYou"
 leader: "&n&7Leader"
-progress: "&7Progress"
+progress: "&bProgress"
+topContributors: "&6Top Contributors"
 
 # GUI titles
 viewQuests: "Active Quests"
@@ -51,6 +51,5 @@ endQuestText: "&eClick to end the quest"
 goBack: "&cGo Back"
 goBackText: "&7Go back to the event list"
 clickToStart: "&eClick to start the quest"
-
-# shown before the time remaining on /cq view
-timeRemaining: "&fTime remaining: &e"
+timeRemaining: "&fTime remaining &e"
+claimRewards: "&eClick to claim your rewards"

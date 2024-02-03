@@ -1,9 +1,7 @@
 package me.wonka01.ServerQuests.commands;
 
 import lombok.NonNull;
-import me.knighthat.apis.commands.PluginCommand;
 import me.wonka01.ServerQuests.ServerQuests;
-import me.wonka01.ServerQuests.commands.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -34,6 +32,7 @@ public class CommandManager implements CommandExecutor {
         commands.add(new MoneyCommand(plugin));
         commands.add(new ToggleBarCommand(plugin));
         commands.add(new ToggleMessageCommand(plugin));
+        commands.add(new RewardsCommand(plugin));
     }
 
     @Override
@@ -41,6 +40,8 @@ public class CommandManager implements CommandExecutor {
         try {
             if (args.length >= 1) {
                 getCommand(sender, args[0]).execute(sender, args);
+            } else {
+                getCommand(sender, "help").execute(sender, args);
             }
         } catch (NullPointerException ignored) {
         }
@@ -57,7 +58,7 @@ public class CommandManager implements CommandExecutor {
                 if (cmd.getPermission().isEmpty() || sender.hasPermission(cmd.getPermission()))
                     return cmd;
 
-                String message = plugin.getMessages().message("noPermission");
+                String message = plugin.messages().message("noPermission");
                 sender.sendMessage(message);
             }
         return null;

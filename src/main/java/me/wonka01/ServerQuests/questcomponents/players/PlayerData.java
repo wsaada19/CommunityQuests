@@ -1,27 +1,26 @@
 package me.wonka01.ServerQuests.questcomponents.players;
 
-// Stores data for each player who has contributed to a quest.
+import java.util.UUID;
+
+import lombok.Getter;
+
+@Getter
 public class PlayerData {
 
     private double amountContributed;
-    private String playerName;
+    private String name;
+    private UUID uuid;
 
-    public PlayerData(String name) {
+    public PlayerData(String name, UUID uuid) {
         amountContributed = 0;
-        playerName = name;
+        this.name = name;
+        this.uuid = uuid;
     }
 
-    public PlayerData(String name, int amountContributed) {
+    public PlayerData(String name, int amountContributed, UUID uuid) {
         this.amountContributed = amountContributed;
-        playerName = name;
-    }
-
-    public String getDisplayName() {
-        return playerName;
-    }
-
-    public double getAmountContributed() {
-        return amountContributed;
+        this.name = name;
+        this.uuid = uuid;
     }
 
     public void increaseContribution(double count) {
