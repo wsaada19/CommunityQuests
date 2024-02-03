@@ -1,7 +1,6 @@
 package me.wonka01.ServerQuests.commands;
 
 import lombok.NonNull;
-import me.knighthat.apis.commands.PluginCommand;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.events.MoneyQuest;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
@@ -40,8 +39,8 @@ public class MoneyCommand extends PluginCommand {
             MoneyQuest moneyQuest = new MoneyQuest(ActiveQuests.getActiveQuestsInstance(), getPlugin().getEconomy());
 
             if (!moneyQuest.tryAddItemsToQuest(money, player)) {
-                String noActiveDonateQuests = getPlugin().messages().message("noActiveDonateQuests");
-                player.sendMessage(noActiveDonateQuests);
+                String noActiveDepositQuests = getPlugin().messages().message("noActiveDepositQuests");
+                player.sendMessage(noActiveDepositQuests);
             }
         } catch (NumberFormatException exception) {
             String message = color(args[1] + " is not a valid number!");

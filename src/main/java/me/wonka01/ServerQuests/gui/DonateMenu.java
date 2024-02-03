@@ -34,7 +34,7 @@ public class DonateMenu extends Menu {
 
         borderItem = Material.getMaterial(getPlugin().getConfig().getString("donateMenuItem"));
         if (borderItem == null) {
-            borderItem = Material.DIAMOND_BLOCK;
+            borderItem = Material.BLACK_STAINED_GLASS_PANE;
         }
     }
 
@@ -49,9 +49,11 @@ public class DonateMenu extends Menu {
 
     @Override
     protected void onItemClick(@NonNull InventoryClickEvent event) {
-
         if (event.getRawSlot() > getSlots()) {
             event.setCancelled(false);
+            return;
+        } else if (event.getRawSlot() != inputSlot) {
+            event.setCancelled(true);
             return;
         }
 
@@ -107,6 +109,7 @@ public class DonateMenu extends Menu {
                                 }
 
                                 updateQuest(ctrl, putDown);
+
                                 isAcceptable = true;
 
                                 putDown.setAmount(remaining);
@@ -115,7 +118,6 @@ public class DonateMenu extends Menu {
                         }
 
                         if (!isAcceptable) {
-
                             String cannotDonate = getPlugin().messages().message("cantDonateItem");
                             getOwner().sendMessage(cannotDonate);
                         }
@@ -131,11 +133,11 @@ public class DonateMenu extends Menu {
     protected void onClose(@NonNull InventoryCloseEvent event) {
 
         ItemStack leftover = getInventory().getItem(getInputSlot());
-        if (leftover == null) return;
+        if (leftover == null)
+            return;
 
         PlayerInventory inventory = getOwner().getInventory();
         if (inventory.firstEmpty() > -1) {
-
             Map<Integer, ItemStack> items = inventory.addItem(leftover);
             items.forEach((slot, item) -> dropIt(item));
         } else

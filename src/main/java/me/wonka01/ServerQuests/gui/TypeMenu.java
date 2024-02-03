@@ -15,7 +15,7 @@ import java.util.Collections;
 
 public class TypeMenu extends Menu {
 
-    private final int COOP = 12, COMP = 14, BACK = 18;
+    private final int COMP = 12, COOP = 14, BACK = 18;
 
     private final @NonNull QuestModel model;
 
@@ -27,7 +27,7 @@ public class TypeMenu extends Menu {
     @Override
     protected void setButtons() {
         String title = getPlugin().messages().string("goBack"),
-            description = getPlugin().messages().string("goBackText");
+                description = getPlugin().messages().string("goBackText");
         ItemStack backButton = createItemStack(Material.ARROW, title, Collections.singletonList(description));
 
         getInventory().setItem(BACK, backButton);

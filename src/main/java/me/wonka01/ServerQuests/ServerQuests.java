@@ -10,8 +10,10 @@ import me.wonka01.ServerQuests.configuration.JsonQuestSave;
 import me.wonka01.ServerQuests.events.*;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
+import me.wonka01.ServerQuests.questcomponents.rewards.RewardManager;
 import me.wonka01.placeholders.CommunityQuestsPlaceholders;
 import net.milkbowl.vault.economy.Economy;
+
 import org.bukkit.Bukkit;
 
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -32,13 +34,14 @@ public class ServerQuests extends JavaPlugin {
         loadSaveData();
 
         if (!setupEconomy()) {
-            getLogger().info("Warning! No economy plugin found, a cash reward can not be added to a quest in Community Quests.");
+            getLogger().info(
+                    "Warning! No economy plugin found, a cash reward can not be added to a quest in Community Quests.");
         }
 
         registerPlaceholders();
         registerGuiEvents();
         registerQuestEvents();
-
+        RewardManager.getInstance().populateFromJsonFile(getDataFolder(), getLogger());
 
         getLogger().info("Plugin is enabled");
     }
@@ -46,6 +49,7 @@ public class ServerQuests extends JavaPlugin {
     @Override
     public void onDisable() {
         jsonSave.saveQuestsInProgress();
+        RewardManager.getInstance().saveToJsonFile(getDataFolder());
         BarManager.closeBar();
         getLogger().info("Plugin is disabled");
     }

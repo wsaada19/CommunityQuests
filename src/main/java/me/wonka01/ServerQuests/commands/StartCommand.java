@@ -1,7 +1,6 @@
 package me.wonka01.ServerQuests.commands;
 
 import lombok.NonNull;
-import me.knighthat.apis.commands.PluginCommand;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.enums.EventType;

@@ -1,4 +1,4 @@
-package me.knighthat.apis.commands;
+package me.wonka01.ServerQuests.commands;
 
 import lombok.Getter;
 import lombok.NonNull;

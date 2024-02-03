@@ -29,11 +29,12 @@ public class QuestTypeHandler {
     }
 
     public QuestController createControllerFromSave(@NonNull QuestModel model, @NonNull Map<UUID, PlayerData> players,
-                                                    int completed, int timeLeft) {
+            int completed, int timeLeft) {
         return createController(model, players, completed, timeLeft);
     }
 
-    private @NonNull QuestController createController(@NonNull QuestModel model, @Nullable Map<UUID, PlayerData> players, int completed, int timeLeft) {
+    private @NonNull QuestController createController(@NonNull QuestModel model,
+            @Nullable Map<UUID, PlayerData> players, int completed, int timeLeft) {
         ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
 
         QuestBar bar = new QuestBar(model.getDisplayName(), plugin.getConfig().getString("barColor", ""));
@@ -42,9 +43,9 @@ public class QuestTypeHandler {
             bar.updateBarProgress((double) completed / model.getQuestGoal());
         }
 
-        BasePlayerComponent pComponent = new BasePlayerComponent(model.getRewards());
+        BasePlayerComponent pComponent = new BasePlayerComponent(model.getRewards(), model.getRewardLimit());
         if (players != null) {
-            pComponent = new BasePlayerComponent(model.getRewards(), players);
+            pComponent = new BasePlayerComponent(model.getRewards(), players, model.getRewardLimit());
         }
 
         QuestData data = getQuestData(model, completed, pComponent, timeLeft);
@@ -53,13 +54,16 @@ public class QuestTypeHandler {
         return new QuestController(plugin, data, bar, pComponent, event, model.getObjective());
     }
 
-    private QuestData getQuestData(QuestModel questModel, int amountComplete, BasePlayerComponent playerComponent, int timeLeft) {
+    private QuestData getQuestData(QuestModel questModel, int amountComplete, BasePlayerComponent playerComponent,
+            int timeLeft) {
         if (eventType == EventType.COMPETITIVE) {
             return new CompetitiveQuestData(questModel.getQuestGoal(), questModel.getDisplayName(),
-                questModel.getEventDescription(), playerComponent, questModel.getQuestId(), amountComplete, timeLeft, questModel.getDisplayItem(), questModel.getQuestId());
+                    questModel.getEventDescription(), playerComponent, questModel.getQuestId(), amountComplete,
+                    timeLeft, questModel.getDisplayItem(), questModel.getQuestId());
         } else {
             return new QuestData(questModel.getQuestGoal(), questModel.getDisplayName(),
-                questModel.getEventDescription(), questModel.getQuestId(), amountComplete, timeLeft, questModel.getDisplayItem(), questModel.getQuestId());
+                    questModel.getEventDescription(), questModel.getQuestId(), amountComplete, timeLeft,
+                    questModel.getDisplayItem(), questModel.getQuestId());
         }
     }
 }

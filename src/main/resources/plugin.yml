@@ -1,39 +1,43 @@
 name: CommunityQuests
 version: ${project.version}
-author: wonka01, knighthat
+author: wonka01
 main: me.wonka01.ServerQuests.ServerQuests
 api-version: 1.13
 
 commands:
-  communityquests:
-      aliases: [cq, quests]
-      description: Commands for Community Quests Plugin
+    communityquests:
+        aliases: [cq, quests]
+        description: Commands for Community Quests Plugin
 
 softdepend:
     - Vault
+    - PlaceholderAPI
 
 permissions:
-  communityquests.start:
-    description: The ability to start server events
-    default: op
-  communityquests.stop:
-    description: The ability to stop an event
-    default: op
-  communityquests.reload:
-    description: Can reload the plugins configurations
-    default: op
-  communityquests.view:
-    description: Can view all active quests for the server
-    default: true
-  communityquests.donate:
-    description: Can use the donate command to participate in quests
-    default: true
-  communityquests.money:
-      description: Can use the command to contribute money to money quests
-      default: true
-  communityquests.showmessages:
-    description: If true the player will receive a message when they contribute to the quest
-    default: false
-  communityquests.togglebar:
-    description: Allows player to use the toggle boss bar command to show/hide boss bar for quests
-    default: true
+    communityquests.start:
+        description: The ability to start server events
+        default: op
+    communityquests.stop:
+        description: The ability to stop an event
+        default: op
+    communityquests.reload:
+        description: Can reload the plugins configurations
+        default: op
+    communityquests.view:
+        description: Can view all active quests for the server
+        default: true
+    communityquests.rewards:
+        description: Can claim rewards from completing quests
+        default: true
+    communityquests.donate:
+        description: Can use the donate command to participate in quests
+        default: true
+    communityquests.money:
+        description: Can use the command to contribute money to money quests
+        default: true
+    communityquests.showmessages:
+        description: If true the player will receive a message when they contribute to the quest
+        default: false
+    communityquests.togglebar:
+        description: Allows player to use the toggle boss bar command to show/hide boss bar for quests
+        default: true

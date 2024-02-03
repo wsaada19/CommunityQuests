@@ -2,6 +2,7 @@ package me.wonka01.ServerQuests.questcomponents.rewards;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.json.simple.JSONObject;
 
 public class CommandReward implements Reward {
     private String command;
@@ -15,5 +16,23 @@ public class CommandReward implements Reward {
             String commandToRun = command.replaceAll("player", player.getName());
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commandToRun);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Command reward \n Command: " + command;
+    }
+
+    @Override
+    public String getType() {
+        return "command";
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("type", getType());
+        json.put("command", command);
+        return json;
     }
 }

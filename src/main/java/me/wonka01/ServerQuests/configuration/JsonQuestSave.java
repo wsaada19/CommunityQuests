@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -82,8 +83,10 @@ public class JsonQuestSave {
         }
 
         JSONParser parser = new JSONParser();
+
         try {
-            JSONObject object = (JSONObject) parser.parse(new FileReader(path.getPath()));
+            FileReader reader = new FileReader(path.getPath());
+            JSONObject object = (JSONObject) parser.parse(reader);
             JSONArray questArray = (JSONArray) object.get("activeQuests");
             Iterator qIterator = questArray.iterator();
 
@@ -101,8 +104,18 @@ public class JsonQuestSave {
                     JSONObject obj = pIterator.next();
                     UUID uuid = UUID.fromString((String) obj.keySet().iterator().next());
                     String playerName = Bukkit.getServer().getOfflinePlayer(uuid).getName();
+                    if (playerName == null) {
+                        // ArrayList<String> randomNames = new ArrayList<>();
+                        // randomNames.add("NotSoJuicyJuan");
+                        // randomNames.add("Notch");
+                        // randomNames.add("Availer");
+                        // randomNames.add("Taco");
+                        // randomNames.add("Cheeseburger");
+                        // randomNames.add("Sword4000");
+                        playerName = "UNKNOWN";
+                    }
                     double pContributed = (double) obj.get(uuid.toString());
-                    playerMap.put(uuid, new PlayerData(playerName, (int) pContributed));
+                    playerMap.put(uuid, new PlayerData(playerName, (int) pContributed, uuid));
                 }
 
                 QuestTypeHandler handler = new QuestTypeHandler(questType);
@@ -112,9 +125,11 @@ public class JsonQuestSave {
                     Bukkit.getLogger().info("The quest in the save file has expired and will not be initialized.");
                     continue;
                 }
-                QuestController controller = handler.createControllerFromSave(model, playerMap, (int) amountComplete, (int) questDuration);
+                QuestController controller = handler.createControllerFromSave(model, playerMap, (int) amountComplete,
+                        (int) questDuration);
                 activeQuests.beginQuestFromSave(controller);
             }
+            reader.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

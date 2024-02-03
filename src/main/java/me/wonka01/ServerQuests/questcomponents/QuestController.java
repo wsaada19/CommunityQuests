@@ -25,8 +25,8 @@ public class QuestController implements Colorization {
     private final ServerQuests plugin;
 
     public QuestController(ServerQuests plugin, QuestData questData, QuestBar questBar,
-                           BasePlayerComponent playerComponent, EventConstraints eventConstraints,
-                           ObjectiveType objective) {
+            BasePlayerComponent playerComponent, EventConstraints eventConstraints,
+            ObjectiveType objective) {
         this.plugin = plugin;
         this.questData = questData;
         this.questBar = questBar;
@@ -67,7 +67,6 @@ public class QuestController implements Colorization {
             playerComponent.giveOutRewards(questData.getQuestGoal());
         }
 
-        questBar.removeBossBar();
         ActiveQuests.getActiveQuestsInstance().endQuest(questId);
     }
 
@@ -85,7 +84,8 @@ public class QuestController implements Colorization {
     }
 
     private void sendPlayerMessage(Player player) {
-        if (!player.hasPermission("communityquests.showmessages")) return;
+        if (!player.hasPermission("communityquests.showmessages"))
+            return;
 
         String message = color(plugin.messages().message("contributionMessage"));
         player.sendMessage(message);

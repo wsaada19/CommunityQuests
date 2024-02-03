@@ -43,7 +43,7 @@ public abstract class PluginFiles {
         if (file == null)
             startup();
         createIfNotExist();
-        
+
         yaml = YamlConfiguration.loadConfiguration(file);
     }
 

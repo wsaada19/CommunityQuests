@@ -4,6 +4,8 @@ import me.knighthat.apis.utils.Colorization;
 import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
+import me.wonka01.ServerQuests.questcomponents.rewards.RewardManager;
+
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -12,6 +14,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -22,15 +25,18 @@ public class BasePlayerComponent implements Colorization {
 
     private final Map<UUID, PlayerData> playerMap;
     private final ArrayList<Reward> rewardsList;
+    private final int rewardsLimit;
 
-    public BasePlayerComponent(ArrayList<Reward> rewardsList) {
+    public BasePlayerComponent(ArrayList<Reward> rewardsList, int rewardLimit) {
         this.rewardsList = rewardsList;
         this.playerMap = new TreeMap<>();
+        this.rewardsLimit = rewardLimit;
     }
 
-    public BasePlayerComponent(ArrayList<Reward> rewardsList, Map<UUID, PlayerData> map) {
+    public BasePlayerComponent(ArrayList<Reward> rewardsList, Map<UUID, PlayerData> map, int rewardLimit) {
         this.rewardsList = rewardsList;
         this.playerMap = map;
+        this.rewardsLimit = rewardLimit;
     }
 
     public static void setLeaderBoardSize(int size) {
@@ -42,7 +48,7 @@ public class BasePlayerComponent implements Colorization {
             PlayerData playerData = playerMap.get(player.getUniqueId());
             playerData.increaseContribution(count);
         } else {
-            PlayerData playerData = new PlayerData(player.getDisplayName());
+            PlayerData playerData = new PlayerData(player.getDisplayName(), player.getUniqueId());
             playerData.increaseContribution(count);
 
             playerMap.put(player.getUniqueId(), playerData);
@@ -80,7 +86,7 @@ public class BasePlayerComponent implements Colorization {
         Bukkit.getServer().broadcastMessage(color(result.toString()));
     }
 
-    public PlayerData getTopPlayerData() {
+    public PlayerData getTopPlayer() {
         TreeMap<UUID, PlayerData> map = new TreeMap<>(new SortByContributions(this.playerMap));
         map.putAll(this.playerMap);
 
@@ -88,6 +94,21 @@ public class BasePlayerComponent implements Colorization {
             return map.get(key);
         }
         return null;
+    }
+
+    public ArrayList<PlayerData> getTopPlayers(int amount) {
+        TreeMap<UUID, PlayerData> map = new TreeMap<>(new SortByContributions(this.playerMap));
+        map.putAll(this.playerMap);
+        ArrayList<PlayerData> top = new ArrayList<>();
+        int count = 0;
+        for (UUID key : map.keySet()) {
+            top.add(map.get(key));
+            count++;
+            if (count > amount - 1) {
+                break;
+            }
+        }
+        return top;
     }
 
     public double getAmountContributed(Player player) {
@@ -108,29 +129,35 @@ public class BasePlayerComponent implements Colorization {
     }
 
     public void giveOutRewards(int questGoal) {
-        for (UUID key : playerMap.keySet()) {
+        List<PlayerData> players;
+        if (rewardsLimit > 0) {
+            players = getTopPlayers(rewardsLimit);
+        } else {
+            players = getTopPlayers(playerMap.size());
+        }
+        for (PlayerData playerData : players) {
             double playerContributionRatio;
-            double playerContribution = playerMap.get(key).getAmountContributed();
+            double playerContribution = playerData.getAmountContributed();
             if (questGoal > 0) {
                 playerContributionRatio = playerContribution / (double) questGoal;
             } else {
-                playerContributionRatio = playerContribution / getTopPlayerData().getAmountContributed();
+                playerContributionRatio = playerContribution / getTopPlayer().getAmountContributed();
             }
 
-            OfflinePlayer player = Bukkit.getServer().getOfflinePlayer(key);
+            OfflinePlayer player = Bukkit.getServer().getOfflinePlayer(playerData.getUuid());
 
             if (player.isOnline()) {
                 Player onlinePlayer = (Player) player;
                 if (rewardsList.size() > 0) {
-
                     ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
-                    String rewardTitle = plugin.messages().message("rewardsTitle");
-                    onlinePlayer.sendMessage(rewardTitle);
+                    String rewardsMessage = plugin.messages().message("rewardsMessage");
+                    onlinePlayer.sendMessage(rewardsMessage);
                 }
             }
 
+            RewardManager rewardManager = RewardManager.getInstance();
             for (Reward reward : rewardsList) {
-                reward.giveRewardToPlayer(player, playerContributionRatio);
+                rewardManager.addReward(player.getUniqueId(), reward, playerContributionRatio);
             }
         }
     }

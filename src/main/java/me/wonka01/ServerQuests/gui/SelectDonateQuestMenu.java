@@ -37,9 +37,7 @@ public class SelectDonateQuestMenu extends Menu {
 
     @Override
     protected void onItemClick(@NonNull InventoryClickEvent event) {
-
         try {
-
             int slot = event.getRawSlot();
             if (super.getControllers().get(slot) != null)
                 new DonateMenu(getPlugin(), getOwner()).open();

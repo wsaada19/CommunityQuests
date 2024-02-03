@@ -23,7 +23,6 @@ public final class Config extends Getters {
     }
 
     public void initializeVariables() {
-
         int limit = get().getInt("questLimit", 5);
         ActiveQuests.setQuestLimit(limit);
 
@@ -35,7 +34,6 @@ public final class Config extends Getters {
     }
 
     public void initializeQuests() {
-
         ConfigurationSection quests = get().getConfigurationSection("Quests");
         this.questLibrary.loadQuestConfiguration(quests);
     }

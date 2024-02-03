@@ -3,6 +3,7 @@ package me.wonka01.ServerQuests.configuration;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.rewards.*;
+
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -38,7 +39,7 @@ public class QuestLibrary {
         String questId = section.getName();
         String displayName = section.getString("displayName");
         String description = section.getString("description");
-        int timeToComplete = section.getInt("timeToComplete", 0);
+        String questDuration = section.getString("questDuration");
         List<String> mobNames = section.getStringList("entities");
         List<String> itemNames = section.getStringList("materials");
         List<String> worlds = section.getStringList("worlds");
@@ -49,9 +50,13 @@ public class QuestLibrary {
 
         ConfigurationSection rewardsSection = section.getConfigurationSection("rewards");
         ArrayList<Reward> rewards = getRewardsFromConfig(rewardsSection);
+        int rewardsLimit = 0;
+        if (rewardsSection != null) {
+            rewardsLimit = rewardsSection.getInt("rewardLimit", 0);
+        }
 
-        return new QuestModel(questId, displayName, description, timeToComplete, goal,
-            type, mobNames, rewards, itemNames, displayItem, worlds);
+        return new QuestModel(questId, displayName, description, goal,
+                type, mobNames, rewards, itemNames, displayItem, worlds, questDuration, rewardsLimit);
     }
 
     private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {
@@ -89,7 +94,8 @@ public class QuestLibrary {
                         reward = new ItemReward(amount, material, itemName);
                         rewards.add(reward);
                     } catch (Exception ex) {
-                        JavaPlugin.getPlugin(ServerQuests.class).getLogger().info("Item reward failed to load due to invalid configuration");
+                        JavaPlugin.getPlugin(ServerQuests.class).getLogger()
+                                .info("Item reward failed to load due to invalid configuration");
                     }
                 }
             }

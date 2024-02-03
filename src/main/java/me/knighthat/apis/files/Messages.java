@@ -23,10 +23,8 @@ public final class Messages extends Getters {
     }
 
     public @NonNull String string(@NonNull String path, @NonNull QuestData quest) {
-
         String result = string(path).replace("questName", quest.getDisplayName());
         result = result.replace("questDescription", quest.getDescription());
-
         return result;
     }
 

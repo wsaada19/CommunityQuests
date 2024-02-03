@@ -26,7 +26,7 @@ Quests:
 #           - World
 #        goal: 5 # The goal is the amount of the task to be completed
 #        rewards:
-#            experience: 100z
+#            experience: 100
 #            money: 1000 # You must have Vault and an Economy plugin installed for this to work
 #            items:
 #                -   material: DIAMOND_SWORD

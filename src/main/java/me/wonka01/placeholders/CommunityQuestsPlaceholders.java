@@ -7,6 +7,7 @@ import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 import java.util.List;
 
@@ -41,15 +42,17 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
     public String onRequest(OfflinePlayer player, String identifier) {
         String questId = identifier.substring(identifier.lastIndexOf("_") + 1);
         List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
+        QuestController controller = null;
         QuestData questData = null;
 
-        for (QuestController controller : quests) {
-            if (controller.getQuestData().getQuestId().equals(questId)) {
-                questData = controller.getQuestData();
+        for (QuestController ctrl : quests) {
+            if (ctrl.getQuestData().getQuestId().equals(questId)) {
+                questData = ctrl.getQuestData();
+                controller = ctrl;
             }
         }
 
-        if (questData == null) {
+        if (controller == null || questData == null) {
             return "no quest found";
         }
 
@@ -76,6 +79,15 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
         // %communityquests_description_questId%
         if (identifier.startsWith("description")) {
             return color(questData.getDescription());
+        }
+
+        // %communityquests_you_questId%
+        if (identifier.startsWith("you")) {
+            if (player.isOnline()) {
+                int playerContribution = (int) controller.getPlayerComponent().getAmountContributed((Player) player);
+                return "" + playerContribution;
+            }
+            return "0";
         }
         return null;
     }

@@ -7,6 +7,7 @@ import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
+import me.wonka01.ServerQuests.questcomponents.schedulers.ParseDurationString;
 import me.knighthat.apis.utils.Colorization;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -35,7 +36,8 @@ public abstract class Menu implements InventoryHolder, Colorization {
 
     private final @NonNull Player owner;
 
-    private final @NonNull List<QuestController> controllers = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
+    private final @NonNull List<QuestController> controllers = ActiveQuests.getActiveQuestsInstance()
+            .getActiveQuestsList();
 
     protected Menu(ServerQuests plugin, @NonNull Player owner, @NonNull String titlePath, int slots) {
 
@@ -63,11 +65,9 @@ public abstract class Menu implements InventoryHolder, Colorization {
     }
 
     public void open() {
-
         setBorder();
         setButtons();
         setContents();
-
         owner.openInventory(inventory);
     }
 
@@ -80,7 +80,6 @@ public abstract class Menu implements InventoryHolder, Colorization {
         ItemStack item = new ItemStack(m);
 
         try {
-
             ItemMeta meta = item.getItemMeta();
 
             meta.setDisplayName(color(n));
@@ -90,7 +89,6 @@ public abstract class Menu implements InventoryHolder, Colorization {
             item.setItemMeta(meta);
         } catch (NullPointerException ignored) {
         }
-
         return item;
     }
 
@@ -103,9 +101,12 @@ public abstract class Menu implements InventoryHolder, Colorization {
         int duration = data.getQuestDuration();
         if (duration > 0) {
 
-            String remaining = getPlugin().messages().string("timeRemaining");
-            lore.add(color(remaining + duration));
-            lore.add(" ");
+            if (data.getQuestDuration() > 0) {
+                lore.add(getPlugin().messages().string("timeRemaining"));
+                String durationString = "&a" + ParseDurationString.formatSecondsToString(duration);
+                lore.add(color(durationString));
+                lore.add(" ");
+            }
         }
 
         return lore;
