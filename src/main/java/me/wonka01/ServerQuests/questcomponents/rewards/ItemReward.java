@@ -3,6 +3,9 @@ package me.wonka01.ServerQuests.questcomponents.rewards;
 import lombok.Getter;
 import lombok.NonNull;
 import me.knighthat.apis.utils.Colorization;
+
+import java.util.HashMap;
+
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -34,7 +37,6 @@ public class ItemReward implements Reward, Colorization {
     public void giveRewardToPlayer(OfflinePlayer player, double rewardPercentage) {
         Material material = Material.getMaterial(materialName);
 
-        // TODO setup way to give items to offline players
         if (amount <= 0 || material == null || !player.isOnline())
             return;
 
@@ -46,7 +48,11 @@ public class ItemReward implements Reward, Colorization {
         }
 
         Player realPlayer = (Player) player;
-        realPlayer.getInventory().addItem(itemStack);
+        HashMap<Integer, ItemStack> overFlowItems = realPlayer.getInventory().addItem(itemStack);
+        if (overFlowItems.size() > 0) {
+            realPlayer.sendMessage(color("&cInventory is full! Reward was dropped on the ground."));
+            overFlowItems.forEach((slot, item) -> realPlayer.getWorld().dropItem(realPlayer.getLocation(), item));
+        }
         realPlayer.sendMessage(color("- " + amount + " " + displayName));
     }
 

@@ -14,24 +14,21 @@ disableBossBar: false
 donateMenuItem: OBSIDIAN
 
 Quests:
-#    TestQuest: # Quest identifier can be whatever you'd like as long as it's unique
-#        displayName: "&c&lZombie Pig Slayer"
-#        type: mobkill # required, see type list for available types
-#        entities: # This is an optional parameter, if it doesn't exist the quest will count all mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
-#            - Zombie
-#            - Pig
-#        description: "&fKill 5 zombies as fast as you can!"
-#        displayItem: ZOMBIE_HEAD
-#        worlds:
-#           - World
-#        goal: 5 # The goal is the amount of the task to be completed
-#        rewards:
-#            experience: 100
-#            money: 1000 # You must have Vault and an Economy plugin installed for this to work
-#            items:
-#                -   material: DIAMOND_SWORD
-#                    amount: 1
-#                    displayName: "&bPowerful Diamond Sword"
-#                -   material: APPLE
-#                    amount: 12
-#                    displayName: "&capples"
+    TestQuest: # Quest identifier can be whatever you'd like as long as it's unique
+        displayName: "&c&lZombie Pig Slayer"
+        type: mobkill # required, see type list for available types
+        entities: # This is an optional parameter, if it doesn't exist the quest will count all mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
+            - Zombie
+            - Pig
+        description: "&fKill 5 zombies as fast as you can!"
+        displayItem: ZOMBIE_HEAD
+        goal: 5 # The goal is the amount of the task to be completed
+        rewards:
+            experience: 100
+            items:
+                - material: DIAMOND_SWORD
+                  amount: 1
+                  displayName: "&bPowerful Diamond Sword"
+                - material: APPLE
+                  amount: 12
+                  displayName: "&capples"

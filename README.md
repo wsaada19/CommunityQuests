@@ -48,6 +48,10 @@ Contribute to a donate quest, opens menu where players can place items that will
 
 Contribute to a money quests
 
+### /cq rewards
+
+Opens a GUI to claim rewards for completed quests
+
 ## Configuration
 
 The config.yml provides a powerful customization system allowing you to create server-wide quests for your players to enjoy. All quests are created in the config.yml file and are started in-game.
