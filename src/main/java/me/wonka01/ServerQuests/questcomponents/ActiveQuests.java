@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
+
 // Singleton class that stores all active quests running on the server
 public class ActiveQuests {
 
@@ -39,11 +41,16 @@ public class ActiveQuests {
     }
 
     public boolean beginNewQuest(QuestModel questModel, EventType eventType) {
-        if (activeQuestsList.size() >= questLimit) return false;
+        if (activeQuestsList.size() >= questLimit)
+            return false;
 
         QuestTypeHandler typeHandler = new QuestTypeHandler(eventType);
         QuestController controller = typeHandler.createQuestController(questModel);
         activeQuestsList.add(controller);
+        if (questModel.getBeforeQuestCommand() != null || !questModel.getBeforeQuestCommand().isEmpty()) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), questModel.getBeforeQuestCommand());
+        }
+
         controller.broadcast("questStartMessage");
         BarManager.startShowingPlayersBar(controller.getQuestId());
         return true;

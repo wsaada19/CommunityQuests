@@ -67,6 +67,10 @@ public class QuestController implements Colorization {
             playerComponent.giveOutRewards(questData.getQuestGoal());
         }
 
+        if (questData.getAfterQuestCommand() != null || !questData.getAfterQuestCommand().isEmpty()) {
+            plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), questData.getAfterQuestCommand());
+        }
+
         ActiveQuests.getActiveQuestsInstance().endQuest(questId);
     }
 
