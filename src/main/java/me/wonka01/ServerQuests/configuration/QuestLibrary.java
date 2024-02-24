@@ -44,6 +44,8 @@ public class QuestLibrary {
         List<String> itemNames = section.getStringList("materials");
         List<String> worlds = section.getStringList("worlds");
         String displayItem = section.getString("displayItem", "");
+        String afterQuestCommand = section.getString("afterQuestCommand", "");
+        String beforeQuestCommand = section.getString("beforeQuestCommand", "");
 
         ObjectiveType type = ObjectiveType.match(section.getString("type"));
         int goal = section.getInt("goal", -1);
@@ -56,7 +58,8 @@ public class QuestLibrary {
         }
 
         return new QuestModel(questId, displayName, description, goal,
-                type, mobNames, rewards, itemNames, displayItem, worlds, questDuration, rewardsLimit);
+                type, mobNames, rewards, itemNames, displayItem, worlds, questDuration, rewardsLimit, afterQuestCommand,
+                beforeQuestCommand);
     }
 
     private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {
@@ -85,6 +88,9 @@ public class QuestLibrary {
                 }
             } else if (key.equalsIgnoreCase("items")) {
                 List<?> itemRewards = section.getList(key);
+                if (itemRewards == null || itemRewards.isEmpty()) {
+                    continue;
+                }
                 for (Object item : itemRewards) {
                     try {
                         LinkedHashMap<?, ?> map = (LinkedHashMap) item;

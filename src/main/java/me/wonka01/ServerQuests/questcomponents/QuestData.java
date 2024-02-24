@@ -17,8 +17,12 @@ public class QuestData {
     private final @NonNull EventType eventType = EventType.COLLAB;
     private double amountCompleted;
     private int questDuration;
+    private String afterQuestCommand;
+    private String beforeQuestCommand;
 
-    public QuestData(int questGoal, String displayName, String description, String questType, int amountCompleted, int questDuration, Material displayItem, @NonNull String questId) {
+    public QuestData(int questGoal, String displayName, String description, String questType, int amountCompleted,
+            int questDuration, Material displayItem, @NonNull String questId, String afterQuestCommand,
+            String beforeQuestCommand) {
         this.questGoal = questGoal;
         this.questDuration = questDuration;
         this.amountCompleted = amountCompleted;
@@ -27,6 +31,8 @@ public class QuestData {
         this.questId = questId;
         this.questType = questType;
         this.displayItem = displayItem;
+        this.afterQuestCommand = afterQuestCommand;
+        this.beforeQuestCommand = beforeQuestCommand;
     }
 
     public double getPercentageComplete() {

@@ -11,8 +11,9 @@ public class CompetitiveQuestData extends QuestData {
 
     public CompetitiveQuestData(int start, String displayName, String description,
             BasePlayerComponent players, String questType, int amountComplete, int durationLeft, Material displayItem,
-            String questId) {
-        super(start, displayName, description, questType, amountComplete, durationLeft, displayItem, questId);
+            String questId, String afterQuestCommand, String beforeQuestCommand) {
+        super(start, displayName, description, questType, amountComplete, durationLeft, displayItem, questId,
+                afterQuestCommand, beforeQuestCommand);
         this.players = players;
     }
 

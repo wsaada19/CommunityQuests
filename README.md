@@ -114,6 +114,14 @@ or until the duration is hit, whichever comes first.
 questDuration: 6d7h30m24s
 ```
 
+### beforeQuestCommand (optional)
+
+Pass in a command to be run before a quest begins
+
+### afterQuestCommand (optional)
+
+Pass in a command to be run after a quest ends
+
 ### worlds (optional)
 
 Use this parameter to restrict quests to specific worlds. All worlds in the list will be able to participate in quests. When no value

@@ -27,11 +27,14 @@ public class QuestModel {
     private final List<String> worlds;
     private final String questDuration;
     private final int rewardLimit;
+    private final String afterQuestCommand;
+    private final String beforeQuestCommand;
 
     public QuestModel(String questId, String displayName, String eventDescription,
             int questGoal, ObjectiveType objective,
             List<String> mobNames, ArrayList<Reward> rewards, List<String> itemNames, String displayItem,
-            List<String> worlds, String questDuration, int rewardLimit) {
+            List<String> worlds, String questDuration, int rewardLimit, String afterQuestCommand,
+            String beforeQuestCommand) {
         this.questId = questId;
         this.displayName = displayName;
         this.eventDescription = eventDescription;
@@ -44,6 +47,8 @@ public class QuestModel {
         this.worlds = worlds;
         this.questDuration = questDuration;
         this.rewardLimit = rewardLimit;
+        this.afterQuestCommand = afterQuestCommand;
+        this.beforeQuestCommand = beforeQuestCommand;
 
         if (Utils.contains(Material.values(), displayItem)) {
             this.displayItem = Material.valueOf(displayItem);
