@@ -1,10 +1,10 @@
 package me.wonka01.ServerQuests.events;
 
-import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -34,8 +34,8 @@ public class PlaceEvent extends QuestListener implements Listener {
 
         List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.BLOCK_PLACE);
         for (QuestController controller : controllers) {
-            List<String> materials = controller.getEventConstraints().getMaterialNames();
-            if (materials.isEmpty() || Utils.contains(materials, block.getType())) {
+            List<Material> materials = controller.getEventConstraints().getMaterials();
+            if (materials.isEmpty() || materials.contains(block.getType())) {
                 updateQuest(controller, event.getPlayer(), 1);
                 block.setMetadata(PLACED, meta);
             }

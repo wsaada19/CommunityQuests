@@ -1,9 +1,9 @@
 package me.wonka01.ServerQuests.events;
 
-import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,9 +25,9 @@ public class CraftItemQuestEvent extends QuestListener implements Listener {
 
         List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.CRAFT_ITEM);
         for (QuestController controller : controllers) {
-            List<String> materials = controller.getEventConstraints().getMaterialNames();
+            List<Material> materials = controller.getEventConstraints().getMaterials();
 
-            if (materials.isEmpty() || Utils.contains(materials, event.getRecipe().getResult().getType()))
+            if (materials.isEmpty() || materials.contains(event.getRecipe().getResult().getType()))
                 updateQuest(controller, player, amount);
         }
     }
