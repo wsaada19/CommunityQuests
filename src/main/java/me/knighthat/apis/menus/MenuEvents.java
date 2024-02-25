@@ -4,6 +4,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
@@ -25,6 +26,14 @@ public class MenuEvents implements Listener {
             event.setCancelled(true);
             if (event.getCurrentItem() != null)
                 menu.onItemClick(event);
+        }
+    }
+
+    @EventHandler
+    public void inventoryDragEvent(InventoryDragEvent event) {
+        Inventory topInventory = event.getView().getTopInventory();
+        if (topInventory.getHolder() instanceof Menu) {
+            event.setCancelled(true);
         }
     }
 
