@@ -18,7 +18,7 @@ questFailureMessage: "&4&lQUEST FAILED &f( questName &f) \n Unfortunately the qu
 questStartMessage: "&a&lA new server-wide quest has begun &f- questName \n questDescription"
 
 # message sent to player when they contribute if communityquests.showmessages permission is set to true.
-contributionMessage: "&a+1 for the quest questName"
+contributionMessage: "&a+contributionCount for the quest questName"
 
 # This message will proceed the list of top players
 topContributorsTitle: "&l&eTop Contributors&r"
