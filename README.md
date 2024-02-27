@@ -129,14 +129,12 @@ is provided for worlds then the quest will be enabled in every world.
 
 ### materials (optional)
 
-This is an optional parameter for the following quest types:
+Optional parameter for the following quest types:
 blockbreak, blockplace, donate, enchantitem, craftitem and consumeitem. If the field is empty or nonexistent then all blocks will be considered.
-You can include patterns in the blocks list such as 'Ore', and every material that has ore in its name will be a part of the quest.
 
 ### entities (optional)
 
-This is an optional field for the following quest types: mobkill, projectilekill and catchfish.
-If empty or not used then all mob types will be included.
+Optional field for the following quest types: mobkill, projectilekill and catchfish. If empty or not used, all mob types will be included.
 
 ## Rewards
 
