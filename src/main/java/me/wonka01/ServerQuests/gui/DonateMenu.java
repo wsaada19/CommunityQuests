@@ -12,12 +12,12 @@ import me.wonka01.ServerQuests.questcomponents.QuestData;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,105 +27,83 @@ public class DonateMenu extends Menu {
 
     @Getter
     private final int inputSlot = 22;
-    private @NonNull Material borderItem;
+    private final ItemStack borderItem;
 
     public DonateMenu(ServerQuests plugin, @NonNull Player owner) {
         super(plugin, owner, "donateMenu", 45);
 
-        borderItem = Material.getMaterial(getPlugin().getConfig().getString("donateMenuItem"));
-        if (borderItem == null) {
-            borderItem = Material.BLACK_STAINED_GLASS_PANE;
+        Material borderMaterial = Material.getMaterial(
+            getPlugin().getConfig().getString("donateMenuItem", "BLACK_STAINED_GLASS_PANE"));
+        if (borderMaterial == null) {
+            borderMaterial = Material.BLACK_STAINED_GLASS_PANE;
         }
+        borderItem = createItemStack(borderMaterial, " ");
     }
 
     @Override
     protected void setBorder() {
-        ItemStack item = super.createItemStack(borderItem, " ");
-
         for (int slot = 0; slot < getSlots(); slot++)
             if (slot != inputSlot)
-                getInventory().setItem(slot, item);
+                getInventory().setItem(slot, borderItem);
     }
 
     @Override
     protected void onItemClick(@NonNull InventoryClickEvent event) {
-        if (event.getRawSlot() > getSlots()) {
-            event.setCancelled(false);
+        if (!event.getView().getTopInventory().equals(event.getClickedInventory()) && !event.isShiftClick()) {
             return;
-        } else if (event.getRawSlot() != inputSlot) {
+        }
+
+        ItemStack clickedItem = event.getCurrentItem();
+        if (clickedItem != null && clickedItem.isSimilar(borderItem)) {
             event.setCancelled(true);
             return;
         }
 
-        InventoryAction action = event.getAction();
-        switch (action) {
+        if (getInventory().getItem(inputSlot) != null) {
+            return;
+        }
 
-            case PICKUP_ALL:
-            case PICKUP_HALF:
-            case PICKUP_ONE:
-            case PICKUP_SOME:
+        ItemStack inputItem = event.getCursor();
+        if (event.getAction() == InventoryAction.HOTBAR_SWAP) {
+            if (event.getClick() == ClickType.NUMBER_KEY) {
+                inputItem = event.getWhoClicked().getInventory().getItem(event.getHotbarButton());
+            } else {
+                inputItem = event.getWhoClicked().getInventory().getItemInOffHand();
+            }
+        } else if (event.isShiftClick()) {
+            inputItem = event.getCurrentItem();
+        }
 
-                if (getInventory().getItem(getInputSlot()) != null)
-                    event.setCancelled(false);
+        if (inputItem == null || inputItem.getType() == Material.AIR) {
+            return;
+        }
 
-                break;
+        event.setCancelled(true);
+        boolean isAcceptable = false;
+        for (QuestController ctrl : getControllers()) {
 
-            case PLACE_SOME:
-            case PLACE_ALL:
-            case PLACE_ONE:
+            QuestData data = ctrl.getQuestData();
+            double total = data.getAmountCompleted() + inputItem.getAmount();
+            int goal = data.getQuestGoal();
 
-                if (event.getRawSlot() != inputSlot) {
-                    return;
-                } else
-                    event.setCancelled(false);
+            List<Material> requirements = ctrl.getEventConstraints().getMaterials();
+            if (requirements.isEmpty() || requirements.contains(inputItem.getType())) {
+                updateQuest(ctrl, inputItem);
 
-                new BukkitRunnable() {
-                    @Override
-                    public void run() {
+                if (total > goal) {
+                    int diff = (int) total - goal;
+                    inputItem.setAmount(diff);
+                } else {
+                    inputItem.setAmount(0);
+                }
 
-                        ItemStack putDown = getInventory().getItem(getInputSlot());
-                        boolean isAcceptable = false;
+                isAcceptable = true;
+            }
+        }
 
-                        for (QuestController ctrl : getControllers()) {
-
-                            QuestData data = ctrl.getQuestData();
-                            double total = data.getAmountCompleted() + putDown.getAmount();
-                            int goal = data.getQuestGoal();
-
-                            List<String> requirements = ctrl.getEventConstraints().getMaterialNames();
-                            if (requirements.isEmpty() || Utils.contains(requirements, putDown.getType())) {
-
-                                int remaining = 0;
-
-                                if (total > goal) {
-
-                                    int diff = (int) total - goal;
-                                    remaining = diff;
-
-                                    ItemStack toCursor = event.getCursor().clone();
-                                    toCursor.setAmount(toCursor.getAmount() + diff);
-
-                                    getOwner().setItemOnCursor(toCursor);
-                                }
-
-                                updateQuest(ctrl, putDown);
-
-                                isAcceptable = true;
-
-                                putDown.setAmount(remaining);
-                                getOwner().updateInventory();
-                            }
-                        }
-
-                        if (!isAcceptable) {
-                            String cannotDonate = getPlugin().messages().message("cantDonateItem");
-                            getOwner().sendMessage(cannotDonate);
-                        }
-
-                    }
-                }.runTaskLater(getPlugin(), 1);
-            default:
-                break;
+        if (!isAcceptable) {
+            String cannotDonate = getPlugin().messages().message("cantDonateItem");
+            getOwner().sendMessage(cannotDonate);
         }
     }
 

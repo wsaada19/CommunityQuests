@@ -10,6 +10,7 @@ import org.bukkit.Material;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class QuestModel {
@@ -22,7 +23,7 @@ public class QuestModel {
     private final ObjectiveType objective;
     private final List<String> mobNames;
     private final ArrayList<Reward> rewards;
-    private final List<String> itemNames;
+    private final List<Material> itemNames;
     private final Material displayItem;
     private final List<String> worlds;
     private final String questDuration;
@@ -43,7 +44,14 @@ public class QuestModel {
         this.objective = objective;
         this.mobNames = mobNames;
         this.rewards = rewards;
-        this.itemNames = itemNames;
+        this.itemNames = itemNames.stream().map(itemName -> {
+            String capitalizedMaterialName = itemName.toUpperCase().replaceAll(" ", "_");
+            Material material = Material.getMaterial(capitalizedMaterialName);
+            if (material == null) {
+                return Material.AIR;
+            }
+            return material;
+        }).filter(material -> material != Material.AIR).collect(Collectors.toList());
         this.worlds = worlds;
         this.questDuration = questDuration;
         this.rewardLimit = rewardLimit;

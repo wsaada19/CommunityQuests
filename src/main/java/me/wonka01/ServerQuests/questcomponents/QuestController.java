@@ -11,6 +11,7 @@ import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.schedulers.QuestTimer;
 import org.bukkit.entity.Player;
 
+import java.text.DecimalFormat;
 import java.util.UUID;
 
 @Getter
@@ -52,7 +53,7 @@ public class QuestController implements Colorization {
 
         playerComponent.savePlayerAction(player, amountToAdd);
         updateBossBar();
-        sendPlayerMessage(player);
+        sendPlayerMessage(player, count);
 
         return getQuestData().isGoalComplete();
     }
@@ -87,11 +88,15 @@ public class QuestController implements Colorization {
         questBar.updateBarProgress(barProgress);
     }
 
-    private void sendPlayerMessage(Player player) {
+    private final DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+    private void sendPlayerMessage(Player player, double count) {
         if (!player.hasPermission("communityquests.showmessages"))
             return;
 
-        String message = color(plugin.messages().message("contributionMessage"));
+        String message = color(
+            plugin.messages().message("contributionMessage", questData)
+                .replaceAll("contributionCount", decimalFormat.format(count))
+        );
         player.sendMessage(message);
     }
 
