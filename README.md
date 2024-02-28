@@ -5,7 +5,7 @@
 -   [Commands](#Commands)
 -   [Configuration](#Configuration)
 -   [Rewards](#Rewards)
--   [Objective Types](#Objectives)
+-   [Quest Types](#Objectives)
 -   [Placeholders](#Placeholders)
 
 ## Summary
