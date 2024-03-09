@@ -208,21 +208,40 @@ Fishing:
         experience: 100
 ```
 
--   `playerkill`: kill other players
--   `blockbreak`: break a block specified in the materials list in the configuration
--   `blockplace`: place a block specified in the materials list in the configuration
--   `projectilekill`: kill entities with a projectile specify entities in the configuration
--   `shear`: shear sheep
--   `tame`: tame animals
--   `milkcow`: milk cow
--   `craftitem`: craft something
--   `consumeitem`: consume an item - like eating an apple
--   `enchantitem`: enchant something
--   `money`: players can contribute money with /cq deposit <amount>
+-   **playerkill**: kill other players
+-   **blockbreak**: break a block specified in the materials list in the configuration
+-   **blockplace**: place a block specified in the materials list in the configuration
+-   **projectilekill**: kill entities with a projectile specify entities in the configuration
+-   **shear**: shear sheep
+-   **tame**: tame animals
+-   **milkcow**: milk cow
+-   **craftitem**: craft something
+-   **consumeitem**: consume an item - like eating an apple
+-   **enchantitem**: enchant something
+-   **money**: players can contribute money with /cq deposit <amount>
+-   **experience**: players must gather Minecraft experience
+-   **mythicmob**: Kill mobs from the mythicmob plugin (requires MythicMobs to be installed)
+
+### MythicMobs Example
+
+```yaml
+MythicMobs:
+    displayName: Kill 100 Cave Spiders
+    type: mythicmob
+    displayItem: ZOMBIE_HEAD
+    description: Kill 100 Cave Spiders before the time runs out!
+    goal: 100
+    questDuration: 30m
+    entities:
+        - CAVE_SPIDER
+    rewards:
+        experience: 100
+        money: 1000
+```
 
 ## Placeholders
 
-The questId is the key used in the yml file. In the quest above the id would be Fishing. If multiple quests with the same id are live it will chose the one that was created first. For
+The questId is the key used in the yml file. In the quest above the id would be Fishing. If multiple quests with the same id are live it will chose the one that was created first. If you do not specify a questID, for example %communityquests_goal% it will use the active quest that was started first. Helpful if you only have one quest running at a time.
 
 -   `%communityquests_goal_questId%`: quest goal
 -   `%communityquests_complete_questId%`: amount complete for a quest

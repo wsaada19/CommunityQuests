@@ -6,6 +6,7 @@ import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
+
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
@@ -40,10 +41,12 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
 
     @Override
     public String onRequest(OfflinePlayer player, String identifier) {
+
         String questId = identifier.substring(identifier.lastIndexOf("_") + 1);
         List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
-        QuestController controller = null;
-        QuestData questData = null;
+
+        QuestController controller = quests.get(0);
+        QuestData questData = quests.get(0).getQuestData();
 
         for (QuestController ctrl : quests) {
             if (ctrl.getQuestData().getQuestId().equals(questId)) {

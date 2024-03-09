@@ -12,6 +12,7 @@ commands:
 softdepend:
     - Vault
     - PlaceholderAPI
+    - MythicMobs
 
 permissions:
     communityquests.start:
