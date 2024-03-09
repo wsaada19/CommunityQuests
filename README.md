@@ -220,6 +220,7 @@ Fishing:
 -   **enchantitem**: enchant something
 -   **money**: players can contribute money with /cq deposit <amount>
 -   **experience**: players must gather Minecraft experience
+-   **harvest**: Harvest crops like sweet berries (use blockbreak for wheat / any blocks that are broken / harvest when the block is not destroyed)
 -   **mythicmob**: Kill mobs from the mythicmob plugin (requires MythicMobs to be installed)
 
 ### MythicMobs Example
