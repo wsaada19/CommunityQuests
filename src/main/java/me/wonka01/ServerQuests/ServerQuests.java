@@ -19,12 +19,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import io.lumine.mythic.bukkit.MythicBukkit;
+
 public class ServerQuests extends JavaPlugin {
 
     private final @NonNull Config config = new Config(this);
     private final @NonNull Messages messages = new Messages(this);
     @Getter
     private Economy economy;
+    private MythicBukkit mythicBukkit;
     private JsonQuestSave jsonSave;
 
     @Override
@@ -38,11 +41,14 @@ public class ServerQuests extends JavaPlugin {
                     "Warning! No economy plugin found, a cash reward can not be added to a quest in Community Quests.");
         }
 
+        if (!setupMythicMobs()) {
+            getLogger().info("Warning! MythicMobs not found, MythicMobs events will not work.");
+        }
+
         registerPlaceholders();
         registerGuiEvents();
         registerQuestEvents();
         RewardManager.getInstance().populateFromJsonFile(getDataFolder(), getLogger());
-
         getLogger().info("Plugin is enabled");
     }
 
@@ -82,6 +88,11 @@ public class ServerQuests extends JavaPlugin {
         return economy != null;
     }
 
+    private boolean setupMythicMobs() {
+        mythicBukkit = (MythicBukkit) Bukkit.getPluginManager().getPlugin("MythicMobs");
+        return mythicBukkit != null;
+    }
+
     private void registerQuestEvents() {
         ActiveQuests activeQuests = config.getActiveQuests();
         getServer().getPluginManager().registerEvents(new BarManager(), this);
@@ -97,6 +108,15 @@ public class ServerQuests extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new CraftItemQuestEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new ConsumeItemQuestEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new EnchantItemQuestEvent(activeQuests), this);
+        try {
+            getServer().getPluginManager().registerEvents(new ExperienceEvent(activeQuests), this);
+            getServer().getPluginManager().registerEvents(new HarvestEvent(activeQuests), this);
+        } catch (Error e) {
+            getLogger().info("Warning! No class found, Harvest and Experience events will not work.");
+        }
+        if (mythicBukkit != null) {
+            getServer().getPluginManager().registerEvents(new MythicMobKillEvent(activeQuests), this);
+        }
     }
 
     private void registerGuiEvents() {

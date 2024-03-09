@@ -20,6 +20,9 @@ public enum ObjectiveType {
     CONSUME_ITEM("consumeitem", Material.APPLE),
     GIVE_MONEY("money", Material.GOLDEN_APPLE),
     ENCHANT_ITEM("enchantitem", Material.EMERALD),
+    EXPERIENCE("experience", Material.EXPERIENCE_BOTTLE),
+    HARVEST("harvest", Material.WHEAT),
+    MYTHIC_MOB("mythicmob", Material.DRAGON_EGG),
     UNKNOWN("unknown", Material.AIR);
 
     private final @NonNull String string;
@@ -37,7 +40,7 @@ public enum ObjectiveType {
         if (objective != null)
             for (ObjectiveType type : values())
                 if (type.name().equalsIgnoreCase(objective) ||
-                    type.string.equalsIgnoreCase(objective))
+                        type.string.equalsIgnoreCase(objective))
                     return type;
 
         return UNKNOWN;
