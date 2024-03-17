@@ -50,7 +50,6 @@ public class BasePlayerComponent implements Colorization {
         } else {
             PlayerData playerData = new PlayerData(player.getDisplayName(), player.getUniqueId());
             playerData.increaseContribution(count);
-
             playerMap.put(player.getUniqueId(), playerData);
         }
     }

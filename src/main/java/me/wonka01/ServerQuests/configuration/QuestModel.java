@@ -59,7 +59,7 @@ public class QuestModel {
         this.beforeQuestCommand = beforeQuestCommand;
 
         if (Utils.contains(Material.values(), displayItem)) {
-            this.displayItem = Material.valueOf(displayItem);
+            this.displayItem = Material.valueOf(displayItem.toUpperCase());
         } else {
             this.displayItem = objective.getDefaultMaterial();
         }

@@ -8,6 +8,7 @@ import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 import org.bukkit.entity.Player;
@@ -41,7 +42,7 @@ public class ViewMenu extends Menu {
             lore.add(getProgressIndicator((int) data.getAmountCompleted(), data.getQuestGoal()));
             lore.add("");
             lore.add(getPlugin().messages().string("topContributors"));
-            lore.add(getTopPlayerString(controller));
+            getTopPlayerString(controller, lore);
         }
         lore.add(getPlayerProgress(controller));
 
@@ -54,27 +55,34 @@ public class ViewMenu extends Menu {
 
         String leaders = getPlugin().messages().string("topContributors");
         lore.add(leaders);
-        lore.add(color(getTopPlayerString(ctrl)));
+        getTopPlayerString(ctrl, lore);
         lore.add(getPlayerProgress(ctrl));
 
         return super.createItemStack(data.getDisplayItem(), data.getDisplayName(), lore);
     }
 
-    private String getTopPlayerString(QuestController controller) {
+    private void getTopPlayerString(QuestController controller, List<String> lore) {
         String noData = "&7n/a";
-        StringBuilder result = new StringBuilder();
         ArrayList<PlayerData> top3Players = controller.getPlayerComponent().getTopPlayers(3);
+
+        if (top3Players.size() < 1) {
+            lore.add(color(noData));
+            return;
+        }
+
         for (int i = 0; i < top3Players.size(); i++) {
             PlayerData topPlayer = top3Players.get(i);
+            Bukkit.getServer().getConsoleSender().sendMessage("index: " + i);
             if (topPlayer == null) {
                 break;
             }
+            Bukkit.getServer().getConsoleSender().sendMessage("player: " + topPlayer.getName());
+
             String playerString = "&e" + (i + 1) + ")&f " + topPlayer.getName() + "&f - &6&l";
             playerString += Utils.decimalToString(topPlayer.getAmountContributed());
-            result.append(playerString);
-            result.append("\n");
+            Bukkit.getServer().getConsoleSender().sendMessage(playerString);
+            lore.add(color(playerString));
         }
-        return result.toString().length() == 0 ? noData : result.toString();
     }
 
     private String getProgressIndicator(int completed, int goal) {

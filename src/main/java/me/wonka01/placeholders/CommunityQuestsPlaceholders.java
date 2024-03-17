@@ -44,9 +44,16 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
 
         String questId = identifier.substring(identifier.lastIndexOf("_") + 1);
         List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
+        String[] keywords = { "goal", "complete", "remaining", "name", "description", "you" };
 
-        QuestController controller = quests.get(0);
-        QuestData questData = quests.get(0).getQuestData();
+        QuestController controller = null;
+        QuestData questData = null;
+
+        // If no Id is provided then return the first quest
+        if (Utils.contains(keywords, questId) && quests.size() > 0) {
+            controller = quests.get(0);
+            questData = controller.getQuestData();
+        }
 
         for (QuestController ctrl : quests) {
             if (ctrl.getQuestData().getQuestId().equals(questId)) {
