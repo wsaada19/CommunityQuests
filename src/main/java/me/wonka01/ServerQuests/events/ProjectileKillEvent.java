@@ -40,7 +40,6 @@ public class ProjectileKillEvent extends QuestListener implements Listener {
                 }
             }
         }
-
     }
 
 }
