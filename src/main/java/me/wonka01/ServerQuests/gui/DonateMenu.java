@@ -33,7 +33,7 @@ public class DonateMenu extends Menu {
         super(plugin, owner, "donateMenu", 45);
 
         Material borderMaterial = Material.getMaterial(
-            getPlugin().getConfig().getString("donateMenuItem", "BLACK_STAINED_GLASS_PANE"));
+                getPlugin().getConfig().getString("donateMenuItem", "BLACK_STAINED_GLASS_PANE"));
         if (borderMaterial == null) {
             borderMaterial = Material.BLACK_STAINED_GLASS_PANE;
         }
@@ -84,14 +84,14 @@ public class DonateMenu extends Menu {
 
             QuestData data = ctrl.getQuestData();
             double total = data.getAmountCompleted() + inputItem.getAmount();
-            int goal = data.getQuestGoal();
+            double goal = data.getQuestGoal();
 
-            List<Material> requirements = ctrl.getEventConstraints().getMaterials();
+            List<Material> requirements = ctrl.getQuestData().getObjectives().get(0).getMaterials();
             if (requirements.isEmpty() || requirements.contains(inputItem.getType())) {
                 updateQuest(ctrl, inputItem);
 
                 if (total > goal) {
-                    int diff = (int) total - goal;
+                    int diff = (int) total - (int) goal;
                     inputItem.setAmount(diff);
                 } else {
                     inputItem.setAmount(0);
@@ -133,7 +133,7 @@ public class DonateMenu extends Menu {
 
         ActiveQuests activeQuests = getPlugin().config().getActiveQuests();
         for (QuestController ctrl : activeQuests.getActiveQuestsList())
-            if (ctrl.getObjective().equals(ObjectiveType.GUI))
+            if (ctrl.getObjectiveTypes().contains(ObjectiveType.GUI))
                 controllers.add(ctrl);
 
         return controllers;
@@ -144,7 +144,7 @@ public class DonateMenu extends Menu {
         if (!isWorldAllowed(ctrl, getOwner().getWorld()))
             return;
 
-        if (ctrl.updateQuest(item.getAmount(), getOwner()))
+        if (ctrl.updateQuest(item.getAmount(), getOwner(), ObjectiveType.GUI))
             ctrl.endQuest();
     }
 

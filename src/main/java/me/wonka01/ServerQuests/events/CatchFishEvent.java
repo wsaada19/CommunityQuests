@@ -22,15 +22,12 @@ public class CatchFishEvent extends QuestListener implements Listener {
     @EventHandler
     public void onCatchFish(PlayerFishEvent event) {
         if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
-            List<QuestController> controllers = tryGetControllersOfEventType(TYPE);
+            List<QuestController> controllers = tryGetControllersOfObjectiveType(TYPE);
             Item item = (Item) event.getCaught();
             String fishName = item.getItemStack().getType().toString();
 
             for (QuestController controller : controllers) {
-                List<String> entities = controller.getEventConstraints().getMobNames();
-                if (entities.isEmpty() || Utils.contains(entities, fishName)) {
-                    updateQuest(controller, event.getPlayer(), 1);
-                }
+                updateQuest(controller, event.getPlayer(), 1, ObjectiveType.CATCH_FISH, fishName);
             }
         }
     }

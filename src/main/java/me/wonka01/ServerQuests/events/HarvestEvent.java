@@ -19,15 +19,12 @@ public class HarvestEvent extends QuestListener implements Listener {
 
     @EventHandler
     public void onHarvestEvent(PlayerHarvestBlockEvent event) {
-        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.HARVEST);
+        List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.HARVEST);
         for (QuestController controller : controllers) {
-            List<Material> materials = controller.getEventConstraints().getMaterials();
 
             List<ItemStack> harvestedItems = event.getItemsHarvested();
             for (ItemStack item : harvestedItems) {
-                if (materials.isEmpty() || materials.contains(item.getType())) {
-                    updateQuest(controller, event.getPlayer(), item.getAmount());
-                }
+                updateQuest(controller, event.getPlayer(), item.getAmount(), ObjectiveType.HARVEST, item.getType());
             }
         }
     }

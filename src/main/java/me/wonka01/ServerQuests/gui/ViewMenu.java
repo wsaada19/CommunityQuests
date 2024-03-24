@@ -39,7 +39,7 @@ public class ViewMenu extends Menu {
             progressStr += " &f" + completed + "/" + data.getQuestGoal();
 
             lore.add(progressStr);
-            lore.add(getProgressIndicator((int) data.getAmountCompleted(), data.getQuestGoal()));
+            lore.add(getProgressIndicator((int) data.getAmountCompleted(), (int) data.getQuestGoal()));
             lore.add("");
             lore.add(getPlugin().messages().string("topContributors"));
             getTopPlayerString(controller, lore);

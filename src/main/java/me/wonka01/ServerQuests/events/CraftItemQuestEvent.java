@@ -23,12 +23,9 @@ public class CraftItemQuestEvent extends QuestListener implements Listener {
 
         int amount = event.getRecipe().getResult().getAmount();
 
-        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.CRAFT_ITEM);
+        List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.CRAFT_ITEM);
         for (QuestController controller : controllers) {
-            List<Material> materials = controller.getEventConstraints().getMaterials();
-
-            if (materials.isEmpty() || materials.contains(event.getRecipe().getResult().getType()))
-                updateQuest(controller, player, amount);
+            updateQuest(controller, player, amount, ObjectiveType.CRAFT_ITEM, event.getRecipe().getResult().getType());
         }
     }
 }

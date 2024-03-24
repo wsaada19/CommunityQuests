@@ -16,13 +16,13 @@ public class GuiEvent extends QuestListener {
     }
 
     public boolean tryAddItemsToQuest(ItemStack itemsToAdd, Player player) {
-        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.GUI);
+        List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.GUI);
         boolean isItemUsed = false;
         for (QuestController controller : controllers) {
 
-            List<Material> materials = controller.getEventConstraints().getMaterials();
-            int goal = controller.getQuestData().getQuestGoal();
-            int completed = controller.getQuestData().getQuestGoal();
+            List<Material> materials = controller.getQuestData().getObjectives().get(0).getMaterials();
+            int goal = (int) controller.getQuestData().getQuestGoalByType(ObjectiveType.GUI);
+            int completed = (int) controller.getQuestData().getAmountCompletedByType(ObjectiveType.GUI);
 
             if (materials.isEmpty() || materials.contains(itemsToAdd.getType())) {
                 if (goal > 0 && completed + itemsToAdd.getAmount() > goal) {
@@ -31,7 +31,7 @@ public class GuiEvent extends QuestListener {
                     player.getInventory().addItem(itemsToReturn);
                 }
 
-                updateQuest(controller, player, itemsToAdd.getAmount());
+                updateQuest(controller, player, itemsToAdd.getAmount(), ObjectiveType.GUI);
                 isItemUsed = true;
             }
         }

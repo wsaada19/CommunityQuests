@@ -4,12 +4,14 @@ import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.enums.EventType;
+import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.bossbar.QuestBar;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -48,24 +50,24 @@ public class QuestTypeHandler {
             pComponent = new BasePlayerComponent(model.getRewards(), players, model.getRewardLimit());
         }
 
-        QuestData data = getQuestData(model, completed, pComponent, timeLeft);
-        EventConstraints event = new EventConstraints(model.getItemNames(), model.getMobNames(), model.getWorlds());
+        QuestData data = getQuestData(model, completed, pComponent, timeLeft, model.getObjectives());
+        EventConstraints event = new EventConstraints(model.getWorlds());
 
-        return new QuestController(plugin, data, bar, pComponent, event, model.getObjective());
+        return new QuestController(plugin, data, bar, pComponent, event);
     }
 
     private QuestData getQuestData(QuestModel questModel, int amountComplete, BasePlayerComponent playerComponent,
-            int timeLeft) {
+            int timeLeft, List<Objective> objectives) {
         if (eventType == EventType.COMPETITIVE) {
-            return new CompetitiveQuestData(questModel.getQuestGoal(), questModel.getDisplayName(),
-                    questModel.getEventDescription(), playerComponent, questModel.getQuestId(), amountComplete,
+            return new CompetitiveQuestData(questModel.getDisplayName(),
+                    questModel.getEventDescription(), playerComponent, questModel.getQuestId(),
                     timeLeft, questModel.getDisplayItem(), questModel.getQuestId(), questModel.getAfterQuestCommand(),
-                    questModel.getBeforeQuestCommand());
+                    questModel.getBeforeQuestCommand(), objectives);
         } else {
-            return new QuestData(questModel.getQuestGoal(), questModel.getDisplayName(),
-                    questModel.getEventDescription(), questModel.getQuestId(), amountComplete, timeLeft,
+            return new QuestData(questModel.getDisplayName(),
+                    questModel.getEventDescription(), questModel.getQuestId(), timeLeft,
                     questModel.getDisplayItem(), questModel.getQuestId(), questModel.getAfterQuestCommand(),
-                    questModel.getBeforeQuestCommand());
+                    questModel.getBeforeQuestCommand(), objectives);
         }
     }
 }

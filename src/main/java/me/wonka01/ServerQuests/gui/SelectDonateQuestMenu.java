@@ -23,7 +23,7 @@ public class SelectDonateQuestMenu extends Menu {
     protected void setContents() {
 
         for (QuestController ctrl : super.getControllers())
-            if (ctrl.getObjective().equals(ObjectiveType.GUI)) {
+            if (ctrl.getObjectiveTypes().contains(ObjectiveType.GUI)) {
 
                 QuestData data = ctrl.getQuestData();
 

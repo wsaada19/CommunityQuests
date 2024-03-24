@@ -20,17 +20,15 @@ public class MythicMobKillEvent extends QuestListener implements Listener {
 
     @EventHandler
     public void onKillMythicMobEvent(MythicMobDeathEvent event) {
-        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.MYTHIC_MOB);
+        List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.MYTHIC_MOB);
         LivingEntity entity = event.getKiller();
         if (!(entity instanceof Player)) {
             return;
         }
 
         for (QuestController controller : controllers) {
-            List<String> mythicMobTypes = controller.getEventConstraints().getMobNames();
-            if (mythicMobTypes.isEmpty() || mythicMobTypes.contains(event.getMobType().getInternalName())) {
-                updateQuest(controller, (Player) event.getKiller(), 1);
-            }
+            updateQuest(controller, (Player) event.getKiller(), 1, ObjectiveType.MYTHIC_MOB,
+                    event.getMobType().getInternalName());
         }
     }
 }

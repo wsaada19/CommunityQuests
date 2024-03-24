@@ -24,9 +24,9 @@ public class KillPlayerEvent extends QuestListener implements Listener {
             return;
         }
 
-        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.PLAYER_KILL);
+        List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.PLAYER_KILL);
         for (QuestController controller : controllers) {
-            updateQuest(controller, killer, 1);
+            updateQuest(controller, killer, 1, ObjectiveType.PLAYER_KILL);
         }
     }
 }

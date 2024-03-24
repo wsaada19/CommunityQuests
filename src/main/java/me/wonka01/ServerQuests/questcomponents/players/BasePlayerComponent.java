@@ -127,7 +127,7 @@ public class BasePlayerComponent implements Colorization {
         return jArray;
     }
 
-    public void giveOutRewards(int questGoal) {
+    public void giveOutRewards(double questGoal) {
         List<PlayerData> players;
         if (rewardsLimit > 0) {
             players = getTopPlayers(rewardsLimit);

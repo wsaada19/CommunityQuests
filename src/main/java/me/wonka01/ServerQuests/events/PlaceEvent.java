@@ -4,7 +4,6 @@ import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,7 +13,6 @@ import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
-
 
 public class PlaceEvent extends QuestListener implements Listener {
 
@@ -32,13 +30,10 @@ public class PlaceEvent extends QuestListener implements Listener {
             return;
         }
 
-        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.BLOCK_PLACE);
+        List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.BLOCK_PLACE);
         for (QuestController controller : controllers) {
-            List<Material> materials = controller.getEventConstraints().getMaterials();
-            if (materials.isEmpty() || materials.contains(block.getType())) {
-                updateQuest(controller, event.getPlayer(), 1);
-                block.setMetadata(PLACED, meta);
-            }
+            updateQuest(controller, event.getPlayer(), 1, ObjectiveType.BLOCK_PLACE, block.getType());
+            block.setMetadata(PLACED, meta);
         }
     }
 }
