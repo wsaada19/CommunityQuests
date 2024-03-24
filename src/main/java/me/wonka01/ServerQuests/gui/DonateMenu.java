@@ -6,6 +6,7 @@ import me.knighthat.apis.menus.Menu;
 import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
+import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
@@ -80,24 +81,28 @@ public class DonateMenu extends Menu {
 
         event.setCancelled(true);
         boolean isAcceptable = false;
+        // TODO - make sure that they right amount is taken even if there's multiple
+        // quests
         for (QuestController ctrl : getControllers()) {
+            for (Objective objective : ctrl.getQuestData().getObjectives()) {
+                if (objective.getType() != ObjectiveType.GUI)
+                    continue;
+                double total = objective.getAmountComplete() + inputItem.getAmount();
+                double goal = objective.getGoal();
 
-            QuestData data = ctrl.getQuestData();
-            double total = data.getAmountCompleted() + inputItem.getAmount();
-            double goal = data.getQuestGoal();
+                List<Material> requirements = objective.getMaterials();
+                if (requirements.isEmpty() || requirements.contains(inputItem.getType())) {
+                    updateQuest(ctrl, inputItem);
 
-            List<Material> requirements = ctrl.getQuestData().getObjectives().get(0).getMaterials();
-            if (requirements.isEmpty() || requirements.contains(inputItem.getType())) {
-                updateQuest(ctrl, inputItem);
+                    if (total > goal) {
+                        int diff = (int) total - (int) goal;
+                        inputItem.setAmount(diff);
+                    } else {
+                        inputItem.setAmount(0);
+                    }
 
-                if (total > goal) {
-                    int diff = (int) total - (int) goal;
-                    inputItem.setAmount(diff);
-                } else {
-                    inputItem.setAmount(0);
+                    isAcceptable = true;
                 }
-
-                isAcceptable = true;
             }
         }
 
