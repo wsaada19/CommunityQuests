@@ -28,6 +28,7 @@ rewardsTitle: "&aRewards"
 rewardsMessage: "&bYou have been given a reward for competing in the quest, use /cq rewards to claim them!"
 noRewards: "&cYou have no rewards to claim."
 cantDonateItem: "&cThe given item does not have an active donation quest"
+droppedReward: "&cInventory is full! Reward was dropped on the ground."
 
 # Single words
 experience: "&eexperience"

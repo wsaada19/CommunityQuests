@@ -1,12 +1,15 @@
 package me.wonka01.ServerQuests.configuration;
 
 import me.wonka01.ServerQuests.ServerQuests;
+import me.wonka01.ServerQuests.enums.ObjectiveType;
+import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.CompetitiveQuestData;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestTypeHandler;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -15,7 +18,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -56,7 +61,11 @@ public class JsonQuestSave {
             JSONObject jObject = new JSONObject();
             jObject.put("id", questController.getQuestData().getQuestId());
             jObject.put("playerMap", questController.getPlayerComponent().toJSONArray());
-            jObject.put("amountComplete", questController.getQuestData().getAmountCompleted());
+            JSONArray objectives = new JSONArray();
+            for (int i = 0; i < questController.getQuestData().getObjectives().size(); i++) {
+                objectives.add(questController.getQuestData().getObjectives().get(i).getObjectiveJSON());
+            }
+            jObject.put("objectives", objectives);
             jObject.put("timeLeft", questController.getQuestData().getQuestDuration());
             if (questController.getQuestData() instanceof CompetitiveQuestData) {
                 jObject.put("type", "comp");
@@ -76,6 +85,14 @@ public class JsonQuestSave {
         }
     }
 
+    private List<String> convertJsonArrayToList(JSONArray arr) {
+        List<String> list = new ArrayList<>();
+        for (Object o : arr) {
+            list.add((String) o);
+        }
+        return list;
+    }
+
     public void readAndInitializeQuests() {
         if (!path.exists()) {
             return;
@@ -93,7 +110,29 @@ public class JsonQuestSave {
                 JSONObject questObject = (JSONObject) qIterator.next();
                 String questId = (String) questObject.get("id");
                 String questType = (String) questObject.get("type");
-                double amountComplete = (double) questObject.get("amountComplete");
+                JSONArray objectiveArray = (JSONArray) questObject.get("objectives");
+                Iterator<JSONObject> oIterator = objectiveArray.iterator();
+                List<Objective> objectives = new ArrayList<>();
+                while (oIterator.hasNext()) {
+                    JSONObject obj = oIterator.next();
+                    String type = (String) obj.get("type");
+                    double goal = (double) obj.get("goal");
+                    double amount = (double) obj.get("amountComplete");
+                    JSONArray mobNames = (JSONArray) obj.get("mobNames");
+                    JSONArray materials = (JSONArray) obj.get("materials");
+                    List<Material> materialList = convertJsonArrayToList(materials).stream().map(materialName -> {
+                        Material material = Material.getMaterial(materialName);
+                        if (material == null) {
+                            return Material.AIR;
+                        }
+                        return material;
+                    }).collect(java.util.stream.Collectors.toList());
+
+                    ObjectiveType objectiveType = ObjectiveType.match(type);
+                    Objective objective = new Objective(objectiveType, goal, amount, convertJsonArrayToList(mobNames),
+                            materialList);
+                    objectives.add(objective);
+                }
                 long questDuration = (Long) questObject.getOrDefault("timeLeft", 0);
 
                 JSONArray playerObject = (JSONArray) questObject.get("playerMap");
@@ -120,12 +159,12 @@ public class JsonQuestSave {
                 QuestTypeHandler handler = new QuestTypeHandler(questType);
                 QuestModel model = plugin.config().getQuestLibrary().getQuestModelById(questId);
 
-                if (model == null || (amountComplete >= model.getQuestGoal() && model.getQuestGoal() > 0)) {
+                if (model == null) {
                     Bukkit.getLogger().info("The quest in the save file has expired and will not be initialized.");
                     continue;
                 }
-                QuestController controller = handler.createControllerFromSave(model, playerMap, (int) amountComplete,
-                        (int) questDuration);
+                QuestController controller = handler.createControllerFromSave(model, playerMap,
+                        (int) questDuration, objectives);
                 activeQuests.beginQuestFromSave(controller);
             }
             reader.close();

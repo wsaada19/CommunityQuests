@@ -9,7 +9,6 @@ import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
-import me.wonka01.ServerQuests.questcomponents.QuestData;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -85,14 +84,14 @@ public class DonateMenu extends Menu {
         // quests
         for (QuestController ctrl : getControllers()) {
             for (Objective objective : ctrl.getQuestData().getObjectives()) {
-                if (objective.getType() != ObjectiveType.GUI)
+                if (objective.getType() != ObjectiveType.GUI || objective.isGoalComplete())
                     continue;
                 double total = objective.getAmountComplete() + inputItem.getAmount();
                 double goal = objective.getGoal();
 
                 List<Material> requirements = objective.getMaterials();
                 if (requirements.isEmpty() || requirements.contains(inputItem.getType())) {
-                    updateQuest(ctrl, inputItem);
+                    updateQuest(ctrl, inputItem, objective);
 
                     if (total > goal) {
                         int diff = (int) total - (int) goal;
@@ -100,7 +99,6 @@ public class DonateMenu extends Menu {
                     } else {
                         inputItem.setAmount(0);
                     }
-
                     isAcceptable = true;
                 }
             }
@@ -144,13 +142,15 @@ public class DonateMenu extends Menu {
         return controllers;
     }
 
-    private void updateQuest(@NonNull QuestController ctrl, @NonNull ItemStack item) {
+    private void updateQuest(@NonNull QuestController ctrl, @NonNull ItemStack item, Objective obj) {
 
         if (!isWorldAllowed(ctrl, getOwner().getWorld()))
             return;
 
-        if (ctrl.updateQuest(item.getAmount(), getOwner(), ObjectiveType.GUI))
-            ctrl.endQuest();
+        if (ctrl.updateQuest(item.getAmount(), getOwner(), obj)) {
+            // ctrl.endQuest();
+        }
+
     }
 
     private boolean isWorldAllowed(@NonNull QuestController ctrl, @NonNull World world) {

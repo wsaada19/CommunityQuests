@@ -2,6 +2,7 @@ package me.wonka01.ServerQuests.events;
 
 import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
+import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 
@@ -18,28 +19,31 @@ public abstract class QuestListener {
         this.activeQuests = activeQuests;
     }
 
-    protected void updateQuest(QuestController controller, Player player, double amount, ObjectiveType type) {
+    protected boolean updateQuest(QuestController controller, Player player, double amount, Objective obj) {
         if (!isEnabledInWorld(controller.getEventConstraints().getWorlds(), player.getWorld().getName())) {
-            return;
+            return false;
         }
-        controller.updateQuest(amount, player, type);
+        return controller.updateQuest(amount, player, obj);
     }
 
     protected void updateQuest(QuestController controller, Player player, double amount, ObjectiveType type,
             String mobName) {
-        controller.getQuestData().getObjectives().stream()
-                .filter(objective -> objective.getType() == type)
-                .filter(objective -> objective.getMobNames().isEmpty()
-                        || Utils.contains(objective.getMobNames(), mobName))
-                .forEach(objective -> updateQuest(controller, player, amount, type));
+        controller.getQuestData().getObjectives().stream().forEach(objective -> {
+            if (objective.isGoalComplete() == false && objective.getType().equals(type)
+                    && (objective.getMaterials().isEmpty() || objective.getMobNames().contains(mobName))) {
+                updateQuest(controller, player, amount, objective);
+            }
+        });
     }
 
     protected void updateQuest(QuestController controller, Player player, double amount, ObjectiveType type,
             Material material) {
-        controller.getQuestData().getObjectives().stream()
-                .filter(objective -> objective.getType() == type)
-                .filter(objective -> objective.getMaterials().isEmpty() || objective.getMaterials().contains(material))
-                .forEach(objective -> updateQuest(controller, player, amount, type));
+        controller.getQuestData().getObjectives().stream().forEach(objective -> {
+            if (objective.isGoalComplete() == false && objective.getType().equals(type)
+                    && (objective.getMaterials().isEmpty() || objective.getMaterials().contains(material))) {
+                updateQuest(controller, player, amount, objective);
+            }
+        });
     }
 
     protected List<QuestController> tryGetControllersOfObjectiveType(ObjectiveType type) {

@@ -10,6 +10,7 @@ import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.bossbar.QuestBar;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.schedulers.QuestTimer;
+
 import org.bukkit.entity.Player;
 
 import java.text.DecimalFormat;
@@ -40,20 +41,19 @@ public class QuestController implements Colorization {
         }
     }
 
-    public boolean updateQuest(double count, Player player, ObjectiveType type) {
+    public boolean updateQuest(double count, Player player, Objective objective) {
         double amountToAdd = count;
 
         if (questData.hasGoal()) {
-            if (amountToAdd > questData.getQuestGoal() - questData.getAmountCompleted()) {
-                amountToAdd = questData.getQuestGoal() - questData.getAmountCompleted();
+            if (amountToAdd > objective.getGoal() - objective.getAmountComplete()) {
+                amountToAdd = objective.getGoal() - objective.getAmountComplete();
             }
-            questData.addToQuestProgress(amountToAdd, type);
+            questData.addToQuestProgress(amountToAdd, objective);
         }
 
         playerComponent.savePlayerAction(player, amountToAdd);
         updateBossBar();
-        sendPlayerMessage(player, count);
-
+        sendPlayerMessage(player, amountToAdd);
         if (getQuestData().isGoalComplete()) {
             endQuest();
         }

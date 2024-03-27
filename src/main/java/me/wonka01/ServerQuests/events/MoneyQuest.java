@@ -29,8 +29,11 @@ public class MoneyQuest extends QuestListener {
                 double difference = completed + money - goal;
                 economy.depositPlayer(player, difference);
             }
-
-            updateQuest(controller, player, amountToAdd, ObjectiveType.GIVE_MONEY);
+            double amountToAddFinal = amountToAdd;
+            controller.getQuestData().getObjectives().stream()
+                    .filter(objective -> objective.isGoalComplete() == false
+                            && objective.getType().equals(ObjectiveType.GIVE_MONEY))
+                    .forEach(objective -> updateQuest(controller, player, amountToAddFinal, objective));
             hasMoneyQuest = true;
         }
         if (hasMoneyQuest) {

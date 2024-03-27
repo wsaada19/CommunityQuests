@@ -32,7 +32,7 @@ public class QuestBar implements Colorization {
 
     public void updateBarProgress(double barRatio) {
         if (barRatio < 0.0 || barRatio > 1.0) {
-            JavaPlugin.getPlugin(ServerQuests.class).getLogger().info("Invalid bar ratio provided");
+            JavaPlugin.getPlugin(ServerQuests.class).getLogger().info("Invalid bar ratio of " + barRatio + " provided");
             return;
         }
         bar.setProgress(barRatio);

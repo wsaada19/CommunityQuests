@@ -33,9 +33,10 @@ public class GuiEvent extends QuestListener {
                         ItemStack itemsToReturn = new ItemStack(itemsToAdd.getType(), difference);
                         player.getInventory().addItem(itemsToReturn);
                     }
-
-                    updateQuest(controller, player, itemsToAdd.getAmount(), ObjectiveType.GUI);
                     isItemUsed = true;
+                    if (updateQuest(controller, player, itemsToAdd.getAmount(), objective)) {
+                        break;
+                    }
                 }
             }
         }

@@ -66,22 +66,8 @@ public class QuestData {
         return getAmountCompleted() / getQuestGoal();
     }
 
-    public void addToQuestProgress(double amountToIncrease, ObjectiveType type) {
-        // TODO, handle case where multiple objectives of the same type exist
-        objectives.stream().filter(objective -> objective.getType() == type)
-                .forEach(objective -> objective.addToObjectiveProgress(amountToIncrease));
-    }
-
-    public void addToQuestProgress(double amountToIncrease, ObjectiveType type, String mob) {
-        // TODO, handle case where multiple objectives of the same type exist
-        objectives.stream().filter(objective -> objective.getType() == type)
-                .forEach(objective -> objective.addToObjectiveProgress(amountToIncrease, mob));
-    }
-
-    public void addToQuestProgress(double amountToIncrease, ObjectiveType type, Material material) {
-        // TODO, handle case where multiple objectives of the same type exist
-        objectives.stream().filter(objective -> objective.getType() == type)
-                .forEach(objective -> objective.addToObjectiveProgress(amountToIncrease, material));
+    public void addToQuestProgress(double amountToIncrease, Objective objective) {
+        objective.addToObjectiveProgress(amountToIncrease);
     }
 
     public List<ObjectiveType> getObjectiveTypes() {

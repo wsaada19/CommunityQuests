@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 @Getter
 public class QuestModel {
-
     private final String questId;
     private final String displayName;
     private final String eventDescription;
@@ -37,22 +36,30 @@ public class QuestModel {
             int questGoal, ObjectiveType objective,
             List<String> mobNames, ArrayList<Reward> rewards, List<String> itemNames, String displayItem,
             List<String> worlds, String questDuration, int rewardLimit, String afterQuestCommand,
-            String beforeQuestCommand) {
+            String beforeQuestCommand, List<Objective> objectives) {
         this.questId = questId;
         this.displayName = displayName;
         this.eventDescription = eventDescription;
         this.completeTime = ParseDurationString.parseStringToSeconds(questDuration);
         this.questGoal = questGoal;
-        List<Material> materials = itemNames.stream().map(itemName -> {
-            String capitalizedMaterialName = itemName.toUpperCase().replaceAll(" ", "_");
-            Material material = Material.getMaterial(capitalizedMaterialName);
-            if (material == null) {
-                return Material.AIR;
-            }
-            return material;
-        }).filter(material -> material != Material.AIR).collect(Collectors.toList());
 
-        this.objectives = Arrays.asList(new Objective(objective, questGoal * 1.0, 0, mobNames, materials));
+        List<Material> materials = new ArrayList<>();
+        if (itemNames != null) {
+            materials = itemNames.stream().map(itemName -> {
+                String capitalizedMaterialName = itemName.toUpperCase().replaceAll(" ", "_");
+                Material material = Material.getMaterial(capitalizedMaterialName);
+                if (material == null) {
+                    return Material.AIR;
+                }
+                return material;
+            }).filter(material -> material != Material.AIR).collect(Collectors.toList());
+        }
+
+        if (objectives != null) {
+            this.objectives = objectives;
+        } else {
+            this.objectives = Arrays.asList(new Objective(objective, questGoal * 1.0, 0, mobNames, materials));
+        }
         this.mobNames = mobNames;
         this.rewards = rewards;
         this.itemNames = materials;
@@ -65,7 +72,13 @@ public class QuestModel {
         if (Utils.contains(Material.values(), displayItem)) {
             this.displayItem = Material.valueOf(displayItem.toUpperCase());
         } else {
-            this.displayItem = objective.getDefaultMaterial();
+            if (objectives != null && objectives.size() > 0) {
+                this.displayItem = objectives.get(0).getType().getDefaultMaterial();
+            } else if (objective != null) {
+                this.displayItem = objective.getDefaultMaterial();
+            } else {
+                this.displayItem = Material.DIAMOND_SHOVEL;
+            }
         }
     }
 }

@@ -8,7 +8,6 @@ import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 import org.bukkit.entity.Player;
@@ -36,7 +35,7 @@ public class ViewMenu extends Menu {
         if (data.getQuestGoal() > 0) {
             String completed = Utils.decimalToString(data.getAmountCompleted()),
                     progressStr = getPlugin().messages().string("progress");
-            progressStr += " &f" + completed + "/" + data.getQuestGoal();
+            progressStr += " &f" + completed + "/" + (int) data.getQuestGoal();
 
             lore.add(progressStr);
             lore.add(getProgressIndicator((int) data.getAmountCompleted(), (int) data.getQuestGoal()));
@@ -72,15 +71,12 @@ public class ViewMenu extends Menu {
 
         for (int i = 0; i < top3Players.size(); i++) {
             PlayerData topPlayer = top3Players.get(i);
-            Bukkit.getServer().getConsoleSender().sendMessage("index: " + i);
             if (topPlayer == null) {
                 break;
             }
-            Bukkit.getServer().getConsoleSender().sendMessage("player: " + topPlayer.getName());
 
             String playerString = "&e" + (i + 1) + ")&f " + topPlayer.getName() + "&f - &6&l";
             playerString += Utils.decimalToString(topPlayer.getAmountContributed());
-            Bukkit.getServer().getConsoleSender().sendMessage(playerString);
             lore.add(color(playerString));
         }
     }
