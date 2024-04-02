@@ -41,8 +41,20 @@ public class QuestController implements Colorization {
         }
     }
 
-    public boolean updateQuest(double count, Player player, Objective objective) {
+    public boolean updateQuest(double count, Player player, Objective objective, Integer objectiveId) {
         double amountToAdd = count;
+
+        // Check if quest is complete
+        if (questData.getEventType().equals(EventType.COMPETITIVE)) {
+            CompetitiveQuestData competitiveQuestData = (CompetitiveQuestData) questData;
+            if (competitiveQuestData.isGoalComplete(objective, player, objectiveId)) {
+                return false;
+            }
+        } else {
+            if (questData.isGoalComplete()) {
+                return false;
+            }
+        }
 
         if (questData.hasGoal()) {
             if (amountToAdd > objective.getGoal() - objective.getAmountComplete()) {
@@ -51,7 +63,7 @@ public class QuestController implements Colorization {
             questData.addToQuestProgress(amountToAdd, objective);
         }
 
-        playerComponent.savePlayerAction(player, amountToAdd);
+        playerComponent.savePlayerAction(player, amountToAdd, objectiveId);
         updateBossBar();
         sendPlayerMessage(player, amountToAdd);
         if (getQuestData().isGoalComplete()) {

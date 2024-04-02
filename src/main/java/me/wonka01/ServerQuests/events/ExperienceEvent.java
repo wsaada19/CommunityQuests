@@ -19,10 +19,7 @@ public class ExperienceEvent extends QuestListener implements Listener {
     public void onExperienceEvent(PlayerExpChangeEvent event) {
         List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.EXPERIENCE);
         for (QuestController controller : controllers) {
-            controller.getQuestData().getObjectives().stream()
-                    .filter(objective -> objective.isGoalComplete() == false
-                            && objective.getType().equals(ObjectiveType.EXPERIENCE))
-                    .forEach(objective -> updateQuest(controller, event.getPlayer(), event.getAmount(), objective));
+            updateQuest(controller, event.getPlayer(), event.getAmount(), ObjectiveType.EXPERIENCE);
         }
     }
 }

@@ -13,6 +13,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -43,13 +45,13 @@ public class BasePlayerComponent implements Colorization {
         leaderBoardSize = size;
     }
 
-    public void savePlayerAction(Player player, double count) {
+    public void savePlayerAction(Player player, double count, Integer objectiveId) {
         if (playerMap.containsKey(player.getUniqueId())) {
             PlayerData playerData = playerMap.get(player.getUniqueId());
-            playerData.increaseContribution(count);
+            playerData.increaseContribution(count, objectiveId);
         } else {
             PlayerData playerData = new PlayerData(player.getDisplayName(), player.getUniqueId());
-            playerData.increaseContribution(count);
+            playerData.increaseContribution(count, objectiveId);
             playerMap.put(player.getUniqueId(), playerData);
         }
     }
@@ -117,11 +119,20 @@ public class BasePlayerComponent implements Colorization {
         return 0;
     }
 
+    public double getAmountContributedByObjectiveId(Player player, int id) {
+        if (playerMap.containsKey(player.getUniqueId())) {
+            return playerMap.get(player.getUniqueId()).getAmountContributedByObjectiveId(id);
+        }
+        return 0;
+    }
+
     public JSONArray toJSONArray() {
         JSONArray jArray = new JSONArray();
         for (UUID key : playerMap.keySet()) {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put(key.toString(), playerMap.get(key).getAmountContributed());
+            Gson gson = new Gson();
+            String jsonString = gson.toJson(playerMap.get(key).getObjectiveContributions());
+            jsonObject.put(key.toString(), jsonString);
             jArray.add(jsonObject);
         }
         return jArray;

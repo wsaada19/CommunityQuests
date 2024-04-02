@@ -78,6 +78,10 @@ public class QuestData {
         questDuration -= amountToDecrease;
     }
 
+    public boolean isGoalComplete(Objective objective) {
+        return objective.isGoalComplete();
+    }
+
     // Always false if no goal is set and the quest is using a timer...
     public boolean isGoalComplete() {
         return (hasGoal() && getAmountCompleted() >= getQuestGoal());

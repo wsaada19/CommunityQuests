@@ -19,14 +19,16 @@ public class Objective implements Cloneable {
     private double amountComplete;
     private List<String> mobNames;
     private List<Material> materials;
+    private String description;
 
     public Objective(ObjectiveType type, double goal, double amountComplete, List<String> mobNames,
-            List<Material> materials) {
+            List<Material> materials, String description) {
         this.type = type;
         this.goal = goal;
         this.amountComplete = amountComplete;
         this.mobNames = mobNames;
         this.materials = materials;
+        this.description = description;
     }
 
     public boolean isGoalComplete() {
@@ -49,10 +51,11 @@ public class Objective implements Cloneable {
         Gson gson = new Gson();
         objectiveJson.put("mobNames", gson.toJsonTree(mobNames).getAsJsonArray());
         objectiveJson.put("materials", gson.toJsonTree(materials).getAsJsonArray());
+        objectiveJson.put("description", description);
         return objectiveJson;
     }
 
     public Objective clone() {
-        return new Objective(type, goal, amountComplete, mobNames, materials);
+        return new Objective(type, goal, amountComplete, mobNames, materials, description);
     }
 }

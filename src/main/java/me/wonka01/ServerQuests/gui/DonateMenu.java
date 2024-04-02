@@ -83,15 +83,16 @@ public class DonateMenu extends Menu {
         // TODO - make sure that they right amount is taken even if there's multiple
         // quests
         for (QuestController ctrl : getControllers()) {
+            int counter = 0;
             for (Objective objective : ctrl.getQuestData().getObjectives()) {
-                if (objective.getType() != ObjectiveType.GUI || objective.isGoalComplete())
+                if (objective.getType() != ObjectiveType.GUI || ctrl.getQuestData().isGoalComplete(objective))
                     continue;
                 double total = objective.getAmountComplete() + inputItem.getAmount();
                 double goal = objective.getGoal();
 
                 List<Material> requirements = objective.getMaterials();
                 if (requirements.isEmpty() || requirements.contains(inputItem.getType())) {
-                    updateQuest(ctrl, inputItem, objective);
+                    updateQuest(ctrl, inputItem, objective, counter);
 
                     if (total > goal) {
                         int diff = (int) total - (int) goal;
@@ -101,6 +102,7 @@ public class DonateMenu extends Menu {
                     }
                     isAcceptable = true;
                 }
+                counter++;
             }
         }
 
@@ -142,12 +144,12 @@ public class DonateMenu extends Menu {
         return controllers;
     }
 
-    private void updateQuest(@NonNull QuestController ctrl, @NonNull ItemStack item, Objective obj) {
+    private void updateQuest(@NonNull QuestController ctrl, @NonNull ItemStack item, Objective obj, int objectiveId) {
 
         if (!isWorldAllowed(ctrl, getOwner().getWorld()))
             return;
 
-        if (ctrl.updateQuest(item.getAmount(), getOwner(), obj)) {
+        if (ctrl.updateQuest(item.getAmount(), getOwner(), obj, objectiveId)) {
             // ctrl.endQuest();
         }
 

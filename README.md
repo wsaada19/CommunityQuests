@@ -15,8 +15,7 @@ working together or working against each other.
 
 ## Installation
 
-The jar for this plugin can be downloaded on [Spigot](https://www.spigotmc.org/resources/community-quests-13-0-16-5-%E2%AD%90run-server-wide-quests-%E2%AD%90.90798/). Add the jar file to the plugin folder on your spigot server. See the guide below to configure quests to use on your server. There are no hard dependencies, however, if you have vault and
-an economy plugin installed you can give players money as a reward for completing quests.
+The jar for this plugin can be downloaded on [Spigot](https://www.spigotmc.org/resources/community-quests-13-0-16-5-%E2%AD%90run-server-wide-quests-%E2%AD%90.90798/). Add the jar file to the plugin folder on your Minecraft server. See the guide below to configure quests to use on your server. There are no hard dependencies, however, if you have vault and an economy plugin installed you can give players money as a reward for completing quests. If you have MythicMobs installed you can create quests that require players to kill mobs from the MythicMobs plugin.
 
 ## Commands
 
@@ -61,22 +60,29 @@ Currently, the configuration file is the only way to create quest types. I hope 
 Under the Quests section quests can be created, the field (the example below uses ExampleQuest),
 must be unique.
 
-Here is an example of a quest where everyone on the server must work together to kill a combined 100 zombies, pigs, and zombie pigmen to finish the quest.
+Here is an example of a quest where everyone on the server must work together to kill a combined 100 zombies, pigs, and zombie pigmen and 5 skeletons to complete the quest.
 
 ```yaml
 Quests:
     ExampleQuest: # this value can be anything but it must be unique
         displayName: "&cZombie and Pig Slayer"
-        type: mobkill # required, see type list for available types
         displayItem: ZOMBIE_HEAD # optional parameter to set the item used in GUIs for a given quest
         worlds: # this parameter is optional, if included the quest will only occur in the specified worlds
             - world
-        entities: # This is an optional parameter, if it doesn't exist the quest will count ALL mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
-            - Zombie
-            - Pig
-            - ZOMBIFIED_PIGLIN
+        objectives: # at least one objective is required, each quest can have infinite objectives
+            - type: mobkill ## required, see type list for available types
+              goal: 100 # The goal is the amount of the task to be completed
+              entities: # This is an optional parameter, if it doesn't exist the quest will count ALL mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
+                  - Zombie
+                  - Pig
+                  - ZOMBIFIED_PIGLIN
+              description: Zombies & Pigs # A short description of the quest description
+            - type: mobkill
+              goal: 5
+              entities:
+                  - Skeleton
+              description: Skeletons
         description: Kill 100 zombies and pigs!
-        goal: 100 # The goal is the amount of the task to be completed
         questDuration: 1d # The quest will last for 1 day or until the goal is reached, whichever comes first
         rewards: # set customized rewards for player's who contribute to the quest
             ... Rewards format is shown below ...
@@ -96,18 +102,28 @@ for available materials.
 
 A short description of the quest used in messages and displays.
 
-### type (required)
+### objectives (required)
 
-The quest type, see here for a list of types:
+The objectives are the tasks that need to be completed to finish the quest. Each quest can have multiple objectives. The type of objective is required and the goal is required unless questDuration is set on the entire quest. The description is optional but recommended.
 
-### goal (required if no questDuration is set)
-
-The amount you'll need to complete to finish the quest. To run a collaborative quest a goal is required even if you have a questDuration set.
+The quest below requires players to place 10 acacia saplings and 10 oak saplings.
+`yaml
+    objectives:
+        - type: blockplace
+          goal: 10
+          materials:
+              - ACACIA_SAPLING
+          description: Acacia Saplings
+        - type: blockplace
+          goal: 10
+          materials:
+              - OAK_SAPLING
+          description: Oak Saplings
+    `
 
 ### questDuration (required if no goal is set)
 
-The time that the quest should run for in seconds, so if it is set to 60s the quest will last
-for one minute. You could also do 1m to achieve the same result. If both goal and time required are set then the quest will run until the goal is hit
+The time that the quest should run for in seconds, so if it is set to 60s the quest will last for one minute. You could also do 1m to achieve the same result. If both goal and time required are set then the quest will run until the goal is hit
 or until the duration is hit, whichever comes first.
 
 ```yaml
@@ -127,14 +143,22 @@ Pass in a command to be run after a quest ends
 Use this parameter to restrict quests to specific worlds. All worlds in the list will be able to participate in quests. When no value
 is provided for worlds then the quest will be enabled in every world.
 
-### materials (optional)
+### materials (DEPRECATED use objectives instead)
 
 Optional parameter for the following quest types:
 blockbreak, blockplace, donate, enchantitem, craftitem and consumeitem. If the field is empty or nonexistent then all blocks will be considered.
 
-### entities (optional)
+### entities (DEPRECATED use objectives instead)
 
 Optional field for the following quest types: mobkill, projectilekill and catchfish. If empty or not used, all mob types will be included.
+
+### type (DEPRECATED use objectives instead)
+
+The quest type, see here for a list of types:
+
+### goal (DEPRECATED use objectives instead)
+
+The amount you'll need to complete to finish the quest. To run a collaborative quest a goal is required even if you have a questDuration set.
 
 ## Rewards
 
@@ -196,14 +220,15 @@ Money/experience awards work the same way as cooperative quests. If the money re
 ```yaml
 Fishing:
     displayName: Catch Fish
-    type: catchfish
+    objectives:
+        - type: catchfish
+          goal: 10
+          entities:
+              - Cod
+              - Salmon
+              - Pufferfish
     displayItem: FISHING_ROD
-    entities:
-        - Cod
-        - Salmon
-        - Pufferfish
     description: Catch 3 fish!
-    goal: 10
     rewards:
         experience: 100
 ```
@@ -226,14 +251,21 @@ Fishing:
 
 ```yaml
 MythicMobs:
-    displayName: Kill 100 Cave Spiders
-    type: mythicmob
+    displayName: Kill 100 Cave Spiders and 10 Spider Monkeys
+    objectives:
+        - type: mythicmob
+          goal: 100
+          description: Cave Spiders
+          entities:
+              - CAVE_SPIDER
+        - type: mythicmob
+          description: Spider Monkeys
+          goal: 10
+          entities:
+              - SPIDER_MONKEY
     displayItem: ZOMBIE_HEAD
     description: Kill 100 Cave Spiders before the time runs out!
-    goal: 100
     questDuration: 30m
-    entities:
-        - CAVE_SPIDER
     rewards:
         experience: 100
         money: 1000

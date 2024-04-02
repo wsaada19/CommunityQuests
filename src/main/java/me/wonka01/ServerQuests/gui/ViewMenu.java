@@ -4,6 +4,7 @@ import lombok.NonNull;
 import me.knighthat.apis.menus.Menu;
 import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
+import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
@@ -36,9 +37,10 @@ public class ViewMenu extends Menu {
             String completed = Utils.decimalToString(data.getAmountCompleted()),
                     progressStr = getPlugin().messages().string("progress");
             progressStr += " &f" + completed + "/" + (int) data.getQuestGoal();
-
             lore.add(progressStr);
             lore.add(getProgressIndicator((int) data.getAmountCompleted(), (int) data.getQuestGoal()));
+            lore.add("");
+            getObjectiveProgress(data.getObjectives(), lore);
             lore.add("");
             lore.add(getPlugin().messages().string("topContributors"));
             getTopPlayerString(controller, lore);
@@ -78,6 +80,13 @@ public class ViewMenu extends Menu {
             String playerString = "&e" + (i + 1) + ")&f " + topPlayer.getName() + "&f - &6&l";
             playerString += Utils.decimalToString(topPlayer.getAmountContributed());
             lore.add(color(playerString));
+        }
+    }
+
+    private void getObjectiveProgress(List<Objective> objectives, List<String> lore) {
+        for (Objective obj : objectives) {
+            lore.add(color(obj.getDescription() + " &f" + Utils.decimalToString(obj.getAmountComplete()) + "/"
+                    + Utils.decimalToString(obj.getGoal())));
         }
     }
 

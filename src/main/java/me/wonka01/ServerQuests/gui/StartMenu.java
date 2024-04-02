@@ -19,7 +19,7 @@ import java.util.List;
 public class StartMenu extends Menu {
 
     public StartMenu(ServerQuests plugin, @NonNull Player owner) {
-        super(plugin, owner, "startQuest", 27);
+        super(plugin, owner, "startQuest", 36);
     }
 
     @Override

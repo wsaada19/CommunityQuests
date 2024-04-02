@@ -27,11 +27,9 @@ public class MilkCowEvent extends QuestListener implements Listener {
             return;
         }
         List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.MILK_COW);
+
         for (QuestController controller : controllers) {
-            controller.getQuestData().getObjectives().stream()
-                    .filter(objective -> objective.isGoalComplete() == false
-                            && objective.getType().equals(ObjectiveType.MILK_COW))
-                    .forEach(objective -> updateQuest(controller, event.getPlayer(), 1, objective));
+            updateQuest(controller, event.getPlayer(), 1, ObjectiveType.MILK_COW);
         }
     }
 }

@@ -8,6 +8,7 @@ import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 
 public class CompetitiveQuestData extends QuestData {
 
@@ -46,6 +47,21 @@ public class CompetitiveQuestData extends QuestData {
             return false;
         }
         return (getQuestGoal() > 0 && playerData.getAmountContributed() >= getQuestGoal());
+    }
+
+    // This really means is goal complete for the top player
+    @Override
+    public boolean isGoalComplete(Objective objective) {
+        PlayerData playerData = players.getTopPlayer();
+        if (playerData == null) {
+            return false;
+        }
+        return (getQuestGoal() > 0 && playerData.getAmountContributed() >= getQuestGoal());
+    }
+
+    public boolean isGoalComplete(Objective objective, Player player, Integer objectiveId) {
+        double amountContributed = players.getAmountContributedByObjectiveId(player, objectiveId);
+        return (objective.getGoal() > 0 && amountContributed >= objective.getGoal());
     }
 
     @Override

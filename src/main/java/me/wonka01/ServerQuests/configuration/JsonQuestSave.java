@@ -14,11 +14,15 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import com.google.gson.Gson;
+import java.lang.reflect.Type;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -53,11 +57,6 @@ public class JsonQuestSave {
     public void saveQuestsInProgress() {
         JSONArray jsonArray = new JSONArray();
         for (QuestController questController : activeQuests.getActiveQuestsList()) {
-
-            if (questController.getQuestData().isGoalComplete()) {
-                continue;
-            }
-
             JSONObject jObject = new JSONObject();
             jObject.put("id", questController.getQuestData().getQuestId());
             jObject.put("playerMap", questController.getPlayerComponent().toJSONArray());
@@ -130,7 +129,7 @@ public class JsonQuestSave {
 
                     ObjectiveType objectiveType = ObjectiveType.match(type);
                     Objective objective = new Objective(objectiveType, goal, amount, convertJsonArrayToList(mobNames),
-                            materialList);
+                            materialList, (String) obj.get("description"));
                     objectives.add(objective);
                 }
                 long questDuration = (Long) questObject.getOrDefault("timeLeft", 0);
@@ -143,17 +142,23 @@ public class JsonQuestSave {
                     UUID uuid = UUID.fromString((String) obj.keySet().iterator().next());
                     String playerName = Bukkit.getServer().getOfflinePlayer(uuid).getName();
                     if (playerName == null) {
-                        // ArrayList<String> randomNames = new ArrayList<>();
-                        // randomNames.add("NotSoJuicyJuan");
-                        // randomNames.add("Notch");
-                        // randomNames.add("Availer");
-                        // randomNames.add("Taco");
-                        // randomNames.add("Cheeseburger");
-                        // randomNames.add("Sword4000");
-                        playerName = "UNKNOWN";
+                        ArrayList<String> randomNames = new ArrayList<>();
+                        randomNames.add("NotSoJuicyJuan");
+                        randomNames.add("Notch");
+                        randomNames.add("Availer");
+                        randomNames.add("Taco");
+                        randomNames.add("Cheeseburger");
+                        randomNames.add("Sword4000");
+                        playerName = randomNames.get((int) (Math.random() * randomNames.size()));
                     }
-                    double pContributed = (double) obj.get(uuid.toString());
-                    playerMap.put(uuid, new PlayerData(playerName, (int) pContributed, uuid));
+                    Gson gson = new Gson();
+
+                    // Define the type of the HashMap
+                    Type type = new com.google.gson.reflect.TypeToken<HashMap<Integer, Double>>() {
+                    }.getType();
+                    String jsonContributions = (String) obj.get(uuid.toString());
+                    Bukkit.getLogger().info("jsonContributions: " + jsonContributions);
+                    playerMap.put(uuid, new PlayerData(playerName, uuid, gson.fromJson(jsonContributions, type)));
                 }
 
                 QuestTypeHandler handler = new QuestTypeHandler(questType);

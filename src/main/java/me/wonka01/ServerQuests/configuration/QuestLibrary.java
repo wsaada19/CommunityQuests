@@ -87,6 +87,7 @@ public class QuestLibrary {
                 } else if (obj.get("goal") instanceof Double) {
                     objectiveGoal = (Double) obj.get("goal");
                 }
+                String objDescription = (String) obj.get("description");
                 List<String> objectiveMobs = (List<String>) obj.get("entities");
                 List<String> objectiveMaterials = (List<String>) obj.get("materials");
                 ObjectiveType objectiveTypeEnum = ObjectiveType.match(objectiveType);
@@ -109,7 +110,7 @@ public class QuestLibrary {
                 }
 
                 Objective objective = new Objective(objectiveTypeEnum, objectiveGoal, 0.0, objectiveMobs,
-                        mats);
+                        mats, objDescription);
                 objectives.add(objective);
             }
         }
