@@ -139,7 +139,8 @@ public class JsonQuestSave {
                 Map<UUID, PlayerData> playerMap = new TreeMap<>();
                 while (pIterator.hasNext()) {
                     JSONObject obj = pIterator.next();
-                    UUID uuid = UUID.fromString((String) obj.keySet().iterator().next());
+                    String key = (String) obj.keySet().iterator().next();
+                    UUID uuid = UUID.fromString(key);
                     String playerName = Bukkit.getServer().getOfflinePlayer(uuid).getName();
                     if (playerName == null) {
                         ArrayList<String> randomNames = new ArrayList<>();
@@ -157,7 +158,6 @@ public class JsonQuestSave {
                     Type type = new com.google.gson.reflect.TypeToken<HashMap<Integer, Double>>() {
                     }.getType();
                     String jsonContributions = (String) obj.get(uuid.toString());
-                    Bukkit.getLogger().info("jsonContributions: " + jsonContributions);
                     playerMap.put(uuid, new PlayerData(playerName, uuid, gson.fromJson(jsonContributions, type)));
                 }
 

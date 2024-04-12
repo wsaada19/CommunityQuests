@@ -5,9 +5,11 @@ import lombok.NonNull;
 import me.knighthat.apis.menus.Menu;
 import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
+import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
+import me.wonka01.ServerQuests.questcomponents.CompetitiveQuestData;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -84,11 +86,19 @@ public class DonateMenu extends Menu {
         // quests
         for (QuestController ctrl : getControllers()) {
             int counter = 0;
-            for (Objective objective : ctrl.getQuestData().getObjectives()) {
-                if (objective.getType() != ObjectiveType.GUI || ctrl.getQuestData().isGoalComplete(objective))
+            for (int i = 0; i < ctrl.getQuestData().getObjectives().size(); i++) {
+                Objective objective = ctrl.getQuestData().getObjectives().get(i);
+                // GET BY PLAYER IF COMP
+                if (objective.getType() != ObjectiveType.GUI)
                     continue;
+
                 double total = objective.getAmountComplete() + inputItem.getAmount();
                 double goal = objective.getGoal();
+
+                if (ctrl.isCompetitive()) {
+                    CompetitiveQuestData data = (CompetitiveQuestData) ctrl.getQuestData();
+                    total = data.getPlayers().getAmountContributedByObjectiveId(getOwner(), i) + inputItem.getAmount();
+                }
 
                 List<Material> requirements = objective.getMaterials();
                 if (requirements.isEmpty() || requirements.contains(inputItem.getType())) {

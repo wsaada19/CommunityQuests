@@ -8,6 +8,8 @@ import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.bossbar.QuestBar;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
+
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,13 +43,9 @@ public class QuestTypeHandler {
         ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
 
         QuestBar bar = new QuestBar(model.getDisplayName(), plugin.getConfig().getString("barColor", ""));
-        double completed = objectives.stream().mapToDouble(Objective::getAmountComplete).sum();
-        double questGoal = objectives.stream().mapToDouble(Objective::getGoal).sum();
-        if (completed > 0) {
-            bar.updateBarProgress(completed / questGoal);
-        }
 
         BasePlayerComponent pComponent = new BasePlayerComponent(model.getRewards(), model.getRewardLimit());
+
         if (players != null) {
             pComponent = new BasePlayerComponent(model.getRewards(), players, model.getRewardLimit());
         }
@@ -59,6 +57,10 @@ public class QuestTypeHandler {
 
         QuestData data = getQuestData(model, pComponent, timeLeft, objs);
         EventConstraints event = new EventConstraints(model.getWorlds());
+
+        if (data.getAmountCompleted() > 0) {
+            bar.updateBarProgress(data.getAmountCompleted() / data.getQuestGoal());
+        }
 
         return new QuestController(plugin, data, bar, pComponent, event);
     }

@@ -5,6 +5,7 @@ import me.knighthat.apis.menus.Menu;
 import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.objectives.Objective;
+import me.wonka01.ServerQuests.questcomponents.CompetitiveQuestData;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
@@ -40,8 +41,10 @@ public class ViewMenu extends Menu {
             lore.add(progressStr);
             lore.add(getProgressIndicator((int) data.getAmountCompleted(), (int) data.getQuestGoal()));
             lore.add("");
-            getObjectiveProgress(data.getObjectives(), lore);
-            lore.add("");
+            if (data.getObjectives().size() > 1) {
+                getObjectiveProgress(data.getObjectives(), lore);
+                lore.add("");
+            }
             lore.add(getPlugin().messages().string("topContributors"));
             getTopPlayerString(controller, lore);
         }
@@ -58,7 +61,10 @@ public class ViewMenu extends Menu {
         lore.add(leaders);
         getTopPlayerString(ctrl, lore);
         lore.add(getPlayerProgress(ctrl));
-
+        if (data.getObjectives().size() > 1) {
+            lore.add("");
+            getObjectivePlayerProgress(data.getObjectives(), lore, getOwner(), (CompetitiveQuestData) data);
+        }
         return super.createItemStack(data.getDisplayItem(), data.getDisplayName(), lore);
     }
 
@@ -86,6 +92,16 @@ public class ViewMenu extends Menu {
     private void getObjectiveProgress(List<Objective> objectives, List<String> lore) {
         for (Objective obj : objectives) {
             lore.add(color(obj.getDescription() + " &f" + Utils.decimalToString(obj.getAmountComplete()) + "/"
+                    + Utils.decimalToString(obj.getGoal())));
+        }
+    }
+
+    private void getObjectivePlayerProgress(List<Objective> objectives, List<String> lore, Player player,
+            CompetitiveQuestData questData) {
+        for (int i = 0; i < objectives.size(); i++) {
+            Objective obj = objectives.get(i);
+            lore.add(color(obj.getDescription() + " &f"
+                    + Utils.decimalToString(questData.getPlayers().getAmountContributedByObjectiveId(player, i)) + "/"
                     + Utils.decimalToString(obj.getGoal())));
         }
     }

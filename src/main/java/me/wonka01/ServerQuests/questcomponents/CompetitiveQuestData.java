@@ -10,8 +10,11 @@ import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
+import lombok.Getter;
+
 public class CompetitiveQuestData extends QuestData {
 
+    @Getter
     private BasePlayerComponent players;
 
     public CompetitiveQuestData(String displayName, String description,

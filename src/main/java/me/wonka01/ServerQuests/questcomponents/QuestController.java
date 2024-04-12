@@ -12,6 +12,7 @@ import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.schedulers.QuestTimer;
 
 import org.bukkit.entity.Player;
+import org.checkerframework.checker.units.qual.C;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -56,12 +57,24 @@ public class QuestController implements Colorization {
             }
         }
 
-        if (questData.hasGoal()) {
+        if (questData.hasGoal() && questData.getEventType().equals(EventType.COLLAB)) {
             if (amountToAdd > objective.getGoal() - objective.getAmountComplete()) {
                 amountToAdd = objective.getGoal() - objective.getAmountComplete();
             }
-            questData.addToQuestProgress(amountToAdd, objective);
+        } else if (questData.hasGoal() && questData.getEventType().equals(EventType.COMPETITIVE)) {
+            CompetitiveQuestData competitiveQuestData = (CompetitiveQuestData) questData;
+            double amountComplete = competitiveQuestData.getPlayers().getAmountContributedByObjectiveId(player,
+                    objectiveId);
+            if (amountToAdd > objective.getGoal() - amountComplete) {
+                amountToAdd = objective.getGoal() - amountComplete;
+            }
         }
+
+        if (amountToAdd <= 0) {
+            return false;
+        }
+
+        questData.addToQuestProgress(amountToAdd, objective);
 
         playerComponent.savePlayerAction(player, amountToAdd, objectiveId);
         updateBossBar();

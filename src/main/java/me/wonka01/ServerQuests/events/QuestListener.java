@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.events;
 
+import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
@@ -7,6 +8,7 @@ import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -45,8 +47,12 @@ public abstract class QuestListener {
         List<Objective> objectives = questData.getObjectives();
         for (int i = 0; i < objectives.size(); i++) {
             Objective objective = objectives.get(i);
+            Bukkit.getServer().getConsoleSender().sendMessage("mobs: " + objective.getMobNames().size());
+            if (objective.getMobNames().size() > 0) {
+                Bukkit.getServer().getConsoleSender().sendMessage("mobs: " + objective.getMobNames().get(0));
+            }
             if (objective.getType().equals(type)
-                    && (objective.getMobNames().isEmpty() || objective.getMobNames().contains(mobName))) {
+                    && (objective.getMobNames().isEmpty() || Utils.contains(objective.getMobNames(), mobName))) {
                 updateQuest(controller, player, amount, objective, i);
             }
         }
