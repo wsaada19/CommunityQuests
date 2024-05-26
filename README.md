@@ -10,12 +10,11 @@
 
 ## Summary
 
-The Community Quests plugin allows server owners and administers to create server-wide quests for players to participate in either
-working together or working against each other.
+The Community Quests plugin allows server owners to create server-wide quests for players to participate in either working together or competing against each other.
 
 ## Installation
 
-The jar for this plugin can be downloaded on [Spigot](https://www.spigotmc.org/resources/community-quests-13-0-16-5-%E2%AD%90run-server-wide-quests-%E2%AD%90.90798/). Add the jar file to the plugin folder on your Minecraft server. See the guide below to configure quests to use on your server. There are no hard dependencies, however, if you have vault and an economy plugin installed you can give players money as a reward for completing quests. If you have MythicMobs installed you can create quests that require players to kill mobs from the MythicMobs plugin.
+The jar file can be downloaded on [Spigot](https://www.spigotmc.org/resources/community-quests-13-0-16-5-%E2%AD%90run-server-wide-quests-%E2%AD%90.90798/). Add the file to the plugin folder on your Minecraft server. See the guide below to configure quests to use on your server. There are no hard dependencies, however, if you have vault and an economy plugin installed you can give players money as a reward for completing quests. If you have MythicMobs installed you can create quests that require players to kill custom MythicMobs enemies.
 
 ## Commands
 
@@ -53,7 +52,7 @@ Opens a GUI to claim rewards for completed quests
 
 ## Configuration
 
-The config.yml provides a powerful customization system allowing you to create server-wide quests for your players to enjoy. All quests are created in the config.yml file and are started in-game.
+The config.yml is used to configure quests in the plugin. Once the quests have been created you can start them using the /cq start command.
 
 Currently, the configuration file is the only way to create quest types. I hope to include a GUI to do this in-game or on a website in the future.
 
@@ -76,7 +75,7 @@ Quests:
                   - Zombie
                   - Pig
                   - ZOMBIFIED_PIGLIN
-              description: Zombies & Pigs # A short description of the quest description
+              description: "Zombies & Pigs" # A short description of the objective used in the GUI
             - type: mobkill
               goal: 5
               entities:
@@ -86,16 +85,16 @@ Quests:
         questDuration: 1d # The quest will last for 1 day or until the goal is reached, whichever comes first
         rewards: # set customized rewards for player's who contribute to the quest
             ... Rewards format is shown below ...
-    OtherQuest: Other quest info...
+    OtherQuest: # Config for another quest
 ```
 
 ### displayName (required)
 
-The name that will be shown for the quest you've created
+The name that will be shown for the quest you've created used in messages and GUIs.
 
 ### displayItem (optional)
 
-The material that will be used to display a quest in /cq view, start and stop commands.View [this list](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html)
+The material that will be used to display a quest in /cq view, start and stop commands. [View this list](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html)
 for available materials.
 
 ### description (required)
@@ -107,19 +106,20 @@ A short description of the quest used in messages and displays.
 The objectives are the tasks that need to be completed to finish the quest. Each quest can have multiple objectives. The type of objective is required and the goal is required unless questDuration is set on the entire quest. The description is optional but recommended.
 
 The quest below requires players to place 10 acacia saplings and 10 oak saplings.
-`yaml
-    objectives:
-        - type: blockplace
-          goal: 10
-          materials:
-              - ACACIA_SAPLING
-          description: Acacia Saplings
-        - type: blockplace
-          goal: 10
-          materials:
-              - OAK_SAPLING
-          description: Oak Saplings
-    `
+
+```yaml
+objectives:
+    - type: blockplace
+      goal: 10
+      materials:
+          - ACACIA_SAPLING
+      description: Acacia Saplings
+    - type: blockplace
+      goal: 10
+      materials:
+          - OAK_SAPLING
+      description: Oak Saplings
+```
 
 ### questDuration (required if no goal is set)
 
