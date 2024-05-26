@@ -67,7 +67,7 @@ public class QuestLibrary {
         // If objectives are not defined use old quest config?
         if (objectivesConfig == null) {
             Bukkit.getServer().getConsoleSender().sendMessage(
-                    "[Server Quests] Using the legacy questing system for ID " + questId
+                    "[Community Quests] Using the legacy questing system for ID " + questId
                             + ". Please check the docs and follow the new format for creating quests with the objectives option. This enables you to set multiple objectives per quest.");
             mobNames = section.getStringList("entities");
             materials = section.getStringList("materials");
@@ -76,7 +76,7 @@ public class QuestLibrary {
         } else {
             objectives = new ArrayList<>();
             Bukkit.getServer().getConsoleSender().sendMessage(
-                    "[Server Quests] Using the new questing system for ID " + questId
+                    "[Community Quests] Using the new questing system for ID " + questId
                             + ". This enables you to set multiple objectives per quest. This quest has "
                             + objectivesConfig.size() + " objectives.");
             for (LinkedHashMap obj : objectivesConfig) {

@@ -10,6 +10,14 @@ barColor: "GREEN"
 
 disableBossBar: false
 
+# If enabled, blockbreak quests will not be able to break the same item multiple
+# times in a row.
+disableDuplicateBreaks: false
+
+# If enabled, blockplace quests will not be able to place the same item multiple
+# times in a row.
+disableDuplicatePlaces: false
+
 # Material used in the donate quest menu.
 donateMenuItem: OBSIDIAN
 

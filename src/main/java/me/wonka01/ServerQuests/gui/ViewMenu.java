@@ -33,13 +33,13 @@ public class ViewMenu extends Menu {
     private @NonNull ItemStack coopItem(@NonNull QuestController controller) {
         QuestData data = controller.getQuestData();
         List<String> lore = super.getLoreFromData(data);
-
-        if (data.getQuestGoal() > 0) {
+        double goal = data.getQuestGoal();
+        if (goal > 0) {
             String completed = Utils.decimalToString(data.getAmountCompleted()),
                     progressStr = getPlugin().messages().string("progress");
-            progressStr += " &f" + completed + "/" + (int) data.getQuestGoal();
+            progressStr += " &f" + completed + "/" + Utils.decimalToString(goal);
             lore.add(progressStr);
-            lore.add(getProgressIndicator((int) data.getAmountCompleted(), (int) data.getQuestGoal()));
+            lore.add(getProgressIndicator((int) data.getAmountCompleted(), (int) goal));
             lore.add("");
             if (data.getObjectives().size() > 1) {
                 getObjectiveProgress(data.getObjectives(), lore);

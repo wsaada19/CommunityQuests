@@ -33,8 +33,12 @@ public class ActiveQuests {
     public void endQuest(UUID questId) {
         BarManager.closeBar(questId);
         QuestController controller = getQuestById(questId);
-        controller.getQuestBar().removeBossBar();
-        activeQuestsList.remove(controller);
+        Bukkit.getServer().getConsoleSender()
+                .sendMessage("Ending quest!");
+        if (controller != null) {
+            controller.getQuestBar().removeBossBar();
+            activeQuestsList.remove(controller);
+        }
         if (activeQuestsList.size() > 0) {
             BarManager.startShowingPlayersBar(activeQuestsList.get(0).getQuestId());
         }

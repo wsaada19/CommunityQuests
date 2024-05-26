@@ -20,15 +20,18 @@ public class PlaceEvent extends QuestListener implements Listener {
 
     private final String PLACED = "PLACED";
     private final MetadataValue meta = new FixedMetadataValue(JavaPlugin.getPlugin(ServerQuests.class), true);
+    private boolean disableDuplicatePlaces;
 
     public PlaceEvent(ActiveQuests activeQuests) {
         super(activeQuests);
+        disableDuplicatePlaces = JavaPlugin.getPlugin(ServerQuests.class).getConfig()
+                .getBoolean("disableDuplicatePlaces");
     }
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         Block block = event.getBlock();
-        if (block.hasMetadata(PLACED)) {
+        if (disableDuplicatePlaces && block.hasMetadata(PLACED)) {
             return;
         }
 

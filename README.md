@@ -160,6 +160,14 @@ The quest type, see here for a list of types:
 
 The amount you'll need to complete to finish the quest. To run a collaborative quest a goal is required even if you have a questDuration set.
 
+### disableDuplicateBreaks
+
+If set to true players will not be able to break the same item multiple times. This can cause some issues for items like carrots where planting a new carrot wont work properly since it's the same item.
+
+### disableDuplicatePlaces
+
+Same as above but for block place events.
+
 ## Rewards
 
 The rewards are given to players after completing the quest. There are four types of rewards: money, experience, command, and item rewards. Experience and money rewards are earned based on how much you contribute to the

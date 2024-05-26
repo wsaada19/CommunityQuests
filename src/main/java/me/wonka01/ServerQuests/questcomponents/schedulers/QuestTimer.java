@@ -9,7 +9,8 @@ import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
 
 public class QuestTimer {
-    // checks every 2 seconds to see if the quest is complete (TODO make this configurable)
+    // checks every 2 seconds to see if the quest is complete (TODO make this
+    // configurable)
     private final long INTERVAL = 2L;
 
     private QuestController controller;
@@ -19,7 +20,8 @@ public class QuestTimer {
         controller = questController;
 
         if (controller.getQuestData().getQuestDuration() <= 0) {
-            throw new IllegalArgumentException("A quest timer cannot be initiated if the time remaining is 0 or negative.");
+            throw new IllegalArgumentException(
+                    "A quest timer cannot be initiated if the time remaining is 0 or negative.");
         }
         createScheduler();
     }
@@ -34,7 +36,7 @@ public class QuestTimer {
 
             data.decreaseDuration((int) INTERVAL);
             if (data.getQuestDuration() <= 0) {
-                if(controller != null) {
+                if (controller != null) {
                     controller.endQuest();
                 }
                 task.cancel();

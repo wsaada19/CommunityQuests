@@ -30,7 +30,6 @@ public class MobKillEvent extends QuestListener implements Listener {
 
         List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.MOB_KILL);
         for (QuestController controller : controllers) {
-            Bukkit.getServer().getConsoleSender().sendMessage("MobKillEvent: " + entity.getType());
             updateQuest(controller, killer, 1, ObjectiveType.MOB_KILL, entity.getType().toString());
         }
     }

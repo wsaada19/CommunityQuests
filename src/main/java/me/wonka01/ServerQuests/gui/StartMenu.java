@@ -30,13 +30,8 @@ public class StartMenu extends Menu {
             List<String> lore = new ArrayList<>();
             lore.add(model.getEventDescription());
 
-            double goal = model.getObjectives().stream().mapToDouble(Objective::getGoal).sum();
-
             int completeTime = model.getCompleteTime();
-            if (goal > 0) {
-                String goalString = getPlugin().messages().string("goal");
-                lore.add(goalString + ": &c" + Utils.decimalToString(goal));
-            }
+
             if (completeTime > 0) {
                 String duration = getPlugin().messages().string("duration");
                 lore.add(duration + ": &c" + ParseDurationString.formatSecondsToString(completeTime));

@@ -58,7 +58,6 @@ public class QuestData {
         double result = objectives.stream().filter(objective -> objective.getType() == type)
                 .mapToDouble(Objective::getGoal)
                 .sum();
-        Bukkit.getServer().broadcastMessage("Getting goal by type " + result);
         return result;
     }
 
