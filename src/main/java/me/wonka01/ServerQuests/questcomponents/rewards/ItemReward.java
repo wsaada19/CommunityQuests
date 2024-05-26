@@ -3,14 +3,18 @@ package me.wonka01.ServerQuests.questcomponents.rewards;
 import lombok.Getter;
 import lombok.NonNull;
 import me.knighthat.apis.utils.Colorization;
+import me.wonka01.ServerQuests.ServerQuests;
 
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 import org.json.simple.JSONObject;
 
@@ -50,7 +54,9 @@ public class ItemReward implements Reward, Colorization {
         Player realPlayer = (Player) player;
         HashMap<Integer, ItemStack> overFlowItems = realPlayer.getInventory().addItem(itemStack);
         if (overFlowItems.size() > 0) {
-            realPlayer.sendMessage(color("&cInventory is full! Reward was dropped on the ground."));
+            ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
+            String inventoryFullMessage = plugin.messages().message("droppedReward");
+            realPlayer.sendMessage(color(inventoryFullMessage));
             overFlowItems.forEach((slot, item) -> realPlayer.getWorld().dropItem(realPlayer.getLocation(), item));
         }
         realPlayer.sendMessage(color("- " + amount + " " + displayName));

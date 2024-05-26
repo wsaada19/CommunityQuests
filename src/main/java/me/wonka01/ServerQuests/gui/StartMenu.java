@@ -2,9 +2,11 @@ package me.wonka01.ServerQuests.gui;
 
 import lombok.NonNull;
 import me.knighthat.apis.menus.Menu;
+import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.configuration.QuestModel;
+import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.schedulers.ParseDurationString;
 
 import org.bukkit.entity.Player;
@@ -17,7 +19,7 @@ import java.util.List;
 public class StartMenu extends Menu {
 
     public StartMenu(ServerQuests plugin, @NonNull Player owner) {
-        super(plugin, owner, "startQuest", 27);
+        super(plugin, owner, "startQuest", 36);
     }
 
     @Override
@@ -28,12 +30,8 @@ public class StartMenu extends Menu {
             List<String> lore = new ArrayList<>();
             lore.add(model.getEventDescription());
 
-            int goalTime = model.getQuestGoal(), completeTime = model.getCompleteTime();
-            if (goalTime > 0) {
+            int completeTime = model.getCompleteTime();
 
-                String goal = getPlugin().messages().string("goal");
-                lore.add(goal + ": &c" + goalTime);
-            }
             if (completeTime > 0) {
                 String duration = getPlugin().messages().string("duration");
                 lore.add(duration + ": &c" + ParseDurationString.formatSecondsToString(completeTime));

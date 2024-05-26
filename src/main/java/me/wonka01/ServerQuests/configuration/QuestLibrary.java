@@ -2,12 +2,16 @@ package me.wonka01.ServerQuests.configuration;
 
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
+import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.rewards.*;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class QuestLibrary {
 
@@ -29,8 +33,15 @@ public class QuestLibrary {
 
         for (String questId : serverQuestConfig.getKeys(false)) {
             ConfigurationSection section = serverQuestConfig.getConfigurationSection(questId);
-            QuestModel model = loadQuestFromConfig(section);
-            map.put(questId, model);
+            try {
+                QuestModel model = loadQuestFromConfig(section);
+                map.put(questId, model);
+            } catch (Exception e) {
+                Bukkit.getServer().getConsoleSender().sendMessage(
+                        "[Community Quests] Failed to load quest with ID " + questId
+                                + ". Please check the configuration file.");
+                e.printStackTrace();
+            }
         }
         questList = map;
     }
@@ -40,15 +51,69 @@ public class QuestLibrary {
         String displayName = section.getString("displayName");
         String description = section.getString("description");
         String questDuration = section.getString("questDuration");
-        List<String> mobNames = section.getStringList("entities");
-        List<String> itemNames = section.getStringList("materials");
         List<String> worlds = section.getStringList("worlds");
         String displayItem = section.getString("displayItem", "");
         String afterQuestCommand = section.getString("afterQuestCommand", "");
         String beforeQuestCommand = section.getString("beforeQuestCommand", "");
 
-        ObjectiveType type = ObjectiveType.match(section.getString("type"));
-        int goal = section.getInt("goal", -1);
+        List<Objective> objectives = null;
+        List<String> mobNames = null;
+        int goal = 0;
+        ObjectiveType type = null;
+        List<String> materials = null;
+
+        List<LinkedHashMap> objectivesConfig = (List<LinkedHashMap>) section.getList("objectives");
+
+        // If objectives are not defined use old quest config?
+        if (objectivesConfig == null) {
+            Bukkit.getServer().getConsoleSender().sendMessage(
+                    "[Community Quests] Using the legacy questing system for ID " + questId
+                            + ". Please check the docs and follow the new format for creating quests with the objectives option. This enables you to set multiple objectives per quest.");
+            mobNames = section.getStringList("entities");
+            materials = section.getStringList("materials");
+            type = ObjectiveType.match(section.getString("type"));
+            goal = section.getInt("goal", -1);
+        } else {
+            objectives = new ArrayList<>();
+            Bukkit.getServer().getConsoleSender().sendMessage(
+                    "[Community Quests] Using the new questing system for ID " + questId
+                            + ". This enables you to set multiple objectives per quest. This quest has "
+                            + objectivesConfig.size() + " objectives.");
+            for (LinkedHashMap obj : objectivesConfig) {
+                String objectiveType = (String) obj.get("type");
+                double objectiveGoal = 0.0;
+                if (obj.get("goal") instanceof Integer) {
+                    objectiveGoal = (Integer) obj.get("goal");
+                } else if (obj.get("goal") instanceof Double) {
+                    objectiveGoal = (Double) obj.get("goal");
+                }
+                String objDescription = (String) obj.get("description");
+                List<String> objectiveMobs = (List<String>) obj.get("entities");
+                List<String> objectiveMaterials = (List<String>) obj.get("materials");
+                ObjectiveType objectiveTypeEnum = ObjectiveType.match(objectiveType);
+                List<Material> mats = new ArrayList<>();
+                if (objectiveMaterials != null) {
+                    mats = objectiveMaterials.stream().map(itemName -> {
+                        String capitalizedMaterialName = itemName.toUpperCase().replaceAll(" ", "_");
+                        Material material = Material.getMaterial(capitalizedMaterialName);
+                        if (material == null) {
+                            return Material.AIR;
+                        }
+                        return material;
+                    }).filter(material -> material != Material.AIR).collect(Collectors.toList());
+                } else {
+                    objectiveMaterials = new ArrayList<>();
+                }
+
+                if (objectiveMobs == null) {
+                    objectiveMobs = new ArrayList<>();
+                }
+
+                Objective objective = new Objective(objectiveTypeEnum, objectiveGoal, 0.0, objectiveMobs,
+                        mats, objDescription);
+                objectives.add(objective);
+            }
+        }
 
         ConfigurationSection rewardsSection = section.getConfigurationSection("rewards");
         ArrayList<Reward> rewards = getRewardsFromConfig(rewardsSection);
@@ -58,8 +123,8 @@ public class QuestLibrary {
         }
 
         return new QuestModel(questId, displayName, description, goal,
-                type, mobNames, rewards, itemNames, displayItem, worlds, questDuration, rewardsLimit, afterQuestCommand,
-                beforeQuestCommand);
+                type, mobNames, rewards, materials, displayItem, worlds, questDuration, rewardsLimit, afterQuestCommand,
+                beforeQuestCommand, objectives);
     }
 
     private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {

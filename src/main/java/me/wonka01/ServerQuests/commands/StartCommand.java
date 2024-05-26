@@ -40,11 +40,6 @@ public class StartCommand extends PluginCommand {
             switch (args[2]) {
                 case "coop":
                     type = EventType.COLLAB;
-                    if (model.getQuestGoal() <= 0) {
-                        String noGoal = getPlugin().messages().message("cooperativeQuestMustHaveAGoal");
-                        sender.sendMessage(noGoal);
-                        return;
-                    }
                     break;
                 case "comp":
                     type = EventType.COMPETITIVE;

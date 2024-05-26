@@ -71,7 +71,8 @@ public class BarManager implements Listener {
     }
 
     public static void startShowingPlayerBar(Player player) {
-        if (disabled) return;
+        if (disabled)
+            return;
 
         for (UUID id : questsToShow) {
             QuestController controller = ActiveQuests.getActiveQuestsInstance().getQuestById(id);
@@ -101,7 +102,8 @@ public class BarManager implements Listener {
 
     private static boolean isSlotFree() {
         for (UUID questId : questsToShow) {
-            if (questId == null) return true;
+            if (questId == null)
+                return true;
         }
         return false;
     }
@@ -115,6 +117,10 @@ public class BarManager implements Listener {
         if (disabled) {
             return;
         }
+        // check for the boss bar hide permission
+        // if (joinEvent.getPlayer().hasPermission("communityquests.bossbar.hide")) {
+        // return;
+        // }
         startShowingPlayerBar(joinEvent.getPlayer());
     }
 

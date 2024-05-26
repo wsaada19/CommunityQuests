@@ -21,13 +21,9 @@ public class EnchantItemQuestEvent extends QuestListener implements Listener {
     public void onEnchantItem(EnchantItemEvent event) {
         Player player = event.getEnchanter();
 
-        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.ENCHANT_ITEM);
+        List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.ENCHANT_ITEM);
         for (QuestController controller : controllers) {
-            List<Material> materials = controller.getEventConstraints().getMaterials();
-
-            if (materials.isEmpty() || materials.contains(event.getItem().getType())) {
-                updateQuest(controller, player, 1);
-            }
+            updateQuest(controller, player, 1, ObjectiveType.ENCHANT_ITEM, event.getItem().getType());
         }
     }
 }

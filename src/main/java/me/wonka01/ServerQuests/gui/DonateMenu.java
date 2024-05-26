@@ -5,10 +5,12 @@ import lombok.NonNull;
 import me.knighthat.apis.menus.Menu;
 import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
+import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
+import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
+import me.wonka01.ServerQuests.questcomponents.CompetitiveQuestData;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
-import me.wonka01.ServerQuests.questcomponents.QuestData;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -33,7 +35,7 @@ public class DonateMenu extends Menu {
         super(plugin, owner, "donateMenu", 45);
 
         Material borderMaterial = Material.getMaterial(
-            getPlugin().getConfig().getString("donateMenuItem", "BLACK_STAINED_GLASS_PANE"));
+                getPlugin().getConfig().getString("donateMenuItem", "BLACK_STAINED_GLASS_PANE"));
         if (borderMaterial == null) {
             borderMaterial = Material.BLACK_STAINED_GLASS_PANE;
         }
@@ -80,24 +82,37 @@ public class DonateMenu extends Menu {
 
         event.setCancelled(true);
         boolean isAcceptable = false;
+        // TODO - make sure that they right amount is taken even if there's multiple
+        // quests
         for (QuestController ctrl : getControllers()) {
+            int counter = 0;
+            for (int i = 0; i < ctrl.getQuestData().getObjectives().size(); i++) {
+                Objective objective = ctrl.getQuestData().getObjectives().get(i);
+                // GET BY PLAYER IF COMP
+                if (objective.getType() != ObjectiveType.GUI)
+                    continue;
 
-            QuestData data = ctrl.getQuestData();
-            double total = data.getAmountCompleted() + inputItem.getAmount();
-            int goal = data.getQuestGoal();
+                double total = objective.getAmountComplete() + inputItem.getAmount();
+                double goal = objective.getGoal();
 
-            List<Material> requirements = ctrl.getEventConstraints().getMaterials();
-            if (requirements.isEmpty() || requirements.contains(inputItem.getType())) {
-                updateQuest(ctrl, inputItem);
-
-                if (total > goal) {
-                    int diff = (int) total - goal;
-                    inputItem.setAmount(diff);
-                } else {
-                    inputItem.setAmount(0);
+                if (ctrl.isCompetitive()) {
+                    CompetitiveQuestData data = (CompetitiveQuestData) ctrl.getQuestData();
+                    total = data.getPlayers().getAmountContributedByObjectiveId(getOwner(), i) + inputItem.getAmount();
                 }
 
-                isAcceptable = true;
+                List<Material> requirements = objective.getMaterials();
+                if (requirements.isEmpty() || requirements.contains(inputItem.getType())) {
+                    updateQuest(ctrl, inputItem, objective, counter);
+
+                    if (total > goal) {
+                        int diff = (int) total - (int) goal;
+                        inputItem.setAmount(diff);
+                    } else {
+                        inputItem.setAmount(0);
+                    }
+                    isAcceptable = true;
+                }
+                counter++;
             }
         }
 
@@ -133,19 +148,21 @@ public class DonateMenu extends Menu {
 
         ActiveQuests activeQuests = getPlugin().config().getActiveQuests();
         for (QuestController ctrl : activeQuests.getActiveQuestsList())
-            if (ctrl.getObjective().equals(ObjectiveType.GUI))
+            if (ctrl.getObjectiveTypes().contains(ObjectiveType.GUI))
                 controllers.add(ctrl);
 
         return controllers;
     }
 
-    private void updateQuest(@NonNull QuestController ctrl, @NonNull ItemStack item) {
+    private void updateQuest(@NonNull QuestController ctrl, @NonNull ItemStack item, Objective obj, int objectiveId) {
 
         if (!isWorldAllowed(ctrl, getOwner().getWorld()))
             return;
 
-        if (ctrl.updateQuest(item.getAmount(), getOwner()))
-            ctrl.endQuest();
+        if (ctrl.updateQuest(item.getAmount(), getOwner(), obj, objectiveId)) {
+            // ctrl.endQuest();
+        }
+
     }
 
     private boolean isWorldAllowed(@NonNull QuestController ctrl, @NonNull World world) {

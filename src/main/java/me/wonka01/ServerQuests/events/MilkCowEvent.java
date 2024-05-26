@@ -26,9 +26,10 @@ public class MilkCowEvent extends QuestListener implements Listener {
         if (!(cow instanceof Cow) || !(player.getInventory().getItemInMainHand().getType().equals(Material.BUCKET))) {
             return;
         }
-        List<QuestController> controllers = tryGetControllersOfEventType(ObjectiveType.MILK_COW);
+        List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.MILK_COW);
+
         for (QuestController controller : controllers) {
-            updateQuest(controller, player, 1);
+            updateQuest(controller, event.getPlayer(), 1, ObjectiveType.MILK_COW);
         }
     }
 }

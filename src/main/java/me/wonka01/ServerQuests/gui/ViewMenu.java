@@ -4,11 +4,12 @@ import lombok.NonNull;
 import me.knighthat.apis.menus.Menu;
 import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
+import me.wonka01.ServerQuests.objectives.Objective;
+import me.wonka01.ServerQuests.questcomponents.CompetitiveQuestData;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 import org.bukkit.entity.Player;
@@ -32,15 +33,18 @@ public class ViewMenu extends Menu {
     private @NonNull ItemStack coopItem(@NonNull QuestController controller) {
         QuestData data = controller.getQuestData();
         List<String> lore = super.getLoreFromData(data);
-
-        if (data.getQuestGoal() > 0) {
+        double goal = data.getQuestGoal();
+        if (goal > 0) {
             String completed = Utils.decimalToString(data.getAmountCompleted()),
                     progressStr = getPlugin().messages().string("progress");
-            progressStr += " &f" + completed + "/" + data.getQuestGoal();
-
+            progressStr += " &f" + completed + "/" + Utils.decimalToString(goal);
             lore.add(progressStr);
-            lore.add(getProgressIndicator((int) data.getAmountCompleted(), data.getQuestGoal()));
+            lore.add(getProgressIndicator((int) data.getAmountCompleted(), (int) goal));
             lore.add("");
+            if (data.getObjectives().size() > 1) {
+                getObjectiveProgress(data.getObjectives(), lore);
+                lore.add("");
+            }
             lore.add(getPlugin().messages().string("topContributors"));
             getTopPlayerString(controller, lore);
         }
@@ -57,7 +61,10 @@ public class ViewMenu extends Menu {
         lore.add(leaders);
         getTopPlayerString(ctrl, lore);
         lore.add(getPlayerProgress(ctrl));
-
+        if (data.getObjectives().size() > 1) {
+            lore.add("");
+            getObjectivePlayerProgress(data.getObjectives(), lore, getOwner(), (CompetitiveQuestData) data);
+        }
         return super.createItemStack(data.getDisplayItem(), data.getDisplayName(), lore);
     }
 
@@ -72,16 +79,30 @@ public class ViewMenu extends Menu {
 
         for (int i = 0; i < top3Players.size(); i++) {
             PlayerData topPlayer = top3Players.get(i);
-            Bukkit.getServer().getConsoleSender().sendMessage("index: " + i);
             if (topPlayer == null) {
                 break;
             }
-            Bukkit.getServer().getConsoleSender().sendMessage("player: " + topPlayer.getName());
 
             String playerString = "&e" + (i + 1) + ")&f " + topPlayer.getName() + "&f - &6&l";
             playerString += Utils.decimalToString(topPlayer.getAmountContributed());
-            Bukkit.getServer().getConsoleSender().sendMessage(playerString);
             lore.add(color(playerString));
+        }
+    }
+
+    private void getObjectiveProgress(List<Objective> objectives, List<String> lore) {
+        for (Objective obj : objectives) {
+            lore.add(color(obj.getDescription() + " &f" + Utils.decimalToString(obj.getAmountComplete()) + "/"
+                    + Utils.decimalToString(obj.getGoal())));
+        }
+    }
+
+    private void getObjectivePlayerProgress(List<Objective> objectives, List<String> lore, Player player,
+            CompetitiveQuestData questData) {
+        for (int i = 0; i < objectives.size(); i++) {
+            Objective obj = objectives.get(i);
+            lore.add(color(obj.getDescription() + " &f"
+                    + Utils.decimalToString(questData.getPlayers().getAmountContributedByObjectiveId(player, i)) + "/"
+                    + Utils.decimalToString(obj.getGoal())));
         }
     }
 

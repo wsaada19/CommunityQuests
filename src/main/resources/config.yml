@@ -10,19 +10,38 @@ barColor: "GREEN"
 
 disableBossBar: false
 
+# If enabled, blockbreak quests will not be able to break the same item multiple
+# times in a row.
+disableDuplicateBreaks: false
+
+# If enabled, blockplace quests will not be able to place the same item multiple
+# times in a row.
+disableDuplicatePlaces: false
+
 # Material used in the donate quest menu.
 donateMenuItem: OBSIDIAN
 
 Quests:
     TestQuest: # Quest identifier can be whatever you'd like as long as it's unique
-        displayName: "&c&lZombie Pig Slayer"
-        type: mobkill # required, see type list for available types
-        entities: # This is an optional parameter, if it doesn't exist the quest will count all mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
-            - Zombie
-            - Pig
-        description: "&fKill 5 zombies as fast as you can!"
-        displayItem: ZOMBIE_HEAD
-        goal: 5 # The goal is the amount of the task to be completed
+        displayName: "&cZombie and Pig Slayer"
+        displayItem: ZOMBIE_HEAD # optional parameter to set the item used in GUIs for a given quest
+        worlds: # this parameter is optional, if included the quest will only occur in the specified worlds
+            - world
+        objectives: # at least one objective is required, each quest can have infinite objectives
+            - type: mobkill ## required, see type list for available types
+              goal: 100 # The goal is the amount of the task to be completed
+              entities: # This is an optional parameter, if it doesn't exist the quest will count ALL mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
+                  - Zombie
+                  - Pig
+                  - ZOMBIFIED_PIGLIN
+              description: "Zombies & Pigs" # A short description of the objective used in the GUI
+            - type: mobkill
+              goal: 5
+              entities:
+                  - Skeleton
+              description: Skeletons
+        description: Kill 100 zombies and pigs!
+        questDuration: 1d # The quest will last for 1 day or until the goal is reached, whichever comes first
         rewards:
             experience: 100
             items:

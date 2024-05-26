@@ -25,6 +25,7 @@ public enum ObjectiveType {
     MYTHIC_MOB("mythicmob", Material.DRAGON_EGG),
     UNKNOWN("unknown", Material.AIR);
 
+    @Getter
     private final @NonNull String string;
 
     @Getter
