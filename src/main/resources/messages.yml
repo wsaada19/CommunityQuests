@@ -7,7 +7,6 @@ invalidQuestName: "&cThe quest name you entered does not exist"
 invalidQuestType: "&cYou must enter a quest type; coop or comp"
 noActiveQuests: "&cThere are currently no active quests running on the server."
 questLimitReached: "&cThe quest could not be created, the number of active quests has reached its limit"
-cooperativeQuestMustHaveAGoal: "&cCould not start quest: quests without a goal cannot be cooperative!"
 
 # In the below messages the 'questName' value is replaced by the display name set by the quest in the configuration
 questCompleteMessage: "&a&lQUEST COMPLETE &f( questName &f) \n Congrats on completing the quest! See the top players below"
