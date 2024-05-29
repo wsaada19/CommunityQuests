@@ -71,12 +71,12 @@ public class QuestTypeHandler {
             return new CompetitiveQuestData(questModel.getDisplayName(),
                     questModel.getEventDescription(), playerComponent, questModel.getQuestId(),
                     timeLeft, questModel.getDisplayItem(), questModel.getQuestId(), questModel.getAfterQuestCommand(),
-                    questModel.getBeforeQuestCommand(), objectives);
+                    questModel.getBeforeQuestCommand(), objectives, questModel.getQuestFailedCommand());
         } else {
             return new QuestData(questModel.getDisplayName(),
                     questModel.getEventDescription(), questModel.getQuestId(), timeLeft,
                     questModel.getDisplayItem(), questModel.getQuestId(), questModel.getAfterQuestCommand(),
-                    questModel.getBeforeQuestCommand(), objectives);
+                    questModel.getBeforeQuestCommand(), objectives, questModel.getQuestFailedCommand());
         }
     }
 }

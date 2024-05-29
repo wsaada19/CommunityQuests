@@ -9,7 +9,6 @@ import me.wonka01.ServerQuests.objectives.Objective;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
 @Getter
@@ -25,10 +24,11 @@ public class QuestData {
     private String afterQuestCommand;
     private String beforeQuestCommand;
     private List<Objective> objectives;
+    private String questFailedCommand;
 
     public QuestData(String displayName, String description, String questType,
             int questDuration, Material displayItem, @NonNull String questId, String afterQuestCommand,
-            String beforeQuestCommand, List<Objective> objectives) {
+            String beforeQuestCommand, List<Objective> objectives, String questFailedCommand) {
         this.questDuration = questDuration;
         this.displayName = displayName;
         this.description = description == null ? "" : description;
@@ -38,6 +38,7 @@ public class QuestData {
         this.afterQuestCommand = afterQuestCommand;
         this.beforeQuestCommand = beforeQuestCommand;
         this.objectives = objectives;
+        this.questFailedCommand = questFailedCommand;
     }
 
     public double getAmountCompleted() {
