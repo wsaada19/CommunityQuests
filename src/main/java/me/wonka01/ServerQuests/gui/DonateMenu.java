@@ -11,6 +11,8 @@ import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.CompetitiveQuestData;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -88,7 +90,7 @@ public class DonateMenu extends Menu {
             int counter = 0;
             for (int i = 0; i < ctrl.getQuestData().getObjectives().size(); i++) {
                 Objective objective = ctrl.getQuestData().getObjectives().get(i);
-                // GET BY PLAYER IF COMP
+
                 if (objective.getType() != ObjectiveType.GUI)
                     continue;
 
@@ -102,13 +104,16 @@ public class DonateMenu extends Menu {
 
                 List<Material> requirements = objective.getMaterials();
                 if (requirements.isEmpty() || requirements.contains(inputItem.getType())) {
-                    updateQuest(ctrl, inputItem, objective, counter);
-
-                    if (total > goal) {
-                        int diff = (int) total - (int) goal;
-                        inputItem.setAmount(diff);
+                    boolean updateResult = updateQuest(ctrl, inputItem, objective, counter);
+                    if (updateResult) {
+                        if (total > goal) {
+                            int diff = (int) total - (int) goal;
+                            inputItem.setAmount(diff);
+                        } else {
+                            inputItem.setAmount(0);
+                        }
                     } else {
-                        inputItem.setAmount(0);
+                        continue;
                     }
                     isAcceptable = true;
                 }
@@ -154,19 +159,17 @@ public class DonateMenu extends Menu {
         return controllers;
     }
 
-    private void updateQuest(@NonNull QuestController ctrl, @NonNull ItemStack item, Objective obj, int objectiveId) {
+    private boolean updateQuest(@NonNull QuestController ctrl, @NonNull ItemStack item, Objective obj,
+            int objectiveId) {
 
         if (!isWorldAllowed(ctrl, getOwner().getWorld()))
-            return;
+            return false;
 
-        if (ctrl.updateQuest(item.getAmount(), getOwner(), obj, objectiveId)) {
-            // ctrl.endQuest();
-        }
-
+        ctrl.updateQuest(item.getAmount(), getOwner(), obj, objectiveId);
+        return true;
     }
 
     private boolean isWorldAllowed(@NonNull QuestController ctrl, @NonNull World world) {
-
         List<String> worlds = ctrl.getEventConstraints().getWorlds();
         return worlds.isEmpty() || Utils.contains(worlds, world.getName());
     }

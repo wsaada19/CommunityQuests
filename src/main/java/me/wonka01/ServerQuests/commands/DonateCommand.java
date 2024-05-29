@@ -6,6 +6,8 @@ import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.gui.DonateMenu;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
+
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -31,8 +33,29 @@ public class DonateCommand extends PluginCommand {
     @Override
     public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
         Player player = (Player) sender;
-
         List<QuestController> controllerList = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
+
+        if (args.length > 1) {
+            if (!sender.hasPermission("communityquests.donate.others")) {
+                String noPermission = getPlugin().messages().message("noPermission");
+                sender.sendMessage(noPermission);
+                return;
+            }
+            String playerName = args[1];
+            Player target = Bukkit.getPlayer(playerName);
+            if (target != null && target.isOnline()) {
+                for (QuestController controller : controllerList)
+                    if (controller.getObjectiveTypes().contains(ObjectiveType.GUI)) {
+                        new DonateMenu(getPlugin(), player).open();
+                        return;
+                    }
+            } else {
+                String playerNotOnline = getPlugin().messages().message("playerNotOnline");
+                player.sendMessage(playerNotOnline);
+            }
+            return;
+        }
+
         for (QuestController controller : controllerList)
             if (controller.getObjectiveTypes().contains(ObjectiveType.GUI)) {
                 new DonateMenu(getPlugin(), player).open();

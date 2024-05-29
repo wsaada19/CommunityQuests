@@ -55,6 +55,7 @@ public class QuestLibrary {
         String displayItem = section.getString("displayItem", "");
         String afterQuestCommand = section.getString("afterQuestCommand", "");
         String beforeQuestCommand = section.getString("beforeQuestCommand", "");
+        String questFailedCommand = section.getString("questFailedCommand", "");
 
         List<Objective> objectives = null;
         List<String> mobNames = null;
@@ -119,12 +120,12 @@ public class QuestLibrary {
         ArrayList<Reward> rewards = getRewardsFromConfig(rewardsSection);
         int rewardsLimit = 0;
         if (rewardsSection != null) {
-            rewardsLimit = rewardsSection.getInt("rewardLimit", 0);
+            rewardsLimit = rewardsSection.getInt("rewardsLimit", 0);
         }
 
         return new QuestModel(questId, displayName, description, goal,
                 type, mobNames, rewards, materials, displayItem, worlds, questDuration, rewardsLimit, afterQuestCommand,
-                beforeQuestCommand, objectives);
+                beforeQuestCommand, objectives, questFailedCommand);
     }
 
     private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {

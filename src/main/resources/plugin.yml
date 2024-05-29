@@ -33,6 +33,9 @@ permissions:
     communityquests.donate:
         description: Can use the donate command to participate in quests
         default: true
+    communityquests.donate.others:
+        description: Can use the command to open the donate menu for other players
+        default: op
     communityquests.money:
         description: Can use the command to contribute money to money quests
         default: true

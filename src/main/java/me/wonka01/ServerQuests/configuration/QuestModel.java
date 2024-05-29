@@ -31,17 +31,19 @@ public class QuestModel {
     private final int rewardLimit;
     private final String afterQuestCommand;
     private final String beforeQuestCommand;
+    private final String questFailedCommand;
 
     public QuestModel(String questId, String displayName, String eventDescription,
             int questGoal, ObjectiveType objective,
             List<String> mobNames, ArrayList<Reward> rewards, List<String> itemNames, String displayItem,
             List<String> worlds, String questDuration, int rewardLimit, String afterQuestCommand,
-            String beforeQuestCommand, List<Objective> objectives) {
+            String beforeQuestCommand, List<Objective> objectives, String questFailedCommand) {
         this.questId = questId;
         this.displayName = displayName;
         this.eventDescription = eventDescription;
         this.completeTime = ParseDurationString.parseStringToSeconds(questDuration);
         this.questGoal = questGoal;
+        this.questFailedCommand = questFailedCommand;
 
         List<Material> materials = new ArrayList<>();
         if (itemNames != null) {

@@ -42,6 +42,10 @@ Reloads the configuration file
 
 Contribute to a donate quest, opens menu where players can place items that will be donated to a given quest.
 
+### /cq donate <playerName>
+
+Opens up the donate quest menu for a specific player. Useful if you want the donate menu to be opened without players having to type the command such as clicking a sign.
+
 ### /cq deposit <amount>
 
 Contribute to a money quests
@@ -138,6 +142,10 @@ Pass in a command to be run before a quest begins
 
 Pass in a command to be run after a quest ends
 
+### questFailedCommand (optional)
+
+Pass in a command to be run if a quest fails, this will only be run if a quest has a time limit set and the goal is not reached. In this case the afterQuestCommand will not be run.
+
 ### worlds (optional)
 
 Use this parameter to restrict quests to specific worlds. All worlds in the list will be able to participate in quests. When no value
@@ -190,7 +198,7 @@ rewards:
     items:
         - material: DIAMOND_SWORD
           amount: 1
-          displayName: "&bPowerful Diamond Sword"
+          displayName: "&bPowerful Diamond Sword" # optionally provide a custom name to the item
         - material: APPLE
           amount: 12
           displayName: "&capples"
