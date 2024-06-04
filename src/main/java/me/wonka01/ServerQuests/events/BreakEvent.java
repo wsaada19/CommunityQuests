@@ -5,6 +5,7 @@ import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 
+import org.bukkit.Material;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -33,7 +34,7 @@ public class BreakEvent extends QuestListener implements Listener {
             return;
         }
 
-        if (event.getBlock().getBlockData() instanceof Ageable
+        if (event.getBlock().getBlockData() instanceof Ageable && !event.getBlock().getType().equals(Material.FIRE)
                 && ((Ageable) event.getBlock().getBlockData()).getAge() != ((Ageable) event.getBlock().getBlockData())
                         .getMaximumAge()) {
             return;

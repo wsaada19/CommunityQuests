@@ -17,7 +17,7 @@ import java.util.List;
 public class DonateCommand extends PluginCommand {
 
     public DonateCommand(ServerQuests plugin) {
-        super(plugin, true);
+        super(plugin, false);
     }
 
     @Override
@@ -32,30 +32,31 @@ public class DonateCommand extends PluginCommand {
 
     @Override
     public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
-        Player player = (Player) sender;
         List<QuestController> controllerList = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
 
         if (args.length > 1) {
-            if (!sender.hasPermission("communityquests.donate.others")) {
+            if (!sender.hasPermission("communityquests.donate.others") && (sender instanceof Player)) {
                 String noPermission = getPlugin().messages().message("noPermission");
                 sender.sendMessage(noPermission);
                 return;
             }
+
             String playerName = args[1];
             Player target = Bukkit.getPlayer(playerName);
             if (target != null && target.isOnline()) {
                 for (QuestController controller : controllerList)
                     if (controller.getObjectiveTypes().contains(ObjectiveType.GUI)) {
-                        new DonateMenu(getPlugin(), player).open();
+                        new DonateMenu(getPlugin(), target).open();
                         return;
                     }
             } else {
                 String playerNotOnline = getPlugin().messages().message("playerNotOnline");
-                player.sendMessage(playerNotOnline);
+                sender.sendMessage(playerNotOnline);
             }
             return;
         }
 
+        Player player = (Player) sender;
         for (QuestController controller : controllerList)
             if (controller.getObjectiveTypes().contains(ObjectiveType.GUI)) {
                 new DonateMenu(getPlugin(), player).open();
