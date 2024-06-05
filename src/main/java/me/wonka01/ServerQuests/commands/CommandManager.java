@@ -33,6 +33,7 @@ public class CommandManager implements CommandExecutor {
         commands.add(new ToggleBarCommand(plugin));
         commands.add(new ToggleMessageCommand(plugin));
         commands.add(new RewardsCommand(plugin));
+        commands.add(new EndAllCommand(plugin));
     }
 
     @Override
