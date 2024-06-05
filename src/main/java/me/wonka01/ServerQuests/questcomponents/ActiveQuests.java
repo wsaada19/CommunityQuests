@@ -30,6 +30,16 @@ public class ActiveQuests {
         return activeQuestsInstance;
     }
 
+    public void endAllQuests() {
+        for (QuestController controller : activeQuestsList) {
+            BarManager.closeBar(controller.getQuestId());
+            if (controller != null) {
+                controller.getQuestBar().removeBossBar();
+            }
+        }
+        activeQuestsList.clear();
+    }
+
     public void endQuest(UUID questId) {
         BarManager.closeBar(questId);
         QuestController controller = getQuestById(questId);

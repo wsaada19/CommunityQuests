@@ -34,6 +34,10 @@ Opens up a GUI to see the progress of all active quests
 
 Opens up a GUI to end active quests
 
+### /cq endall
+
+Ends all active quests
+
 ### /cq reload
 
 Reloads the configuration file

@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class StartCommand extends PluginCommand {
 
     public StartCommand(ServerQuests plugin) {
-        super(plugin, true);
+        super(plugin, false);
     }
 
     @Override
