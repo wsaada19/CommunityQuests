@@ -11,6 +11,8 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements Colorization {
 
@@ -99,6 +101,34 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
             }
             return "0";
         }
+
+        // %communityquests_objective_goal_objId_questId%
+        if (identifier.startsWith("objective_goal")) {
+            int index = extractIndex(identifier.replace(questId, ""));
+            return "" + questData.getObjectives().get(index).getGoal();
+        }
+
+        // %communityquests_objective_completed_objId_questId%
+        if (identifier.startsWith("objective_completed")) {
+            // get value of index from identifier and covert it to an integer
+            int index = extractIndex(identifier.replace(questId, ""));
+            return "" + questData.getObjectives().get(index).getAmountComplete();
+        }
+
+        // %communityquests_objective_objId_questId%
+        if (identifier.startsWith("objective")) {
+            int index = extractIndex(identifier.replace(questId, ""));
+            return color(questData.getObjectives().get(index).getDescription());
+        }
         return null;
+    }
+
+    public static int extractIndex(String input) {
+        Pattern pattern = Pattern.compile("\\d+"); // Match one or more digits
+        Matcher matcher = pattern.matcher(input);
+        if (matcher.find()) {
+            return Integer.parseInt(matcher.group());
+        }
+        return 0; // Return -1 if no integer is found in the string
     }
 }

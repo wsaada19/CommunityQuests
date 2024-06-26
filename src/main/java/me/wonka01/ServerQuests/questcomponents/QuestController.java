@@ -89,7 +89,7 @@ public class QuestController implements Colorization {
         if (questData.hasGoal() && !questData.isGoalComplete() && questData.getEventType().equals(EventType.COLLAB)) {
             broadcast("questFailureMessage");
             playerComponent.sendLeaderString();
-            if (questData.getQuestFailedCommand() != null || !questData.getQuestFailedCommand().isEmpty()) {
+            if (questData.getQuestFailedCommand() != null && !questData.getQuestFailedCommand().isEmpty()) {
                 plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(),
                         questData.getQuestFailedCommand());
             }
@@ -97,7 +97,7 @@ public class QuestController implements Colorization {
             broadcast("questCompleteMessage");
             playerComponent.sendLeaderString();
             playerComponent.giveOutRewards(questData.getQuestGoal());
-            if (questData.getAfterQuestCommand() != null || !questData.getAfterQuestCommand().isEmpty()) {
+            if (questData.getAfterQuestCommand() != null && !questData.getAfterQuestCommand().isEmpty()) {
                 plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(),
                         questData.getAfterQuestCommand());
             }

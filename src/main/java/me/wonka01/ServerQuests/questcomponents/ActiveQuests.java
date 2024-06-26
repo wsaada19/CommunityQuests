@@ -59,7 +59,7 @@ public class ActiveQuests {
         QuestTypeHandler typeHandler = new QuestTypeHandler(eventType);
         QuestController controller = typeHandler.createQuestController(questModel);
         activeQuestsList.add(controller);
-        if (questModel.getBeforeQuestCommand() != null || !questModel.getBeforeQuestCommand().isEmpty()) {
+        if (questModel.getBeforeQuestCommand() != null && !questModel.getBeforeQuestCommand().isEmpty()) {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), questModel.getBeforeQuestCommand());
         }
 

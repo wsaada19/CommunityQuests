@@ -3,6 +3,8 @@ package me.wonka01.ServerQuests.events;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
+
+import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,7 +30,7 @@ public class MythicMobKillEvent extends QuestListener implements Listener {
 
         for (QuestController controller : controllers) {
             updateQuest(controller, (Player) event.getKiller(), 1, ObjectiveType.MYTHIC_MOB,
-                    event.getMobType().getInternalName());
+                    event.getMobType().getInternalName(), event.getMobType().getInternalName());
         }
     }
 }
