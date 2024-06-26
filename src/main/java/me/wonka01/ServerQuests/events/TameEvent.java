@@ -21,7 +21,7 @@ public class TameEvent extends QuestListener implements Listener {
             List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.TAME);
             for (QuestController controller : controllers) {
                 updateQuest(controller, (Player) tameEvent.getOwner(), 1, ObjectiveType.TAME,
-                        tameEvent.getEntity().getType().toString());
+                        tameEvent.getEntity().getType().toString(), tameEvent.getEntity().getName());
             }
         }
     }

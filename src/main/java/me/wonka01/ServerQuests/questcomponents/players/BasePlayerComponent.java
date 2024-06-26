@@ -27,18 +27,23 @@ public class BasePlayerComponent implements Colorization {
 
     private final Map<UUID, PlayerData> playerMap;
     private final ArrayList<Reward> rewardsList;
+    private final Map<String, ArrayList<Reward>> rankedRewards;
     private final int rewardsLimit;
 
-    public BasePlayerComponent(ArrayList<Reward> rewardsList, int rewardLimit) {
+    public BasePlayerComponent(ArrayList<Reward> rewardsList, int rewardLimit,
+            Map<String, ArrayList<Reward>> rankedRewards) {
         this.rewardsList = rewardsList;
         this.playerMap = new TreeMap<>();
         this.rewardsLimit = rewardLimit;
+        this.rankedRewards = rankedRewards;
     }
 
-    public BasePlayerComponent(ArrayList<Reward> rewardsList, Map<UUID, PlayerData> map, int rewardLimit) {
+    public BasePlayerComponent(ArrayList<Reward> rewardsList, Map<UUID, PlayerData> map, int rewardLimit,
+            Map<String, ArrayList<Reward>> rankedRewards) {
         this.rewardsList = rewardsList;
         this.playerMap = map;
         this.rewardsLimit = rewardLimit;
+        this.rankedRewards = rankedRewards;
     }
 
     public static void setLeaderBoardSize(int size) {
@@ -146,19 +151,23 @@ public class BasePlayerComponent implements Colorization {
             players = getTopPlayers(playerMap.size());
         }
         for (PlayerData playerData : players) {
-            double playerContributionRatio;
-            double playerContribution = playerData.getAmountContributed();
-            if (questGoal > 0) {
-                playerContributionRatio = playerContribution / (double) questGoal;
-            } else {
-                playerContributionRatio = playerContribution / getTopPlayer().getAmountContributed();
+            String playerRank = "" + (players.indexOf(playerData) + 1);
+
+            List<Reward> rankedReward = rankedRewards.get(playerRank);
+
+            if (rankedReward == null) {
+                rankedReward = rankedRewards.get("*");
+            }
+
+            if (rankedReward == null) {
+                continue;
             }
 
             OfflinePlayer player = Bukkit.getServer().getOfflinePlayer(playerData.getUuid());
 
             if (player.isOnline()) {
                 Player onlinePlayer = (Player) player;
-                if (rewardsList.size() > 0) {
+                if (rankedReward.size() > 0) {
                     ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
                     String rewardsMessage = plugin.messages().message("rewardsMessage");
                     onlinePlayer.sendMessage(rewardsMessage);
@@ -166,8 +175,8 @@ public class BasePlayerComponent implements Colorization {
             }
 
             RewardManager rewardManager = RewardManager.getInstance();
-            for (Reward reward : rewardsList) {
-                rewardManager.addReward(player.getUniqueId(), reward, playerContributionRatio);
+            for (Reward reward : rankedReward) {
+                rewardManager.addReward(player.getUniqueId(), reward);
             }
         }
     }

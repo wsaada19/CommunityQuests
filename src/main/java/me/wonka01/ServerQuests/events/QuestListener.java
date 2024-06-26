@@ -7,6 +7,7 @@ import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -40,14 +41,21 @@ public abstract class QuestListener {
     }
 
     protected void updateQuest(QuestController controller, Player player, double amount, ObjectiveType type,
-            String mobName) {
+            String mobName, String customName) {
         QuestData questData = controller.getQuestData();
         List<Objective> objectives = questData.getObjectives();
         for (int i = 0; i < objectives.size(); i++) {
             Objective objective = objectives.get(i);
-            if (objective.getType().equals(type)
-                    && (objective.getMobNames().isEmpty() || Utils.contains(objective.getMobNames(), mobName))) {
-                updateQuest(controller, player, amount, objective, i);
+            if (objective.getType().equals(type)) {
+                if (objective.getMobNames().isEmpty()) {
+                    if (objective.getCustomNames().isEmpty()) {
+                        updateQuest(controller, player, amount, objective, i);
+                    } else if (Utils.contains(objective.getCustomNames(), customName)) {
+                        updateQuest(controller, player, amount, objective, i);
+                    }
+                } else if (Utils.contains(objective.getMobNames(), mobName)) {
+                    updateQuest(controller, player, amount, objective, i);
+                }
             }
         }
     }

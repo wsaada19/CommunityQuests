@@ -4,6 +4,8 @@ import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
+
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,7 +29,7 @@ public class CatchFishEvent extends QuestListener implements Listener {
             String fishName = item.getItemStack().getType().toString();
 
             for (QuestController controller : controllers) {
-                updateQuest(controller, event.getPlayer(), 1, ObjectiveType.CATCH_FISH, fishName);
+                updateQuest(controller, event.getPlayer(), 1, ObjectiveType.CATCH_FISH, fishName, item.getName());
             }
         }
     }

@@ -7,13 +7,11 @@ import me.wonka01.ServerQuests.ServerQuests;
 
 import java.util.HashMap;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 import org.json.simple.JSONObject;
@@ -40,7 +38,6 @@ public class ItemReward implements Reward, Colorization {
 
     public void giveRewardToPlayer(OfflinePlayer player, double rewardPercentage) {
         Material material = Material.getMaterial(materialName);
-
         if (amount <= 0 || material == null || !player.isOnline())
             return;
 

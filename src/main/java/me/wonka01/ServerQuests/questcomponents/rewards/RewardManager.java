@@ -28,13 +28,13 @@ public class RewardManager {
         return instance;
     }
 
-    public void addReward(UUID playerId, Reward reward, double ratio) {
+    public void addReward(UUID playerId, Reward reward) {
         if (playerRewards.containsKey(playerId)) {
             ArrayList<RewardEntry> rewards = playerRewards.get(playerId);
-            rewards.add(new RewardEntry(reward, ratio));
+            rewards.add(new RewardEntry(reward, 1.0));
         } else {
             ArrayList<RewardEntry> rewards = new ArrayList<>();
-            rewards.add(new RewardEntry(reward, ratio));
+            rewards.add(new RewardEntry(reward, 1.0));
             playerRewards.put(playerId, rewards);
         }
     }

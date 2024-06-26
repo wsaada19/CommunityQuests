@@ -29,7 +29,7 @@ Quests:
             - world
         objectives: # at least one objective is required, each quest can have infinite objectives
             - type: mobkill ## required, see type list for available types
-              goal: 100 # The goal is the amount of the task to be completed
+              goal: 10 # The goal is the amount of the task to be completed
               entities: # This is an optional parameter, if it doesn't exist the quest will count ALL mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
                   - Zombie
                   - Pig
@@ -43,11 +43,22 @@ Quests:
         description: Kill 100 zombies and pigs!
         questDuration: 1d # The quest will last for 1 day or until the goal is reached, whichever comes first
         rewards:
-            experience: 100
-            items:
-                - material: DIAMOND_SWORD
-                  amount: 1
-                  displayName: "&bPowerful Diamond Sword"
-                - material: APPLE
-                  amount: 12
-                  displayName: "&capples"
+            rankedRewards:
+                "1": # The key is the rank of the player so this reward will be given to the player who contributed the most
+                    experience: 100
+                    items:
+                        - material: diamond_sword
+                          amount: 1
+                          displayName: "&bPowerful Diamond Sword"
+                "2":
+                    experience: 50
+                    items:
+                        - material: iron_sword
+                          amount: 1
+                          displayName: "&7Iron Sword"
+                "*": # This is a wildcard, this reward will apply to all other players who participated in the quest and didn't get a ranked reward
+                    experience: 25
+                    items:
+                        - material: stone_sword
+                          amount: 1
+                          displayName: "&8Stone Sword"

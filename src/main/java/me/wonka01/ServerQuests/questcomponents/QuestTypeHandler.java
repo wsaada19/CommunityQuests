@@ -42,12 +42,19 @@ public class QuestTypeHandler {
             @Nullable Map<UUID, PlayerData> players, int timeLeft, List<Objective> objectives) {
         ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
 
-        QuestBar bar = new QuestBar(model.getDisplayName(), plugin.getConfig().getString("barColor", ""));
+        String barColor = model.getBarColor();
+        if (barColor == null || barColor.isEmpty()) {
+            barColor = plugin.getConfig().getString("barColor", "GREEN");
+        }
 
-        BasePlayerComponent pComponent = new BasePlayerComponent(model.getRewards(), model.getRewardLimit());
+        QuestBar bar = new QuestBar(model.getDisplayName(), barColor);
+
+        BasePlayerComponent pComponent = new BasePlayerComponent(model.getRewards(), model.getRewardLimit(),
+                model.getRankedRewards());
 
         if (players != null) {
-            pComponent = new BasePlayerComponent(model.getRewards(), players, model.getRewardLimit());
+            pComponent = new BasePlayerComponent(model.getRewards(), players, model.getRewardLimit(),
+                    model.getRankedRewards());
         }
 
         List<Objective> objs = new ArrayList<Objective>();

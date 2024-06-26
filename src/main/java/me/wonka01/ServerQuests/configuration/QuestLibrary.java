@@ -56,9 +56,11 @@ public class QuestLibrary {
         String afterQuestCommand = section.getString("afterQuestCommand", "");
         String beforeQuestCommand = section.getString("beforeQuestCommand", "");
         String questFailedCommand = section.getString("questFailedCommand", "");
+        String barColor = section.getString("barColor", "");
 
         List<Objective> objectives = null;
         List<String> mobNames = null;
+        List<String> customMobNames = null;
         int goal = 0;
         ObjectiveType type = null;
         List<String> materials = null;
@@ -72,14 +74,11 @@ public class QuestLibrary {
                             + ". Please check the docs and follow the new format for creating quests with the objectives option. This enables you to set multiple objectives per quest.");
             mobNames = section.getStringList("entities");
             materials = section.getStringList("materials");
+            customMobNames = section.getStringList("customMobNames");
             type = ObjectiveType.match(section.getString("type"));
             goal = section.getInt("goal", -1);
         } else {
             objectives = new ArrayList<>();
-            Bukkit.getServer().getConsoleSender().sendMessage(
-                    "[Community Quests] Using the new questing system for ID " + questId
-                            + ". This enables you to set multiple objectives per quest. This quest has "
-                            + objectivesConfig.size() + " objectives.");
             for (LinkedHashMap obj : objectivesConfig) {
                 String objectiveType = (String) obj.get("type");
                 double objectiveGoal = 0.0;
@@ -91,6 +90,7 @@ public class QuestLibrary {
                 String objDescription = (String) obj.get("description");
                 List<String> objectiveMobs = (List<String>) obj.get("entities");
                 List<String> objectiveMaterials = (List<String>) obj.get("materials");
+                List<String> objectiveCustomNames = (List<String>) obj.get("customMobNames");
                 ObjectiveType objectiveTypeEnum = ObjectiveType.match(objectiveType);
                 List<Material> mats = new ArrayList<>();
                 if (objectiveMaterials != null) {
@@ -109,14 +109,30 @@ public class QuestLibrary {
                 if (objectiveMobs == null) {
                     objectiveMobs = new ArrayList<>();
                 }
+                if (objectiveCustomNames == null) {
+                    objectiveCustomNames = new ArrayList<>();
+                }
 
                 Objective objective = new Objective(objectiveTypeEnum, objectiveGoal, 0.0, objectiveMobs,
-                        mats, objDescription);
+                        mats, objDescription, objectiveCustomNames);
                 objectives.add(objective);
             }
         }
 
         ConfigurationSection rewardsSection = section.getConfigurationSection("rewards");
+        ConfigurationSection rankedRewards = rewardsSection.getConfigurationSection("rankedRewards");
+        Map<String, ArrayList<Reward>> rankedRewardsMap = new HashMap<>();
+        if (rankedRewards != null) {
+            for (String key : rankedRewards.getKeys(false)) {
+                ConfigurationSection rewardSection = rankedRewards.getConfigurationSection(key);
+                ArrayList<Reward> rewards = getRewardsFromConfig(rewardSection);
+                rankedRewardsMap.put(key, rewards);
+            }
+        } else {
+            rankedRewardsMap = new HashMap<>();
+            rankedRewardsMap.put("*", getRewardsFromConfig(rewardsSection));
+        }
+
         ArrayList<Reward> rewards = getRewardsFromConfig(rewardsSection);
         int rewardsLimit = 0;
         if (rewardsSection != null) {
@@ -125,7 +141,7 @@ public class QuestLibrary {
 
         return new QuestModel(questId, displayName, description, goal,
                 type, mobNames, rewards, materials, displayItem, worlds, questDuration, rewardsLimit, afterQuestCommand,
-                beforeQuestCommand, objectives, questFailedCommand);
+                beforeQuestCommand, objectives, questFailedCommand, customMobNames, barColor, rankedRewardsMap);
     }
 
     private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {

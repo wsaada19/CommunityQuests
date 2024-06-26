@@ -12,6 +12,7 @@ import org.bukkit.Material;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Getter
@@ -24,7 +25,6 @@ public class QuestModel {
     private List<Objective> objectives;
     private final List<String> mobNames;
     private final ArrayList<Reward> rewards;
-    private final List<Material> itemNames;
     private final Material displayItem;
     private final List<String> worlds;
     private final String questDuration;
@@ -32,18 +32,22 @@ public class QuestModel {
     private final String afterQuestCommand;
     private final String beforeQuestCommand;
     private final String questFailedCommand;
+    private final String barColor;
+    private final Map<String, ArrayList<Reward>> rankedRewards;
 
     public QuestModel(String questId, String displayName, String eventDescription,
             int questGoal, ObjectiveType objective,
             List<String> mobNames, ArrayList<Reward> rewards, List<String> itemNames, String displayItem,
             List<String> worlds, String questDuration, int rewardLimit, String afterQuestCommand,
-            String beforeQuestCommand, List<Objective> objectives, String questFailedCommand) {
+            String beforeQuestCommand, List<Objective> objectives, String questFailedCommand,
+            List<String> customNames, String barColor, Map<String, ArrayList<Reward>> rankedRewards) {
         this.questId = questId;
         this.displayName = displayName;
         this.eventDescription = eventDescription;
         this.completeTime = ParseDurationString.parseStringToSeconds(questDuration);
         this.questGoal = questGoal;
         this.questFailedCommand = questFailedCommand;
+        this.barColor = barColor;
 
         List<Material> materials = new ArrayList<>();
         if (itemNames != null) {
@@ -61,11 +65,13 @@ public class QuestModel {
             this.objectives = objectives;
         } else {
             this.objectives = Arrays
-                    .asList(new Objective(objective, questGoal * 1.0, 0, mobNames, materials, objective.getString()));
+                    .asList(new Objective(objective, questGoal * 1.0, 0, mobNames, materials, objective.getString(),
+                            customNames));
         }
         this.mobNames = mobNames;
         this.rewards = rewards;
-        this.itemNames = materials;
+        this.rankedRewards = rankedRewards;
+        // this.itemNames = materials;
         this.worlds = worlds;
         this.questDuration = questDuration;
         this.rewardLimit = rewardLimit;

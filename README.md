@@ -129,6 +129,22 @@ objectives:
       description: Oak Saplings
 ```
 
+The quest below requires you to kill 15 zombified piglins and 10 zombie pigmen. For mob related quests you can use the customNames field to specify the name of the mob you want to kill. If you want to kill a specific mob type you can use the entities field and specify the mob type from the [entity list](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html).
+
+```yaml
+objectives:
+    - type: mobkill
+      goal: 15
+      customNames:
+          - "Zombified Piglin"
+      description: Zombified Piglins
+    - type: mobkill
+      goal: 10
+      entities:
+          - ZOMBIE_PIGMAN
+      description: Zombie Pigmen
+```
+
 ### questDuration (required if no goal is set)
 
 The time that the quest should run for in seconds, so if it is set to 60s the quest will last for one minute. You could also do 1m to achieve the same result. If both goal and time required are set then the quest will run until the goal is hit
@@ -191,6 +207,34 @@ The player can use the command /cq rewards to claim their items after a quest is
 **Note: money, experience, commands and items are all optional, you do not need to specify the values you don't want to use.**
 
 Rewards example
+
+```yaml
+rewards:
+    rewardsLimit: 5 # only top 5 contributors get the rewards, if not set or 0 then everyone gets rewards
+    rankedRewards:
+        "1": # The key is the rank of the player
+            experience: 100
+            money: 1000
+            command: "give player diamond_chestplate 1"
+            items:
+                - material: diamond_sword
+                    amount: 1
+                    displayName: "&bPowerful Diamond Sword"
+        "2":
+            experience: 50
+            items:
+                - material: iron_sword
+                    amount: 1
+                    displayName: "&7Iron Sword"
+        "*": # This is a wildcard, it will apply to all other players
+            experience: 25
+            items:
+                - material: stone_sword
+                    amount: 1
+                    displayName: "&8Stone Sword"
+```
+
+Old Rewards example (still works will be removed eventually)
 
 ```yaml
 rewards:
@@ -301,3 +345,6 @@ The questId is the key used in the yml file. In the quest above the id would be 
 -   `%communityquests_name_questId%`: the quest display name
 -   `%communityquests_description_questId%`: the quest description
 -   `%communityquests_you_questId%`: the amount you've contributed to the quest
+-   `%communityquests_objective_goal_objId_questId%`: the goal for a specific objective (id is based on the order of the objectives in the yml file starting with 0)
+-   `%communityquests_objective_completed_objId_questId%`: the amount completed for a specific objective
+-   `%communityquests_objective_description_objId_questId%`: the description for the specified objective
