@@ -215,7 +215,7 @@ rewards:
         "1": # The key is the rank of the player
             experience: 100
             money: 1000
-            command: "give player diamond_chestplate 1"
+            command: "give %player% diamond_chestplate 1"
             items:
                 - material: diamond_sword
                     amount: 1
@@ -242,7 +242,7 @@ rewards:
     experience: 100
     money: 1000 # You must have Vault and an Economy plugin installed for this to work
     commands:
-        - give player stick 15 # player will be replaced with the name of the player receiving the reward.
+        - give %player% stick 15 # player will be replaced with the name of the player receiving the reward.
     items:
         - material: DIAMOND_SWORD
           amount: 1
