@@ -119,7 +119,7 @@ public class JsonQuestSave {
                     double amount = (double) obj.get("amountComplete");
                     JSONArray mobNames = (JSONArray) obj.get("mobNames");
                     JSONArray materials = (JSONArray) obj.get("materials");
-                    JSONArray customNames = (JSONArray) obj.get("customNames");
+                    JSONArray customNames = (JSONArray) obj.get("customMobNames");
                     List<Material> materialList = convertJsonArrayToList(materials).stream().map(materialName -> {
                         Material material = Material.getMaterial(materialName);
                         if (material == null) {

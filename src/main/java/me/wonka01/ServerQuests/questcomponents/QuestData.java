@@ -2,6 +2,7 @@ package me.wonka01.ServerQuests.questcomponents;
 
 import lombok.Getter;
 import lombok.NonNull;
+import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
@@ -9,10 +10,11 @@ import me.wonka01.ServerQuests.objectives.Objective;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
 @Getter
-public class QuestData {
+public class QuestData implements Colorization {
 
     private final @NonNull String questId;
     private final String questType;
@@ -89,5 +91,22 @@ public class QuestData {
 
     public boolean hasGoal() {
         return getQuestGoal() > 0;
+    }
+
+    public String getProgressIndicator() {
+        StringBuilder speedDisplay = new StringBuilder();
+        double ratio = getAmountCompleted() / getQuestGoal();
+
+        int result = 40 - (int) (40.0 - (ratio * 40.0));
+        for (int i = 0; i < 40; i++) {
+            if (i < result) {
+                speedDisplay.append(ChatColor.GREEN);
+                speedDisplay.append("|");
+            } else {
+                speedDisplay.append(ChatColor.GRAY);
+                speedDisplay.append("|");
+            }
+        }
+        return color(speedDisplay.toString());
     }
 }

@@ -5,7 +5,9 @@ import lombok.NonNull;
 import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -27,36 +29,48 @@ public class ItemReward implements Reward, Colorization {
     public ItemReward(int count, String materialName, @Nullable String displayName) {
         this.amount = count;
         this.materialName = materialName;
-        if (displayName == null || displayName.length() < 1) {
-            this.displayName = materialName;
-        } else {
+        if (displayName != null && !displayName.isEmpty()) {
             this.displayName = displayName;
+        } else {
+            this.displayName = "";
         }
 
         this.item = new ItemStack(Material.matchMaterial(materialName), amount);
     }
 
     public void giveRewardToPlayer(OfflinePlayer player, double rewardPercentage) {
-        Material material = Material.getMaterial(materialName);
+        Material material = Material.getMaterial(materialName.toUpperCase());
+
         if (amount <= 0 || material == null || !player.isOnline())
             return;
 
-        ItemStack itemStack = new ItemStack(material, amount);
-        if (!displayName.isEmpty()) {
-            ItemMeta meta = itemStack.getItemMeta();
+        List<ItemStack> itemStack = new ArrayList<>();
+        for (int i = 0; i < amount; i++) {
+            ItemStack item = new ItemStack(material);
+            ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(color(displayName));
-            itemStack.setItemMeta(meta);
+            item.setItemMeta(meta);
+
+            itemStack.add(item);
         }
 
         Player realPlayer = (Player) player;
-        HashMap<Integer, ItemStack> overFlowItems = realPlayer.getInventory().addItem(itemStack);
-        if (overFlowItems.size() > 0) {
-            ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
-            String inventoryFullMessage = plugin.messages().message("droppedReward");
-            realPlayer.sendMessage(color(inventoryFullMessage));
-            overFlowItems.forEach((slot, item) -> realPlayer.getWorld().dropItem(realPlayer.getLocation(), item));
+
+        for (ItemStack item : itemStack) {
+            HashMap<Integer, ItemStack> overFlowItems = realPlayer.getInventory().addItem(item);
+            if (overFlowItems.size() > 0) {
+                ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
+                String inventoryFullMessage = plugin.messages().message("droppedReward");
+                realPlayer.sendMessage(color(inventoryFullMessage));
+                overFlowItems.forEach((slot, itm) -> realPlayer.getWorld().dropItem(realPlayer.getLocation(), itm));
+            }
         }
-        realPlayer.sendMessage(color("- " + amount + " " + displayName));
+
+        if (displayName == null || displayName.isEmpty()) {
+            realPlayer.sendMessage(color("- &a" + amount + " &f" + material.name().replace("_", " ").toLowerCase()));
+        } else {
+            realPlayer.sendMessage(color("- &a" + amount + " " + displayName));
+        }
     }
 
     @Override

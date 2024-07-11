@@ -10,8 +10,6 @@ import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 
-import org.bukkit.ChatColor;
-
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -39,7 +37,7 @@ public class ViewMenu extends Menu {
                     progressStr = getPlugin().messages().string("progress");
             progressStr += " &f" + completed + "/" + Utils.decimalToString(goal);
             lore.add(progressStr);
-            lore.add(getProgressIndicator((int) data.getAmountCompleted(), (int) goal));
+            lore.add(data.getProgressIndicator());
             lore.add("");
             if (data.getObjectives().size() > 1) {
                 getObjectiveProgress(data.getObjectives(), lore);
@@ -104,23 +102,6 @@ public class ViewMenu extends Menu {
                     + Utils.decimalToString(questData.getPlayers().getAmountContributedByObjectiveId(player, i)) + "/"
                     + Utils.decimalToString(obj.getGoal())));
         }
-    }
-
-    private String getProgressIndicator(int completed, int goal) {
-        StringBuilder speedDisplay = new StringBuilder();
-        double ratio = completed / (double) goal;
-
-        int result = 40 - (int) (40.0 - (ratio * 40.0));
-        for (int i = 0; i < 40; i++) {
-            if (i < result) {
-                speedDisplay.append(ChatColor.GREEN);
-                speedDisplay.append("|");
-            } else {
-                speedDisplay.append(ChatColor.GRAY);
-                speedDisplay.append("|");
-            }
-        }
-        return color(speedDisplay.toString());
     }
 
     private @NonNull String getPlayerProgress(@NonNull QuestController ctrl) {

@@ -46,9 +46,9 @@ Reloads the configuration file
 
 Contribute to a donate quest, opens menu where players can place items that will be donated to a given quest.
 
-### /cq donate <playerName>
+### /cq donate <playerName> (optional flag -m / --message)
 
-Opens up the donate quest menu for a specific player. Useful if you want the donate menu to be opened without players having to type the command such as clicking a sign.
+Opens up the donate quest menu for a specific player. Useful if you want the donate menu to be opened without players having to type the command such as clicking a sign.The -m flag will send a message to the player if there are no active donate quests.
 
 ### /cq deposit <amount>
 
@@ -57,6 +57,10 @@ Contribute to a money quests
 ### /cq rewards
 
 Opens a GUI to claim rewards for completed quests
+
+### /cq claim <playerName>
+
+Claims rewards for a specific player. Rewards are directly given to the user
 
 ## Configuration
 
@@ -215,7 +219,8 @@ rewards:
         "1": # The key is the rank of the player
             experience: 100
             money: 1000
-            command: "give %player% diamond_chestplate 1"
+            commands:
+                - "give %player% diamond_chestplate 1"
             items:
                 - material: diamond_sword
                     amount: 1
@@ -242,7 +247,7 @@ rewards:
     experience: 100
     money: 1000 # You must have Vault and an Economy plugin installed for this to work
     commands:
-        - give %player% stick 15 # player will be replaced with the name of the player receiving the reward.
+        - give %player% stick 15 # %player% will be replaced with the name of the player receiving the reward.
     items:
         - material: DIAMOND_SWORD
           amount: 1
@@ -348,3 +353,19 @@ The questId is the key used in the yml file. In the quest above the id would be 
 -   `%communityquests_objective_goal_objId_questId%`: the goal for a specific objective (id is based on the order of the objectives in the yml file starting with 0)
 -   `%communityquests_objective_completed_objId_questId%`: the amount completed for a specific objective
 -   `%communityquests_objective_description_objId_questId%`: the description for the specified objective
+-   `%communityquests_top_rank_name_questId%`: the name of the player with the provided rank. For example `%communityquests_top_1_name_questId%` would return the name of the player in first place.
+-   `%communityquests_top_rank_contribution_questId%`: similar to the command above for the player's contribution
+-   `%communityquests_progressbar_questId%` - a progress bar showing the current progress of the quest
+
+## Permissions
+
+-   communityquests.view - the ability to view active quests and donate ongoing quests
+-   communityquests.donate - the ability to use the /cq donate command
+-   communityquests.donate.others - the ability to use the /cq donate command and specify another player name.
+-   communityquests.money- the ability to use the /cq deposit command
+-   communityquests.stop - the ability to stop an active quest
+-   communityquests.start - the ability to start a new quest
+-   communityquests.reload - the ability to reload the configuration
+-   communityquests.bossbar.hide - if set the user will not see the boss bar.
+-   communityquests.claim - the ability to claim rewards for completed quests (skips the GUI)
+-   communityquests.claim.others - the ability to claim rewards for another player (mainly for OPs so rewards can be claimed with a custom UI)

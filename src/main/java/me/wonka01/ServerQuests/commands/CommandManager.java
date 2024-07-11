@@ -34,6 +34,7 @@ public class CommandManager implements CommandExecutor {
         commands.add(new ToggleMessageCommand(plugin));
         commands.add(new RewardsCommand(plugin));
         commands.add(new EndAllCommand(plugin));
+        commands.add(new ClaimRewards(plugin));
     }
 
     @Override

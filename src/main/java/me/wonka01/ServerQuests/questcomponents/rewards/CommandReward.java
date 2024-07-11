@@ -13,7 +13,7 @@ public class CommandReward implements Reward {
 
     public void giveRewardToPlayer(OfflinePlayer player, double rewardPercentage) {
         if (player.isOnline() && player.getName() != null) {
-            String commandToRun = command.replaceAll("player", player.getName());
+            String commandToRun = command.replaceAll("%player%", player.getName());
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commandToRun);
         }
     }

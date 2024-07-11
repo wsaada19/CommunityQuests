@@ -122,11 +122,14 @@ public class QuestLibrary {
         ConfigurationSection rewardsSection = section.getConfigurationSection("rewards");
         ConfigurationSection rankedRewards = rewardsSection.getConfigurationSection("rankedRewards");
         Map<String, ArrayList<Reward>> rankedRewardsMap = new HashMap<>();
+        Map<String, String> rankedRewardMessages = new HashMap<>();
         if (rankedRewards != null) {
             for (String key : rankedRewards.getKeys(false)) {
                 ConfigurationSection rewardSection = rankedRewards.getConfigurationSection(key);
                 ArrayList<Reward> rewards = getRewardsFromConfig(rewardSection);
+                String message = rewardSection.getString("rewardMessage", "");
                 rankedRewardsMap.put(key, rewards);
+                rankedRewardMessages.put(key, message);
             }
         } else {
             rankedRewardsMap = new HashMap<>();
@@ -141,7 +144,8 @@ public class QuestLibrary {
 
         return new QuestModel(questId, displayName, description, goal,
                 type, mobNames, rewards, materials, displayItem, worlds, questDuration, rewardsLimit, afterQuestCommand,
-                beforeQuestCommand, objectives, questFailedCommand, customMobNames, barColor, rankedRewardsMap);
+                beforeQuestCommand, objectives, questFailedCommand, customMobNames, barColor, rankedRewardsMap,
+                rankedRewardMessages);
     }
 
     private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {
@@ -184,6 +188,8 @@ public class QuestLibrary {
                     } catch (Exception ex) {
                         JavaPlugin.getPlugin(ServerQuests.class).getLogger()
                                 .info("Item reward failed to load due to invalid configuration");
+                        JavaPlugin.getPlugin(ServerQuests.class).getLogger()
+                                .info(ex.getMessage());
                     }
                 }
             }

@@ -45,3 +45,9 @@ permissions:
     communityquests.togglebar:
         description: Allows player to use the toggle boss bar command to show/hide boss bar for quests
         default: true
+    communityquests.claim:
+        description: Claim rewards from quests
+        default: true
+    communityquests.claim.other:
+        description: Claim rewards for others
+        default: op

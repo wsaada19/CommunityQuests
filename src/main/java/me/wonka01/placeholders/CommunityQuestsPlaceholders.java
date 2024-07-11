@@ -6,6 +6,7 @@ import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
+import me.wonka01.ServerQuests.questcomponents.schedulers.ParseDurationString;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -46,7 +47,8 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
 
         String questId = identifier.substring(identifier.lastIndexOf("_") + 1);
         List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
-        String[] keywords = { "goal", "complete", "remaining", "name", "description", "you" };
+        String[] keywords = { "goal", "complete", "remaining", "name", "description", "you", "contribution",
+                "progressbar" };
 
         QuestController controller = null;
         QuestData questData = null;
@@ -78,9 +80,14 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
             return Utils.decimalToString(questData.getAmountCompleted());
         }
 
+        // %communityquests_progressbar_questId%
+        if (identifier.startsWith("progressbar")) {
+            return questData.getProgressIndicator();
+        }
+
         // %communityquests_time_remaining_questId%
         if (identifier.startsWith("time_remaining")) {
-            return String.valueOf(questData.getQuestDuration());
+            return String.valueOf(ParseDurationString.formatSecondsToString(questData.getQuestDuration()));
         }
 
         // %communityquests_name_questId%
@@ -119,6 +126,24 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
         if (identifier.startsWith("objective")) {
             int index = extractIndex(identifier.replace(questId, ""));
             return color(questData.getObjectives().get(index).getDescription());
+        }
+
+        // %communityquests_top_1_name_questId%
+        // %communityquests_top_1_contribution_questId%
+
+        if (identifier.startsWith("top")) {
+            int index = extractIndex(identifier.replace(questId, "")) - 1;
+
+            if (index < 0 || index >= controller.getPlayerComponent().getTopPlayers(index + 1).size()) {
+                return null;
+            }
+
+            if (identifier.contains("name")) {
+                return controller.getPlayerComponent().getTopPlayers(index + 1).get(index).getName();
+            } else if (identifier.contains("contribution")) {
+                return Utils.decimalToString(
+                        controller.getPlayerComponent().getTopPlayers(index + 1).get(index).getAmountContributed());
+            }
         }
         return null;
     }

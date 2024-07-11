@@ -34,13 +34,15 @@ public class QuestModel {
     private final String questFailedCommand;
     private final String barColor;
     private final Map<String, ArrayList<Reward>> rankedRewards;
+    private final Map<String, String> rankedRewardMessages;
 
     public QuestModel(String questId, String displayName, String eventDescription,
             int questGoal, ObjectiveType objective,
             List<String> mobNames, ArrayList<Reward> rewards, List<String> itemNames, String displayItem,
             List<String> worlds, String questDuration, int rewardLimit, String afterQuestCommand,
             String beforeQuestCommand, List<Objective> objectives, String questFailedCommand,
-            List<String> customNames, String barColor, Map<String, ArrayList<Reward>> rankedRewards) {
+            List<String> customNames, String barColor, Map<String, ArrayList<Reward>> rankedRewards,
+            Map<String, String> rankedRewardMessages) {
         this.questId = questId;
         this.displayName = displayName;
         this.eventDescription = eventDescription;
@@ -71,6 +73,7 @@ public class QuestModel {
         this.mobNames = mobNames;
         this.rewards = rewards;
         this.rankedRewards = rankedRewards;
+        this.rankedRewardMessages = rankedRewardMessages;
         // this.itemNames = materials;
         this.worlds = worlds;
         this.questDuration = questDuration;

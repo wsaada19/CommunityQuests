@@ -33,6 +33,7 @@ public class DonateCommand extends PluginCommand {
     @Override
     public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
         List<QuestController> controllerList = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
+        String noActiveQuest = getPlugin().messages().message("noActiveDonateQuests");
 
         if (args.length > 1) {
             if (!sender.hasPermission("communityquests.donate.others") && (sender instanceof Player)) {
@@ -44,11 +45,16 @@ public class DonateCommand extends PluginCommand {
             String playerName = args[1];
             Player target = Bukkit.getPlayer(playerName);
             if (target != null && target.isOnline()) {
-                for (QuestController controller : controllerList)
+                for (QuestController controller : controllerList) {
                     if (controller.getObjectiveTypes().contains(ObjectiveType.GUI)) {
                         new DonateMenu(getPlugin(), target).open();
                         return;
                     }
+                }
+                if (args.length > 2 && (args[2].equals("--message") || args[2].equals("-m"))) {
+                    target.sendMessage(noActiveQuest);
+                }
+
             } else {
                 String playerNotOnline = getPlugin().messages().message("playerNotOnline");
                 sender.sendMessage(playerNotOnline);
@@ -63,7 +69,6 @@ public class DonateCommand extends PluginCommand {
                 return;
             }
 
-        String noActiveQuest = getPlugin().messages().message("noActiveDonateQuests");
         player.sendMessage(noActiveQuest);
     }
 }
