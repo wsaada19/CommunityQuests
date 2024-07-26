@@ -356,6 +356,7 @@ The questId is the key used in the yml file. In the quest above the id would be 
 -   `%communityquests_top_rank_name_questId%`: the name of the player with the provided rank. For example `%communityquests_top_1_name_questId%` would return the name of the player in first place.
 -   `%communityquests_top_rank_contribution_questId%`: similar to the command above for the player's contribution
 -   `%communityquests_progressbar_questId%` - a progress bar showing the current progress of the quest
+-   `%communityquests_rank_you_questId%` - your rank in the quest
 
 ## Permissions
 

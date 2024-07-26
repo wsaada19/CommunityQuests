@@ -55,3 +55,8 @@ goBackText: "&7Go back to the event list"
 clickToStart: "&eClick to start the quest"
 timeRemaining: "&fTime remaining &e"
 claimRewards: "&eClick to claim your rewards"
+
+#Placeholder defaults
+noQuestFound: "&cNo quest found"
+noPlayerAtRank: "N/A"
+noPlayerContributionAtRank: "0"

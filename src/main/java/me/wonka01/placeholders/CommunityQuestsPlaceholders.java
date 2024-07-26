@@ -3,6 +3,7 @@ package me.wonka01.placeholders;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.knighthat.apis.utils.Colorization;
 import me.knighthat.apis.utils.Utils;
+import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
@@ -10,6 +11,7 @@ import me.wonka01.ServerQuests.questcomponents.schedulers.ParseDurationString;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -48,7 +50,7 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
         String questId = identifier.substring(identifier.lastIndexOf("_") + 1);
         List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
         String[] keywords = { "goal", "complete", "remaining", "name", "description", "you", "contribution",
-                "progressbar" };
+                "progressbar", "you" };
 
         QuestController controller = null;
         QuestData questData = null;
@@ -66,8 +68,10 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
             }
         }
 
+        ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
+        String noQuestFound = plugin.messages().string("noQuestFound");
         if (controller == null || questData == null) {
-            return "no quest found";
+            return noQuestFound;
         }
 
         // %communityquests_goal_<questId>%
@@ -98,6 +102,18 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
         // %communityquests_description_questId%
         if (identifier.startsWith("description")) {
             return color(questData.getDescription());
+        }
+
+        // %communityquests_you_questId%
+        if (identifier.startsWith("rank_you")) {
+            if (player.isOnline()) {
+                int rank = controller.getPlayerComponent().getPlayerRank((Player) player);
+                if (rank == 0) {
+                    return plugin.messages().string("noPlayerAtRank");
+                }
+                return "" + rank;
+            }
+            return "0";
         }
 
         // %communityquests_you_questId%
@@ -135,6 +151,11 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
             int index = extractIndex(identifier.replace(questId, "")) - 1;
 
             if (index < 0 || index >= controller.getPlayerComponent().getTopPlayers(index + 1).size()) {
+                if (identifier.contains("name")) {
+                    return plugin.messages().string("noPlayerAtRank");
+                } else if (identifier.contains("contribution")) {
+                    return plugin.messages().string("noPlayerContributionAtRank");
+                }
                 return null;
             }
 

@@ -124,6 +124,20 @@ public class BasePlayerComponent implements Colorization {
         return 0;
     }
 
+    public int getPlayerRank(Player player) {
+        TreeMap<UUID, PlayerData> map = new TreeMap<>(new SortByContributions(this.playerMap));
+        map.putAll(this.playerMap);
+        int rank = 1;
+        for (UUID key : map.keySet()) {
+            if (key.equals(player.getUniqueId())) {
+                return rank;
+            }
+            rank++;
+        }
+
+        return 0;
+    }
+
     public double getAmountContributedByObjectiveId(Player player, int id) {
         if (playerMap.containsKey(player.getUniqueId())) {
             return playerMap.get(player.getUniqueId()).getAmountContributedByObjectiveId(id);
