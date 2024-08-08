@@ -11,7 +11,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.UUID;
 
-// TODO: Cleanup
 public class BarManager implements Listener {
 
     private static final UUID[] questsToShow = new UUID[1];
@@ -53,6 +52,8 @@ public class BarManager implements Listener {
     }
 
     public static void toggleShowPlayerBar(Player player) {
+        BossbarPlayerInfo.getInstance().togglebar(player.getUniqueId());
+
         for (UUID id : questsToShow) {
             QuestController controller = ActiveQuests.getActiveQuestsInstance().getQuestById(id);
             if (controller != null) {
@@ -74,6 +75,9 @@ public class BarManager implements Listener {
         if (disabled)
             return;
 
+        if (BossbarPlayerInfo.getInstance().hasPlayer(player.getUniqueId())) {
+            return;
+        }
         for (UUID id : questsToShow) {
             QuestController controller = ActiveQuests.getActiveQuestsInstance().getQuestById(id);
             if (controller != null && controller.getQuestData().hasGoal()) {
@@ -94,6 +98,9 @@ public class BarManager implements Listener {
             if (questsToShow[i] == null) {
                 questsToShow[i] = questId;
                 for (Player player : Bukkit.getOnlinePlayers()) {
+                    if (BossbarPlayerInfo.getInstance().hasPlayer(player.getUniqueId())) {
+                        continue;
+                    }
                     startShowingPlayerBar(player);
                 }
             }
@@ -117,10 +124,6 @@ public class BarManager implements Listener {
         if (disabled) {
             return;
         }
-        // check for the boss bar hide permission
-        // if (joinEvent.getPlayer().hasPermission("communityquests.bossbar.hide")) {
-        // return;
-        // }
         startShowingPlayerBar(joinEvent.getPlayer());
     }
 

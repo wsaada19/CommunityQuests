@@ -149,6 +149,9 @@ public class RewardManager {
                     } else if (type.equals("command")) {
                         String command = (String) rewardObj.get("command");
                         rewardsList.add(new RewardEntry(new CommandReward(command), ratio));
+                    } else if (type.equals("message")) {
+                        String message = (String) rewardObj.get("message");
+                        rewardsList.add(new RewardEntry(new RewardMessage(message), ratio));
                     }
                 }
                 this.playerRewards.put(UUID.fromString(playerId), rewardsList);

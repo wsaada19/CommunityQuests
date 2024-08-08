@@ -10,12 +10,13 @@ import me.wonka01.ServerQuests.configuration.JsonQuestSave;
 import me.wonka01.ServerQuests.events.*;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
+import me.wonka01.ServerQuests.questcomponents.bossbar.BossbarPlayerInfo;
 import me.wonka01.ServerQuests.questcomponents.rewards.RewardManager;
 import me.wonka01.placeholders.CommunityQuestsPlaceholders;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.Bukkit;
-
+import org.bukkit.entity.Boss;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -49,6 +50,7 @@ public class ServerQuests extends JavaPlugin {
         registerGuiEvents();
         registerQuestEvents();
         RewardManager.getInstance().populateFromJsonFile(getDataFolder(), getLogger());
+        BossbarPlayerInfo.getInstance().loadFromJsonFile(getDataFolder());
         getLogger().info("Plugin is enabled");
     }
 
@@ -56,6 +58,7 @@ public class ServerQuests extends JavaPlugin {
     public void onDisable() {
         jsonSave.saveQuestsInProgress();
         RewardManager.getInstance().saveToJsonFile(getDataFolder());
+        BossbarPlayerInfo.getInstance().saveToJsonFile(getDataFolder());
         BarManager.closeBar();
         getLogger().info("Plugin is disabled");
     }

@@ -29,8 +29,9 @@ public class ExperienceReward implements Reward, Colorization {
         player.giveExp(exp);
 
         ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
-        String message = MessageFormat.format("- &a{0} {1}", exp, plugin.messages().message("experience"));
-        player.sendMessage(color(message));
+        // String message = MessageFormat.format("- &a{0} {1}", exp,
+        // plugin.messages().message("experience"));
+        // player.sendMessage(color(message));
     }
 
     @Override

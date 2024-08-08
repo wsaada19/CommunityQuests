@@ -219,6 +219,7 @@ rewards:
         "1": # The key is the rank of the player
             experience: 100
             money: 1000
+            rewardMessage: "You have been given 1 diamond sword and 100 experience for achieving first place in the quest!"
             commands:
                 - "give %player% diamond_chestplate 1"
             items:
@@ -231,8 +232,10 @@ rewards:
                 - material: iron_sword
                     amount: 1
                     displayName: "&7Iron Sword"
+            rewardMessage: "You have been given 1 iron sword and 50 experience for achieving second place in the quest!"
         "*": # This is a wildcard, it will apply to all other players
             experience: 25
+            rewardMessage: "You have been given 1 stone sword and 25 experience for participating in the quest!"
             items:
                 - material: stone_sword
                     amount: 1
@@ -338,6 +341,7 @@ MythicMobs:
     rewards:
         experience: 100
         money: 1000
+        rewardMessage: "You have received 100 experience and 1000 coins from the Cave Spider Quest!"
 ```
 
 ## Placeholders

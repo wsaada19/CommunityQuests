@@ -172,6 +172,10 @@ public class QuestLibrary {
                     Reward commandReward = new CommandReward(command);
                     rewards.add(commandReward);
                 }
+            } else if (key.equalsIgnoreCase("rewardMessage")) {
+                String message = section.getString("rewardMessage");
+                reward = new RewardMessage(message);
+                rewards.add(reward);
             } else if (key.equalsIgnoreCase("items")) {
                 List<?> itemRewards = section.getList(key);
                 if (itemRewards == null || itemRewards.isEmpty()) {
@@ -193,6 +197,7 @@ public class QuestLibrary {
                     }
                 }
             }
+
         }
         return rewards;
     }

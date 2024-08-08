@@ -66,11 +66,12 @@ public class ItemReward implements Reward, Colorization {
             }
         }
 
-        if (displayName == null || displayName.isEmpty()) {
-            realPlayer.sendMessage(color("- &a" + amount + " &f" + material.name().replace("_", " ").toLowerCase()));
-        } else {
-            realPlayer.sendMessage(color("- &a" + amount + " " + displayName));
-        }
+        // if (displayName == null || displayName.isEmpty()) {
+        // realPlayer.sendMessage(color("- &a" + amount + " &f" +
+        // material.name().replace("_", " ").toLowerCase()));
+        // } else {
+        // realPlayer.sendMessage(color("- &a" + amount + " " + displayName));
+        // }
     }
 
     @Override

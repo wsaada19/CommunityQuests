@@ -29,10 +29,10 @@ public class MoneyReward implements Reward, Colorization {
         double weightedAmount = rewardPercentage * amount;
         economy.depositPlayer(player, weightedAmount);
 
-        if (player.isOnline()) {
-            String message = "- " + weightedAmount + " " + economy.currencyNamePlural();
-            ((Player) player).sendMessage(color(message));
-        }
+        // if (player.isOnline()) {
+        // String message = "- " + weightedAmount + " " + economy.currencyNamePlural();
+        // ((Player) player).sendMessage(color(message));
+        // }
     }
 
     @Override
