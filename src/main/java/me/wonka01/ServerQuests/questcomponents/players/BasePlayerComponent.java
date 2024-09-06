@@ -165,12 +165,22 @@ public class BasePlayerComponent implements Colorization {
             players = getTopPlayers(playerMap.size());
         }
         for (PlayerData playerData : players) {
+            double playerContributionRatio;
+            double playerContribution = playerData.getAmountContributed();
+            if (questGoal > 0) {
+                playerContributionRatio = playerContribution / (double) questGoal;
+            } else {
+                playerContributionRatio = playerContribution / getTopPlayer().getAmountContributed();
+            }
+
             String playerRank = "" + (players.indexOf(playerData) + 1);
 
             List<Reward> rankedReward = rankedRewards.get(playerRank);
 
             if (rankedReward == null) {
                 rankedReward = rankedRewards.get("*");
+            } else {
+                playerContributionRatio = 1.0; // Dont use ratio if player is in a ranked reward group
             }
 
             if (rankedReward == null) {
@@ -190,7 +200,7 @@ public class BasePlayerComponent implements Colorization {
 
             RewardManager rewardManager = RewardManager.getInstance();
             for (Reward reward : rankedReward) {
-                rewardManager.addReward(player.getUniqueId(), reward);
+                rewardManager.addReward(player.getUniqueId(), reward, playerContributionRatio);
             }
         }
     }
