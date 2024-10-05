@@ -12,6 +12,12 @@ public class SortByContributions implements Comparator<UUID> {
     }
 
     public int compare(UUID p1Id, UUID p2Id) {
-        return (int) map.get(p2Id).getAmountContributed() - (int) map.get(p1Id).getAmountContributed();
+        int contributionComparison = Double.compare(map.get(p2Id).getAmountContributed(),
+                map.get(p1Id).getAmountContributed());
+
+        if (contributionComparison == 0) {
+            return p1Id.compareTo(p2Id);
+        }
+        return contributionComparison;
     }
 }

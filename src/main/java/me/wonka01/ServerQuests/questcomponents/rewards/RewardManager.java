@@ -52,6 +52,10 @@ public class RewardManager {
         }
     }
 
+    public void clearRewards() {
+        playerRewards.clear();
+    }
+
     public boolean hasRewards(UUID playerId) {
         return playerRewards.containsKey(playerId) && playerRewards.get(playerId).size() > 0;
     }

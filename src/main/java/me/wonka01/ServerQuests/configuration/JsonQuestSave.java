@@ -47,6 +47,7 @@ public class JsonQuestSave {
         } else {
             try {
                 path.createNewFile();
+                saveQuestsInProgress();
             } catch (IOException e) {
                 Bukkit.getServer().getConsoleSender().sendMessage(e.getMessage());
             }
@@ -121,7 +122,8 @@ public class JsonQuestSave {
                     JSONArray materials = (JSONArray) obj.get("materials");
                     JSONArray customNames = (JSONArray) obj.get("customMobNames");
                     List<Material> materialList = convertJsonArrayToList(materials).stream().map(materialName -> {
-                        Material material = Material.getMaterial(materialName);
+                        String capitalizedMaterialName = materialName.toUpperCase().replaceAll(" ", "_");
+                        Material material = Material.getMaterial(capitalizedMaterialName);
                         if (material == null) {
                             return Material.AIR;
                         }

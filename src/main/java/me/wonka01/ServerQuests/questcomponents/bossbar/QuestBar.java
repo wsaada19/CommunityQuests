@@ -2,13 +2,11 @@ package me.wonka01.ServerQuests.questcomponents.bossbar;
 
 import lombok.NonNull;
 import me.knighthat.apis.utils.Colorization;
-import me.wonka01.ServerQuests.ServerQuests;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class QuestBar implements Colorization {
 

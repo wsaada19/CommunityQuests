@@ -2,10 +2,10 @@ package me.wonka01.ServerQuests.gui;
 
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import me.knighthat.apis.menus.Menu;
 import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
-import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
@@ -31,17 +31,12 @@ public class DonateMenu extends Menu {
 
     @Getter
     private final int inputSlot = 22;
-    private final ItemStack borderItem;
+    @Getter
+    @Setter
+    private static ItemStack borderItem = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
 
     public DonateMenu(ServerQuests plugin, @NonNull Player owner) {
         super(plugin, owner, "donateMenu", 45);
-
-        Material borderMaterial = Material.getMaterial(
-                getPlugin().getConfig().getString("donateMenuItem", "BLACK_STAINED_GLASS_PANE"));
-        if (borderMaterial == null) {
-            borderMaterial = Material.BLACK_STAINED_GLASS_PANE;
-        }
-        borderItem = createItemStack(borderMaterial, " ");
     }
 
     @Override

@@ -1,18 +1,16 @@
 package me.wonka01.ServerQuests.events;
 
-import me.wonka01.ServerQuests.enums.ObjectiveType;
-import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
-import me.wonka01.ServerQuests.questcomponents.QuestController;
+import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import io.lumine.mythic.bukkit.events.MythicMobDeathEvent;
-
-import java.util.List;
+import me.wonka01.ServerQuests.enums.ObjectiveType;
+import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
+import me.wonka01.ServerQuests.questcomponents.QuestController;
 
 public class MythicMobKillEvent extends QuestListener implements Listener {
 

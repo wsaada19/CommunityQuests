@@ -62,6 +62,10 @@ Opens a GUI to claim rewards for completed quests
 
 Claims rewards for a specific player. Rewards are directly given to the user
 
+### /cq clearrewards <playerName>
+
+Clear all rewards for a specific player. Do not specify a player name if you want to clear rewards for all players.
+
 ## Configuration
 
 The config.yml is used to configure quests in the plugin. Once the quests have been created you can start them using the /cq start command.
@@ -240,6 +244,9 @@ rewards:
                 - material: stone_sword
                     amount: 1
                     displayName: "&8Stone Sword"
+            commands:
+                - 'give %player% diamond_sword 1 0 {display:{Name:"{\"text\":\"Powerful Diamond Sword\",\"color\":\"aqua\"}"},ench:[{id:16,lvl:5}]}'
+
 ```
 
 Old Rewards example (still works will be removed eventually)
@@ -317,6 +324,7 @@ Fishing:
 -   **enchantitem**: enchant something
 -   **money**: players can contribute money with /cq deposit <amount>
 -   **experience**: players must gather Minecraft experience
+-   **carvepumpkin**: use shears on a pumpkin
 -   **mythicmob**: Kill mobs from the mythicmob plugin (requires MythicMobs to be installed)
 
 ### MythicMobs Example
@@ -374,3 +382,4 @@ The questId is the key used in the yml file. In the quest above the id would be 
 -   communityquests.bossbar.hide - if set the user will not see the boss bar.
 -   communityquests.claim - the ability to claim rewards for completed quests (skips the GUI)
 -   communityquests.claim.others - the ability to claim rewards for another player (mainly for OPs so rewards can be claimed with a custom UI)
+-   communityquests.clearrewards - the ability to clear rewards for a player (OP default)

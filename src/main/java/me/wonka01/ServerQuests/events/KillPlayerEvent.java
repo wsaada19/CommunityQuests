@@ -5,6 +5,7 @@ import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
@@ -16,7 +17,7 @@ public class KillPlayerEvent extends QuestListener implements Listener {
         super(activeQuests);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onKillPlayer(PlayerDeathEvent event) {
 
         Player killer = event.getEntity().getKiller();

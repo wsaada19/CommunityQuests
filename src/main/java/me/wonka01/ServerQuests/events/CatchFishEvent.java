@@ -1,9 +1,6 @@
 package me.wonka01.ServerQuests.events;
 
-import me.knighthat.apis.utils.Utils;
-import me.wonka01.ServerQuests.enums.ObjectiveType;
-import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
-import me.wonka01.ServerQuests.questcomponents.QuestController;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Item;
@@ -11,7 +8,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 
-import java.util.List;
+import me.wonka01.ServerQuests.enums.ObjectiveType;
+import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
+import me.wonka01.ServerQuests.questcomponents.QuestController;
 
 public class CatchFishEvent extends QuestListener implements Listener {
 
