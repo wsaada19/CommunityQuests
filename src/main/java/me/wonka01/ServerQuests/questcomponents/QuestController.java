@@ -78,6 +78,11 @@ public class QuestController implements Colorization {
         playerComponent.savePlayerAction(player, amountToAdd, objectiveId);
         updateBossBar();
         sendPlayerMessage(player, amountToAdd);
+
+        if (questData.getAmountCompleted() % 100 == 0) {
+            plugin.getJsonSave().saveQuestsInProgress();
+        }
+
         if (getQuestData().isGoalComplete()) {
             endQuest();
         }

@@ -10,6 +10,7 @@ import org.bukkit.block.data.Ageable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.EventPriority;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,7 +29,7 @@ public class BreakEvent extends QuestListener implements Listener {
                 .getBoolean("disableDuplicateBreaks");
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onBlockBreakEvent(BlockBreakEvent event) {
         if (disableDuplicateBreaks && event.getBlock().hasMetadata(BROKEN)) {
             return;

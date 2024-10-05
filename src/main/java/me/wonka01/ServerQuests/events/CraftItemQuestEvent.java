@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.CraftItemEvent;
@@ -22,9 +23,13 @@ public class CraftItemQuestEvent extends QuestListener implements Listener {
         super(activeQuests);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onCraftItem(CraftItemEvent event) {
         ItemStack craftedItem = event.getInventory().getResult(); // Get result of recipe
+        if (craftedItem == null) {
+            return;
+        }
+
         Inventory Inventory = event.getInventory(); // Get crafting inventory
         ClickType clickType = event.getClick();
         Material material = craftedItem.getType();

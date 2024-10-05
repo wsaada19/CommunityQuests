@@ -30,6 +30,8 @@ noRewards: "&cYou have no rewards to claim."
 cantDonateItem: "&cThe given item does not have an active donation quest"
 droppedReward: "&cInventory is full! Reward was dropped on the ground."
 playerNotOnline: "&cThe player is not online"
+rewardsCleared: "&aAll rewards have been cleared"
+playerNotFound: "&cThe player could not be found"
 
 # Single words
 experience: "&eexperience"

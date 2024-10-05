@@ -16,7 +16,6 @@ import me.wonka01.placeholders.CommunityQuestsPlaceholders;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Boss;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -61,6 +60,10 @@ public class ServerQuests extends JavaPlugin {
         BossbarPlayerInfo.getInstance().saveToJsonFile(getDataFolder());
         BarManager.closeBar();
         getLogger().info("Plugin is disabled");
+    }
+
+    public @NonNull JsonQuestSave getJsonSave() {
+        return this.jsonSave;
     }
 
     public @NonNull Config config() {

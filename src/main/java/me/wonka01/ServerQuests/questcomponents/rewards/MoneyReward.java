@@ -5,7 +5,6 @@ import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.json.simple.JSONObject;
 

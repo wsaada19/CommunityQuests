@@ -8,6 +8,7 @@ import org.bukkit.entity.Cow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
@@ -19,7 +20,7 @@ public class MilkCowEvent extends QuestListener implements Listener {
         super(activeQuests);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerMilkCow(PlayerInteractEntityEvent event) {
         Player player = event.getPlayer();
         Entity cow = event.getRightClicked();

@@ -41,7 +41,7 @@ permissions:
         default: true
     communityquests.showmessages:
         description: If true the player will receive a message when they contribute to the quest
-        default: op
+        default: false
     communityquests.togglebar:
         description: Allows player to use the toggle boss bar command to show/hide boss bar for quests
         default: true
@@ -50,4 +50,7 @@ permissions:
         default: true
     communityquests.claim.other:
         description: Claim rewards for others
+        default: op
+    communityquests.clearrewards:
+        description: Clear rewards from all quests
         default: op
