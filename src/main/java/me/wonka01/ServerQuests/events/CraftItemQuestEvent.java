@@ -26,7 +26,7 @@ public class CraftItemQuestEvent extends QuestListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onCraftItem(CraftItemEvent event) {
         ItemStack craftedItem = event.getInventory().getResult(); // Get result of recipe
-        if (craftedItem == null) {
+        if (event.isCancelled() || craftedItem == null) {
             return;
         }
 
