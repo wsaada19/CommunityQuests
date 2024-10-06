@@ -35,6 +35,10 @@ public class PlaceEvent extends QuestListener implements Listener {
             return;
         }
 
+        if (event.isCancelled()) {
+            return;
+        }
+
         List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.BLOCK_PLACE);
         for (QuestController controller : controllers) {
             updateQuest(controller, event.getPlayer(), 1, ObjectiveType.BLOCK_PLACE, block.getType());

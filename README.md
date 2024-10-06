@@ -245,7 +245,7 @@ rewards:
                     amount: 1
                     displayName: "&8Stone Sword"
             commands:
-                - 'give %player% diamond_sword 1 0 {display:{Name:"{\"text\":\"Powerful Diamond Sword\",\"color\":\"aqua\"}"},ench:[{id:16,lvl:5}]}'
+                - 'give %player% diamond_sword 1 0 {display:{Name:"{\"text\":\"Powerful Diamond Sword\",\"color\":\"aqua\"}"},Enchantments:[{id:sharpness,lvl:5}]}'
 
 ```
 

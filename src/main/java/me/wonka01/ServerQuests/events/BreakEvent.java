@@ -6,6 +6,7 @@ import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -35,16 +36,23 @@ public class BreakEvent extends QuestListener implements Listener {
             return;
         }
 
-        if (event.getBlock().getBlockData() instanceof Ageable && !event.getBlock().getType().equals(Material.FIRE)
-                && ((Ageable) event.getBlock().getBlockData()).getAge() != ((Ageable) event.getBlock().getBlockData())
+        Block block = event.getBlock();
+
+        if (event.isCancelled()) {
+            return;
+        }
+
+        if (block.getBlockData() instanceof Ageable && !block.getType().equals(Material.FIRE)
+                && !block.getType().equals(Material.SUGAR_CANE)
+                && ((Ageable) block.getBlockData()).getAge() != ((Ageable) block.getBlockData())
                         .getMaximumAge()) {
             return;
         }
 
         List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.BLOCK_BREAK);
         for (QuestController controller : controllers) {
-            event.getBlock().setMetadata(BROKEN, meta);
-            updateQuest(controller, event.getPlayer(), 1., ObjectiveType.BLOCK_BREAK, event.getBlock().getType());
+            block.setMetadata(BROKEN, meta);
+            updateQuest(controller, event.getPlayer(), 1., ObjectiveType.BLOCK_BREAK, block.getType());
         }
     }
 }
