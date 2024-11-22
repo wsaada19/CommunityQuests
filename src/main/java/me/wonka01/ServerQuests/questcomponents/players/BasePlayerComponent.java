@@ -15,6 +15,9 @@ import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,17 +25,16 @@ import java.util.TreeMap;
 import java.util.UUID;
 
 public class BasePlayerComponent implements Colorization {
-
+    @Setter
+    @Getter
     private static int leaderBoardSize = 5;
 
     private final Map<UUID, PlayerData> playerMap;
-    private final ArrayList<Reward> rewardsList;
     private final Map<String, ArrayList<Reward>> rankedRewards;
     private final int rewardsLimit;
 
     public BasePlayerComponent(ArrayList<Reward> rewardsList, int rewardLimit,
             Map<String, ArrayList<Reward>> rankedRewards) {
-        this.rewardsList = rewardsList;
         this.playerMap = new TreeMap<>();
         this.rewardsLimit = rewardLimit;
         this.rankedRewards = rankedRewards;
@@ -40,14 +42,9 @@ public class BasePlayerComponent implements Colorization {
 
     public BasePlayerComponent(ArrayList<Reward> rewardsList, Map<UUID, PlayerData> map, int rewardLimit,
             Map<String, ArrayList<Reward>> rankedRewards) {
-        this.rewardsList = rewardsList;
         this.playerMap = map;
         this.rewardsLimit = rewardLimit;
         this.rankedRewards = rankedRewards;
-    }
-
-    public static void setLeaderBoardSize(int size) {
-        leaderBoardSize = size;
     }
 
     public void savePlayerAction(Player player, double count, Integer objectiveId) {
@@ -61,14 +58,11 @@ public class BasePlayerComponent implements Colorization {
         }
     }
 
-    public void sendLeaderString() {
-        if (leaderBoardSize <= 0) {
-            return;
+    public String getLeaderString() {
+        if (leaderBoardSize <= 0 || this.playerMap.size() < 1) {
+            return "";
         }
 
-        if (this.playerMap.size() < 1) {
-            return;
-        }
         ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
         StringBuilder result = new StringBuilder(plugin.messages().string("topContributorsTitle"));
         TreeMap<UUID, PlayerData> map = new TreeMap<>(new SortByContributions(this.playerMap));
@@ -89,7 +83,11 @@ public class BasePlayerComponent implements Colorization {
 
             count++;
         }
-        Bukkit.getServer().broadcastMessage(color(result.toString()));
+        return color(result.toString());
+    }
+
+    public void sendLeaderString() {
+        Bukkit.getServer().broadcastMessage(getLeaderString());
     }
 
     public PlayerData getTopPlayer() {

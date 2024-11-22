@@ -2,7 +2,9 @@ package me.wonka01.ServerQuests.questcomponents;
 
 import lombok.Getter;
 import lombok.NonNull;
+import me.clip.placeholderapi.PlaceholderAPI;
 import me.knighthat.apis.utils.Colorization;
+import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
@@ -12,6 +14,8 @@ import java.util.stream.Collectors;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+
+import eu.decentsoftware.holograms.api.utils.scheduler.S;
 
 @Getter
 public class QuestData implements Colorization {
@@ -49,6 +53,24 @@ public class QuestData implements Colorization {
 
     public double getQuestGoal() {
         return objectives.stream().mapToDouble(Objective::getGoal).sum();
+    }
+
+    public String getDescription() {
+        String placeholderDescription = description;
+        if (ServerQuests.getPlugin(ServerQuests.class).isPlaceholderApiEnabled()) {
+            placeholderDescription = PlaceholderAPI.setPlaceholders(null, description);
+        }
+
+        return placeholderDescription;
+    }
+
+    public String getDisplayName() {
+        String placeholderDisplayName = displayName;
+        if (ServerQuests.getPlugin(ServerQuests.class).isPlaceholderApiEnabled()) {
+            placeholderDisplayName = PlaceholderAPI.setPlaceholders(null, displayName);
+        }
+
+        return placeholderDisplayName;
     }
 
     public double getAmountCompletedByType(ObjectiveType type) {

@@ -8,6 +8,7 @@ import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.CompetitiveQuestData;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
+import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 
 import org.bukkit.entity.Player;
@@ -68,15 +69,16 @@ public class ViewMenu extends Menu {
 
     private void getTopPlayerString(QuestController controller, List<String> lore) {
         String noData = "&7n/a";
-        ArrayList<PlayerData> top3Players = controller.getPlayerComponent().getTopPlayers(3);
+        int size = BasePlayerComponent.getLeaderBoardSize();
+        ArrayList<PlayerData> topPlayers = controller.getPlayerComponent().getTopPlayers(size);
 
-        if (top3Players.size() < 1) {
+        if (topPlayers.size() < 1) {
             lore.add(color(noData));
             return;
         }
 
-        for (int i = 0; i < top3Players.size(); i++) {
-            PlayerData topPlayer = top3Players.get(i);
+        for (int i = 0; i < topPlayers.size(); i++) {
+            PlayerData topPlayer = topPlayers.get(i);
             if (topPlayer == null) {
                 break;
             }

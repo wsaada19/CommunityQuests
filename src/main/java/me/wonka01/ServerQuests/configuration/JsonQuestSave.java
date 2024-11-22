@@ -117,6 +117,7 @@ public class JsonQuestSave {
                     JSONObject obj = oIterator.next();
                     String type = (String) obj.get("type");
                     double goal = (double) obj.get("goal");
+                    String dynamicGoal = (String) obj.getOrDefault("dynamicGoal", "");
                     double amount = (double) obj.get("amountComplete");
                     JSONArray mobNames = (JSONArray) obj.get("mobNames");
                     JSONArray materials = (JSONArray) obj.get("materials");
@@ -132,7 +133,8 @@ public class JsonQuestSave {
 
                     ObjectiveType objectiveType = ObjectiveType.match(type);
                     Objective objective = new Objective(objectiveType, goal, amount, convertJsonArrayToList(mobNames),
-                            materialList, (String) obj.get("description"), convertJsonArrayToList(customNames));
+                            materialList, (String) obj.get("description"), convertJsonArrayToList(customNames),
+                            dynamicGoal);
                     objectives.add(objective);
                 }
                 long questDuration = (Long) questObject.getOrDefault("timeLeft", 0);

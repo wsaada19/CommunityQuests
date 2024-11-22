@@ -46,7 +46,7 @@ public class QuestTypeHandler {
             barColor = plugin.getConfig().getString("barColor", "GREEN");
         }
 
-        QuestBar bar = new QuestBar(model.getDisplayName(), barColor);
+        QuestBar bar = new QuestBar(model.getDisplayName(), barColor, model.getBarStyle());
 
         BasePlayerComponent pComponent = new BasePlayerComponent(model.getRewards(), model.getRewardLimit(),
                 model.getRankedRewards());

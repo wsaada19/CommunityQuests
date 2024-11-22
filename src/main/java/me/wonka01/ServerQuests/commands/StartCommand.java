@@ -6,6 +6,8 @@ import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.gui.StartMenu;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
+
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -28,6 +30,8 @@ public class StartCommand extends PluginCommand {
 
     @Override
     public void execute(@NonNull CommandSender sender, @NotNull @NonNull String[] args) {
+        Bukkit.broadcastMessage("Starting a new quest");
+        Bukkit.broadcastMessage("Sender: " + sender.getName());
         if (args.length >= 3) {
             QuestModel model = getPlugin().config().getQuestLibrary().getQuestModelById(args[1]);
             if (model == null) {

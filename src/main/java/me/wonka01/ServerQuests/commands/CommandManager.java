@@ -36,6 +36,7 @@ public class CommandManager implements CommandExecutor {
         commands.add(new EndAllCommand(plugin));
         commands.add(new ClaimRewards(plugin));
         commands.add(new ClearRewardsCommand(plugin));
+        commands.add(new QuestScheduler(plugin));
     }
 
     @Override

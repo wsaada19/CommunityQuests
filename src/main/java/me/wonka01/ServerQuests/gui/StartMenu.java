@@ -26,9 +26,21 @@ public class StartMenu extends Menu {
     protected void setContents() {
         for (String key : getLibrary().getAllQuestKeys()) {
             QuestModel model = getQuestModel(key);
-
             List<String> lore = new ArrayList<>();
-            lore.add(model.getEventDescription());
+
+            try {
+                if (model.getEventDescription().contains("\n")) {
+                    String[] split = model.getEventDescription().split("\n");
+                    for (String s : split) {
+                        lore.add(s);
+                    }
+                } else {
+                    lore.add(model.getEventDescription());
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                lore.add(model.getEventDescription());
+            }
 
             int completeTime = model.getCompleteTime();
 

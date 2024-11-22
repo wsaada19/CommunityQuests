@@ -8,6 +8,9 @@ leaderBoardSize: 5
 # See color options here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html
 barColor: "GREEN"
 
+# See style options here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarStyle.html
+barStyle: "SOLID"
+
 disableBossBar: false
 
 # If enabled, blockbreak quests will not be able to break the same item multiple
@@ -20,6 +23,18 @@ disableDuplicatePlaces: false
 
 # Material used in the donate quest menu.
 donateMenuItem: OBSIDIAN
+
+## configure the location and text of a hologram that displays quest information
+hologram:
+    enabled: true
+    location:
+        world: world
+        x: 0
+        y: 0
+        z: 0
+    text:
+        - "&6&lQuests"
+        - "&f&lRight click to view quests"
 
 Quests:
     TestQuest: # Quest identifier can be whatever you'd like as long as it's unique

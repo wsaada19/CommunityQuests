@@ -1,7 +1,10 @@
 package me.wonka01.ServerQuests.questcomponents;
 
+import me.clip.placeholderapi.PlaceholderAPI;
+import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.enums.EventType;
+import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
 
 import java.util.ArrayList;
@@ -9,6 +12,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Server;
+import org.bukkit.plugin.java.JavaPlugin;
 
 // Singleton class that stores all active quests running on the server
 public class ActiveQuests {
@@ -61,6 +66,25 @@ public class ActiveQuests {
         activeQuestsList.add(controller);
         if (questModel.getBeforeQuestCommand() != null && !questModel.getBeforeQuestCommand().isEmpty()) {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), questModel.getBeforeQuestCommand());
+        }
+
+        ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
+        if (plugin.isPlaceholderApiEnabled()) {
+            try {
+                for (Objective obj : controller.getQuestData().getObjectives()) {
+                    if (!obj.getDynamicGoal().isEmpty()) {
+                        String dynamicGoal = obj.getDynamicGoal();
+                        Bukkit.getLogger().info("Dynamic goal: " + dynamicGoal);
+                        String placeholderValue = PlaceholderAPI.setPlaceholders(null, dynamicGoal);
+                        Bukkit.getLogger().info("Dynamic value: " + placeholderValue);
+
+                        obj.setGoal(Integer.parseInt(placeholderValue));
+                    }
+                }
+            } catch (Exception e) {
+                plugin.getLogger().info("Error setting dynamic goal for quest: " + questModel.getDisplayName());
+                plugin.getLogger().info("Error: " + e.getMessage());
+            }
         }
 
         controller.broadcast("questStartMessage");

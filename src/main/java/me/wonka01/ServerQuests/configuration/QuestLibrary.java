@@ -7,6 +7,7 @@ import me.wonka01.ServerQuests.questcomponents.rewards.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.boss.BarStyle;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,6 +23,10 @@ public class QuestLibrary {
 
     public QuestModel getQuestModelById(String questId) {
         return questList.get(questId);
+    }
+
+    public boolean containsQuest(String questId) {
+        return questList.containsKey(questId);
     }
 
     public void loadQuestConfiguration(ConfigurationSection serverQuestConfig) {
@@ -57,6 +62,8 @@ public class QuestLibrary {
         String beforeQuestCommand = section.getString("beforeQuestCommand", "");
         String questFailedCommand = section.getString("questFailedCommand", "");
         String barColor = section.getString("barColor", "");
+        String barStyle = section.getString("barStyle", "SOLID");
+        BarStyle style = BarStyle.valueOf(barStyle.toUpperCase());
 
         List<Objective> objectives = null;
         List<String> mobNames = null;
@@ -87,6 +94,7 @@ public class QuestLibrary {
                 } else if (obj.get("goal") instanceof Double) {
                     objectiveGoal = (Double) obj.get("goal");
                 }
+                String dynamicGoal = (String) obj.get("dynamicGoal");
                 String objDescription = (String) obj.get("description");
                 List<String> objectiveMobs = (List<String>) obj.get("entities");
                 List<String> objectiveMaterials = (List<String>) obj.get("materials");
@@ -114,7 +122,7 @@ public class QuestLibrary {
                 }
 
                 Objective objective = new Objective(objectiveTypeEnum, objectiveGoal, 0.0, objectiveMobs,
-                        mats, objDescription, objectiveCustomNames);
+                        mats, objDescription, objectiveCustomNames, dynamicGoal);
                 objectives.add(objective);
             }
         }
@@ -145,7 +153,7 @@ public class QuestLibrary {
         return new QuestModel(questId, displayName, description, goal,
                 type, mobNames, rewards, materials, displayItem, worlds, questDuration, rewardsLimit, afterQuestCommand,
                 beforeQuestCommand, objectives, questFailedCommand, customMobNames, barColor, rankedRewardsMap,
-                rankedRewardMessages);
+                rankedRewardMessages, style);
     }
 
     private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {

@@ -8,6 +8,7 @@ import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
 import me.wonka01.ServerQuests.questcomponents.schedulers.ParseDurationString;
 
 import org.bukkit.Material;
+import org.bukkit.boss.BarStyle;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,6 +36,7 @@ public class QuestModel {
     private final String barColor;
     private final Map<String, ArrayList<Reward>> rankedRewards;
     private final Map<String, String> rankedRewardMessages;
+    private final BarStyle barStyle;
 
     public QuestModel(String questId, String displayName, String eventDescription,
             int questGoal, ObjectiveType objective,
@@ -42,7 +44,7 @@ public class QuestModel {
             List<String> worlds, String questDuration, int rewardLimit, String afterQuestCommand,
             String beforeQuestCommand, List<Objective> objectives, String questFailedCommand,
             List<String> customNames, String barColor, Map<String, ArrayList<Reward>> rankedRewards,
-            Map<String, String> rankedRewardMessages) {
+            Map<String, String> rankedRewardMessages, BarStyle barStyle) {
         this.questId = questId;
         this.displayName = displayName;
         this.eventDescription = eventDescription;
@@ -50,6 +52,7 @@ public class QuestModel {
         this.questGoal = questGoal;
         this.questFailedCommand = questFailedCommand;
         this.barColor = barColor;
+        this.barStyle = barStyle;
 
         List<Material> materials = new ArrayList<>();
         if (itemNames != null) {
@@ -68,7 +71,7 @@ public class QuestModel {
         } else {
             this.objectives = Arrays
                     .asList(new Objective(objective, questGoal * 1.0, 0, mobNames, materials, objective.getString(),
-                            customNames));
+                            customNames, ""));
         }
         this.mobNames = mobNames;
         this.rewards = rewards;

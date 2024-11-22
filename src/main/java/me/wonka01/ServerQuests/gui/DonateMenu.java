@@ -101,7 +101,7 @@ public class DonateMenu extends Menu {
                 if (requirements.isEmpty() || requirements.contains(inputItem.getType())) {
                     boolean updateResult = updateQuest(ctrl, inputItem, objective, counter);
                     if (updateResult) {
-                        if (total > goal) {
+                        if (total > goal && goal > 0) {
                             int diff = (int) total - (int) goal;
                             inputItem.setAmount(diff);
                         } else {

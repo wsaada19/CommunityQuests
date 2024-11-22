@@ -2,6 +2,7 @@ package me.wonka01.ServerQuests;
 
 import lombok.Getter;
 import lombok.NonNull;
+import me.clip.placeholderapi.PlaceholderAPI;
 import me.knighthat.apis.files.Config;
 import me.knighthat.apis.files.Messages;
 import me.knighthat.apis.menus.MenuEvents;
@@ -11,6 +12,7 @@ import me.wonka01.ServerQuests.events.*;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
 import me.wonka01.ServerQuests.questcomponents.bossbar.BossbarPlayerInfo;
+import me.wonka01.ServerQuests.questcomponents.hologram.DecentHologramsDisplay;
 import me.wonka01.ServerQuests.questcomponents.rewards.RewardManager;
 import me.wonka01.placeholders.CommunityQuestsPlaceholders;
 import net.milkbowl.vault.economy.Economy;
@@ -29,6 +31,10 @@ public class ServerQuests extends JavaPlugin {
     private Economy economy;
     private MythicBukkit mythicBukkit;
     private JsonQuestSave jsonSave;
+    @Getter
+    private DecentHologramsDisplay hologram;
+    @Getter
+    private boolean isPlaceholderApiEnabled;
 
     @Override
     public void onEnable() {
@@ -45,11 +51,24 @@ public class ServerQuests extends JavaPlugin {
             getLogger().info("Warning! MythicMobs not found, MythicMobs events will not work.");
         }
 
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            isPlaceholderApiEnabled = true;
+        } else {
+            getLogger().info("Warning! PlaceholderAPI not found, placeholders will not work.");
+            isPlaceholderApiEnabled = false;
+        }
+
         registerPlaceholders();
         registerGuiEvents();
         registerQuestEvents();
         RewardManager.getInstance().populateFromJsonFile(getDataFolder(), getLogger());
         BossbarPlayerInfo.getInstance().loadFromJsonFile(getDataFolder());
+        if (!setupDecentHologram() && getConfig().getBoolean("hologram.enabled")) {
+            getLogger().info("Warning! DecentHolograms not found, holograms will not work.");
+        } else {
+            hologram = new DecentHologramsDisplay(this);
+            hologram.displayHologram();
+        }
         getLogger().info("Plugin is enabled");
     }
 
@@ -97,6 +116,10 @@ public class ServerQuests extends JavaPlugin {
     private boolean setupMythicMobs() {
         mythicBukkit = (MythicBukkit) Bukkit.getPluginManager().getPlugin("MythicMobs");
         return mythicBukkit != null;
+    }
+
+    private boolean setupDecentHologram() {
+        return Bukkit.getPluginManager().getPlugin("DecentHolograms") != null;
     }
 
     private void registerQuestEvents() {
