@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 
 // Singleton class that stores all active quests running on the server
@@ -72,12 +71,9 @@ public class ActiveQuests {
         if (plugin.isPlaceholderApiEnabled()) {
             try {
                 for (Objective obj : controller.getQuestData().getObjectives()) {
-                    if (!obj.getDynamicGoal().isEmpty()) {
+                    if (obj.getDynamicGoal() != null && !obj.getDynamicGoal().isEmpty()) {
                         String dynamicGoal = obj.getDynamicGoal();
-                        Bukkit.getLogger().info("Dynamic goal: " + dynamicGoal);
                         String placeholderValue = PlaceholderAPI.setPlaceholders(null, dynamicGoal);
-                        Bukkit.getLogger().info("Dynamic value: " + placeholderValue);
-
                         obj.setGoal(Integer.parseInt(placeholderValue));
                     }
                 }

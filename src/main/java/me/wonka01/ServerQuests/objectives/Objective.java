@@ -49,7 +49,7 @@ public class Objective implements Cloneable {
         amountComplete += amount;
     }
 
-    public JSONObject getObjectiveJSON() {
+    public JSONObject toJsonObject() {
         JSONObject objectiveJson = new JSONObject();
         objectiveJson.put("type", type.getString());
         objectiveJson.put("goal", goal);

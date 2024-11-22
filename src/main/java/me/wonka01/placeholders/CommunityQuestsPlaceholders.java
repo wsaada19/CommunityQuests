@@ -48,9 +48,10 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
     public String onRequest(OfflinePlayer player, String identifier) {
 
         String questId = identifier.substring(identifier.lastIndexOf("_") + 1);
+
         List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
         String[] keywords = { "goal", "complete", "remaining", "name", "description", "you", "contribution",
-                "progressbar", "you" };
+                "progressbar", "top", "all" };
 
         QuestController controller = null;
         QuestData questData = null;

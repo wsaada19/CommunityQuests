@@ -96,4 +96,11 @@ public class QuestModel {
             }
         }
     }
+
+    public String[] getEventDescriptionArray() {
+        if (eventDescription == null) {
+            return new String[0];
+        }
+        return eventDescription.split("\n");
+    }
 }

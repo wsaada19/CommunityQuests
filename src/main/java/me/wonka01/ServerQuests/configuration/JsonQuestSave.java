@@ -63,7 +63,7 @@ public class JsonQuestSave {
             jObject.put("playerMap", questController.getPlayerComponent().toJSONArray());
             JSONArray objectives = new JSONArray();
             for (int i = 0; i < questController.getQuestData().getObjectives().size(); i++) {
-                objectives.add(questController.getQuestData().getObjectives().get(i).getObjectiveJSON());
+                objectives.add(questController.getQuestData().getObjectives().get(i).toJsonObject());
             }
             jObject.put("objectives", objectives);
             jObject.put("timeLeft", questController.getQuestData().getQuestDuration());

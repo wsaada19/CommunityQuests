@@ -2,7 +2,6 @@ package me.wonka01.ServerQuests;
 
 import lombok.Getter;
 import lombok.NonNull;
-import me.clip.placeholderapi.PlaceholderAPI;
 import me.knighthat.apis.files.Config;
 import me.knighthat.apis.files.Messages;
 import me.knighthat.apis.menus.MenuEvents;

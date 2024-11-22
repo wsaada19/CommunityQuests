@@ -64,6 +64,13 @@ public class QuestData implements Colorization {
         return placeholderDescription;
     }
 
+    public String[] getDescriptionArr() {
+        if (getDescription() == null)
+            return new String[0];
+
+        return getDescription().split("\n");
+    }
+
     public String getDisplayName() {
         String placeholderDisplayName = displayName;
         if (ServerQuests.getPlugin(ServerQuests.class).isPlaceholderApiEnabled()) {

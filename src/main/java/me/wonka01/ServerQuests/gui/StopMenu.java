@@ -29,7 +29,10 @@ public class StopMenu extends Menu {
             QuestData data = controller.getQuestData();
 
             List<String> lore = new ArrayList<>();
-            lore.add(data.getDescription());
+            String[] eventDescriptionArr = data.getDescriptionArr();
+            for (String s : eventDescriptionArr) {
+                lore.add(s);
+            }
             lore.add(" ");
             lore.add(progressStr + ": &a" + completed + "/" + Utils.decimalToString(data.getQuestGoal()));
             lore.add(getPlugin().messages().string("endQuestText"));
