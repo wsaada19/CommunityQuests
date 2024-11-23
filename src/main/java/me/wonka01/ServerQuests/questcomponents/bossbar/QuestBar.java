@@ -1,6 +1,7 @@
 package me.wonka01.ServerQuests.questcomponents.bossbar;
 
 import lombok.NonNull;
+import lombok.Setter;
 import me.knighthat.apis.utils.Colorization;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
@@ -9,13 +10,13 @@ import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 
 public class QuestBar implements Colorization {
-
-    private final @NonNull BarColor color;
+    private final @NonNull BarColor barColor;
     private final BossBar bar;
 
-    public QuestBar(@NonNull String name, @NonNull String color) {
-        this.color = getBarColor(color);
-        bar = Bukkit.createBossBar(color(name), this.color, BarStyle.SEGMENTED_12);
+    public QuestBar(@NonNull String name, @NonNull String color, @NonNull BarStyle style) {
+        this.barColor = getBarColor(color);
+        Bukkit.broadcastMessage("Actually adding with color " + this.barColor.toString());
+        bar = Bukkit.createBossBar(color(name), this.barColor, style);
         bar.setVisible(true);
         bar.setProgress(0.0);
     }

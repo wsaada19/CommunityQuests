@@ -13,6 +13,7 @@ softdepend:
     - Vault
     - PlaceholderAPI
     - MythicMobs
+    - DecentHolograms
 
 permissions:
     communityquests.start:
@@ -53,4 +54,7 @@ permissions:
         default: op
     communityquests.clearrewards:
         description: Clear rewards from all quests
+        default: op
+    communityquests.schedule:
+        description: Schedule quests
         default: op

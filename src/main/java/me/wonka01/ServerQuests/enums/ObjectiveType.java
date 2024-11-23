@@ -24,6 +24,7 @@ public enum ObjectiveType {
     HARVEST("harvest", Material.WHEAT),
     MYTHIC_MOB("mythicmob", Material.DRAGON_EGG),
     CARVE_PUMPKIN("carvepumpkin", Material.CARVED_PUMPKIN),
+    MOVEMENT("movement", Material.DIAMOND_BOOTS),
     UNKNOWN("unknown", Material.AIR);
 
     @Getter
@@ -38,7 +39,6 @@ public enum ObjectiveType {
     }
 
     public static @NonNull ObjectiveType match(@Nullable String objective) {
-
         if (objective != null)
             for (ObjectiveType type : values())
                 if (type.name().equalsIgnoreCase(objective) ||

@@ -24,16 +24,17 @@ public class StopMenu extends Menu {
     @Override
     protected void setContents() {
         for (QuestController controller : getControllers()) {
-
-
             String completed = Utils.decimalToString(controller.getQuestData().getAmountCompleted()),
-                progressStr = getPlugin().messages().string("progress");
+                    progressStr = getPlugin().messages().string("progress");
             QuestData data = controller.getQuestData();
 
             List<String> lore = new ArrayList<>();
-            lore.add(data.getDescription());
+            String[] eventDescriptionArr = data.getDescriptionArr();
+            for (String s : eventDescriptionArr) {
+                lore.add(s);
+            }
             lore.add(" ");
-            lore.add(progressStr + ": &a" + completed + "/" + data.getQuestGoal());
+            lore.add(progressStr + ": &a" + completed + "/" + Utils.decimalToString(data.getQuestGoal()));
             lore.add(getPlugin().messages().string("endQuestText"));
 
             ItemStack item = super.createItemStack(data.getDisplayItem(), data.getDisplayName(), lore);

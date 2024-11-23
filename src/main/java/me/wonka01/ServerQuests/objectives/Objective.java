@@ -15,16 +15,18 @@ import me.wonka01.ServerQuests.enums.ObjectiveType;
 @Getter
 public class Objective implements Cloneable {
     private final ObjectiveType type;
-    private final double goal;
+    @Setter
+    private double goal;
     @Setter
     private double amountComplete;
     private List<String> mobNames;
     private List<Material> materials;
     private List<String> customNames;
     private String description;
+    private String dynamicGoal;
 
     public Objective(ObjectiveType type, double goal, double amountComplete, List<String> mobNames,
-            List<Material> materials, String description, List<String> customNames) {
+            List<Material> materials, String description, List<String> customNames, String dynamicGoal) {
         this.type = type;
         this.goal = goal;
         this.amountComplete = amountComplete;
@@ -32,6 +34,7 @@ public class Objective implements Cloneable {
         this.materials = materials;
         this.description = description;
         this.customNames = customNames;
+        this.dynamicGoal = dynamicGoal;
     }
 
     public boolean isGoalComplete() {
@@ -46,7 +49,7 @@ public class Objective implements Cloneable {
         amountComplete += amount;
     }
 
-    public JSONObject getObjectiveJSON() {
+    public JSONObject toJsonObject() {
         JSONObject objectiveJson = new JSONObject();
         objectiveJson.put("type", type.getString());
         objectiveJson.put("goal", goal);
@@ -60,6 +63,6 @@ public class Objective implements Cloneable {
     }
 
     public Objective clone() {
-        return new Objective(type, goal, amountComplete, mobNames, materials, description, customNames);
+        return new Objective(type, goal, amountComplete, mobNames, materials, description, customNames, dynamicGoal);
     }
 }

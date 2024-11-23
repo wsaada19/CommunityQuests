@@ -1,5 +1,6 @@
 package me.wonka01.ServerQuests.commands;
 
+import lombok.Getter;
 import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
 import org.bukkit.command.Command;
@@ -16,6 +17,9 @@ public class CommandManager implements CommandExecutor {
     private final ServerQuests plugin;
 
     private final @NonNull List<PluginCommand> commands = new ArrayList<>(9);
+
+    @Getter
+    private QuestScheduler questScheduler;
 
     public CommandManager(ServerQuests plugin) {
 
@@ -36,6 +40,8 @@ public class CommandManager implements CommandExecutor {
         commands.add(new EndAllCommand(plugin));
         commands.add(new ClaimRewards(plugin));
         commands.add(new ClearRewardsCommand(plugin));
+        this.questScheduler = new QuestScheduler(plugin);
+        commands.add(this.questScheduler);
     }
 
     @Override

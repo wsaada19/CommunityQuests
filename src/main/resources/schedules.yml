@@ -1,0 +1,9 @@
+# Example scheduled quest
+daily_quest_example:
+    # quest to use, if you set the id value to random it will randomly select from all quests
+    # defined from the config
+    questId: TestQuest
+    mode: coop
+    time: "16:00"
+    scheduleType: DAILY
+    enabled: false

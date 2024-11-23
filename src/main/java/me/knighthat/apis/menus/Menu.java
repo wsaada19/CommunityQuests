@@ -95,7 +95,10 @@ public abstract class Menu implements InventoryHolder, Colorization {
     protected @NonNull List<String> getLoreFromData(@NonNull QuestData data) {
 
         List<String> lore = new ArrayList<>();
-        lore.add(color(data.getDescription()));
+        String[] description = data.getDescriptionArr();
+        for (String s : description) {
+            lore.add(color(s));
+        }
         lore.add(" ");
 
         int duration = data.getQuestDuration();

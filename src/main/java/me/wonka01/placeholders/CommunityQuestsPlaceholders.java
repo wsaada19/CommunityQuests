@@ -48,9 +48,10 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
     public String onRequest(OfflinePlayer player, String identifier) {
 
         String questId = identifier.substring(identifier.lastIndexOf("_") + 1);
+
         List<QuestController> quests = ActiveQuests.getActiveQuestsInstance().getActiveQuestsList();
         String[] keywords = { "goal", "complete", "remaining", "name", "description", "you", "contribution",
-                "progressbar", "you" };
+                "progressbar", "top", "all" };
 
         QuestController controller = null;
         QuestData questData = null;
@@ -144,9 +145,14 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
             return color(questData.getObjectives().get(index).getDescription());
         }
 
+        // Show top playerz
+        // %communityquests_top_all_questId%
+        if (identifier.startsWith("top_all")) {
+            return controller.getPlayerComponent().getLeaderString();
+        }
+
         // %communityquests_top_1_name_questId%
         // %communityquests_top_1_contribution_questId%
-
         if (identifier.startsWith("top")) {
             int index = extractIndex(identifier.replace(questId, "")) - 1;
 

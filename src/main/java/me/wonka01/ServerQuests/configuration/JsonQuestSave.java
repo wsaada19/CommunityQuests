@@ -63,7 +63,7 @@ public class JsonQuestSave {
             jObject.put("playerMap", questController.getPlayerComponent().toJSONArray());
             JSONArray objectives = new JSONArray();
             for (int i = 0; i < questController.getQuestData().getObjectives().size(); i++) {
-                objectives.add(questController.getQuestData().getObjectives().get(i).getObjectiveJSON());
+                objectives.add(questController.getQuestData().getObjectives().get(i).toJsonObject());
             }
             jObject.put("objectives", objectives);
             jObject.put("timeLeft", questController.getQuestData().getQuestDuration());
@@ -117,6 +117,7 @@ public class JsonQuestSave {
                     JSONObject obj = oIterator.next();
                     String type = (String) obj.get("type");
                     double goal = (double) obj.get("goal");
+                    String dynamicGoal = (String) obj.getOrDefault("dynamicGoal", "");
                     double amount = (double) obj.get("amountComplete");
                     JSONArray mobNames = (JSONArray) obj.get("mobNames");
                     JSONArray materials = (JSONArray) obj.get("materials");
@@ -132,7 +133,8 @@ public class JsonQuestSave {
 
                     ObjectiveType objectiveType = ObjectiveType.match(type);
                     Objective objective = new Objective(objectiveType, goal, amount, convertJsonArrayToList(mobNames),
-                            materialList, (String) obj.get("description"), convertJsonArrayToList(customNames));
+                            materialList, (String) obj.get("description"), convertJsonArrayToList(customNames),
+                            dynamicGoal);
                     objectives.add(objective);
                 }
                 long questDuration = (Long) questObject.getOrDefault("timeLeft", 0);
@@ -150,9 +152,9 @@ public class JsonQuestSave {
                         randomNames.add("NotSoJuicyJuan");
                         randomNames.add("Notch");
                         randomNames.add("Availer");
+                        randomNames.add("Vaquxine");
                         randomNames.add("Taco");
-                        randomNames.add("Cheeseburger");
-                        randomNames.add("Sword4000");
+                        randomNames.add("ish");
                         playerName = randomNames.get((int) (Math.random() * randomNames.size()));
                     }
                     Gson gson = new Gson();

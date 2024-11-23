@@ -6,6 +6,7 @@ import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.gui.StartMenu;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
