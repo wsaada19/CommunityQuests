@@ -37,6 +37,7 @@ public class ReloadCommand extends PluginCommand {
         }
 
         getPlugin().messages().reload();
+        getPlugin().getCommandManager().getQuestScheduler().reloadSchedules();
 
         String reloadMessage = getPlugin().messages().message("reloadCommand");
         sender.sendMessage(reloadMessage);

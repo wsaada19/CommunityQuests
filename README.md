@@ -7,6 +7,8 @@
 -   [Rewards](#Rewards)
 -   [Quest Types](#Objectives)
 -   [Placeholders](#Placeholders)
+-   [Holograms](#Holograms)
+-   [Quest Scheduler](#Quest-Scheduler)
 
 ## Summary
 
@@ -161,6 +163,21 @@ objectives:
       description: Zombie Pigmen
 ```
 
+### dynamic objectives
+
+You can use placeholders to create dynamic goal for an objective! For example the quest below is based on the number of players online when the quest starts. Use the Placeholder Math extension to create dynamic goals. The extension can be found [here](https://api.extendedclip.com/expansions/math/).
+
+```yaml
+objectives:
+    - type: mobkill ## required, see type list for available types
+      dynamicGoal: "%server_online%"
+      entities: # This is an optional parameter, if it doesn't exist the quest will count ALL mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
+          - Zombie
+          - Pig
+          - ZOMBIFIED_PIGLIN
+      description: "Zombies & Pigs"
+```
+
 ### questDuration (required if no goal is set)
 
 The time that the quest should run for in seconds, so if it is set to 60s the quest will last for one minute. You could also do 1m to achieve the same result. If both goal and time required are set then the quest will run until the goal is hit
@@ -240,7 +257,7 @@ rewards:
 
 ```
 
-Old Rewards example (still works will be removed eventually)
+Old Rewards example (still works but will be deprecated eventually)
 
 ```yaml
 rewards:
@@ -317,6 +334,7 @@ Fishing:
 -   **experience**: players must gather Minecraft experience
 -   **carvepumpkin**: use shears on a pumpkin
 -   **mythicmob**: Kill mobs from the mythicmob plugin (requires MythicMobs to be installed)
+-   **distance**: travel a certain distance in blocks
 
 ### MythicMobs Example
 
@@ -374,3 +392,109 @@ The questId is the key used in the yml file. In the quest above the id would be 
 -   communityquests.claim - the ability to claim rewards for completed quests (skips the GUI)
 -   communityquests.claim.others - the ability to claim rewards for another player (mainly for OPs so rewards can be claimed with a custom UI)
 -   communityquests.clearrewards - the ability to clear rewards for a player (OP default)
+-   communityquests.schedule - the ability to schedule quests to start at a specific time (OP default)
+
+## Holograms
+
+This plugin now supports holograms using the [DecentHolograms](https://www.spigotmc.org/resources/decentholograms-1-8-1-21-3-papi-support-no-dependencies.96927/) plugin. Players who want to enable holograms must install DecentHolograms on their server. Holograms allow important information, such as quest details, to be displayed in-game for easy access.
+
+## Hologram Configuration
+
+Below is an example configuration for the hologram settings, which can be found in your plugin's `config.yml` file.
+
+```yml
+hologram:
+    refresh-interval: 60
+    enabled: true
+    location:
+        world: world
+        x: -78
+        y: 67
+        z: 51
+    text:
+        - "<#B22AFE>&l&nCommunity Quests</#ff8157>"
+        - "&f&lRight click to view quests"
+        - "%communityquests_name%"
+        - "%communityquests_description%"
+        - "%communityquests_top_all%"
+```
+
+### Configuration Options
+
+-   **`refresh-interval`** (Integer): The frequency (in seconds) at which the hologram refreshes. This is useful for updating dynamic information like quest names and descriptions. In this example, it’s set to refresh every 60 seconds. Set to 0 if you don't want it to refresh.
+
+-   **`enabled`** (Boolean): Toggles the hologram display on or off. Set to `true` to enable the hologram, or `false` to disable it.
+
+-   **`location`**:
+
+    -   **`world`** (String): The name of the world where the hologram will appear.
+    -   **`x`**, **`y`**, **`z`** (Integer): The coordinates for the hologram's position in the specified world.
+
+-   **`text`** (List of Strings): The lines of text that will appear in the hologram. You can use:
+    -   **Hex Colors and Formatting**: Colors can be set with hex codes in the format `<#hexcode>` (e.g., `<#B22AFE>`), along with Minecraft formatting codes like `&l` for bold or `&n` for underline.
+    -   **Placeholders**: Dynamic placeholders such as `%communityquests_name%` and `%communityquests_description%` display real-time quest information.
+
+### Example Explanation
+
+The above configuration will create a hologram that:
+
+-   Refreshes every 60 seconds.
+-   Is enabled and visible at coordinates (-78, 67, 51) in the `world`.
+-   Displays the following text:
+    -   A stylized header with the text "Community Quests" in a gradient color.
+    -   "Right click to view quests" in bold white.
+    -   Dynamic placeholders that will display the quest name, description, and top player stats.
+
+### Requirements
+
+-   **DecentHolograms Plugin**: This plugin is required for holograms to function. Please download and install it from [DecentHolograms](https://www.spigotmc.org/resources/decentholograms.96927/).
+
+### Notes
+
+Make sure to update placeholders or text based on your desired in-game display and set accurate coordinates in your world to place the hologram effectively.
+
+## Quest Scheduler
+
+Schedule quests to automatically start at specific times with configurable recurrence patterns.
+
+### Command Usage
+
+Basic command structure:
+
+```
+/cq schedulequests <questId> <coop|comp> <time> <DAILY|WEEKLY|CUSTOM_DAYS> <add|remove> [day|interval]
+```
+
+### Examples:
+
+-   Daily Quest: `/cq schedulequests mining coop 14:30 DAILY add`  
+    Starts the "mining" quest every day at 2:30 PM
+-   Weekly Quest: `/cq schedulequests fishing coop 09:00 WEEKLY add MONDAY`  
+    Starts the "fishing" quest every Monday at 9:00 AM
+-   Custom Interval: `/cq schedulequests boss comp 20:00 CUSTOM_DAYS add 3`  
+    Starts the "boss" quest every 3 days at 8:00 PM
+-   Remove Schedule: `/cq schedulequests any coop 00:00 DAILY remove <scheduleId>`  
+    Removes the schedule with the given ID
+
+### Manual Configuration (schedules.yml)
+
+You can directly configure schedules in `schedules.yml`:
+
+```yaml
+12345678-example:
+    questId: "mining" # Quest identifier
+    mode: "coop" # Mode: "coop" or "comp"
+    time: "14:30" # 24-hour format (HH:mm)
+    scheduleType: "DAILY" # DAILY, WEEKLY, or CUSTOM_DAYS
+    interval: 1 # Days between runs (for CUSTOM_DAYS only)
+    dayOfWeek: "MONDAY" # Required for WEEKLY schedule
+    enabled: true # Enable/disable the schedule
+```
+
+### Schedule Types:
+
+-   `DAILY`: Runs every day at specified time
+-   `WEEKLY`: Runs on specified day of week at specified time
+-   `CUSTOM_DAYS`: Runs every X days (specified by interval) at specified time
+
+All times must be in 24-hour format (HH:mm). Server restarts will automatically reload all enabled schedules.

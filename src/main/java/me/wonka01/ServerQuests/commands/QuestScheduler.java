@@ -23,7 +23,7 @@ import java.util.UUID;
 
 public class QuestScheduler extends PluginCommand {
     private final ServerQuests plugin;
-    private final File scheduleFile;
+    private File scheduleFile;
     private FileConfiguration scheduleConfig;
     private final Map<String, BukkitRunnable> activeSchedules = new HashMap<>();
 
@@ -77,6 +77,7 @@ public class QuestScheduler extends PluginCommand {
     }
 
     public void reloadSchedules() {
+        // this.scheduleFile = new File(plugin.getDataFolder(), "schedules.yml");
         loadSchedules();
     }
 

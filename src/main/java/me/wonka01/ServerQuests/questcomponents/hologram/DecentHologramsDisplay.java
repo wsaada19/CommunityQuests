@@ -37,8 +37,10 @@ public class DecentHologramsDisplay implements Listener {
     }
 
     private void startRefreshTimer() {
-        long refreshInterval = config.getLong("hologram.refresh-interval", 60L);
-
+        long refreshInterval = config.getLong("hologram.refresh-interval", 0L);
+        if (refreshInterval == 0) {
+            return;
+        }
         long refreshTicks = refreshInterval * 20L;
 
         refreshTask = new BukkitRunnable() {

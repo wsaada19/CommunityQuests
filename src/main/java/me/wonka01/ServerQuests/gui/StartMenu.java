@@ -2,11 +2,9 @@ package me.wonka01.ServerQuests.gui;
 
 import lombok.NonNull;
 import me.knighthat.apis.menus.Menu;
-import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.configuration.QuestModel;
-import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.schedulers.ParseDurationString;
 
 import org.bukkit.Bukkit;
@@ -30,9 +28,7 @@ public class StartMenu extends Menu {
             List<String> lore = new ArrayList<>();
 
             String[] eventDescriptionArr = model.getEventDescriptionArray();
-            Bukkit.broadcastMessage("eventDescriptionArr: " + eventDescriptionArr.length);
             for (String s : eventDescriptionArr) {
-                Bukkit.broadcastMessage("line: " + s);
                 lore.add(s);
             }
 

@@ -39,7 +39,6 @@ public enum ObjectiveType {
     }
 
     public static @NonNull ObjectiveType match(@Nullable String objective) {
-
         if (objective != null)
             for (ObjectiveType type : values())
                 if (type.name().equalsIgnoreCase(objective) ||

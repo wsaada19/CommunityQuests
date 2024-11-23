@@ -35,9 +35,12 @@ public class ServerQuests extends JavaPlugin {
     @Getter
     private boolean isPlaceholderApiEnabled;
 
+    @Getter
+    private CommandManager commandManager;
+
     @Override
     public void onEnable() {
-        new CommandManager(this);
+        this.commandManager = new CommandManager(this);
 
         loadSaveData();
 
