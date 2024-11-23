@@ -5,46 +5,50 @@ questLimit: 5
 # If this is set to 0 then the leader board message will be omitted.
 leaderBoardSize: 5
 
-# See color options here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html
-barColor: "GREEN"
-
-# See style options here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarStyle.html
-barStyle: "SOLID"
-
 disableBossBar: false
 
-# If enabled, blockbreak quests will not be able to break the same item multiple
+# Material used in the donate quest menu.
+donateMenuItem: EMERALD
+
+# If true, blockbreak quests will not be able to break the same item multiple
 # times in a row.
 disableDuplicateBreaks: false
 
-# If enabled, blockplace quests will not be able to place the same item multiple
+barColor: "GREEN"
+
+# If true, blockplace quests will not be able to place the same item multiple
 # times in a row.
 disableDuplicatePlaces: false
 
-# Material used in the donate quest menu.
-donateMenuItem: OBSIDIAN
-
 ## configure the location and text of a hologram that displays quest information
 hologram:
+    # set to 0 or omit refresh-interval if you don't want it to refresh. Refresh is needed for dynamic placeholders
+    refresh-interval: 60
     enabled: true
     location:
         world: world
-        x: 0
-        y: 0
-        z: 0
+        x: -78
+        y: 67
+        z: 51
     text:
-        - "&6&lQuests"
+        - "<#B22AFE>&l&nCommunity Quests</#ff8157>"
         - "&f&lRight click to view quests"
+        - "%communityquests_name%"
+        - "%communityquests_description%"
+        - "%communityquests_top_all%"
 
 Quests:
     TestQuest: # Quest identifier can be whatever you'd like as long as it's unique
         displayName: "&cZombie and Pig Slayer"
         displayItem: ZOMBIE_HEAD # optional parameter to set the item used in GUIs for a given quest
+        # See color options here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html
+        barColor: "GREEN"
+        barStyle: "SEGMENTED_20"
         worlds: # this parameter is optional, if included the quest will only occur in the specified worlds
             - world
         objectives: # at least one objective is required, each quest can have infinite objectives
             - type: mobkill ## required, see type list for available types
-              goal: 10 # The goal is the amount of the task to be completed
+              dynamicGoal: "%server_online%"
               entities: # This is an optional parameter, if it doesn't exist the quest will count ALL mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
                   - Zombie
                   - Pig
@@ -52,10 +56,10 @@ Quests:
               description: "Zombies & Pigs" # A short description of the objective used in the GUI
             - type: mobkill
               goal: 5
-              entities:
+              customMobNames:
                   - Skeleton
               description: Skeletons
-        description: Kill 100 zombies and pigs!
+        description: "Kill 100 zombies and pigs! \nKill 50 skeletons!"
         questDuration: 1d # The quest will last for 1 day or until the goal is reached, whichever comes first
         rewards:
             rankedRewards:
@@ -77,3 +81,261 @@ Quests:
                         - material: stone_sword
                           amount: 1
                           displayName: "&8Stone Sword"
+    Egg:
+        displayName: "&6Eggcellent"
+        displayItem: EGG
+        questDuration: 7d
+        barColor: "WHITE"
+        barStyle: "SEGMENTED_20"
+        objectives:
+            - type: donate
+              materials:
+                  - EGG
+        description: H1 needs some cake, you can get some eggs!
+        rewards:
+            items:
+                - material: CHICKEN_SPAWN_EGG
+                  amount: 1
+    MoveIt:
+        displayName: "&6Movement Quest"
+        displayItem: DIAMOND_BOOTS
+        questDuration: 7d
+        barColor: "WHITE"
+        barStyle: "SEGMENTED_20"
+        objectives:
+            - type: movement
+        description: Just keep on running until your shoes fall off!
+        rewards:
+            items:
+                - material: CHICKEN_SPAWN_EGG
+                  amount: 1
+    FishFrenzy:
+        displayName: "&9&lFishing Frenzy"
+        questDuration: 30m
+        barColor: "BLUE"
+        barStyle: "SOLID"
+        objectives:
+            - type: catchfish
+              goal: 8
+              entities:
+                  - Cod
+              description: "&9&lCod"
+            - type: catchfish
+              goal: 4
+              entities:
+                  - Salmon
+              description: "&9&lSalmon"
+        description: "&fCatch 8 cod and 4 salmon as fast as you can!"
+        displayItem: fishing_rod
+        rewards:
+            rankedRewards:
+                "1": # The key is the rank of the player so this reward will be given to the player who contributed the most
+                    experience: 100
+                    items:
+                        - material: diamond_sword
+                          amount: 1
+                          displayName: "&bPowerful Diamond Sword"
+                "2":
+                    experience: 50
+                    items:
+                        - material: iron_sword
+                          amount: 1
+                          displayName: "&7Iron Sword"
+                "*": # This is a wildcard, this reward will apply to all other players who participated in the quest and didn't get a ranked reward
+                    experience: 25
+                    items:
+                        - material: stone_sword
+                          amount: 1
+                          displayName: "&8Stone Sword"
+    CarrotQuest:
+        displayName: "&6&lCarrot King"
+        objectives:
+            - type: blockbreak
+              goal: 25
+              materials:
+                  - carrots
+              description: "&6&lCarrots"
+            - type: blockbreak
+              goal: 10
+              materials:
+                  - wheat
+              description: "&6&lWheat"
+        description: "&fPlant some carrots"
+        displayItem: CARROT
+        rewards:
+            rankedRewards:
+                "1": # The key is the rank of the player so this reward will be given to the player who contributed the most
+                    experience: 100
+                    items:
+                        - material: diamond_sword
+                          amount: 1
+                          displayName: "&bPowerful Diamond Sword"
+                "2":
+                    experience: 50
+                    items:
+                        - material: iron_sword
+                          amount: 1
+                          displayName: "&7Iron Sword"
+                "*": # This is a wildcard, this reward will apply to all other players who participated in the quest and didn't get a ranked reward
+                    experience: 25
+                    items:
+                        - material: stone_sword
+                          amount: 1
+                          displayName: "&8Stone Sword"
+    GuiQuest:
+        displayName: "&a&lPotato Diamond Quest"
+        objectives:
+            - type: donate
+              goal: 60
+              materials:
+                  - POTATO
+              description: "&l&aPotatoes"
+            - type: donate
+              goal: 20
+              materials:
+                  - DIAMOND
+              description: "&l&aDiamonds"
+        description: "&fDonate 60 potatoes and 20 diamonds with /cq donate!"
+        rewards:
+            rankedRewards:
+                "1": # The key is the rank of the player
+                    experience: 100
+                    commands:
+                        - "give %player% diamond_sword 1"
+                    items:
+                        - material: DIAMOND_SWORD
+                          amount: 1
+                          displayName: "&bPowerful Diamond Sword"
+                "2":
+                    experience: 50
+                    items:
+                        - material: iron_sword
+                          amount: 1
+                          displayName: "&7Iron Sword"
+                "*": # This is a wildcard, it will apply to all other players
+                    experience: 25
+                    items:
+                        - material: stone_sword
+                          amount: 1
+                          displayName: "&8Stone Sword"
+    PlantTree:
+        displayName: "&a&lSave the Planet"
+        description: "&fPlant 10 oak or acacia trees and break 10 logs!"
+        objectives:
+            - type: blockplace
+              materials:
+                  - OAK_SAPLING
+                  - ACACIA_SAPLING
+              description: "&fPlant trees"
+              goal: 10
+            - type: blockbreak
+              materials:
+                  - OAK_LOG
+                  - ACACIA_LOG
+                  - FIRE
+              goal: 10
+              description: "&fChop trees"
+        rewards:
+            experience: 100
+            items:
+                - material: EMERALD
+                  amount: 64
+                  displayName: "&cEmerald"
+    EatFood:
+        displayName: "&l&aEat Food"
+        objectives:
+            - type: consumeitem
+              goal: 25
+              description: "&fFood consumed"
+              materials:
+                  - APPLE
+                  - POTATO
+                  - Mushroom_Stew
+        description: "&fEat 25 apples, potatoes, or mushroom stew!"
+        rewards:
+            experience: 100
+            items:
+                - material: EMERALD
+                  amount: 64
+                  displayName: "&cEmerald"
+    CraftSwords:
+        displayName: "&l&aSwords and Sticks!"
+        description: "&fCraft 10 swords and 10 sticks!"
+        rewards:
+            experience: 100
+        objectives:
+            - type: craftitem
+              materials:
+                  - DIAMOND_SWORD
+                  - IRON_SWORD
+              description: "&bDiamond swords"
+              goal: 10
+            - type: craftItem
+              materials:
+                  - STICK
+              goal: 10
+              description: "&bStick"
+    ExpQuest: # Quest identifier can be whatever you'd like as long as it's unique
+        displayName: "&c&lGet that EXP"
+        objectives:
+            - type: experience
+              goal: 10000
+              description: "EXP"
+        description: "&fGet lots of experience"
+        rewards:
+            experience: 10000
+            items:
+                - material: DIAMOND_SWORD
+                  amount: 1
+                  displayName: "&bPowerful Diamond Sword"
+    MythicQuest:
+        displayName: "&c&lKill mythic mobs"
+        objective:
+            - type: mythicmob
+              goal: 4
+              description: "Spiderz"
+              entities:
+                  - CAVE_SPIDER
+        description: "&c&lKill 4 Cave Spiders!"
+        rewards:
+            experience: 10000
+            items:
+                - material: DIAMOND_SWORD
+                  amount: 1
+                  displayName: "&bPowerful Diamond Sword"
+    BreakStuff:
+        displayName: "Just break stuff"
+        objectives:
+            - type: blockbreak
+              goal: 100
+              description: "Broken blox"
+        description: "&fbreak anythingggggg"
+        rewards:
+            experience: 10000
+            commands:
+                - 'give %player% diamond_sword 1 0 {display:{Name:"{\"text\":\"Powerful Diamond Sword\",\"color\":\"aqua\"}"},ench:[{id:16,lvl:5}]}'
+    CarvePumpkin:
+        displayName: "Carve a pumpkin"
+        objectives:
+            - type: carvepumpkin
+              goal: 10
+              description: "pumpkinz"
+        description: "Lets carve some pumpkins for Halloween!"
+        rewards:
+            experience: 10000
+        commands:
+            - 'give %player% diamond_sword 1 0 {display:{Name:"{\"text\":\"Powerful Diamond Sword\",\"color\":\"aqua\"}"},Enchantments:[{id:sharpness,lvl:5}]}'
+    Cane:
+        displayName: "&6Sugar it up"
+        displayItem: SUGAR_CANE
+        questDuration: 7d
+        objectives:
+            - type: blockbreak
+              goal: 10
+              materials:
+                  - SUGAR_CANE
+              description: "I need some Sugar!"
+        rewards:
+            items:
+                - material: GRASS_BLOCK
+                  amount: 16

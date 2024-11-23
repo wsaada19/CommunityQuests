@@ -378,6 +378,7 @@ The questId is the key used in the yml file. In the quest above the id would be 
 -   `%communityquests_top_rank_contribution_questId%`: similar to the command above for the player's contribution
 -   `%communityquests_progressbar_questId%` - a progress bar showing the current progress of the quest
 -   `%communityquests_rank_you_questId%` - your rank in the quest
+-   `%communityquests_top_all_questId%` - Displays a leaderboard of the top players in the quest using /n newlines to separate the players. Works well with the hologram!
 
 ## Permissions
 
@@ -462,18 +463,18 @@ Schedule quests to automatically start at specific times with configurable recur
 Basic command structure:
 
 ```
-/cq schedulequests <questId> <coop|comp> <time> <DAILY|WEEKLY|CUSTOM_DAYS> <add|remove> [day|interval]
+/cq schedule <questId> <coop|comp> <time> <DAILY|WEEKLY|CUSTOM_DAYS> <add|remove> [day|interval]
 ```
 
 ### Examples:
 
--   Daily Quest: `/cq schedulequests mining coop 14:30 DAILY add`  
+-   Daily Quest: `/cq schedule mining coop 14:30 DAILY add`  
     Starts the "mining" quest every day at 2:30 PM
--   Weekly Quest: `/cq schedulequests fishing coop 09:00 WEEKLY add MONDAY`  
+-   Weekly Quest: `/cq schedule fishing coop 09:00 WEEKLY add MONDAY`  
     Starts the "fishing" quest every Monday at 9:00 AM
--   Custom Interval: `/cq schedulequests boss comp 20:00 CUSTOM_DAYS add 3`  
+-   Custom Interval: `/cq schedule boss comp 20:00 CUSTOM_DAYS add 3`  
     Starts the "boss" quest every 3 days at 8:00 PM
--   Remove Schedule: `/cq schedulequests any coop 00:00 DAILY remove <scheduleId>`  
+-   Remove Schedule: `/cq schedule any coop 00:00 DAILY remove <scheduleId>`  
     Removes the schedule with the given ID
 
 ### Manual Configuration (schedules.yml)
