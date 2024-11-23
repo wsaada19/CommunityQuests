@@ -152,7 +152,8 @@ public class QuestLibrary {
 
         return new QuestModel(questId, displayName, description, goal,
                 type, mobNames, rewards, materials, displayItem, worlds, questDuration, rewardsLimit, afterQuestCommand,
-                beforeQuestCommand, objectives, questFailedCommand, customMobNames, barColor, rankedRewardsMap,
+                beforeQuestCommand, objectives, questFailedCommand, customMobNames, barColor.toUpperCase(),
+                rankedRewardsMap,
                 rankedRewardMessages, style);
     }
 

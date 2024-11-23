@@ -9,6 +9,7 @@ import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.schedulers.ParseDurationString;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -29,7 +30,9 @@ public class StartMenu extends Menu {
             List<String> lore = new ArrayList<>();
 
             String[] eventDescriptionArr = model.getEventDescriptionArray();
+            Bukkit.broadcastMessage("eventDescriptionArr: " + eventDescriptionArr.length);
             for (String s : eventDescriptionArr) {
+                Bukkit.broadcastMessage("line: " + s);
                 lore.add(s);
             }
 

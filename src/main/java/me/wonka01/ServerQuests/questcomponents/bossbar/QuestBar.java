@@ -19,7 +19,7 @@ public class QuestBar implements Colorization {
         bar = Bukkit.createBossBar(color(name), this.barColor, style);
         bar.setVisible(true);
         bar.setProgress(0.0);
-        bar.setColor(this.barColor);
+        bar.setColor(BarColor.BLUE);
     }
 
     private @NonNull BarColor getBarColor(@NonNull String color) {

@@ -152,9 +152,9 @@ public class JsonQuestSave {
                         randomNames.add("NotSoJuicyJuan");
                         randomNames.add("Notch");
                         randomNames.add("Availer");
+                        randomNames.add("Vaquxine");
                         randomNames.add("Taco");
-                        randomNames.add("Cheeseburger");
-                        randomNames.add("Sword4000");
+                        randomNames.add("ish");
                         playerName = randomNames.get((int) (Math.random() * randomNames.size()));
                     }
                     Gson gson = new Gson();

@@ -24,6 +24,7 @@ public enum ObjectiveType {
     HARVEST("harvest", Material.WHEAT),
     MYTHIC_MOB("mythicmob", Material.DRAGON_EGG),
     CARVE_PUMPKIN("carvepumpkin", Material.CARVED_PUMPKIN),
+    MOVEMENT("movement", Material.DIAMOND_BOOTS),
     UNKNOWN("unknown", Material.AIR);
 
     @Getter

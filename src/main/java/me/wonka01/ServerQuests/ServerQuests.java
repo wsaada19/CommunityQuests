@@ -58,16 +58,17 @@ public class ServerQuests extends JavaPlugin {
         }
 
         registerPlaceholders();
-        registerGuiEvents();
-        registerQuestEvents();
-        RewardManager.getInstance().populateFromJsonFile(getDataFolder(), getLogger());
-        BossbarPlayerInfo.getInstance().loadFromJsonFile(getDataFolder());
         if (!setupDecentHologram() && getConfig().getBoolean("hologram.enabled")) {
             getLogger().info("Warning! DecentHolograms not found, holograms will not work.");
         } else {
             hologram = new DecentHologramsDisplay(this);
             hologram.displayHologram();
         }
+
+        registerGuiEvents();
+        registerQuestEvents();
+        RewardManager.getInstance().populateFromJsonFile(getDataFolder(), getLogger());
+        BossbarPlayerInfo.getInstance().loadFromJsonFile(getDataFolder());
         getLogger().info("Plugin is enabled");
     }
 
@@ -136,6 +137,7 @@ public class ServerQuests extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new CraftItemQuestEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new ConsumeItemQuestEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new EnchantItemQuestEvent(activeQuests), this);
+        getServer().getPluginManager().registerEvents(new DistanceTraveled(activeQuests), this);
         try {
             getServer().getPluginManager().registerEvents(new ExperienceEvent(activeQuests), this);
             getServer().getPluginManager().registerEvents(new HarvestEvent(activeQuests), this);
@@ -144,6 +146,9 @@ public class ServerQuests extends JavaPlugin {
         }
         if (mythicBukkit != null) {
             getServer().getPluginManager().registerEvents(new MythicMobKillEvent(activeQuests), this);
+        }
+        if (hologram != null) {
+            getServer().getPluginManager().registerEvents(hologram, this);
         }
     }
 

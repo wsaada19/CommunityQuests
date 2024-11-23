@@ -68,7 +68,7 @@ public class QuestData implements Colorization {
         if (getDescription() == null)
             return new String[0];
 
-        return getDescription().split("\n");
+        return getDescription().split("\\\\n|\\r?\\n");
     }
 
     public String getDisplayName() {

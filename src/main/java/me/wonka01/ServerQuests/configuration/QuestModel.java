@@ -101,6 +101,6 @@ public class QuestModel {
         if (eventDescription == null) {
             return new String[0];
         }
-        return eventDescription.split("\n");
+        return eventDescription.split("\\\\n|\\r?\\n");
     }
 }

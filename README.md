@@ -115,9 +115,17 @@ for available materials.
 
 ### description (required)
 
-A short description of the quest used in messages and displays.
+A short description of the quest used in messages and displays. You can use the \n character to create a new line in your description.
 
-### objectives (required)
+### barColor (optional)
+
+The color of the boss bar that will be displayed for the quest. The color can be one of the following: PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE. If no color is set the boss bar will be white.
+
+### barStyle (optional)
+
+The style of the boss bar that will be displayed for the quest. The style can be one of the following: SOLID, SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20. If no style is set the bar will be solid.
+
+## Objectives (required)
 
 The objectives are the tasks that need to be completed to finish the quest. Each quest can have multiple objectives. The type of objective is required and the goal is required unless questDuration is set on the entire quest. The description is optional but recommended.
 
@@ -178,23 +186,6 @@ Pass in a command to be run if a quest fails, this will only be run if a quest h
 
 Use this parameter to restrict quests to specific worlds. All worlds in the list will be able to participate in quests. When no value
 is provided for worlds then the quest will be enabled in every world.
-
-### materials (DEPRECATED use objectives instead)
-
-Optional parameter for the following quest types:
-blockbreak, blockplace, donate, enchantitem, craftitem and consumeitem. If the field is empty or nonexistent then all blocks will be considered.
-
-### entities (DEPRECATED use objectives instead)
-
-Optional field for the following quest types: mobkill, projectilekill and catchfish. If empty or not used, all mob types will be included.
-
-### type (DEPRECATED use objectives instead)
-
-The quest type, see here for a list of types:
-
-### goal (DEPRECATED use objectives instead)
-
-The amount you'll need to complete to finish the quest. To run a collaborative quest a goal is required even if you have a questDuration set.
 
 ### disableDuplicateBreaks
 
