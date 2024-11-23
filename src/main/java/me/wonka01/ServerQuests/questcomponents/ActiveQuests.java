@@ -74,7 +74,7 @@ public class ActiveQuests {
                     if (obj.getDynamicGoal() != null && !obj.getDynamicGoal().isEmpty()) {
                         String dynamicGoal = obj.getDynamicGoal();
                         String placeholderValue = PlaceholderAPI.setPlaceholders(null, dynamicGoal);
-                        obj.setGoal(Integer.parseInt(placeholderValue));
+                        obj.setGoal(Double.parseDouble(placeholderValue));
                     }
                 }
             } catch (Exception e) {

@@ -13,6 +13,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class TypeMenu extends Menu {
 
@@ -47,7 +48,10 @@ public class TypeMenu extends Menu {
     }
 
     private @NonNull ItemStack getCoopItem() {
-        Material material = model.getObjectives().stream().mapToDouble(Objective::getGoal).sum() > 0
+        double goal = model.getObjectives().stream().mapToDouble(Objective::getGoal).sum();
+        String dynamicGoal = model.getObjectives().stream().map(Objective::getDynamicGoal)
+                .collect(Collectors.joining(""));
+        Material material = goal > 0 || !dynamicGoal.isEmpty()
                 ? Material.GOLDEN_APPLE
                 : Material.AIR;
         String title = getPlugin().messages().string("cooperative");
