@@ -4,7 +4,7 @@ import lombok.Getter;
 import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
-import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.Reward;
 import me.wonka01.ServerQuests.questcomponents.schedulers.ParseDurationString;
 
 import org.bukkit.Material;

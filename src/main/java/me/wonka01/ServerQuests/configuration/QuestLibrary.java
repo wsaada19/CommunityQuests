@@ -4,6 +4,11 @@ import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.rewards.*;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.CommandReward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.ExperienceReward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.ItemReward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.MoneyReward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.Reward;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
