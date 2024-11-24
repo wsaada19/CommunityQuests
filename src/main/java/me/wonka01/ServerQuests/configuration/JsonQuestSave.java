@@ -22,12 +22,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class JsonQuestSave {
 
@@ -85,10 +87,14 @@ public class JsonQuestSave {
         }
     }
 
-    private List<String> convertJsonArrayToList(JSONArray arr) {
-        List<String> list = new ArrayList<>();
+    // public <T> List<T> fromArrayToList(T[] a) {
+    // return Arrays.stream(a).collect(Collectors.toList());
+    // }
+
+    private <T> List<T> convertJsonArrayToList(JSONArray arr, Class<T> clazz) {
+        List<T> list = new ArrayList<>();
         for (Object o : arr) {
-            list.add((String) o);
+            list.add(clazz.cast(o));
         }
         return list;
     }
@@ -122,19 +128,23 @@ public class JsonQuestSave {
                     JSONArray mobNames = (JSONArray) obj.get("mobNames");
                     JSONArray materials = (JSONArray) obj.get("materials");
                     JSONArray customNames = (JSONArray) obj.get("customMobNames");
-                    List<Material> materialList = convertJsonArrayToList(materials).stream().map(materialName -> {
-                        String capitalizedMaterialName = materialName.toUpperCase().replaceAll(" ", "_");
-                        Material material = Material.getMaterial(capitalizedMaterialName);
-                        if (material == null) {
-                            return Material.AIR;
-                        }
-                        return material;
-                    }).collect(java.util.stream.Collectors.toList());
+                    JSONArray customModelIds = (JSONArray) obj.get("customModelIds");
+                    List<Material> materialList = convertJsonArrayToList(materials, String.class).stream()
+                            .map(materialName -> {
+                                String capitalizedMaterialName = materialName.toUpperCase().replaceAll(" ", "_");
+                                Material material = Material.getMaterial(capitalizedMaterialName);
+                                if (material == null) {
+                                    return Material.AIR;
+                                }
+                                return material;
+                            }).collect(java.util.stream.Collectors.toList());
 
                     ObjectiveType objectiveType = ObjectiveType.match(type);
-                    Objective objective = new Objective(objectiveType, goal, amount, convertJsonArrayToList(mobNames),
-                            materialList, (String) obj.get("description"), convertJsonArrayToList(customNames),
-                            dynamicGoal);
+                    Objective objective = new Objective(objectiveType, goal, amount,
+                            convertJsonArrayToList(mobNames, String.class),
+                            materialList, (String) obj.get("description"),
+                            convertJsonArrayToList(customNames, String.class),
+                            dynamicGoal, convertJsonArrayToList(customModelIds, Integer.class));
                     objectives.add(objective);
                 }
                 long questDuration = (Long) questObject.getOrDefault("timeLeft", 0);

@@ -71,7 +71,7 @@ public class QuestModel {
         } else {
             this.objectives = Arrays
                     .asList(new Objective(objective, questGoal * 1.0, 0, mobNames, materials, objective.getString(),
-                            customNames, ""));
+                            customNames, "", new ArrayList<>()));
         }
         this.mobNames = mobNames;
         this.rewards = rewards;
