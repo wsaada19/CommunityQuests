@@ -2,7 +2,6 @@ package me.wonka01.ServerQuests.configuration;
 
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
-import org.bukkit.Bukkit;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,7 +16,7 @@ import java.util.logging.Logger;
 public class QuestHistoryManager {
     private final File historyFile;
     private final Logger logger;
-    private static final int MAX_HISTORY_ENTRIES = 50; // Limit how many completed quests to store
+    private static final int MAX_HISTORY_ENTRIES = 50;
 
     public QuestHistoryManager(ServerQuests plugin, File dataFolder) {
         this.historyFile = new File(dataFolder, "questHistory.json");
@@ -29,7 +28,6 @@ public class QuestHistoryManager {
         if (!historyFile.exists()) {
             try {
                 historyFile.createNewFile();
-                // Initialize with empty array
                 saveToFile(new JSONArray());
             } catch (IOException e) {
                 logger.warning("Failed to create quest history file: " + e.getMessage());
@@ -37,8 +35,7 @@ public class QuestHistoryManager {
         }
     }
 
-    public void saveCompletedQuest(String questId, String questName, Map<UUID, PlayerData> playerData,
-            boolean wasCompetitive) {
+    public void saveCompletedQuest(String questId, String questName, Map<UUID, PlayerData> playerData) {
         JSONArray historyArray = loadHistoryArray();
 
         // Create new entry for this quest
@@ -46,7 +43,6 @@ public class QuestHistoryManager {
         questEntry.put("questId", questId);
         questEntry.put("questName", questName);
         questEntry.put("completionTime", System.currentTimeMillis());
-        questEntry.put("wasCompetitive", wasCompetitive);
 
         // Save top contributors
         JSONArray topPlayers = new JSONArray();
@@ -84,7 +80,6 @@ public class QuestHistoryManager {
             JSONObject questEntry = (JSONObject) entry;
             JSONArray topContributors = (JSONArray) questEntry.get("topContributors");
 
-            // Check if player was in top contributors
             for (Object contributor : topContributors) {
                 JSONObject playerInfo = (JSONObject) contributor;
                 if (playerInfo.get("uuid").equals(playerId.toString())) {
@@ -93,7 +88,6 @@ public class QuestHistoryManager {
                     historyEntry.put("questName", questEntry.get("questName"));
                     historyEntry.put("completionTime", questEntry.get("completionTime"));
                     historyEntry.put("contribution", playerInfo.get("contribution"));
-                    historyEntry.put("wasCompetitive", questEntry.get("wasCompetitive"));
                     playerHistory.add(historyEntry);
                     break;
                 }
@@ -117,7 +111,6 @@ public class QuestHistoryManager {
             questInfo.put("questId", questEntry.get("questId"));
             questInfo.put("questName", questEntry.get("questName"));
             questInfo.put("completionTime", questEntry.get("completionTime"));
-            questInfo.put("wasCompetitive", questEntry.get("wasCompetitive"));
             questInfo.put("topContributors", questEntry.get("topContributors"));
 
             recentQuests.add(questInfo);
