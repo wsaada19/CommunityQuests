@@ -3,8 +3,8 @@ package me.wonka01.ServerQuests.questcomponents.players;
 import me.knighthat.apis.utils.Colorization;
 import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
-import me.wonka01.ServerQuests.questcomponents.rewards.Reward;
 import me.wonka01.ServerQuests.questcomponents.rewards.RewardManager;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.Reward;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;

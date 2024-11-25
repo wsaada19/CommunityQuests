@@ -4,6 +4,11 @@ import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.rewards.*;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.CommandReward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.ExperienceReward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.ItemReward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.MoneyReward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.Reward;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -99,6 +104,8 @@ public class QuestLibrary {
                 List<String> objectiveMobs = (List<String>) obj.get("entities");
                 List<String> objectiveMaterials = (List<String>) obj.get("materials");
                 List<String> objectiveCustomNames = (List<String>) obj.get("customMobNames");
+                List<Integer> objectiveModelIds = (List<Integer>) obj.get("modelIds");
+
                 ObjectiveType objectiveTypeEnum = ObjectiveType.match(objectiveType);
                 List<Material> mats = new ArrayList<>();
                 if (objectiveMaterials != null) {
@@ -120,9 +127,12 @@ public class QuestLibrary {
                 if (objectiveCustomNames == null) {
                     objectiveCustomNames = new ArrayList<>();
                 }
+                if (objectiveModelIds == null) {
+                    objectiveModelIds = new ArrayList<>();
+                }
 
                 Objective objective = new Objective(objectiveTypeEnum, objectiveGoal, 0.0, objectiveMobs,
-                        mats, objDescription, objectiveCustomNames, dynamicGoal);
+                        mats, objDescription, objectiveCustomNames, dynamicGoal, objectiveModelIds);
                 objectives.add(objective);
             }
         }
