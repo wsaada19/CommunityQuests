@@ -90,6 +90,11 @@ public class DecentHologramsDisplay implements Listener {
 
     @EventHandler
     public void onPlayerClick(HologramClickEvent event) {
+
+        if (!event.getHologram().equals(holo)) {
+            return;
+        }
+
         if (event.getClick().equals(ClickType.RIGHT)) {
             Bukkit.getScheduler().runTask(plugin, () -> {
                 new ViewMenu(plugin, event.getPlayer()).open();
