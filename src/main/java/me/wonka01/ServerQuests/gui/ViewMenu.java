@@ -25,8 +25,11 @@ public class ViewMenu extends Menu {
 
     @Override
     protected void setContents() {
-        for (QuestController controller : getControllers())
-            getInventory().addItem(controller.isCompetitive() ? compItem(controller) : coopItem(controller));
+        int index = 0;
+        for (QuestController controller : getControllers()) {
+            getInventory().setItem(index, controller.isCompetitive() ? compItem(controller) : coopItem(controller));
+            index++;
+        }
     }
 
     private @NonNull ItemStack coopItem(@NonNull QuestController controller) {

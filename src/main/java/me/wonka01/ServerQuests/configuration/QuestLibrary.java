@@ -138,7 +138,13 @@ public class QuestLibrary {
         }
 
         ConfigurationSection rewardsSection = section.getConfigurationSection("rewards");
-        ConfigurationSection rankedRewards = rewardsSection.getConfigurationSection("rankedRewards");
+        ConfigurationSection rankedRewards = null;
+        int rewardsLimit = 0;
+        if (rewardsSection != null) {
+            rewardsLimit = rewardsSection.getInt("rewardsLimit", 0);
+            rankedRewards = rewardsSection.getConfigurationSection("rankedRewards");
+        }
+
         Map<String, ArrayList<Reward>> rankedRewardsMap = new HashMap<>();
         Map<String, String> rankedRewardMessages = new HashMap<>();
         if (rankedRewards != null) {
@@ -154,14 +160,8 @@ public class QuestLibrary {
             rankedRewardsMap.put("*", getRewardsFromConfig(rewardsSection));
         }
 
-        ArrayList<Reward> rewards = getRewardsFromConfig(rewardsSection);
-        int rewardsLimit = 0;
-        if (rewardsSection != null) {
-            rewardsLimit = rewardsSection.getInt("rewardsLimit", 0);
-        }
-
         return new QuestModel(questId, displayName, description, goal,
-                type, mobNames, rewards, materials, displayItem, worlds, questDuration, rewardsLimit, afterQuestCommand,
+                type, mobNames, materials, displayItem, worlds, questDuration, rewardsLimit, afterQuestCommand,
                 beforeQuestCommand, objectives, questFailedCommand, customMobNames, barColor.toUpperCase(),
                 rankedRewardsMap,
                 rankedRewardMessages, style);

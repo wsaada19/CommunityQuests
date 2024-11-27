@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 import java.util.List;
@@ -21,16 +22,17 @@ public class MilkCowEvent extends QuestListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onPlayerMilkCow(PlayerInteractEntityEvent event) {
-        Player player = event.getPlayer();
-        Entity cow = event.getRightClicked();
-        if (!(cow instanceof Cow) || !(player.getInventory().getItemInMainHand().getType().equals(Material.BUCKET))) {
+    public void onPlayerMilkCow(PlayerBucketFillEvent event) {
+        if (event.isCancelled()) {
             return;
         }
-        List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.MILK_COW);
+        Player player = event.getPlayer();
+        if (event.getItemStack() != null && event.getItemStack().getType() == Material.MILK_BUCKET) {
+            List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.MILK_COW);
 
-        for (QuestController controller : controllers) {
-            updateQuest(controller, event.getPlayer(), 1, ObjectiveType.MILK_COW);
+            for (QuestController controller : controllers) {
+                updateQuest(controller, player, 1, ObjectiveType.MILK_COW);
+            }
         }
     }
 }

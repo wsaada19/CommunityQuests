@@ -48,11 +48,11 @@ public class QuestTypeHandler {
 
         QuestBar bar = new QuestBar(model.getDisplayName(), barColor, model.getBarStyle());
 
-        BasePlayerComponent pComponent = new BasePlayerComponent(model.getRewards(), model.getRewardLimit(),
+        BasePlayerComponent pComponent = new BasePlayerComponent(model.getRewardLimit(),
                 model.getRankedRewards());
 
         if (players != null) {
-            pComponent = new BasePlayerComponent(model.getRewards(), players, model.getRewardLimit(),
+            pComponent = new BasePlayerComponent(players, model.getRewardLimit(),
                     model.getRankedRewards());
         }
 

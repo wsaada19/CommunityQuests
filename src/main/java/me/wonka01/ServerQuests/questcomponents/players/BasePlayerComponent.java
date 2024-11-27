@@ -33,14 +33,14 @@ public class BasePlayerComponent implements Colorization {
     private final Map<String, ArrayList<Reward>> rankedRewards;
     private final int rewardsLimit;
 
-    public BasePlayerComponent(ArrayList<Reward> rewardsList, int rewardLimit,
+    public BasePlayerComponent(int rewardLimit,
             Map<String, ArrayList<Reward>> rankedRewards) {
         this.playerMap = new TreeMap<>();
         this.rewardsLimit = rewardLimit;
         this.rankedRewards = rankedRewards;
     }
 
-    public BasePlayerComponent(ArrayList<Reward> rewardsList, Map<UUID, PlayerData> map, int rewardLimit,
+    public BasePlayerComponent(Map<UUID, PlayerData> map, int rewardLimit,
             Map<String, ArrayList<Reward>> rankedRewards) {
         this.playerMap = map;
         this.rewardsLimit = rewardLimit;

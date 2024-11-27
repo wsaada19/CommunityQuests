@@ -163,14 +163,14 @@ objectives:
       description: Zombie Pigmen
 ```
 
-### dynamic objectives
+### dynamicGoal
 
 You can use placeholders to create dynamic goal for an objective! For example the quest below is based on the number of players online when the quest starts. Use the Placeholder Math extension to create dynamic goals. The extension can be found [here](https://api.extendedclip.com/expansions/math/).
 
 ```yaml
 objectives:
     - type: mobkill ## required, see type list for available types
-      dynamicGoal: "%server_online%"
+      dynamicGoal: "%math_{server_online}*1000%"
       entities: # This is an optional parameter, if it doesn't exist the quest will count ALL mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
           - Zombie
           - Pig
