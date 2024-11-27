@@ -22,7 +22,7 @@ public enum ObjectiveType {
     ENCHANT_ITEM("enchantitem", Material.EMERALD),
     EXPERIENCE("experience", Material.EXPERIENCE_BOTTLE),
     HARVEST("harvest", Material.WHEAT),
-    MYTHIC_MOB("mythicmob", Material.DRAGON_EGG),
+    MYTHIC_MOB("mythicmob", Material.DRAGON_HEAD),
     CARVE_PUMPKIN("carvepumpkin", Material.CARVED_PUMPKIN),
     MOVEMENT("movement", Material.DIAMOND_BOOTS),
     UNKNOWN("unknown", Material.AIR);

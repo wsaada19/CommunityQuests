@@ -7,7 +7,6 @@ import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.questcomponents.schedulers.ParseDurationString;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -23,6 +22,7 @@ public class StartMenu extends Menu {
 
     @Override
     protected void setContents() {
+        int index = 0;
         for (String key : getLibrary().getAllQuestKeys()) {
             QuestModel model = getQuestModel(key);
             List<String> lore = new ArrayList<>();
@@ -42,7 +42,8 @@ public class StartMenu extends Menu {
             lore.add(clickToStart);
 
             ItemStack item = super.createItemStack(model.getDisplayItem(), model.getDisplayName(), lore);
-            getInventory().addItem(item);
+            getInventory().setItem(index, item);
+            index++;
         }
     }
 
