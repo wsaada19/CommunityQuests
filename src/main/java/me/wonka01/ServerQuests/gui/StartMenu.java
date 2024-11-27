@@ -23,9 +23,12 @@ public class StartMenu extends Menu {
 
     @Override
     protected void setContents() {
+        int index = 0;
         for (String key : getLibrary().getAllQuestKeys()) {
             QuestModel model = getQuestModel(key);
             List<String> lore = new ArrayList<>();
+            // log message
+            Bukkit.getLogger().info("Display item " + model.getDisplayItem());
 
             String[] eventDescriptionArr = model.getEventDescriptionArray();
             for (String s : eventDescriptionArr) {
@@ -42,7 +45,8 @@ public class StartMenu extends Menu {
             lore.add(clickToStart);
 
             ItemStack item = super.createItemStack(model.getDisplayItem(), model.getDisplayName(), lore);
-            getInventory().addItem(item);
+            getInventory().setItem(index, item);
+            index++;
         }
     }
 

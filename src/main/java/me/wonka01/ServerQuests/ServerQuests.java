@@ -34,7 +34,6 @@ public class ServerQuests extends JavaPlugin {
     private DecentHologramsDisplay hologram;
     @Getter
     private boolean isPlaceholderApiEnabled;
-
     @Getter
     private CommandManager commandManager;
 
