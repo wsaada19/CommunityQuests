@@ -7,7 +7,6 @@ import me.wonka01.ServerQuests.configuration.QuestLibrary;
 import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.questcomponents.schedulers.ParseDurationString;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -27,8 +26,6 @@ public class StartMenu extends Menu {
         for (String key : getLibrary().getAllQuestKeys()) {
             QuestModel model = getQuestModel(key);
             List<String> lore = new ArrayList<>();
-            // log message
-            Bukkit.getLogger().info("Display item " + model.getDisplayItem());
 
             String[] eventDescriptionArr = model.getEventDescriptionArray();
             for (String s : eventDescriptionArr) {

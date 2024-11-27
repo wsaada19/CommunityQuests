@@ -23,6 +23,7 @@ public class StopMenu extends Menu {
 
     @Override
     protected void setContents() {
+        int index = 0;
         for (QuestController controller : getControllers()) {
             String completed = Utils.decimalToString(controller.getQuestData().getAmountCompleted()),
                     progressStr = getPlugin().messages().string("progress");
@@ -38,7 +39,8 @@ public class StopMenu extends Menu {
             lore.add(getPlugin().messages().string("endQuestText"));
 
             ItemStack item = super.createItemStack(data.getDisplayItem(), data.getDisplayName(), lore);
-            getInventory().addItem(item);
+            getInventory().setItem(index, item);
+            index++;
         }
     }
 
