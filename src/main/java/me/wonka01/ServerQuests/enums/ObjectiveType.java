@@ -25,6 +25,8 @@ public enum ObjectiveType {
     MYTHIC_MOB("mythicmob", Material.DRAGON_HEAD),
     CARVE_PUMPKIN("carvepumpkin", Material.CARVED_PUMPKIN),
     MOVEMENT("movement", Material.DIAMOND_BOOTS),
+    BREW_POTION("brewpotion", Material.BREWING_STAND),
+    SMELT_ITEM("smeltitem", Material.FURNACE),
     UNKNOWN("unknown", Material.AIR);
 
     @Getter

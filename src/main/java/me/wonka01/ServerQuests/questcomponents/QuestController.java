@@ -105,6 +105,8 @@ public class QuestController implements Colorization {
                 plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(),
                         questData.getAfterQuestCommand());
             }
+            getPlugin().getQuestHistoryManager().saveCompletedQuest(questId.toString(), questData.getDisplayName(),
+                    playerComponent.getPlayerMap(), questData.getDisplayItem());
         }
 
         ActiveQuests.getActiveQuestsInstance().endQuest(questId);

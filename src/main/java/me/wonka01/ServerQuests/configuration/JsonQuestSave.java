@@ -93,6 +93,9 @@ public class JsonQuestSave {
 
     private <T> List<T> convertJsonArrayToList(JSONArray arr, Class<T> clazz) {
         List<T> list = new ArrayList<>();
+        if (arr == null) {
+            return list;
+        }
         for (Object o : arr) {
             list.add(clazz.cast(o));
         }
@@ -129,6 +132,7 @@ public class JsonQuestSave {
                     JSONArray materials = (JSONArray) obj.get("materials");
                     JSONArray customNames = (JSONArray) obj.get("customMobNames");
                     JSONArray customModelIds = (JSONArray) obj.get("customModelIds");
+
                     List<Material> materialList = convertJsonArrayToList(materials, String.class).stream()
                             .map(materialName -> {
                                 String capitalizedMaterialName = materialName.toUpperCase().replaceAll(" ", "_");

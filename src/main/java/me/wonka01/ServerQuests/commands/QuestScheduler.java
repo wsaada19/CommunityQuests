@@ -95,7 +95,7 @@ public class QuestScheduler extends PluginCommand {
         String action = args[5].toLowerCase();
 
         // check quest library to see if id exists
-        if (!plugin.config().getQuestLibrary().containsQuest(questId) || questId.equalsIgnoreCase("random")) {
+        if (!plugin.config().getQuestLibrary().containsQuest(questId) && !questId.equalsIgnoreCase("random")) {
             sender.sendMessage("§cQuest with ID " + questId + " does not exist!");
             return;
         }
@@ -260,8 +260,14 @@ public class QuestScheduler extends PluginCommand {
         BukkitRunnable task = new BukkitRunnable() {
             @Override
             public void run() {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "cq start " + questId + " " + mode);
-                plugin.getLogger().info("Scheduled quest " + questId + " executed in " + mode + " mode");
+                if (questId.equalsIgnoreCase("random")) {
+                    String random = plugin.config().getQuestLibrary().getRandomQuest();
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "cq start " + random + " " + mode);
+                    plugin.getLogger().info("Scheduled random quest executed in " + mode + " mode");
+                } else {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "cq start " + questId + " " + mode);
+                    plugin.getLogger().info("Scheduled quest " + questId + " executed in " + mode + " mode");
+                }
             }
         };
 

@@ -40,6 +40,7 @@ public class CommandManager implements CommandExecutor {
         commands.add(new EndAllCommand(plugin));
         commands.add(new ClaimRewards(plugin));
         commands.add(new ClearRewardsCommand(plugin));
+        commands.add(new HistoryCommand(plugin));
         this.questScheduler = new QuestScheduler(plugin);
         commands.add(this.questScheduler);
     }
@@ -57,11 +58,27 @@ public class CommandManager implements CommandExecutor {
         return true;
     }
 
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        List<String> completions = new ArrayList<>();
+        if (args.length == 1) {
+            for (PluginCommand cmd : commands) {
+                if (cmd.getName().startsWith(args[0].toLowerCase())) {
+                    if (cmd.isPlayerCommand() && !(sender instanceof Player))
+                        break;
+
+                    if (cmd.getPermission().isEmpty() || sender.hasPermission(cmd.getPermission()))
+                        completions.add(cmd.getName());
+                }
+            }
+        }
+        return completions;
+    }
+
     private @Nullable PluginCommand getCommand(@NonNull CommandSender sender, @NonNull String arg) {
         for (PluginCommand cmd : commands)
             if (cmd.getName().equalsIgnoreCase(arg)) {
 
-                if (cmd.isRequiresPlayer() && !(sender instanceof Player))
+                if (cmd.isPlayerCommand() && !(sender instanceof Player))
                     break;
 
                 if (cmd.getPermission().isEmpty() || sender.hasPermission(cmd.getPermission()))

@@ -29,6 +29,7 @@ public class BasePlayerComponent implements Colorization {
     @Getter
     private static int leaderBoardSize = 5;
 
+    @Getter
     private final Map<UUID, PlayerData> playerMap;
     private final Map<String, ArrayList<Reward>> rankedRewards;
     private final int rewardsLimit;

@@ -10,11 +10,11 @@ import org.bukkit.command.CommandSender;
 public abstract class PluginCommand implements Colorization {
 
     private final ServerQuests plugin;
-    private final boolean requiresPlayer;
+    private final boolean playerCommand;
 
-    protected PluginCommand(ServerQuests plugin, boolean requiresPlayer) {
+    protected PluginCommand(ServerQuests plugin, boolean playerCommand) {
         this.plugin = plugin;
-        this.requiresPlayer = requiresPlayer;
+        this.playerCommand = playerCommand;
     }
 
     public abstract @NonNull String getName();

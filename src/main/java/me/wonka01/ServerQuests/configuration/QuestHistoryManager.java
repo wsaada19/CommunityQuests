@@ -2,6 +2,8 @@ package me.wonka01.ServerQuests.configuration;
 
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
+
+import org.bukkit.Material;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -35,7 +37,8 @@ public class QuestHistoryManager {
         }
     }
 
-    public void saveCompletedQuest(String questId, String questName, Map<UUID, PlayerData> playerData) {
+    public void saveCompletedQuest(String questId, String questName, Map<UUID, PlayerData> playerData,
+            Material displayItem) {
         JSONArray historyArray = loadHistoryArray();
 
         // Create new entry for this quest
@@ -43,6 +46,7 @@ public class QuestHistoryManager {
         questEntry.put("questId", questId);
         questEntry.put("questName", questName);
         questEntry.put("completionTime", System.currentTimeMillis());
+        questEntry.put("displayItem", displayItem.toString());
 
         // Save top contributors
         JSONArray topPlayers = new JSONArray();
@@ -112,6 +116,7 @@ public class QuestHistoryManager {
             questInfo.put("questName", questEntry.get("questName"));
             questInfo.put("completionTime", questEntry.get("completionTime"));
             questInfo.put("topContributors", questEntry.get("topContributors"));
+            questInfo.put("displayItem", questEntry.get("displayItem"));
 
             recentQuests.add(questInfo);
             count++;

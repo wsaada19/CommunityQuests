@@ -7,6 +7,7 @@ import me.knighthat.apis.files.Messages;
 import me.knighthat.apis.menus.MenuEvents;
 import me.wonka01.ServerQuests.commands.CommandManager;
 import me.wonka01.ServerQuests.configuration.JsonQuestSave;
+import me.wonka01.ServerQuests.configuration.QuestHistoryManager;
 import me.wonka01.ServerQuests.events.*;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
@@ -36,6 +37,8 @@ public class ServerQuests extends JavaPlugin {
     private boolean isPlaceholderApiEnabled;
     @Getter
     private CommandManager commandManager;
+    @Getter
+    private QuestHistoryManager questHistoryManager;
 
     @Override
     public void onEnable() {
@@ -71,6 +74,7 @@ public class ServerQuests extends JavaPlugin {
         registerQuestEvents();
         RewardManager.getInstance().populateFromJsonFile(getDataFolder(), getLogger());
         BossbarPlayerInfo.getInstance().loadFromJsonFile(getDataFolder());
+        questHistoryManager = new QuestHistoryManager(this, getDataFolder());
         getLogger().info("Plugin is enabled");
     }
 
@@ -140,6 +144,7 @@ public class ServerQuests extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ConsumeItemQuestEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new EnchantItemQuestEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new DistanceTraveled(activeQuests), this);
+        getServer().getPluginManager().registerEvents(new InventoryClickEvents(activeQuests), this);
         try {
             getServer().getPluginManager().registerEvents(new ExperienceEvent(activeQuests), this);
             getServer().getPluginManager().registerEvents(new HarvestEvent(activeQuests), this);

@@ -68,6 +68,10 @@ Claims rewards for a specific player. Rewards are directly given to the user
 
 Clear all rewards for a specific player. Do not specify a player name if you want to clear rewards for all players.
 
+### /cq history
+
+Opens a UI with historical quest information and data
+
 ## Configuration
 
 The config.yml is used to configure quests in the plugin. Once the quests have been created you can start them using the /cq start command.
@@ -320,7 +324,6 @@ Fishing:
         experience: 100
 ```
 
--   **playerkill**: kill other players
 -   **blockbreak**: break a block specified in the materials list in the configuration
 -   **blockplace**: place a block specified in the materials list in the configuration
 -   **projectilekill**: kill entities with a projectile specify entities in the configuration
@@ -332,9 +335,12 @@ Fishing:
 -   **enchantitem**: enchant something
 -   **money**: players can contribute money with /cq deposit <amount>
 -   **experience**: players must gather Minecraft experience
+-   **distance**: travel a certain distance in blocks
+-   **smeltitem**: use furnace to smelt or cook an item
+-   **brewpotion**: brew potions
+-   **playerkill**: kill other players
 -   **carvepumpkin**: use shears on a pumpkin
 -   **mythicmob**: Kill mobs from the mythicmob plugin (requires MythicMobs to be installed)
--   **distance**: travel a certain distance in blocks
 
 ### MythicMobs Example
 
