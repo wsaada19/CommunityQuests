@@ -202,7 +202,7 @@ Pass in a command to be run if a quest fails, this will only be run if a quest h
 ### worlds (optional)
 
 Use this parameter to restrict quests to specific worlds. All worlds in the list will be able to participate in quests. When no value
-is provided for worlds then the quest will be enabled in every world.
+is provided for worlds the quest will be enabled in every world.
 
 ### disableDuplicateBreaks
 
