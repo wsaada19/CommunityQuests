@@ -9,9 +9,9 @@ import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
 
 public class QuestTimer {
-    // checks every 2 seconds to see if the quest is complete (TODO make this
+    // checks every 1 seconds to see if the quest is complete (TODO make this
     // configurable)
-    private final long INTERVAL = 2L;
+    private final long INTERVAL = 1L;
 
     private QuestController controller;
     private BukkitTask task;

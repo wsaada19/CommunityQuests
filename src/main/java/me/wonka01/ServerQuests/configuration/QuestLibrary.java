@@ -51,6 +51,15 @@ public class QuestLibrary {
         questList = map;
     }
 
+    public String getRandomQuest() {
+        List<String> keys = new ArrayList<>(questList.keySet());
+        if (keys.isEmpty()) {
+            return null;
+        }
+        Random random = new Random();
+        return keys.get(random.nextInt(keys.size()));
+    }
+
     private QuestModel loadQuestFromConfig(ConfigurationSection section) {
         String questId = section.getName();
         String displayName = section.getString("displayName");

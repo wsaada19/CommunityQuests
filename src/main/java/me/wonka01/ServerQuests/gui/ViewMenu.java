@@ -11,7 +11,9 @@ import me.wonka01.ServerQuests.questcomponents.QuestData;
 import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -19,8 +21,11 @@ import java.util.List;
 
 public class ViewMenu extends Menu {
 
+    private int schedulerId;
+
     public ViewMenu(ServerQuests plugin, @NonNull Player owner) {
         super(plugin, owner, "viewQuests", 36);
+        this.schedulerId = createScheduler();
     }
 
     @Override
@@ -68,6 +73,21 @@ public class ViewMenu extends Menu {
             getObjectivePlayerProgress(data.getObjectives(), lore, getOwner(), (CompetitiveQuestData) data);
         }
         return super.createItemStack(data.getDisplayItem(), data.getDisplayName(), lore);
+    }
+
+    private int createScheduler() {
+        // refresh every 1 second
+        return Bukkit.getScheduler().scheduleSyncRepeatingTask(getPlugin(), this::refreshMenu, 0L, 20L);
+    }
+
+    private void refreshMenu() {
+        getInventory().clear();
+        setContents();
+    }
+
+    @Override
+    protected void onClose(InventoryCloseEvent event) {
+        Bukkit.getScheduler().cancelTask(schedulerId);
     }
 
     private void getTopPlayerString(QuestController controller, List<String> lore) {

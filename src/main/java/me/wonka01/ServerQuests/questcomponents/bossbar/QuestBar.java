@@ -15,7 +15,6 @@ public class QuestBar implements Colorization {
 
     public QuestBar(@NonNull String name, @NonNull String color, @NonNull BarStyle style) {
         this.barColor = getBarColor(color);
-        Bukkit.broadcastMessage("Actually adding with color " + this.barColor.toString());
         bar = Bukkit.createBossBar(color(name), this.barColor, style);
         bar.setVisible(true);
         bar.setProgress(0.0);
