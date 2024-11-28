@@ -206,7 +206,7 @@ Pass in a command to be run if a quest fails, this will only be run if a quest h
 ### worlds (optional)
 
 Use this parameter to restrict quests to specific worlds. All worlds in the list will be able to participate in quests. When no value
-is provided for worlds then the quest will be enabled in every world.
+is provided for worlds the quest will be enabled in every world.
 
 ### disableDuplicateBreaks
 
@@ -476,6 +476,8 @@ Basic command structure:
 
 -   Daily Quest: `/cq schedule mining coop 14:30 DAILY add`  
     Starts the "mining" quest every day at 2:30 PM
+-   Random Quest: `/cq schedule random coop 14:30 DAILY add`
+    Starts a random quest every day at 2:30 PM
 -   Weekly Quest: `/cq schedule fishing coop 09:00 WEEKLY add MONDAY`  
     Starts the "fishing" quest every Monday at 9:00 AM
 -   Custom Interval: `/cq schedule boss comp 20:00 CUSTOM_DAYS add 3`  

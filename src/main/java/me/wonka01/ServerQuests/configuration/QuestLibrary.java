@@ -58,6 +58,9 @@ public class QuestLibrary {
 
     public String getRandomQuest() {
         List<String> keys = new ArrayList<>(questList.keySet());
+        if (keys.isEmpty()) {
+            return null;
+        }
         Random random = new Random();
         return keys.get(random.nextInt(keys.size()));
     }

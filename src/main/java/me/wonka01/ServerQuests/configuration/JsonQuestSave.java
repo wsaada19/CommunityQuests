@@ -160,17 +160,7 @@ public class JsonQuestSave {
                     JSONObject obj = pIterator.next();
                     String key = (String) obj.keySet().iterator().next();
                     UUID uuid = UUID.fromString(key);
-                    String playerName = Bukkit.getServer().getOfflinePlayer(uuid).getName();
-                    if (playerName == null) {
-                        ArrayList<String> randomNames = new ArrayList<>();
-                        randomNames.add("NotSoJuicyJuan");
-                        randomNames.add("Notch");
-                        randomNames.add("Availer");
-                        randomNames.add("Vaquxine");
-                        randomNames.add("Taco");
-                        randomNames.add("ish");
-                        playerName = randomNames.get((int) (Math.random() * randomNames.size()));
-                    }
+                    String playerName = (String) obj.get("name");
                     Gson gson = new Gson();
 
                     // Define the type of the HashMap
