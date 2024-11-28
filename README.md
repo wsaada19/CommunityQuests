@@ -470,6 +470,8 @@ Basic command structure:
 
 -   Daily Quest: `/cq schedule mining coop 14:30 DAILY add`  
     Starts the "mining" quest every day at 2:30 PM
+-   Random Quest: `/cq schedule random coop 14:30 DAILY add`
+    Starts a random quest every day at 2:30 PM
 -   Weekly Quest: `/cq schedule fishing coop 09:00 WEEKLY add MONDAY`  
     Starts the "fishing" quest every Monday at 9:00 AM
 -   Custom Interval: `/cq schedule boss comp 20:00 CUSTOM_DAYS add 3`  
