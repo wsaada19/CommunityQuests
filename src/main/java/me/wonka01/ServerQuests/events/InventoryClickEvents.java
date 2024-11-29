@@ -12,10 +12,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.Potion;
-import org.bukkit.potion.PotionType;
 
-import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
@@ -51,10 +48,11 @@ public class InventoryClickEvents extends QuestListener implements Listener {
                 }
 
                 Bukkit.getLogger()
-                        .info("PotionMeta is not null for item " + potionMeta.getBasePotionData().getType().toString());
+                        .info("PotionMeta is not null for item " + potionMeta.getBasePotionData().getType().name());
 
                 for (QuestController controller : controllers) {
-                    updateQuest(controller, player, 1, ObjectiveType.BREW_POTION, item);
+                    updateQuest(controller, player, 1, ObjectiveType.BREW_POTION,
+                            potionMeta.getBasePotionData().getType());
                 }
             }
         } else if (inventoryType == InventoryType.FURNACE

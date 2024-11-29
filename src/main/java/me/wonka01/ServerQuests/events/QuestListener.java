@@ -11,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +82,24 @@ public abstract class QuestListener {
             Objective objective = objectives.get(i);
             boolean matches = ObjectiveFilters.filter()
                     .withEntity(entity)
+                    .withType(type)
+                    .matches(objective);
+
+            if (matches) {
+                updateQuest(controller, player, amount, objective, i);
+            }
+        }
+    }
+
+    // Potion quests
+    protected void updateQuest(QuestController controller, Player player, double amount, ObjectiveType type,
+            PotionType potion) {
+        QuestData questData = controller.getQuestData();
+        List<Objective> objectives = questData.getObjectives();
+        for (int i = 0; i < objectives.size(); i++) {
+            Objective objective = objectives.get(i);
+            boolean matches = ObjectiveFilters.filter()
+                    .withEntity(potion.name())
                     .withType(type)
                     .matches(objective);
 

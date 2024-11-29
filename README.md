@@ -153,7 +153,7 @@ objectives:
 
 ### Objective filters
 
-The quest above uses the materials filter so that the first objective looks for `ACACIA_SAPLINGS` on a blockplace event and then second objective looks for `OAK_SAPLING`. Both objectives run concurrently. For block related events, materials is the only filter that works but there are four more filters you can use. If no constraints are provided (or you provide an invalid material name!), then the quest will count all events of that type!
+The quest above uses the `materials` filter so the first objective looks for `ACACIA_SAPLINGS` on a blockplace event and then second objective looks for `OAK_SAPLING`. Both objectives run concurrently. For block related events, materials is the only valid filter but there are six more filters you can use. If no constraints are provided (or you provide an invalid material name!), the quest will count all events of that type!
 
 -   **materials** - use to specify the material type of blocks or items
 -   **entities** - use to specify the entity type of mobs for quests like mobKill, projectileKill and tameevent. It's also used in the catchfish event and the mythicmob event.
@@ -346,6 +346,7 @@ Fishing:
 -   **enchantitem**: enchant something
 -   **money**: players can contribute money with /cq deposit <amount>
 -   **experience**: players must gather Minecraft experience
+-   **level**: players must levelup
 -   **distance**: travel a certain distance in blocks
 -   **smeltitem**: use furnace to smelt or cook an item
 -   **brewpotion**: brew potions

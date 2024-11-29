@@ -82,7 +82,6 @@ public class QuestLibrary {
         List<Objective> objectives = null;
         List<String> entityNames = null;
         List<String> customNames = null;
-        List<Integer> customModelIds = null;
 
         int goal = 0;
         ObjectiveType type = null;
@@ -98,6 +97,7 @@ public class QuestLibrary {
             entityNames = section.getStringList("entities");
             materials = section.getStringList("materials");
             customNames = section.getStringList("customNames");
+
             type = ObjectiveType.match(section.getString("type"));
             goal = section.getInt("goal", -1);
         } else {
@@ -116,6 +116,16 @@ public class QuestLibrary {
                 List<String> objectiveMaterials = (List<String>) obj.get("materials");
                 List<String> objectiveCustomNames = (List<String>) obj.get("customNames");
                 List<Integer> objectiveModelIds = (List<Integer>) obj.get("modelIds");
+                List<String> potionNames = (List<String>) obj.get("potions");
+                List<String> enchantments = (List<String>) obj.get("enchantments");
+
+                if (potionNames != null) {
+                    objectiveCustomNames = potionNames;
+                }
+
+                if (enchantments != null) {
+                    objectiveCustomNames = enchantments;
+                }
 
                 ObjectiveType objectiveTypeEnum = ObjectiveType.match(objectiveType);
                 List<Material> mats = new ArrayList<>();
@@ -124,6 +134,8 @@ public class QuestLibrary {
                         String capitalizedMaterialName = itemName.toUpperCase().replaceAll(" ", "_");
                         Material material = Material.getMaterial(capitalizedMaterialName);
                         if (material == null) {
+                            Bukkit.getServer().getConsoleSender().sendMessage(
+                                    "[Community Quests] Invalid material name " + itemName + " for quest " + questId);
                             return Material.AIR;
                         }
                         return material;

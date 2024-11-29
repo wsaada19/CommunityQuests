@@ -21,6 +21,7 @@ public enum ObjectiveType {
     GIVE_MONEY("money", Material.GOLDEN_APPLE),
     ENCHANT_ITEM("enchantitem", Material.EMERALD),
     EXPERIENCE("experience", Material.EXPERIENCE_BOTTLE),
+    LEVELUP("level", Material.EXPERIENCE_BOTTLE),
     HARVEST("harvest", Material.WHEAT),
     MYTHIC_MOB("mythicmob", Material.DRAGON_HEAD),
     CARVE_PUMPKIN("carvepumpkin", Material.CARVED_PUMPKIN),

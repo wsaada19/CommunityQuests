@@ -6,6 +6,7 @@ import me.wonka01.ServerQuests.enums.ObjectiveType;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionType;
 
 import java.util.function.Predicate;
 
@@ -35,6 +36,13 @@ public class ObjectiveFilters {
             if (item != null) {
                 this.material = item.getType();
                 this.customModelId = Utils.getCustomModelData(item);
+            }
+            return this;
+        }
+
+        public Builder withPotion(PotionType potion) {
+            if (potion != null) {
+                this.customName = potion.name();
             }
             return this;
         }
@@ -130,9 +138,7 @@ public class ObjectiveFilters {
          *         model ID
          */
         private boolean hasCustomModelId(Objective objective, int modelId) {
-            // This is a placeholder method. You'll need to implement the actual
-            // logic to check for custom model ID in your Objective class
-            return true;
+            return objective.getCustomModelIds().contains(modelId);
         }
     }
 
