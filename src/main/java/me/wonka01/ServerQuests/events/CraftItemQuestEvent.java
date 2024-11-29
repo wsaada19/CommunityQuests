@@ -4,7 +4,6 @@ import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -58,7 +57,7 @@ public class CraftItemQuestEvent extends QuestListener implements Listener {
 
         List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.CRAFT_ITEM);
         for (QuestController controller : controllers) {
-            updateQuest(controller, (Player) event.getWhoClicked(), realAmount, ObjectiveType.CRAFT_ITEM, material);
+            updateQuest(controller, (Player) event.getWhoClicked(), realAmount, ObjectiveType.CRAFT_ITEM, craftedItem);
         }
     }
 }

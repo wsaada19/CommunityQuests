@@ -37,8 +37,7 @@ public class ProjectileKillEvent extends QuestListener implements Listener {
 
                 List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.PROJ_KILL);
                 for (QuestController controller : controllers) {
-                    updateQuest(controller, player, 1, ObjectiveType.PROJ_KILL, event.getEntity().getType().toString(),
-                            event.getEntity().getName());
+                    updateQuest(controller, player, 1, ObjectiveType.PROJ_KILL, event.getEntity());
                 }
             }
         }

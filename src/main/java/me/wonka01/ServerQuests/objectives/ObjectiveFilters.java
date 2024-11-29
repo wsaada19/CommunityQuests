@@ -1,0 +1,201 @@
+package me.wonka01.ServerQuests.objectives;
+
+import me.knighthat.apis.utils.Utils;
+import me.wonka01.ServerQuests.enums.ObjectiveType;
+
+import org.bukkit.Material;
+import org.bukkit.entity.Entity;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.function.Predicate;
+
+public class ObjectiveFilters {
+
+    /**
+     * Creates a filter for objectives based on various criteria
+     */
+    public static class Builder {
+        private Material material;
+        private String entity;
+        private String customName;
+        private Integer customModelId;
+        private ObjectiveType type;
+
+        public Builder withMaterial(Material material) {
+            this.material = material;
+            return this;
+        }
+
+        public Builder withType(ObjectiveType type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder withItem(ItemStack item) {
+            if (item != null) {
+                this.material = item.getType();
+                this.customModelId = Utils.getCustomModelData(item);
+            }
+            return this;
+        }
+
+        public Builder withEntity(Entity entity) {
+            if (entity != null) {
+                this.entity = entity.getType().name();
+                if (entity.getCustomName() != null) {
+                    this.customName = entity.getCustomName();
+                } else {
+                    this.customName = entity.getName();
+                }
+            }
+            return this;
+        }
+
+        // option to define with string for fishing/mythic mobs where entity is not
+        // needed
+        public Builder withEntity(String entity) {
+            this.entity = entity;
+            return this;
+        }
+
+        public Builder withCustomName(String customName) {
+            this.customName = customName;
+            return this;
+        }
+
+        public Builder withCustomModelId(Integer customModelId) {
+            this.customModelId = customModelId;
+            return this;
+        }
+
+        /**
+         * Build a predicate to filter objectives
+         * 
+         * @param objective The objective to filter
+         * @return true if the objective matches all specified criteria
+         */
+        public boolean matches(Objective objective) {
+            // Material filter
+            if (material != null) {
+                if (objective.getMaterials().isEmpty()) {
+                    return false;
+                }
+                if (!objective.getMaterials().contains(material)) {
+                    return false;
+                }
+            }
+
+            if (type != null) {
+                if (!objective.getType().equals(type)) {
+                    return false;
+                }
+            }
+
+            // Mob name filter
+            if (entity != null) {
+                if (objective.getMobNames().isEmpty()) {
+                    return false;
+                }
+                if (!Utils.contains(objective.getMobNames(), entity)) {
+                    return false;
+                }
+            }
+
+            // Custom name filter
+            if (customName != null) {
+                if (objective.getCustomNames().isEmpty()) {
+                    return false;
+                }
+                if (!Utils.contains(objective.getCustomNames(), customName)) {
+                    return false;
+                }
+            }
+
+            // Custom model ID filter
+            if (customModelId != null) {
+                if (!hasCustomModelId(objective, customModelId)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /**
+         * Check if an objective contains items with a specific custom model ID
+         * 
+         * @param objective The objective to check
+         * @param modelId   The custom model ID to match
+         * @return true if the objective contains an item with the specified custom
+         *         model ID
+         */
+        private boolean hasCustomModelId(Objective objective, int modelId) {
+            // This is a placeholder method. You'll need to implement the actual
+            // logic to check for custom model ID in your Objective class
+            return true;
+        }
+    }
+
+    /**
+     * Convenience method to create a new filter builder
+     * 
+     * @return A new ObjectiveFilters.Builder instance
+     */
+    public static Builder filter() {
+        return new Builder();
+    }
+
+    /**
+     * Additional utility method to check if an item matches a custom model ID
+     * 
+     * @param item          The ItemStack to check
+     * @param customModelId The custom model ID to match
+     * @return true if the item's custom model ID matches
+     */
+    public static boolean matchesCustomModelId(ItemStack item, int customModelId) {
+        if (item == null || !item.hasItemMeta()) {
+            return false;
+        }
+
+        return item.getItemMeta().hasCustomModelData() &&
+                item.getItemMeta().getCustomModelData() == customModelId;
+    }
+
+    /**
+     * Create a predicate filter for objectives based on multiple criteria
+     * 
+     * @return A Predicate that can be used to filter objectives
+     */
+    public static Predicate<Objective> createObjectivePredicate(
+            Material material,
+            String entity,
+            String customName,
+            Integer customModelId) {
+        return objective -> {
+            // Null checks and filtering logic
+            if (material != null
+                    && (objective.getMaterials().isEmpty() || !objective.getMaterials().contains(material))) {
+                return false;
+            }
+
+            if (entity != null
+                    && (objective.getMobNames().isEmpty() || !Utils.contains(objective.getMobNames(), entity))) {
+                return false;
+            }
+
+            if (customName != null && (objective.getCustomNames().isEmpty()
+                    || !Utils.contains(objective.getCustomNames(), customName))) {
+                return false;
+            }
+
+            // Custom model ID filter (placeholder - implement based on your Objective class
+            // structure)
+            if (customModelId != null) {
+                // Implement custom model ID checking logic
+                return false;
+            }
+
+            return true;
+        };
+    }
+}

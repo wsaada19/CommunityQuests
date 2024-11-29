@@ -23,7 +23,6 @@ public class RewardJoinListener implements Listener {
 
         Player player = event.getPlayer();
 
-        // Check if player has pending rewards
         if (rewardManager.hasRewards(player.getUniqueId())) {
             // Give rewards to the player
             rewardManager.giveRewardToPlayer(player.getUniqueId());

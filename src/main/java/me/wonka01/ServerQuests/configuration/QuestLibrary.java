@@ -80,8 +80,10 @@ public class QuestLibrary {
         BarStyle style = BarStyle.valueOf(barStyle.toUpperCase());
 
         List<Objective> objectives = null;
-        List<String> mobNames = null;
-        List<String> customMobNames = null;
+        List<String> entityNames = null;
+        List<String> customNames = null;
+        List<Integer> customModelIds = null;
+
         int goal = 0;
         ObjectiveType type = null;
         List<String> materials = null;
@@ -93,9 +95,9 @@ public class QuestLibrary {
             Bukkit.getServer().getConsoleSender().sendMessage(
                     "[Community Quests] Using the legacy questing system for ID " + questId
                             + ". Please check the docs and follow the new format for creating quests with the objectives option. This enables you to set multiple objectives per quest.");
-            mobNames = section.getStringList("entities");
+            entityNames = section.getStringList("entities");
             materials = section.getStringList("materials");
-            customMobNames = section.getStringList("customMobNames");
+            customNames = section.getStringList("customNames");
             type = ObjectiveType.match(section.getString("type"));
             goal = section.getInt("goal", -1);
         } else {
@@ -112,7 +114,7 @@ public class QuestLibrary {
                 String objDescription = (String) obj.get("description");
                 List<String> objectiveMobs = (List<String>) obj.get("entities");
                 List<String> objectiveMaterials = (List<String>) obj.get("materials");
-                List<String> objectiveCustomNames = (List<String>) obj.get("customMobNames");
+                List<String> objectiveCustomNames = (List<String>) obj.get("customNames");
                 List<Integer> objectiveModelIds = (List<Integer>) obj.get("modelIds");
 
                 ObjectiveType objectiveTypeEnum = ObjectiveType.match(objectiveType);
@@ -170,8 +172,8 @@ public class QuestLibrary {
         }
 
         return new QuestModel(questId, displayName, description, goal,
-                type, mobNames, materials, displayItem, worlds, questDuration, rewardsLimit, afterQuestCommand,
-                beforeQuestCommand, objectives, questFailedCommand, customMobNames, barColor.toUpperCase(),
+                type, entityNames, materials, displayItem, worlds, questDuration, rewardsLimit, afterQuestCommand,
+                beforeQuestCommand, objectives, questFailedCommand, customNames, barColor.toUpperCase(),
                 rankedRewardsMap,
                 rankedRewardMessages, style);
     }

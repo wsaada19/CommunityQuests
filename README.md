@@ -151,6 +151,17 @@ objectives:
       description: Oak Saplings
 ```
 
+### Objective filters
+
+The quest above uses the materials filter so that the first objective looks for `ACACIA_SAPLINGS` on a blockplace event and then second objective looks for `OAK_SAPLING`. Both objectives run concurrently. For block related events, materials is the only filter that works but there are four more filters you can use.
+
+-   **materials** - use to specify the material type of blocks or items
+-   **entities** - use to specify the entity type of mobs for quests like mobKill, projectileKill and tameevent. It's also used in the catchfish event and the mythicmob event.
+-   **customNames** - use to specify the custom name of both mobs and items. This can be used for custom mobs or renamed items.
+-   **modelIds** - use to specify the model id of items. This can be used for custom items with a specific model id in custom model plugins like oraxen.
+-   **potions** - use to specify the potion type for the brewpotion event. For example, `AWKWARD` or `FIRE_RESISTANCE`.
+-   **enchants** - use to specify the enchantment type for the enchantitem event. For example, `DAMAGE_ALL` or `PROTECTION_ENVIRONMENTAL`.
+
 The quest below requires you to kill 15 zombified piglins and 10 zombie pigmen. For mob related quests you can use the customNames field to specify the name of the mob you want to kill. If you want to kill a specific mob type you can use the entities field and specify the mob type from the [entity list](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html).
 
 ```yaml

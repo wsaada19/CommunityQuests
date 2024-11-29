@@ -50,9 +50,10 @@ public class BreakEvent extends QuestListener implements Listener {
         }
 
         List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.BLOCK_BREAK);
+
         for (QuestController controller : controllers) {
             block.setMetadata(BROKEN, meta);
-            updateQuest(controller, event.getPlayer(), 1., ObjectiveType.BLOCK_BREAK, block.getType());
+            updateQuest(controller, event.getPlayer(), 1, ObjectiveType.BLOCK_BREAK, block.getType());
         }
     }
 }

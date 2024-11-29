@@ -23,12 +23,16 @@ public class CatchFishEvent extends QuestListener implements Listener {
     @EventHandler
     public void onCatchFish(PlayerFishEvent event) {
         if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
-            List<QuestController> controllers = tryGetControllersOfObjectiveType(TYPE);
             Item item = (Item) event.getCaught();
             String fishName = item.getItemStack().getType().toString();
 
+            // log fish name and type
+            Bukkit.getLogger().info("Caught fish: " + fishName);
+            Bukkit.getLogger().info("Fish type: " + item.getName());
+
+            List<QuestController> controllers = tryGetControllersOfObjectiveType(TYPE);
             for (QuestController controller : controllers) {
-                updateQuest(controller, event.getPlayer(), 1, ObjectiveType.CATCH_FISH, fishName, item.getName());
+                updateQuest(controller, event.getPlayer(), 1, ObjectiveType.CATCH_FISH, fishName);
             }
         }
     }

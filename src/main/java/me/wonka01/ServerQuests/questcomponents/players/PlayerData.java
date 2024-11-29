@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
-
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class PlayerData {
 
+    @Setter
     private String name;
     private UUID uuid;
     Map<Integer, Double> objectiveContributions;

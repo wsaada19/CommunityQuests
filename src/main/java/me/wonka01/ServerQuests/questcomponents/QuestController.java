@@ -44,7 +44,7 @@ public class QuestController implements Colorization {
     public boolean updateQuest(double count, Player player, Objective objective, Integer objectiveId) {
         double amountToAdd = count;
 
-        // Check if quest is complete
+        // Check if quest is complete (not 100% sure if this is needed)
         if (questData.getEventType().equals(EventType.COMPETITIVE)) {
             CompetitiveQuestData competitiveQuestData = (CompetitiveQuestData) questData;
             if (competitiveQuestData.isGoalComplete(objective, player, objectiveId)) {

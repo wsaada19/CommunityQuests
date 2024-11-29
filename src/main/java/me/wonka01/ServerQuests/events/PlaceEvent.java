@@ -40,6 +40,7 @@ public class PlaceEvent extends QuestListener implements Listener {
         }
 
         List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.BLOCK_PLACE);
+
         for (QuestController controller : controllers) {
             updateQuest(controller, event.getPlayer(), 1, ObjectiveType.BLOCK_PLACE, block.getType());
             block.setMetadata(PLACED, meta);

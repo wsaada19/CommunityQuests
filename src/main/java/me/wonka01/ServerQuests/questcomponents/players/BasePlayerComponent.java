@@ -52,6 +52,9 @@ public class BasePlayerComponent implements Colorization {
         if (playerMap.containsKey(player.getUniqueId())) {
             PlayerData playerData = playerMap.get(player.getUniqueId());
             playerData.increaseContribution(count, objectiveId);
+
+            // update display name so ranks and such are handled better
+            playerData.setName(player.getDisplayName());
         } else {
             PlayerData playerData = new PlayerData(player.getDisplayName(), player.getUniqueId());
             playerData.increaseContribution(count, objectiveId);

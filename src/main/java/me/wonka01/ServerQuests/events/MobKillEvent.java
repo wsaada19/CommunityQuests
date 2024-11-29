@@ -30,7 +30,7 @@ public class MobKillEvent extends QuestListener implements Listener {
 
         List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.MOB_KILL);
         for (QuestController controller : controllers) {
-            updateQuest(controller, killer, 1, ObjectiveType.MOB_KILL, entity.getType().toString(), entity.getName());
+            updateQuest(controller, killer, 1, ObjectiveType.MOB_KILL, entity);
         }
     }
 }

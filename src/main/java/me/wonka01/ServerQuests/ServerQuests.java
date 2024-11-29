@@ -13,11 +13,13 @@ import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
 import me.wonka01.ServerQuests.questcomponents.bossbar.BossbarPlayerInfo;
 import me.wonka01.ServerQuests.questcomponents.hologram.DecentHologramsDisplay;
+import me.wonka01.ServerQuests.questcomponents.rewards.RewardJoinListener;
 import me.wonka01.ServerQuests.questcomponents.rewards.RewardManager;
 import me.wonka01.placeholders.CommunityQuestsPlaceholders;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -43,6 +45,9 @@ public class ServerQuests extends JavaPlugin {
     @Override
     public void onEnable() {
         this.commandManager = new CommandManager(this);
+        PluginCommand pluginCommand = getCommand("communityquests");
+        pluginCommand.setExecutor(commandManager);
+        pluginCommand.setTabCompleter(commandManager);
 
         loadSaveData();
 
@@ -145,6 +150,7 @@ public class ServerQuests extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EnchantItemQuestEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new DistanceTraveled(activeQuests), this);
         getServer().getPluginManager().registerEvents(new InventoryClickEvents(activeQuests), this);
+        getServer().getPluginManager().registerEvents(new RewardJoinListener(true), this);
         try {
             getServer().getPluginManager().registerEvents(new ExperienceEvent(activeQuests), this);
             getServer().getPluginManager().registerEvents(new HarvestEvent(activeQuests), this);
