@@ -2,10 +2,10 @@ package me.wonka01.ServerQuests;
 
 import lombok.Getter;
 import lombok.NonNull;
-import me.knighthat.apis.files.Config;
 import me.knighthat.apis.files.Messages;
 import me.knighthat.apis.menus.MenuEvents;
 import me.wonka01.ServerQuests.commands.CommandManager;
+import me.wonka01.ServerQuests.configuration.Config;
 import me.wonka01.ServerQuests.configuration.JsonQuestSave;
 import me.wonka01.ServerQuests.configuration.QuestHistoryManager;
 import me.wonka01.ServerQuests.events.*;
