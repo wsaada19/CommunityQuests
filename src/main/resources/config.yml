@@ -8,14 +8,11 @@ leaderBoardSize: 5
 disableBossBar: false
 
 # Material used in the donate quest menu.
-donateMenuItem: EMERALD
+donateMenuItem: BLACK_STAINED_GLASS_PANE
 
 # If true, blockbreak quests will not be able to break the same item multiple
 # times in a row.
 disableDuplicateBreaks: false
-
-barColor: "GREEN"
-
 # If true, blockplace quests will not be able to place the same item multiple
 # times in a row.
 disableDuplicatePlaces: false

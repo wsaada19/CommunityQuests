@@ -20,9 +20,8 @@ public class ViewHistoryMenu extends Menu {
     private final QuestHistoryManager historyManager;
 
     public ViewHistoryMenu(ServerQuests plugin, Player owner) {
-        super(plugin, owner, "questHistory", 54); // Use full chest inventory
+        super(plugin, owner, "historyMenu", 54); // Use full chest inventory
         this.historyManager = plugin.getQuestHistoryManager();
-        Bukkit.getLogger().info("ViewHistoryMenu created");
     }
 
     @Override
@@ -33,8 +32,6 @@ public class ViewHistoryMenu extends Menu {
             Map<String, Object> questData = recentQuests.get(i);
 
             // Choose material based on quest type
-            String displayItem = (String) questData.get("displayItem");
-            Bukkit.getLogger().info("Material: " + displayItem);
             Material material = Material.valueOf((String) questData.get("displayItem"));
             ItemStack questItem = createQuestHistoryItem(material, questData);
             getInventory().setItem(i, questItem);
@@ -48,9 +45,9 @@ public class ViewHistoryMenu extends Menu {
 
         long completionTime = (Long) questData.get("completionTime");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        lore.add(color("&7Completed: &f" + sdf.format(new Date(completionTime))));
+        lore.add(color(getPlugin().messages().string("completed") + "&f" + sdf.format(new Date(completionTime))));
 
-        lore.add(color("&eTop Contributors:"));
+        lore.add(color(getPlugin().messages().string("topContributors")));
         List<?> topContributors = (List<?>) questData.get("topContributors");
         for (int i = 0; i < Math.min(topContributors.size(), 5); i++) {
             Map<?, ?> contributor = (Map<?, ?>) topContributors.get(i);

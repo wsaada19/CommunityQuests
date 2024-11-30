@@ -70,7 +70,7 @@ public class ServerQuests extends JavaPlugin {
         registerPlaceholders();
         if (!setupDecentHologram() && getConfig().getBoolean("hologram.enabled")) {
             getLogger().info("Warning! DecentHolograms not found, holograms will not work.");
-        } else {
+        } else if (getConfig().getBoolean("hologram.enabled")) {
             hologram = new DecentHologramsDisplay(this);
             hologram.displayHologram();
         }
@@ -149,7 +149,7 @@ public class ServerQuests extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ConsumeItemQuestEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new EnchantItemQuestEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new DistanceTraveled(activeQuests), this);
-        getServer().getPluginManager().registerEvents(new InventoryClickEvents(activeQuests), this);
+        getServer().getPluginManager().registerEvents(new InventoryClickEvents(activeQuests, this), this);
         getServer().getPluginManager().registerEvents(new RewardJoinListener(true), this);
         try {
             getServer().getPluginManager().registerEvents(new ExperienceEvent(activeQuests), this);

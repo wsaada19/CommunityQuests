@@ -5,9 +5,9 @@ import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.objectives.ObjectiveFilters;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
-import me.wonka01.ServerQuests.questcomponents.QuestData;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -15,7 +15,9 @@ import org.bukkit.potion.PotionType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+// TODO - rename updateQuest functions to be specific to their type
 public abstract class QuestListener {
     protected ActiveQuests activeQuests;
 
@@ -33,8 +35,7 @@ public abstract class QuestListener {
 
     // General quests without filters
     protected void updateQuest(QuestController controller, Player player, double amount, ObjectiveType type) {
-        QuestData questData = controller.getQuestData();
-        List<Objective> objectives = questData.getObjectives();
+        List<Objective> objectives = controller.getQuestData().getObjectives();
         for (int i = 0; i < objectives.size(); i++) {
             Objective objective = objectives.get(i);
             if (objective.getType().equals(type)) {
@@ -46,8 +47,7 @@ public abstract class QuestListener {
     // Mob quests
     protected void updateQuest(QuestController controller, Player player, double amount, ObjectiveType type,
             Entity entity) {
-        QuestData questData = controller.getQuestData();
-        List<Objective> objectives = questData.getObjectives();
+        List<Objective> objectives = controller.getQuestData().getObjectives();
         for (int i = 0; i < objectives.size(); i++) {
             Objective objective = objectives.get(i);
             boolean matches = ObjectiveFilters.filter()
@@ -76,8 +76,7 @@ public abstract class QuestListener {
     // Mob quests with entity as a string
     protected void updateQuest(QuestController controller, Player player, double amount, ObjectiveType type,
             String entity) {
-        QuestData questData = controller.getQuestData();
-        List<Objective> objectives = questData.getObjectives();
+        List<Objective> objectives = controller.getQuestData().getObjectives();
         for (int i = 0; i < objectives.size(); i++) {
             Objective objective = objectives.get(i);
             boolean matches = ObjectiveFilters.filter()
@@ -94,12 +93,30 @@ public abstract class QuestListener {
     // Potion quests
     protected void updateQuest(QuestController controller, Player player, double amount, ObjectiveType type,
             PotionType potion) {
-        QuestData questData = controller.getQuestData();
-        List<Objective> objectives = questData.getObjectives();
+        List<Objective> objectives = controller.getQuestData().getObjectives();
         for (int i = 0; i < objectives.size(); i++) {
             Objective objective = objectives.get(i);
             boolean matches = ObjectiveFilters.filter()
-                    .withEntity(potion.name())
+                    .withPotion(potion)
+                    .withType(type)
+                    .matches(objective);
+
+            if (matches) {
+                updateQuest(controller, player, amount, objective, i);
+            }
+        }
+    }
+
+    // enchantment quests
+    protected void updateQuest(QuestController controller, Player player, double amount, ObjectiveType type,
+            ItemStack item,
+            Map<Enchantment, Integer> enchantments) {
+        List<Objective> objectives = controller.getQuestData().getObjectives();
+        for (int i = 0; i < objectives.size(); i++) {
+            Objective objective = objectives.get(i);
+            boolean matches = ObjectiveFilters.filter()
+                    .withMaterial(item.getType()) // only check material bc of how we're using customItem names atm
+                    .withEnchantments(enchantments)
                     .withType(type)
                     .matches(objective);
 
@@ -112,8 +129,7 @@ public abstract class QuestListener {
     // Block quests
     protected void updateQuest(QuestController controller, Player player, double amount, ObjectiveType type,
             Material material) {
-        QuestData questData = controller.getQuestData();
-        List<Objective> objectives = questData.getObjectives();
+        List<Objective> objectives = controller.getQuestData().getObjectives();
         for (int i = 0; i < objectives.size(); i++) {
             Objective objective = objectives.get(i);
             boolean matches = ObjectiveFilters.filter()
@@ -130,8 +146,7 @@ public abstract class QuestListener {
     // Item quests
     protected void updateQuest(QuestController controller, Player player, int amount, ObjectiveType type,
             ItemStack item) {
-        QuestData questData = controller.getQuestData();
-        List<Objective> objectives = questData.getObjectives();
+        List<Objective> objectives = controller.getQuestData().getObjectives();
         for (int i = 0; i < objectives.size(); i++) {
             Objective objective = objectives.get(i);
             boolean matches = ObjectiveFilters.filter()

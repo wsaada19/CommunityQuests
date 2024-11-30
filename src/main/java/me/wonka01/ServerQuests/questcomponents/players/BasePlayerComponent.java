@@ -4,6 +4,7 @@ import me.knighthat.apis.utils.Colorization;
 import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.rewards.RewardManager;
+import me.wonka01.ServerQuests.questcomponents.rewards.RewardMessage;
 import me.wonka01.ServerQuests.questcomponents.rewards.types.Reward;
 
 import org.bukkit.Bukkit;
@@ -160,7 +161,7 @@ public class BasePlayerComponent implements Colorization {
         return jArray;
     }
 
-    public void giveOutRewards(double questGoal) {
+    public void giveOutRewards(double questGoal, String completeMessage) {
         List<PlayerData> players;
         if (rewardsLimit > 0) {
             players = getTopPlayers(rewardsLimit);
@@ -191,19 +192,24 @@ public class BasePlayerComponent implements Colorization {
             }
 
             OfflinePlayer player = Bukkit.getServer().getOfflinePlayer(playerData.getUuid());
+            RewardManager rewardManager = RewardManager.getInstance();
 
             if (player.isOnline()) {
                 Player onlinePlayer = (Player) player;
                 if (rankedReward.size() > 0) {
-                    ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
-                    String rewardsMessage = plugin.messages().message("rewardsMessage");
-                    onlinePlayer.sendMessage(rewardsMessage);
+                    // ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
+                    // String rewardsMessage = plugin.messages().message("rewardsMessage");
+                    onlinePlayer.sendMessage("rewards size " + rankedReward.size());
+                    for (Reward reward : rankedReward) {
+                        reward.giveRewardToPlayer(onlinePlayer, playerContributionRatio);
+                    }
                 }
-            }
-
-            RewardManager rewardManager = RewardManager.getInstance();
-            for (Reward reward : rankedReward) {
-                rewardManager.addReward(player.getUniqueId(), reward, playerContributionRatio);
+            } else {
+                RewardMessage rewardMessage = new RewardMessage(completeMessage);
+                rewardManager.addReward(player.getUniqueId(), rewardMessage, playerContributionRatio);
+                for (Reward reward : rankedReward) {
+                    rewardManager.addReward(player.getUniqueId(), reward, playerContributionRatio);
+                }
             }
         }
     }

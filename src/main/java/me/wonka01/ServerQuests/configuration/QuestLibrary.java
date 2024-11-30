@@ -14,7 +14,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -232,9 +231,9 @@ public class QuestLibrary {
                         reward = new ItemReward(amount, material, itemName);
                         rewards.add(reward);
                     } catch (Exception ex) {
-                        JavaPlugin.getPlugin(ServerQuests.class).getLogger()
+                        Bukkit.getLogger()
                                 .info("Item reward failed to load due to invalid configuration");
-                        JavaPlugin.getPlugin(ServerQuests.class).getLogger()
+                        Bukkit.getLogger()
                                 .info(ex.getMessage());
                     }
                 }

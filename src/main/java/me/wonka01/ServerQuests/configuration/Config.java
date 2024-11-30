@@ -1,9 +1,11 @@
-package me.knighthat.apis.files;
+package me.wonka01.ServerQuests.configuration;
 
 import lombok.Getter;
 import lombok.NonNull;
+import me.knighthat.apis.files.Getters;
 import me.wonka01.ServerQuests.ServerQuests;
-import me.wonka01.ServerQuests.configuration.QuestLibrary;
+import me.wonka01.ServerQuests.events.BreakEvent;
+import me.wonka01.ServerQuests.events.PlaceEvent;
 import me.wonka01.ServerQuests.gui.DonateMenu;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
@@ -40,6 +42,9 @@ public final class Config extends Getters {
             borderMaterial = Material.BLACK_STAINED_GLASS_PANE;
         }
         DonateMenu.setBorderItem(new ItemStack(borderMaterial));
+
+        PlaceEvent.setDisableDuplicatePlaces(get().getBoolean("disableDuplicatePlaces", false));
+        BreakEvent.setDisableDuplicateBreaks(get().getBoolean("disableDuplicateBreaks", false));
     }
 
     public void initializeQuests() {

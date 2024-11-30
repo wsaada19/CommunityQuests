@@ -100,7 +100,8 @@ public class QuestController implements Colorization {
         } else {
             broadcast("questCompleteMessage");
             playerComponent.sendLeaderString();
-            playerComponent.giveOutRewards(questData.getQuestGoal());
+            String completeMessage = color(plugin.messages().message("questCompleteMessage", questData));
+            playerComponent.giveOutRewards(questData.getQuestGoal(), completeMessage);
             if (questData.getAfterQuestCommand() != null && !questData.getAfterQuestCommand().isEmpty()) {
                 plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(),
                         questData.getAfterQuestCommand());

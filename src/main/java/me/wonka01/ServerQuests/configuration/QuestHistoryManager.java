@@ -18,6 +18,8 @@ import java.util.logging.Logger;
 public class QuestHistoryManager {
     private final File historyFile;
     private final Logger logger;
+
+    // TODO: move to config
     private static final int MAX_HISTORY_ENTRIES = 50;
 
     public QuestHistoryManager(ServerQuests plugin, File dataFolder) {
@@ -41,22 +43,20 @@ public class QuestHistoryManager {
             Material displayItem) {
         JSONArray historyArray = loadHistoryArray();
 
-        // Create new entry for this quest
         JSONObject questEntry = new JSONObject();
         questEntry.put("questId", questId);
         questEntry.put("questName", questName);
         questEntry.put("completionTime", System.currentTimeMillis());
         questEntry.put("displayItem", displayItem.toString());
 
-        // Save top contributors
         JSONArray topPlayers = new JSONArray();
         playerData.entrySet().stream()
                 .sorted((e1, e2) -> {
                     double total1 = e1.getValue().getAmountContributed();
                     double total2 = e2.getValue().getAmountContributed();
-                    return Double.compare(total2, total1); // Sort descending
+                    return Double.compare(total2, total1);
                 })
-                .limit(10) // Store only top 10 players
+                .limit(10) // TODO - read from leaderboard size config
                 .forEach(entry -> {
                     JSONObject playerInfo = new JSONObject();
                     playerInfo.put("uuid", entry.getKey().toString());
@@ -67,8 +67,7 @@ public class QuestHistoryManager {
 
         questEntry.put("topContributors", topPlayers);
 
-        // Add to history and maintain size limit
-        historyArray.add(0, questEntry); // Add to start of array
+        historyArray.add(0, questEntry);
         while (historyArray.size() > MAX_HISTORY_ENTRIES) {
             historyArray.remove(historyArray.size() - 1);
         }

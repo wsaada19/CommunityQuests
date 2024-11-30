@@ -3,11 +3,14 @@ package me.wonka01.ServerQuests.objectives;
 import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionType;
 
+import java.util.Map;
 import java.util.function.Predicate;
 
 public class ObjectiveFilters {
@@ -21,6 +24,7 @@ public class ObjectiveFilters {
         private String customName;
         private Integer customModelId;
         private ObjectiveType type;
+        private Map<Enchantment, Integer> enchantments;
 
         public Builder withMaterial(Material material) {
             this.material = material;
@@ -47,6 +51,13 @@ public class ObjectiveFilters {
             return this;
         }
 
+        public Builder withEnchantments(Map<Enchantment, Integer> enchantments) {
+            if (enchantments != null) {
+                this.enchantments = enchantments;
+            }
+            return this;
+        }
+
         public Builder withEntity(Entity entity) {
             if (entity != null) {
                 this.entity = entity.getType().name();
@@ -59,8 +70,7 @@ public class ObjectiveFilters {
             return this;
         }
 
-        // option to define with string for fishing/mythic mobs where entity is not
-        // needed
+        // option to define with string for fishing/mythic mobs
         public Builder withEntity(String entity) {
             this.entity = entity;
             return this;
@@ -85,10 +95,7 @@ public class ObjectiveFilters {
         public boolean matches(Objective objective) {
             // Material filter
             if (material != null) {
-                if (objective.getMaterials().isEmpty()) {
-                    return false;
-                }
-                if (!objective.getMaterials().contains(material)) {
+                if (!objective.getMaterials().contains(material) && !objective.getMaterials().isEmpty()) {
                     return false;
                 }
             }
@@ -101,20 +108,14 @@ public class ObjectiveFilters {
 
             // Mob name filter
             if (entity != null) {
-                if (objective.getMobNames().isEmpty()) {
-                    return false;
-                }
-                if (!Utils.contains(objective.getMobNames(), entity)) {
+                if (!Utils.contains(objective.getMobNames(), entity) && !objective.getMobNames().isEmpty()) {
                     return false;
                 }
             }
 
             // Custom name filter
             if (customName != null) {
-                if (objective.getCustomNames().isEmpty()) {
-                    return false;
-                }
-                if (!Utils.contains(objective.getCustomNames(), customName)) {
+                if (!Utils.contains(objective.getCustomNames(), customName) && !objective.getCustomNames().isEmpty()) {
                     return false;
                 }
             }
@@ -122,6 +123,25 @@ public class ObjectiveFilters {
             // Custom model ID filter
             if (customModelId != null) {
                 if (!hasCustomModelId(objective, customModelId)) {
+                    return false;
+                }
+            }
+
+            // Enchantment filter
+            if (enchantments != null) {
+                // enchantments stored in customNames for now
+                boolean containsOne = false;
+                Bukkit.getLogger().info("Checking enchantments of size " + enchantments.size());
+                for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
+                    String enchantmentName = entry.getKey().getKey().toString();
+                    Bukkit.getLogger().info("Checking enchantment named " + enchantmentName);
+                    if (Utils.contains(objective.getCustomNames(), enchantmentName)) {
+                        containsOne = true;
+                        break;
+                    }
+                }
+
+                if (!containsOne && !objective.getCustomNames().isEmpty()) {
                     return false;
                 }
             }
