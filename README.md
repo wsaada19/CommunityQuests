@@ -381,7 +381,7 @@ MythicMobs:
 
 ## Placeholders
 
-The questId is the key used in the yml file. In the quest above the id would be Fishing. If multiple quests with the same id are live it will chose the one that was created first. If you do not specify a questID, for example %communityquests_goal% it will use the active quest that was started first. Helpful if you only have one quest running at a time.
+The questId is the key used in the yml file. In the quest above the id would be MythicMobs. If multiple quests with the same id are live it will chose the one created first. If you do not specify a questID, for example %communityquests_goal% it will use the active quest that was started first. Helpful if you only have one quest running at a time.
 
 -   `%communityquests_goal_questId%`: quest goal
 -   `%communityquests_complete_questId%`: amount complete for a quest
