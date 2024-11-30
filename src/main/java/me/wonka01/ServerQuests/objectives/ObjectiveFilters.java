@@ -131,11 +131,10 @@ public class ObjectiveFilters {
             if (enchantments != null) {
                 // enchantments stored in customNames for now
                 boolean containsOne = false;
-                Bukkit.getLogger().info("Checking enchantments of size " + enchantments.size());
                 for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
                     String enchantmentName = entry.getKey().getKey().toString();
                     Bukkit.getLogger().info("Checking enchantment named " + enchantmentName);
-                    if (Utils.contains(objective.getCustomNames(), enchantmentName)) {
+                    if (Utils.contains(objective.getCustomNames(), enchantmentName.replace("minecraft:", ""))) {
                         containsOne = true;
                         break;
                     }

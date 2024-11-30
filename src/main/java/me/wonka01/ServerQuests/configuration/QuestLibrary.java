@@ -1,6 +1,5 @@
 package me.wonka01.ServerQuests.configuration;
 
-import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.rewards.*;
