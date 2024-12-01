@@ -4,6 +4,10 @@ import lombok.Getter;
 import lombok.NonNull;
 import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
+
+import java.util.List;
+
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 @Getter
@@ -22,4 +26,7 @@ public abstract class PluginCommand implements Colorization {
     public abstract @NonNull String getPermission();
 
     public abstract void execute(@NonNull CommandSender sender, @NonNull String[] args);
+
+    public abstract List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args);
+
 }

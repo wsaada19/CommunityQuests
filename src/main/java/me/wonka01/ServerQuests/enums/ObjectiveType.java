@@ -28,6 +28,7 @@ public enum ObjectiveType {
     MOVEMENT("movement", Material.DIAMOND_BOOTS),
     BREW_POTION("brewpotion", Material.BREWING_STAND),
     SMELT_ITEM("smeltitem", Material.FURNACE),
+    COMMAND("command", Material.COMMAND_BLOCK),
     UNKNOWN("unknown", Material.AIR);
 
     @Getter

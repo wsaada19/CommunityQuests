@@ -245,4 +245,8 @@ public class QuestLibrary {
     public Set<String> getAllQuestKeys() {
         return questList.keySet();
     }
+
+    public List<QuestModel> getAllQuestModels() {
+        return new ArrayList<>(questList.values());
+    }
 }

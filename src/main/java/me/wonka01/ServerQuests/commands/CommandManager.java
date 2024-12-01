@@ -36,7 +36,6 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         commands.add(new DonateCommand(plugin));
         commands.add(new MoneyCommand(plugin));
         commands.add(new ToggleBarCommand(plugin));
-        commands.add(new ToggleMessageCommand(plugin));
         commands.add(new RewardsCommand(plugin));
         commands.add(new EndAllCommand(plugin));
         commands.add(new ClaimRewards(plugin));
@@ -70,6 +69,18 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
                     if (cmd.getPermission().isEmpty() || sender.hasPermission(cmd.getPermission()))
                         completions.add(cmd.getName());
+                }
+            }
+        }
+
+        if (args.length > 1) {
+            for (PluginCommand cmd : commands) {
+                if (cmd.getName().equalsIgnoreCase(args[0])) {
+                    // Check if the command implements a tab complete method
+                    List<String> comps = cmd.onTabComplete(sender, command, alias, args);
+                    if (comps != null)
+                        return comps;
+                    break;
                 }
             }
         }
