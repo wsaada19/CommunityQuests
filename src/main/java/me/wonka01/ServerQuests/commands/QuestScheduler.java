@@ -271,7 +271,11 @@ public class QuestScheduler extends PluginCommand {
             }
         };
 
-        // Schedule the task
+        // reset if exists
+        if (activeSchedules.containsKey(scheduleId)) {
+            activeSchedules.get(scheduleId).cancel();
+        }
+
         task.runTaskTimer(plugin, initialDelayTicks, intervalTicks);
         activeSchedules.put(scheduleId.toString(), task);
     }

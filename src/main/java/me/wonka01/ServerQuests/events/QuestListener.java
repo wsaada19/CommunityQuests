@@ -27,7 +27,7 @@ public abstract class QuestListener {
 
     protected boolean updateQuest(QuestController controller, Player player, double amount, Objective obj,
             int objectiveId) {
-        if (!isEnabledInWorld(controller.getEventConstraints().getWorlds(), player.getWorld().getName())) {
+        if (!isEnabledInWorld(controller.getWorlds(), player.getWorld().getName())) {
             return false;
         }
         return controller.updateQuest(amount, player, obj, objectiveId);

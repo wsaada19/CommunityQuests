@@ -62,13 +62,12 @@ public class QuestTypeHandler {
         }
 
         QuestData data = getQuestData(model, pComponent, timeLeft, objs);
-        EventConstraints event = new EventConstraints(model.getWorlds());
 
         if (data.getAmountCompleted() > 0) {
             bar.updateBarProgress(data.getAmountCompleted() / data.getQuestGoal());
         }
 
-        return new QuestController(plugin, data, bar, pComponent, event);
+        return new QuestController(plugin, data, bar, pComponent, model.getWorlds());
     }
 
     private QuestData getQuestData(QuestModel questModel, BasePlayerComponent playerComponent,

@@ -168,7 +168,7 @@ public class DonateMenu extends Menu {
     }
 
     private boolean isWorldAllowed(@NonNull QuestController ctrl, @NonNull World world) {
-        List<String> worlds = ctrl.getEventConstraints().getWorlds();
+        List<String> worlds = ctrl.getWorlds();
         return worlds.isEmpty() || Utils.contains(worlds, world.getName());
     }
 }

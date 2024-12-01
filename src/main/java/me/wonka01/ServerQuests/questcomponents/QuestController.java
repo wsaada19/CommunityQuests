@@ -23,18 +23,18 @@ public class QuestController implements Colorization {
     private final QuestBar questBar;
     private final QuestData questData;
     private final BasePlayerComponent playerComponent;
-    private final EventConstraints eventConstraints;
+    private final List<String> worlds;
     private final UUID questId;
     private final ServerQuests plugin;
 
     public QuestController(ServerQuests plugin, QuestData questData, QuestBar questBar,
-            BasePlayerComponent playerComponent, EventConstraints eventConstraints) {
+            BasePlayerComponent playerComponent, List<String> worlds) {
         this.plugin = plugin;
         this.questData = questData;
         this.questBar = questBar;
         this.playerComponent = playerComponent;
         questId = UUID.randomUUID();
-        this.eventConstraints = eventConstraints;
+        this.worlds = worlds;
 
         if (questData.getQuestDuration() > 0) {
             new QuestTimer(this);

@@ -95,7 +95,7 @@ public class ObjectiveFilters {
         public boolean matches(Objective objective) {
             // Material filter
             if (material != null) {
-                if (!objective.getMaterials().contains(material) && !objective.getMaterials().isEmpty()) {
+                if (!Utils.contains(objective.getMaterials(), material) && !objective.getMaterials().isEmpty()) {
                     return false;
                 }
             }
@@ -122,18 +122,16 @@ public class ObjectiveFilters {
 
             // Custom model ID filter
             if (customModelId != null) {
-                if (!hasCustomModelId(objective, customModelId)) {
+                if (!hasCustomModelId(objective, customModelId) && !objective.getCustomModelIds().isEmpty()) {
                     return false;
                 }
             }
 
             // Enchantment filter
             if (enchantments != null) {
-                // enchantments stored in customNames for now
                 boolean containsOne = false;
                 for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
                     String enchantmentName = entry.getKey().getKey().toString();
-                    Bukkit.getLogger().info("Checking enchantment named " + enchantmentName);
                     if (Utils.contains(objective.getCustomNames(), enchantmentName.replace("minecraft:", ""))) {
                         containsOne = true;
                         break;
