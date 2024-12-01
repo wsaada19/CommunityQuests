@@ -144,16 +144,27 @@ public class JsonQuestSave {
                 Map<UUID, PlayerData> playerMap = new TreeMap<>();
                 while (pIterator.hasNext()) {
                     JSONObject obj = pIterator.next();
-                    String key = (String) obj.keySet().iterator().next();
-                    UUID uuid = UUID.fromString(key);
+
+                    Iterator<String> keys = obj.keySet().iterator();
+
+                    UUID uuidKey = null;
                     String playerName = (String) obj.get("name");
+
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        try {
+                            uuidKey = UUID.fromString(key);
+                        } catch (IllegalArgumentException e) {
+                            // ignore error, one key will be the uuid
+                        }
+                    }
                     Gson gson = new Gson();
 
                     // Define the type of the HashMap
                     Type type = new com.google.gson.reflect.TypeToken<HashMap<Integer, Double>>() {
                     }.getType();
-                    String jsonContributions = (String) obj.get(uuid.toString());
-                    playerMap.put(uuid, new PlayerData(playerName, uuid, gson.fromJson(jsonContributions, type)));
+                    String jsonContributions = (String) obj.get(uuidKey.toString());
+                    playerMap.put(uuidKey, new PlayerData(playerName, uuidKey, gson.fromJson(jsonContributions, type)));
                 }
 
                 QuestTypeHandler handler = new QuestTypeHandler(questType);
