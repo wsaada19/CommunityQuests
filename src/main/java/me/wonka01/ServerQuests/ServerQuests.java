@@ -15,8 +15,11 @@ import me.wonka01.ServerQuests.questcomponents.bossbar.BossbarPlayerInfo;
 import me.wonka01.ServerQuests.questcomponents.hologram.DecentHologramsDisplay;
 import me.wonka01.ServerQuests.questcomponents.rewards.RewardJoinListener;
 import me.wonka01.ServerQuests.questcomponents.rewards.RewardManager;
+import me.wonka01.bStats.Metrics;
 import me.wonka01.placeholders.CommunityQuestsPlaceholders;
 import net.milkbowl.vault.economy.Economy;
+
+import java.util.concurrent.Callable;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
@@ -80,6 +83,28 @@ public class ServerQuests extends JavaPlugin {
         RewardManager.getInstance().populateFromJsonFile(getDataFolder(), getLogger());
         BossbarPlayerInfo.getInstance().loadFromJsonFile(getDataFolder());
         questHistoryManager = new QuestHistoryManager(this, getDataFolder());
+
+        int pluginId = 24062;
+
+        try {
+            Metrics metrics = new Metrics(this, pluginId);
+            metrics.addCustomChart(new Metrics.SingleLineChart("players", new Callable<Integer>() {
+                @Override
+                public Integer call() throws Exception {
+                    // (This is useless as there is already a player chart by default.)
+                    return Bukkit.getOnlinePlayers().size();
+                }
+            }));
+            metrics.addCustomChart(new Metrics.SingleLineChart("active_quests", new Callable<Integer>() {
+                @Override
+                public Integer call() throws Exception {
+                    // (This is useless as there is already a player chart by default.)
+                    return ActiveQuests.getActiveQuestsInstance().getActiveQuestsList().size();
+                }
+            }));
+        } catch (Exception e) {
+            getLogger().info("[Community Quests] Failed to submit metrics data for bstats");
+        }
         getLogger().info("Plugin is enabled");
     }
 
