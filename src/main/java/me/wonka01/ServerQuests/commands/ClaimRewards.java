@@ -5,7 +5,10 @@ import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.rewards.RewardEntry;
 import me.wonka01.ServerQuests.questcomponents.rewards.RewardManager;
 
+import java.util.List;
+
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -74,5 +77,11 @@ public class ClaimRewards extends PluginCommand {
             }
             rewards.removeRewards(player.getUniqueId());
         }
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

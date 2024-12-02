@@ -68,6 +68,10 @@ Claims rewards for a specific player. Rewards are directly given to the user
 
 Clear all rewards for a specific player. Do not specify a player name if you want to clear rewards for all players.
 
+### /cq history
+
+Opens a UI with historical quest information and data
+
 ## Configuration
 
 The config.yml is used to configure quests in the plugin. Once the quests have been created you can start them using the /cq start command.
@@ -146,6 +150,17 @@ objectives:
           - OAK_SAPLING
       description: Oak Saplings
 ```
+
+### Objective filters
+
+The quest above uses the `materials` filter so the first objective looks for `ACACIA_SAPLINGS` on a blockplace event and then second objective looks for `OAK_SAPLING`. Both objectives run concurrently. For block related events, materials is the only valid filter but there are six more filters you can use. If no constraints are provided (or you provide an invalid material name!), the quest will count all events of that type!
+
+-   **materials** - use to specify the material type of blocks or items
+-   **entities** - use to specify the entity type of mobs for quests like mobKill, projectileKill and tameevent. It's also used in the catchfish event and the mythicmob event.
+-   **customNames** - use to specify the custom name of both mobs and items. This can be used for custom mobs or renamed items.
+-   **modelIds** - use to specify the model id of items. This can be used for custom items with a specific model id in custom model plugins like oraxen.
+-   **potions** - use to specify the potion type for the brewpotion event. For example, `AWKWARD` or `FIRE_RESISTANCE`.
+-   **enchants** - use to specify the enchantment type for the enchantitem event. For example, `DAMAGE_ALL` or `PROTECTION_ENVIRONMENTAL`.
 
 The quest below requires you to kill 15 zombified piglins and 10 zombie pigmen. For mob related quests you can use the customNames field to specify the name of the mob you want to kill. If you want to kill a specific mob type you can use the entities field and specify the mob type from the [entity list](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html).
 
@@ -320,7 +335,6 @@ Fishing:
         experience: 100
 ```
 
--   **playerkill**: kill other players
 -   **blockbreak**: break a block specified in the materials list in the configuration
 -   **blockplace**: place a block specified in the materials list in the configuration
 -   **projectilekill**: kill entities with a projectile specify entities in the configuration
@@ -332,9 +346,13 @@ Fishing:
 -   **enchantitem**: enchant something
 -   **money**: players can contribute money with /cq deposit <amount>
 -   **experience**: players must gather Minecraft experience
+-   **level**: players must levelup
+-   **distance**: travel a certain distance in blocks
+-   **smeltitem**: use furnace to smelt or cook an item
+-   **brewpotion**: brew potions
+-   **playerkill**: kill other players
 -   **carvepumpkin**: use shears on a pumpkin
 -   **mythicmob**: Kill mobs from the mythicmob plugin (requires MythicMobs to be installed)
--   **distance**: travel a certain distance in blocks
 
 ### MythicMobs Example
 

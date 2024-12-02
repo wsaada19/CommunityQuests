@@ -14,13 +14,17 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import lombok.Setter;
+
 import java.util.List;
 
 public class PlaceEvent extends QuestListener implements Listener {
 
+    @Setter
+    private static boolean disableDuplicatePlaces;
+
     private final String PLACED = "PLACED";
     private final MetadataValue meta = new FixedMetadataValue(JavaPlugin.getPlugin(ServerQuests.class), true);
-    private boolean disableDuplicatePlaces;
 
     public PlaceEvent(ActiveQuests activeQuests) {
         super(activeQuests);
@@ -40,9 +44,9 @@ public class PlaceEvent extends QuestListener implements Listener {
         }
 
         List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.BLOCK_PLACE);
+        block.setMetadata(PLACED, meta);
         for (QuestController controller : controllers) {
             updateQuest(controller, event.getPlayer(), 1, ObjectiveType.BLOCK_PLACE, block.getType());
-            block.setMetadata(PLACED, meta);
         }
     }
 }

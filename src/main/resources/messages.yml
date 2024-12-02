@@ -43,6 +43,7 @@ you: "&fYou"
 leader: "&n&7Leader"
 progress: "&bProgress"
 topContributors: "&6Top Contributors"
+completed: "&7Completed:"
 
 # GUI titles
 viewQuests: "Active Quests"
@@ -50,6 +51,7 @@ startQuest: "Begin Quest Menu"
 stopQuest: "End Quest Menu"
 typeMenu: "Select an Event Type"
 donateMenu: "Place item in the center slot!"
+historyMenu: "&7Quest History"
 
 endQuestText: "&eClick to end the quest"
 goBack: "&cGo Back"

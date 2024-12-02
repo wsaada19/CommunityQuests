@@ -23,18 +23,18 @@ public class QuestController implements Colorization {
     private final QuestBar questBar;
     private final QuestData questData;
     private final BasePlayerComponent playerComponent;
-    private final EventConstraints eventConstraints;
+    private final List<String> worlds;
     private final UUID questId;
     private final ServerQuests plugin;
 
     public QuestController(ServerQuests plugin, QuestData questData, QuestBar questBar,
-            BasePlayerComponent playerComponent, EventConstraints eventConstraints) {
+            BasePlayerComponent playerComponent, List<String> worlds) {
         this.plugin = plugin;
         this.questData = questData;
         this.questBar = questBar;
         this.playerComponent = playerComponent;
         questId = UUID.randomUUID();
-        this.eventConstraints = eventConstraints;
+        this.worlds = worlds;
 
         if (questData.getQuestDuration() > 0) {
             new QuestTimer(this);
@@ -44,7 +44,7 @@ public class QuestController implements Colorization {
     public boolean updateQuest(double count, Player player, Objective objective, Integer objectiveId) {
         double amountToAdd = count;
 
-        // Check if quest is complete
+        // Check if quest is complete (not 100% sure if this is needed)
         if (questData.getEventType().equals(EventType.COMPETITIVE)) {
             CompetitiveQuestData competitiveQuestData = (CompetitiveQuestData) questData;
             if (competitiveQuestData.isGoalComplete(objective, player, objectiveId)) {
@@ -100,11 +100,14 @@ public class QuestController implements Colorization {
         } else {
             broadcast("questCompleteMessage");
             playerComponent.sendLeaderString();
-            playerComponent.giveOutRewards(questData.getQuestGoal());
+            String completeMessage = color(plugin.messages().message("questCompleteMessage", questData));
+            playerComponent.giveOutRewards(questData.getQuestGoal(), completeMessage);
             if (questData.getAfterQuestCommand() != null && !questData.getAfterQuestCommand().isEmpty()) {
                 plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(),
                         questData.getAfterQuestCommand());
             }
+            getPlugin().getQuestHistoryManager().saveCompletedQuest(questId.toString(), questData.getDisplayName(),
+                    playerComponent.getPlayerMap(), questData.getDisplayItem());
         }
 
         ActiveQuests.getActiveQuestsInstance().endQuest(questId);

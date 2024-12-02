@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import lombok.Getter;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.Reward;
 
 public class RankedRewards {
     // make a map of rewards where the key is a string and the value is a reward

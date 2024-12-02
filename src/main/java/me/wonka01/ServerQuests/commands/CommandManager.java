@@ -6,13 +6,14 @@ import me.wonka01.ServerQuests.ServerQuests;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandManager implements CommandExecutor {
+public class CommandManager implements CommandExecutor, TabCompleter {
 
     private final ServerQuests plugin;
 
@@ -35,11 +36,11 @@ public class CommandManager implements CommandExecutor {
         commands.add(new DonateCommand(plugin));
         commands.add(new MoneyCommand(plugin));
         commands.add(new ToggleBarCommand(plugin));
-        commands.add(new ToggleMessageCommand(plugin));
         commands.add(new RewardsCommand(plugin));
         commands.add(new EndAllCommand(plugin));
         commands.add(new ClaimRewards(plugin));
         commands.add(new ClearRewardsCommand(plugin));
+        commands.add(new HistoryCommand(plugin));
         this.questScheduler = new QuestScheduler(plugin);
         commands.add(this.questScheduler);
     }
@@ -57,11 +58,40 @@ public class CommandManager implements CommandExecutor {
         return true;
     }
 
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        List<String> completions = new ArrayList<>();
+        if (args.length == 1) {
+            for (PluginCommand cmd : commands) {
+                if (cmd.getName().startsWith(args[0].toLowerCase())) {
+                    if (cmd.isPlayerCommand() && !(sender instanceof Player))
+                        break;
+
+                    if (cmd.getPermission().isEmpty() || sender.hasPermission(cmd.getPermission()))
+                        completions.add(cmd.getName());
+                }
+            }
+        }
+
+        if (args.length > 1) {
+            for (PluginCommand cmd : commands) {
+                if (cmd.getName().equalsIgnoreCase(args[0])) {
+                    // Check if the command implements a tab complete method
+                    List<String> comps = cmd.onTabComplete(sender, command, alias, args);
+                    if (comps != null)
+                        return comps;
+                    break;
+                }
+            }
+        }
+        return completions;
+    }
+
     private @Nullable PluginCommand getCommand(@NonNull CommandSender sender, @NonNull String arg) {
         for (PluginCommand cmd : commands)
             if (cmd.getName().equalsIgnoreCase(arg)) {
 
-                if (cmd.isRequiresPlayer() && !(sender instanceof Player))
+                if (cmd.isPlayerCommand() && !(sender instanceof Player))
                     break;
 
                 if (cmd.getPermission().isEmpty() || sender.hasPermission(cmd.getPermission()))

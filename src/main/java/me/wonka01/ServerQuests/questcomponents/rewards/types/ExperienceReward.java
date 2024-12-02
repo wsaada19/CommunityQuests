@@ -1,14 +1,13 @@
-package me.wonka01.ServerQuests.questcomponents.rewards;
+package me.wonka01.ServerQuests.questcomponents.rewards.types;
 
 import lombok.Getter;
 import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
+
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.json.simple.JSONObject;
-
-import java.text.MessageFormat;
 
 public class ExperienceReward implements Reward, Colorization {
 

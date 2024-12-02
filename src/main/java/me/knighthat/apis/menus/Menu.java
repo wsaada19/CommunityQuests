@@ -65,10 +65,15 @@ public abstract class Menu implements InventoryHolder, Colorization {
     }
 
     public void open() {
-        setBorder();
-        setButtons();
-        setContents();
-        owner.openInventory(inventory);
+        try {
+            setBorder();
+            setButtons();
+            setContents();
+            owner.openInventory(inventory);
+        } catch (Exception exception) {
+            Bukkit.getLogger().warning("Error opening menu: " + exception.getMessage());
+            exception.printStackTrace();
+        }
     }
 
     protected @NonNull ItemStack createItemStack(@NonNull Material m, @NonNull String n) {
