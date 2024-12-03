@@ -156,6 +156,7 @@ public class BasePlayerComponent implements Colorization {
             String jsonString = gson.toJson(playerMap.get(key).getObjectiveContributions());
             jsonObject.put(key.toString(), jsonString);
             jsonObject.put("name", playerMap.get(key).getName());
+            jsonObject.put("lastUpdated", playerMap.get(key).getLastUpdated());
             jArray.add(jsonObject);
         }
         return jArray;

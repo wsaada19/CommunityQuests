@@ -242,6 +242,10 @@ Rewards example
 ```yaml
 rewards:
     rewardsLimit: 5 # only top 5 contributors get the rewards, if not set or 0 then everyone gets rewards
+    rewardDisplay: # If this is set it will show the rewards in the quest view
+                - "REWARDS!"
+                - "1 Iron Sword"
+                - "50 Experience"
     rankedRewards:
         "1": # The key is the rank of the player
             experience: 100
@@ -290,26 +294,26 @@ rewards:
           displayName: "&capples"
 ```
 
-## Competitive vs. Cooperative
+## Quest Types
 
-There are two quest types to chose from: competitive and cooperative. If you're using the GUI which is opened from the /sp start command, after choosing the quest you'd like to run you're presented with a
-GUI to pick the type. You can also do /cq start [QuestId] [coop/comp].
+There are three quest types to chose from: competitive, cooperative and collective. If you're using the GUI which is opened from the /sp start command, after choosing the quest you'd like to run you're presented with a
+GUI to pick the type. You can also do /cq start [QuestId] [coop/comp/coll].
 
 ### Cooperative
 
-Cooperative quests involve everyone on the server working together to complete the goal. For example in the quest created in the configuration section, the quest will be complete once 100 zombies, pigs, and zombie pigmen have been killed. Note: This means 100 total of
-any combination of zombies/pigs/zombie pigman kills that add to 100. If questDuration is set then the player's must complete the quest in the given time limit.
-If the quest is not completed no rewards will be given out.
+In cooperative quests player's work together to reach a goal. For example, if the quest has 3 objectives: kill 100 zombies, kill 100 pigmen and kill 200 skeletons. Players will need to reach all 3 of those objectives together to win the rewards. If questDuration is set, the player's must complete the quest before the time limit is reached to get the rewards.
 
-Player's are rewarded based on how much they contribute to the quest. If the reward is 1000
-money and PlayerX kills 50 of the 100 zombies, PlayerX will receive 500. Item and command rewards are given to every player who contributes to the quest. You can use the **_rewardsLimit_** field in the rewards section of the config if you only want the top x number of players to get a reward.
+Player's are rewarded based on how much they contribute to the quest. If the reward is 1000 money and PlayerX kills 50 of the 100 zombies, PlayerX will receive 500. Item and command rewards are given to every player who contributes to the quest. You can use the **_rewardsLimit_** field in the rewards section of the config if you only want the top x number of players to get a reward. You can also set rewards for specific ranks using the **_rankedRewards_** field.
 
 ### Competitive
 
-Competitive quests put the players against each other to see who can complete a goal first. Using our zombie/pig example
-from above, the quest will end once a single player gets 100 kills for the correct mob types. If a time limit is set and the quest ends before the goal is reached the top players will still get rewards based on their contributions.
+In competitive quests, players compete to see who can reach the objective first. If goals are set on the objectives then the quest ends when the first player completes them. If a time limit is set then a goal is no required, and once the timer runs out players will be rewarded based on their ranking.
 
-Money/experience awards work the same way as cooperative quests. If the money reward is 1000 the winner of the competition will get 1000. If Player1 came in second with 70 kills, he or she will get 700. The winner is the only person who will get items and commands in a competitive quest. Think of it as more of a challenge than a quest.
+Money/experience rewards work the same way as cooperative quests. If the money reward is 1000 the winner of the competition will get 1000. If Player1 came in second with 70 kills, he or she will get 700. The winner is the only person who will get items and commands in a competitive quest, unless rewards are specified for specific rankings.
+
+### Collective
+
+In a collective quest, all player's are working toward the same goal. Like competitive quests, the goal is tracked individually for each player, but when a player reaches the goal the quest doesn't end. The quest must have a duration and will end when the timer runs out. All player's who reach the goal will be eligible for rewards, you can use ranked rewards to reward player's based on who finishes the quest first.
 
 ## Objectives
 

@@ -163,6 +163,7 @@ public class JsonQuestSave {
 
                     UUID uuidKey = null;
                     String playerName = (String) obj.get("name");
+                    long lastUpdated = (Long) obj.get("lastUpdated");
 
                     while (keys.hasNext()) {
                         String key = keys.next();
@@ -178,7 +179,8 @@ public class JsonQuestSave {
                     Type type = new com.google.gson.reflect.TypeToken<HashMap<Integer, Double>>() {
                     }.getType();
                     String jsonContributions = (String) obj.get(uuidKey.toString());
-                    playerMap.put(uuidKey, new PlayerData(playerName, uuidKey, gson.fromJson(jsonContributions, type)));
+                    playerMap.put(uuidKey,
+                            new PlayerData(playerName, uuidKey, gson.fromJson(jsonContributions, type), lastUpdated));
                 }
 
                 QuestTypeHandler handler = new QuestTypeHandler(questType);

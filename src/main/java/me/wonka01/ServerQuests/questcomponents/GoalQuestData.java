@@ -12,12 +12,12 @@ import org.bukkit.entity.Player;
 
 import lombok.Getter;
 
-public class CompetitiveQuestData extends QuestData {
+public class GoalQuestData extends QuestData {
 
     @Getter
     private BasePlayerComponent players;
 
-    public CompetitiveQuestData(String displayName, String description,
+    public GoalQuestData(String displayName, String description,
             BasePlayerComponent players, String questType, int durationLeft, Material displayItem,
             String questId, String afterQuestCommand, String beforeQuestCommand, List<Objective> objectives,
             String questFailedCommand, List<String> rewardDisplay) {
@@ -46,11 +46,7 @@ public class CompetitiveQuestData extends QuestData {
 
     @Override
     public boolean isGoalComplete() {
-        PlayerData playerData = players.getTopPlayer();
-        if (playerData == null) {
-            return false;
-        }
-        return (getQuestGoal() > 0 && playerData.getAmountContributed() >= getQuestGoal());
+        return false;
     }
 
     // This really means is goal complete for the top player

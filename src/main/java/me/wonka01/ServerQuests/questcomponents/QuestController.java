@@ -44,10 +44,15 @@ public class QuestController implements Colorization {
     public boolean updateQuest(double count, Player player, Objective objective, Integer objectiveId) {
         double amountToAdd = count;
 
-        // Check if quest is complete (not 100% sure if this is needed)
+        // Make sure individuals can't exceed the goal of an objective
         if (questData.getEventType().equals(EventType.COMPETITIVE)) {
             CompetitiveQuestData competitiveQuestData = (CompetitiveQuestData) questData;
             if (competitiveQuestData.isGoalComplete(objective, player, objectiveId)) {
+                return false;
+            }
+        } else if (questData.getEventType().equals(objectiveId)) {
+            GoalQuestData goalQuest = (GoalQuestData) questData;
+            if (goalQuest.isGoalComplete(objective, player, objectiveId)) {
                 return false;
             }
         } else {
@@ -119,6 +124,10 @@ public class QuestController implements Colorization {
 
     public boolean isCompetitive() {
         return (questData.getEventType().equals(EventType.COMPETITIVE));
+    }
+
+    public boolean isGoalQuest() {
+        return (questData.getEventType().equals(EventType.GOAL));
     }
 
     private void updateBossBar() {

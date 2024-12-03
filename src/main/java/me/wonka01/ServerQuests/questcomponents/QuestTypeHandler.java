@@ -25,7 +25,11 @@ public class QuestTypeHandler {
     }
 
     public QuestTypeHandler(String type) {
-        eventType = type.equalsIgnoreCase("comp") ? EventType.COMPETITIVE : EventType.COLLAB;
+        if (type.equalsIgnoreCase("goal")) {
+            eventType = EventType.GOAL;
+        } else {
+            eventType = type.equalsIgnoreCase("comp") ? EventType.COMPETITIVE : EventType.COLLAB;
+        }
     }
 
     public QuestController createQuestController(@NonNull QuestModel model) {
@@ -76,12 +80,20 @@ public class QuestTypeHandler {
             return new CompetitiveQuestData(questModel.getDisplayName(),
                     questModel.getEventDescription(), playerComponent, questModel.getQuestId(),
                     timeLeft, questModel.getDisplayItem(), questModel.getQuestId(), questModel.getAfterQuestCommand(),
-                    questModel.getBeforeQuestCommand(), objectives, questModel.getQuestFailedCommand());
-        } else {
+                    questModel.getBeforeQuestCommand(), objectives, questModel.getQuestFailedCommand(),
+                    questModel.getRewardDisplay());
+        } else if (eventType == EventType.COLLAB) {
             return new QuestData(questModel.getDisplayName(),
                     questModel.getEventDescription(), questModel.getQuestId(), timeLeft,
                     questModel.getDisplayItem(), questModel.getQuestId(), questModel.getAfterQuestCommand(),
-                    questModel.getBeforeQuestCommand(), objectives, questModel.getQuestFailedCommand());
+                    questModel.getBeforeQuestCommand(), objectives, questModel.getQuestFailedCommand(),
+                    questModel.getRewardDisplay());
+        } else {
+            return new GoalQuestData(questModel.getDisplayName(),
+                    questModel.getEventDescription(), playerComponent, questModel.getQuestId(),
+                    timeLeft, questModel.getDisplayItem(), questModel.getQuestId(), questModel.getAfterQuestCommand(),
+                    questModel.getBeforeQuestCommand(), objectives, questModel.getQuestFailedCommand(),
+                    questModel.getRewardDisplay());
         }
     }
 }
