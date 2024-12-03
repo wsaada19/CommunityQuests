@@ -12,19 +12,19 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class ViewCommand extends PluginCommand {
-    public ViewCommand(ServerQuests plugin) {
+public class QuestCommand extends PluginCommand {
+    public QuestCommand(ServerQuests plugin) {
         super(plugin, true);
     }
 
     @Override
     public @NonNull String getName() {
-        return "view";
+        return "quest";
     }
 
     @Override
     public @NonNull String getPermission() {
-        return "communityquests.view";
+        return "communityquests.start";
     }
 
     @Override
@@ -41,6 +41,7 @@ public class ViewCommand extends PluginCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        // TODO Auto-generated method stub
         return null;
     }
 }

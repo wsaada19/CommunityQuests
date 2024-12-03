@@ -16,7 +16,8 @@ public class SortByContributions implements Comparator<UUID> {
                 map.get(p1Id).getAmountContributed());
 
         if (contributionComparison == 0) {
-            return p1Id.compareTo(p2Id);
+            // if same amount whoever updated first would be higher
+            return Long.compare(map.get(p1Id).getLastUpdated(), map.get(p2Id).getLastUpdated());
         }
         return contributionComparison;
     }

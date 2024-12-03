@@ -1,15 +1,18 @@
 package me.wonka01.ServerQuests.configuration;
 
-import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.rewards.*;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.CommandReward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.ExperienceReward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.ItemReward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.MoneyReward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.Reward;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -75,8 +78,9 @@ public class QuestLibrary {
         BarStyle style = BarStyle.valueOf(barStyle.toUpperCase());
 
         List<Objective> objectives = null;
-        List<String> mobNames = null;
-        List<String> customMobNames = null;
+        List<String> entityNames = null;
+        List<String> customNames = null;
+
         int goal = 0;
         ObjectiveType type = null;
         List<String> materials = null;
@@ -88,9 +92,10 @@ public class QuestLibrary {
             Bukkit.getServer().getConsoleSender().sendMessage(
                     "[Community Quests] Using the legacy questing system for ID " + questId
                             + ". Please check the docs and follow the new format for creating quests with the objectives option. This enables you to set multiple objectives per quest.");
-            mobNames = section.getStringList("entities");
+            entityNames = section.getStringList("entities");
             materials = section.getStringList("materials");
-            customMobNames = section.getStringList("customMobNames");
+            customNames = section.getStringList("customNames");
+
             type = ObjectiveType.match(section.getString("type"));
             goal = section.getInt("goal", -1);
         } else {
@@ -107,7 +112,19 @@ public class QuestLibrary {
                 String objDescription = (String) obj.get("description");
                 List<String> objectiveMobs = (List<String>) obj.get("entities");
                 List<String> objectiveMaterials = (List<String>) obj.get("materials");
-                List<String> objectiveCustomNames = (List<String>) obj.get("customMobNames");
+                List<String> objectiveCustomNames = (List<String>) obj.get("customNames");
+                List<Integer> objectiveModelIds = (List<Integer>) obj.get("modelIds");
+                List<String> potionNames = (List<String>) obj.get("potions");
+                List<String> enchantments = (List<String>) obj.get("enchantments");
+
+                if (potionNames != null) {
+                    objectiveCustomNames = potionNames;
+                }
+
+                if (enchantments != null) {
+                    objectiveCustomNames = enchantments;
+                }
+
                 ObjectiveType objectiveTypeEnum = ObjectiveType.match(objectiveType);
                 List<Material> mats = new ArrayList<>();
                 if (objectiveMaterials != null) {
@@ -115,6 +132,8 @@ public class QuestLibrary {
                         String capitalizedMaterialName = itemName.toUpperCase().replaceAll(" ", "_");
                         Material material = Material.getMaterial(capitalizedMaterialName);
                         if (material == null) {
+                            Bukkit.getServer().getConsoleSender().sendMessage(
+                                    "[Community Quests] Invalid material name " + itemName + " for quest " + questId);
                             return Material.AIR;
                         }
                         return material;
@@ -129,19 +148,24 @@ public class QuestLibrary {
                 if (objectiveCustomNames == null) {
                     objectiveCustomNames = new ArrayList<>();
                 }
+                if (objectiveModelIds == null) {
+                    objectiveModelIds = new ArrayList<>();
+                }
 
                 Objective objective = new Objective(objectiveTypeEnum, objectiveGoal, 0.0, objectiveMobs,
-                        mats, objDescription, objectiveCustomNames, dynamicGoal);
+                        mats, objDescription, objectiveCustomNames, dynamicGoal, objectiveModelIds);
                 objectives.add(objective);
             }
         }
 
         ConfigurationSection rewardsSection = section.getConfigurationSection("rewards");
         ConfigurationSection rankedRewards = null;
+        List<String> rewardUiView = null;
         int rewardsLimit = 0;
         if (rewardsSection != null) {
             rewardsLimit = rewardsSection.getInt("rewardsLimit", 0);
             rankedRewards = rewardsSection.getConfigurationSection("rankedRewards");
+            rewardUiView = rewardsSection.getStringList("rewardDisplay");
         }
 
         Map<String, ArrayList<Reward>> rankedRewardsMap = new HashMap<>();
@@ -160,10 +184,9 @@ public class QuestLibrary {
         }
 
         return new QuestModel(questId, displayName, description, goal,
-                type, mobNames, materials, displayItem, worlds, questDuration, rewardsLimit, afterQuestCommand,
-                beforeQuestCommand, objectives, questFailedCommand, customMobNames, barColor.toUpperCase(),
-                rankedRewardsMap,
-                rankedRewardMessages, style);
+                type, entityNames, materials, displayItem, worlds, questDuration, rewardsLimit, afterQuestCommand,
+                beforeQuestCommand, objectives, questFailedCommand, customNames, barColor.toUpperCase(),
+                rankedRewardsMap, rankedRewardMessages, style, rewardUiView);
     }
 
     private ArrayList<Reward> getRewardsFromConfig(ConfigurationSection section) {
@@ -208,9 +231,9 @@ public class QuestLibrary {
                         reward = new ItemReward(amount, material, itemName);
                         rewards.add(reward);
                     } catch (Exception ex) {
-                        JavaPlugin.getPlugin(ServerQuests.class).getLogger()
+                        Bukkit.getLogger()
                                 .info("Item reward failed to load due to invalid configuration");
-                        JavaPlugin.getPlugin(ServerQuests.class).getLogger()
+                        Bukkit.getLogger()
                                 .info(ex.getMessage());
                     }
                 }
@@ -222,5 +245,9 @@ public class QuestLibrary {
 
     public Set<String> getAllQuestKeys() {
         return questList.keySet();
+    }
+
+    public List<QuestModel> getAllQuestModels() {
+        return new ArrayList<>(questList.values());
     }
 }

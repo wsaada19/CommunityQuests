@@ -27,7 +27,7 @@ public class ShearEvent extends QuestListener implements Listener {
         List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.SHEAR);
         for (QuestController controller : controllers) {
             updateQuest(controller, shearEvent.getPlayer(), 1, ObjectiveType.SHEAR,
-                    shearEvent.getEntity().getType().toString(), shearEvent.getEntity().getName());
+                    shearEvent.getEntity());
         }
     }
 

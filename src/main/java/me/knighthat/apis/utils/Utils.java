@@ -1,6 +1,9 @@
 package me.knighthat.apis.utils;
 
 import lombok.NonNull;
+
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
@@ -31,5 +34,17 @@ public interface Utils {
     static @NonNull String decimalToString(double a) {
         DecimalFormat format = new DecimalFormat("0.#");
         return format.format(a);
+    }
+
+    static int getCustomModelData(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) {
+            return -1;
+        }
+
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null && meta.hasCustomModelData()) {
+            return meta.getCustomModelData();
+        }
+        return -1;
     }
 }
