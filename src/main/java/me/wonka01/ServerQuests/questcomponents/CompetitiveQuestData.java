@@ -2,7 +2,7 @@ package me.wonka01.ServerQuests.questcomponents;
 
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.objectives.Objective;
-import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
+import me.wonka01.ServerQuests.questcomponents.players.PlayerContributionMap;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 
 import java.util.List;
@@ -15,10 +15,10 @@ import lombok.Getter;
 public class CompetitiveQuestData extends QuestData {
 
     @Getter
-    private BasePlayerComponent players;
+    private PlayerContributionMap players;
 
     public CompetitiveQuestData(String displayName, String description,
-            BasePlayerComponent players, String questType, int durationLeft, Material displayItem,
+            PlayerContributionMap players, String questType, int durationLeft, Material displayItem,
             String questId, String afterQuestCommand, String beforeQuestCommand, List<Objective> objectives,
             String questFailedCommand, List<String> rewardDisplay) {
         super(displayName, description, questType, durationLeft, displayItem, questId,

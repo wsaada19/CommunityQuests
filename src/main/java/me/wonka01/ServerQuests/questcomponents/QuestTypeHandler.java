@@ -6,7 +6,7 @@ import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.bossbar.QuestBar;
-import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
+import me.wonka01.ServerQuests.questcomponents.players.PlayerContributionMap;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 
 import org.bukkit.plugin.java.JavaPlugin;
@@ -52,11 +52,11 @@ public class QuestTypeHandler {
 
         QuestBar bar = new QuestBar(model.getDisplayName(), barColor, model.getBarStyle());
 
-        BasePlayerComponent pComponent = new BasePlayerComponent(model.getRewardLimit(),
+        PlayerContributionMap pComponent = new PlayerContributionMap(model.getRewardLimit(),
                 model.getRankedRewards());
 
         if (players != null) {
-            pComponent = new BasePlayerComponent(players, model.getRewardLimit(),
+            pComponent = new PlayerContributionMap(players, model.getRewardLimit(),
                     model.getRankedRewards());
         }
 
@@ -74,7 +74,7 @@ public class QuestTypeHandler {
         return new QuestController(plugin, data, bar, pComponent, model.getWorlds());
     }
 
-    private QuestData getQuestData(QuestModel questModel, BasePlayerComponent playerComponent,
+    private QuestData getQuestData(QuestModel questModel, PlayerContributionMap playerComponent,
             int timeLeft, List<Objective> objectives) {
         if (eventType == EventType.COMPETITIVE) {
             return new CompetitiveQuestData(questModel.getDisplayName(),

@@ -13,11 +13,12 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class TypeMenu extends Menu {
 
-    private final int COMP = 12, COOP = 14, BACK = 18;
+    private final int COMP = 11, COLL = 13, COOP = 15, BACK = 18;
 
     private final @NonNull QuestModel model;
 
@@ -38,6 +39,7 @@ public class TypeMenu extends Menu {
     @Override
     protected void setContents() {
         getInventory().setItem(COMP, getCompItem());
+        getInventory().setItem(COLL, getCollItem());
         getInventory().setItem(COOP, getCoopItem());
     }
 
@@ -45,6 +47,22 @@ public class TypeMenu extends Menu {
         Material material = Material.DIAMOND_SWORD;
         String title = getPlugin().messages().string("competitive");
         return createItemStack(material, title);
+    }
+
+    private @NonNull ItemStack getCollItem() {
+        double goal = model.getObjectives().stream().mapToDouble(Objective::getGoal).sum();
+        String dynamicGoal = model.getObjectives().stream().map(Objective::getDynamicGoal)
+                .collect(Collectors.joining(""));
+        boolean isValid = (goal > 0 || !dynamicGoal.isEmpty()) && model.getCompleteTime() > 0;
+        List<String> lore = Collections
+                .singletonList(isValid ? "&fPlayers who reach the objective before time runs out will receive a reward!"
+                        : "&2Quest can not be collective, collective quests must have a time limit and a goal.");
+
+        String title = getPlugin().messages().string("collective");
+        if (title == null || title.isEmpty()) {
+            title = "Collective";
+        }
+        return createItemStack(Material.ENCHANTED_BOOK, title, lore);
     }
 
     private @NonNull ItemStack getCoopItem() {
@@ -66,6 +84,9 @@ public class TypeMenu extends Menu {
                 break;
             case COOP:
                 startQuest(EventType.COLLAB);
+                break;
+            case COLL:
+                startQuest(EventType.GOAL);
                 break;
             case BACK:
                 new StartMenu(getPlugin(), getOwner()).open();

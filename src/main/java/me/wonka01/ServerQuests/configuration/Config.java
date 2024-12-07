@@ -9,7 +9,7 @@ import me.wonka01.ServerQuests.events.PlaceEvent;
 import me.wonka01.ServerQuests.gui.DonateMenu;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
-import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
+import me.wonka01.ServerQuests.questcomponents.players.PlayerContributionMap;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -32,7 +32,7 @@ public final class Config extends Getters {
         ActiveQuests.setQuestLimit(limit);
 
         int leaderBoardSize = get().getInt("leaderBoardSize", 5);
-        BasePlayerComponent.setLeaderBoardSize(leaderBoardSize);
+        PlayerContributionMap.setLeaderBoardSize(leaderBoardSize);
 
         boolean disableBar = get().getBoolean("disableBossBar", false);
         BarManager.setDisableBossBar(disableBar);

@@ -6,6 +6,7 @@ import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.rewards.RewardManager;
 import me.wonka01.ServerQuests.questcomponents.rewards.RewardMessage;
 import me.wonka01.ServerQuests.questcomponents.rewards.types.Reward;
+import me.wonka01.ServerQuests.enums.EventType;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -25,7 +26,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
-public class BasePlayerComponent implements Colorization {
+public class PlayerContributionMap implements Colorization {
     @Setter
     @Getter
     private static int leaderBoardSize = 5;
@@ -35,14 +36,14 @@ public class BasePlayerComponent implements Colorization {
     private final Map<String, ArrayList<Reward>> rankedRewards;
     private final int rewardsLimit;
 
-    public BasePlayerComponent(int rewardLimit,
+    public PlayerContributionMap(int rewardLimit,
             Map<String, ArrayList<Reward>> rankedRewards) {
         this.playerMap = new TreeMap<>();
         this.rewardsLimit = rewardLimit;
         this.rankedRewards = rankedRewards;
     }
 
-    public BasePlayerComponent(Map<UUID, PlayerData> map, int rewardLimit,
+    public PlayerContributionMap(Map<UUID, PlayerData> map, int rewardLimit,
             Map<String, ArrayList<Reward>> rankedRewards) {
         this.playerMap = map;
         this.rewardsLimit = rewardLimit;
@@ -162,13 +163,14 @@ public class BasePlayerComponent implements Colorization {
         return jArray;
     }
 
-    public void giveOutRewards(double questGoal, String completeMessage) {
+    public void giveOutRewards(double questGoal, String completeMessage, EventType eventType) {
         List<PlayerData> players;
         if (rewardsLimit > 0) {
             players = getTopPlayers(rewardsLimit);
         } else {
             players = getTopPlayers(playerMap.size());
         }
+
         for (PlayerData playerData : players) {
             double playerContributionRatio;
             double playerContribution = playerData.getAmountContributed();
@@ -194,6 +196,14 @@ public class BasePlayerComponent implements Colorization {
 
             OfflinePlayer player = Bukkit.getServer().getOfflinePlayer(playerData.getUuid());
             RewardManager rewardManager = RewardManager.getInstance();
+
+            if (eventType == EventType.GOAL) {
+                if (playerContribution >= questGoal) {
+                    playerContributionRatio = 1.0;
+                } else {
+                    continue;
+                }
+            }
 
             if (player.isOnline()) {
                 Player onlinePlayer = (Player) player;

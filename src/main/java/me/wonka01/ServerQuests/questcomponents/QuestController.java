@@ -8,7 +8,7 @@ import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.bossbar.QuestBar;
-import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
+import me.wonka01.ServerQuests.questcomponents.players.PlayerContributionMap;
 import me.wonka01.ServerQuests.questcomponents.schedulers.QuestTimer;
 
 import org.bukkit.entity.Player;
@@ -22,13 +22,13 @@ public class QuestController implements Colorization {
 
     private final QuestBar questBar;
     private final QuestData questData;
-    private final BasePlayerComponent playerComponent;
+    private final PlayerContributionMap playerComponent;
     private final List<String> worlds;
     private final UUID questId;
     private final ServerQuests plugin;
 
     public QuestController(ServerQuests plugin, QuestData questData, QuestBar questBar,
-            BasePlayerComponent playerComponent, List<String> worlds) {
+            PlayerContributionMap playerComponent, List<String> worlds) {
         this.plugin = plugin;
         this.questData = questData;
         this.questBar = questBar;
@@ -106,7 +106,7 @@ public class QuestController implements Colorization {
             broadcast("questCompleteMessage");
             playerComponent.sendLeaderString();
             String completeMessage = color(plugin.messages().message("questCompleteMessage", questData));
-            playerComponent.giveOutRewards(questData.getQuestGoal(), completeMessage);
+            playerComponent.giveOutRewards(questData.getQuestGoal(), completeMessage, questData.getEventType());
             if (questData.getAfterQuestCommand() != null && !questData.getAfterQuestCommand().isEmpty()) {
                 plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(),
                         questData.getAfterQuestCommand());
