@@ -1,6 +1,7 @@
 package me.wonka01.ServerQuests.configuration;
 
 import me.wonka01.ServerQuests.ServerQuests;
+import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
@@ -22,12 +23,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class JsonQuestSave {
 
@@ -67,8 +70,10 @@ public class JsonQuestSave {
             }
             jObject.put("objectives", objectives);
             jObject.put("timeLeft", questController.getQuestData().getQuestDuration());
-            if (questController.getQuestData() instanceof CompetitiveQuestData) {
+            if (questController.getQuestData().getEventType().equals(EventType.COMPETITIVE)) {
                 jObject.put("type", "comp");
+            } else if (questController.getQuestData().getEventType().equals(EventType.COLLECTIVE)) {
+                jObject.put("type", "coll");
             } else {
                 jObject.put("type", "coop");
             }
@@ -85,10 +90,17 @@ public class JsonQuestSave {
         }
     }
 
-    private List<String> convertJsonArrayToList(JSONArray arr) {
-        List<String> list = new ArrayList<>();
+    // public <T> List<T> fromArrayToList(T[] a) {
+    // return Arrays.stream(a).collect(Collectors.toList());
+    // }
+
+    private <T> List<T> convertJsonArrayToList(JSONArray arr, Class<T> clazz) {
+        List<T> list = new ArrayList<>();
+        if (arr == null) {
+            return list;
+        }
         for (Object o : arr) {
-            list.add((String) o);
+            list.add(clazz.cast(o));
         }
         return list;
     }
@@ -121,20 +133,25 @@ public class JsonQuestSave {
                     double amount = (double) obj.get("amountComplete");
                     JSONArray mobNames = (JSONArray) obj.get("mobNames");
                     JSONArray materials = (JSONArray) obj.get("materials");
-                    JSONArray customNames = (JSONArray) obj.get("customMobNames");
-                    List<Material> materialList = convertJsonArrayToList(materials).stream().map(materialName -> {
-                        String capitalizedMaterialName = materialName.toUpperCase().replaceAll(" ", "_");
-                        Material material = Material.getMaterial(capitalizedMaterialName);
-                        if (material == null) {
-                            return Material.AIR;
-                        }
-                        return material;
-                    }).collect(java.util.stream.Collectors.toList());
+                    JSONArray customNames = (JSONArray) obj.get("customNames");
+                    JSONArray customModelIds = (JSONArray) obj.get("modelIds");
+
+                    List<Material> materialList = convertJsonArrayToList(materials, String.class).stream()
+                            .map(materialName -> {
+                                String capitalizedMaterialName = materialName.toUpperCase().replaceAll(" ", "_");
+                                Material material = Material.getMaterial(capitalizedMaterialName);
+                                if (material == null) {
+                                    return Material.AIR;
+                                }
+                                return material;
+                            }).collect(java.util.stream.Collectors.toList());
 
                     ObjectiveType objectiveType = ObjectiveType.match(type);
-                    Objective objective = new Objective(objectiveType, goal, amount, convertJsonArrayToList(mobNames),
-                            materialList, (String) obj.get("description"), convertJsonArrayToList(customNames),
-                            dynamicGoal);
+                    Objective objective = new Objective(objectiveType, goal, amount,
+                            convertJsonArrayToList(mobNames, String.class),
+                            materialList, (String) obj.get("description"),
+                            convertJsonArrayToList(customNames, String.class),
+                            dynamicGoal, convertJsonArrayToList(customModelIds, Integer.class));
                     objectives.add(objective);
                 }
                 long questDuration = (Long) questObject.getOrDefault("timeLeft", 0);
@@ -149,6 +166,7 @@ public class JsonQuestSave {
 
                     UUID uuidKey = null;
                     String playerName = (String) obj.get("name");
+                    long lastUpdated = (Long) obj.get("lastUpdated");
 
                     while (keys.hasNext()) {
                         String key = keys.next();
@@ -164,7 +182,8 @@ public class JsonQuestSave {
                     Type type = new com.google.gson.reflect.TypeToken<HashMap<Integer, Double>>() {
                     }.getType();
                     String jsonContributions = (String) obj.get(uuidKey.toString());
-                    playerMap.put(uuidKey, new PlayerData(playerName, uuidKey, gson.fromJson(jsonContributions, type)));
+                    playerMap.put(uuidKey,
+                            new PlayerData(playerName, uuidKey, gson.fromJson(jsonContributions, type), lastUpdated));
                 }
 
                 QuestTypeHandler handler = new QuestTypeHandler(questType);

@@ -1,4 +1,4 @@
-package me.wonka01.ServerQuests.questcomponents.rewards;
+package me.wonka01.ServerQuests.questcomponents.rewards.types;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;

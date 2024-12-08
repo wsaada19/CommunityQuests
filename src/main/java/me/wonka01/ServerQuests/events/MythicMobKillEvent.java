@@ -28,7 +28,7 @@ public class MythicMobKillEvent extends QuestListener implements Listener {
 
         for (QuestController controller : controllers) {
             updateQuest(controller, (Player) event.getKiller(), 1, ObjectiveType.MYTHIC_MOB,
-                    event.getMobType().getInternalName(), event.getMobType().getInternalName());
+                    event.getMobType().getInternalName());
         }
     }
 }

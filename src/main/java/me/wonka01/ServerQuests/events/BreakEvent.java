@@ -16,13 +16,17 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import lombok.Setter;
+
 import java.util.List;
 
 public class BreakEvent extends QuestListener implements Listener {
 
+    @Setter
+    private static boolean disableDuplicateBreaks = true;
+
     private final String BROKEN = "BROKEN";
     private final MetadataValue meta = new FixedMetadataValue(JavaPlugin.getPlugin(ServerQuests.class), true);
-    private boolean disableDuplicateBreaks = true;
 
     public BreakEvent(ActiveQuests activeQuests) {
         super(activeQuests);
@@ -50,9 +54,10 @@ public class BreakEvent extends QuestListener implements Listener {
         }
 
         List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.BLOCK_BREAK);
+
+        block.setMetadata(BROKEN, meta);
         for (QuestController controller : controllers) {
-            block.setMetadata(BROKEN, meta);
-            updateQuest(controller, event.getPlayer(), 1., ObjectiveType.BLOCK_BREAK, block.getType());
+            updateQuest(controller, event.getPlayer(), 1, ObjectiveType.BLOCK_BREAK, block.getType());
         }
     }
 }

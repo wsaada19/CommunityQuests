@@ -6,7 +6,7 @@ import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.bossbar.QuestBar;
-import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
+import me.wonka01.ServerQuests.questcomponents.players.PlayerContributionMap;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,7 +25,11 @@ public class QuestTypeHandler {
     }
 
     public QuestTypeHandler(String type) {
-        eventType = type.equalsIgnoreCase("comp") ? EventType.COMPETITIVE : EventType.COLLAB;
+        if (type.equalsIgnoreCase("coll")) {
+            eventType = EventType.COLLECTIVE;
+        } else {
+            eventType = type.equalsIgnoreCase("comp") ? EventType.COMPETITIVE : EventType.COLLAB;
+        }
     }
 
     public QuestController createQuestController(@NonNull QuestModel model) {
@@ -48,11 +52,11 @@ public class QuestTypeHandler {
 
         QuestBar bar = new QuestBar(model.getDisplayName(), barColor, model.getBarStyle());
 
-        BasePlayerComponent pComponent = new BasePlayerComponent(model.getRewardLimit(),
+        PlayerContributionMap pComponent = new PlayerContributionMap(model.getRewardLimit(),
                 model.getRankedRewards());
 
         if (players != null) {
-            pComponent = new BasePlayerComponent(players, model.getRewardLimit(),
+            pComponent = new PlayerContributionMap(players, model.getRewardLimit(),
                     model.getRankedRewards());
         }
 
@@ -62,27 +66,34 @@ public class QuestTypeHandler {
         }
 
         QuestData data = getQuestData(model, pComponent, timeLeft, objs);
-        EventConstraints event = new EventConstraints(model.getWorlds());
 
         if (data.getAmountCompleted() > 0) {
             bar.updateBarProgress(data.getAmountCompleted() / data.getQuestGoal());
         }
 
-        return new QuestController(plugin, data, bar, pComponent, event);
+        return new QuestController(plugin, data, bar, pComponent, model.getWorlds());
     }
 
-    private QuestData getQuestData(QuestModel questModel, BasePlayerComponent playerComponent,
+    private QuestData getQuestData(QuestModel questModel, PlayerContributionMap playerComponent,
             int timeLeft, List<Objective> objectives) {
         if (eventType == EventType.COMPETITIVE) {
             return new CompetitiveQuestData(questModel.getDisplayName(),
                     questModel.getEventDescription(), playerComponent, questModel.getQuestId(),
                     timeLeft, questModel.getDisplayItem(), questModel.getQuestId(), questModel.getAfterQuestCommand(),
-                    questModel.getBeforeQuestCommand(), objectives, questModel.getQuestFailedCommand());
-        } else {
+                    questModel.getBeforeQuestCommand(), objectives, questModel.getQuestFailedCommand(),
+                    questModel.getRewardDisplay());
+        } else if (eventType == EventType.COLLAB) {
             return new QuestData(questModel.getDisplayName(),
                     questModel.getEventDescription(), questModel.getQuestId(), timeLeft,
                     questModel.getDisplayItem(), questModel.getQuestId(), questModel.getAfterQuestCommand(),
-                    questModel.getBeforeQuestCommand(), objectives, questModel.getQuestFailedCommand());
+                    questModel.getBeforeQuestCommand(), objectives, questModel.getQuestFailedCommand(),
+                    questModel.getRewardDisplay());
+        } else {
+            return new CollectiveQuestData(questModel.getDisplayName(),
+                    questModel.getEventDescription(), playerComponent, questModel.getQuestId(),
+                    timeLeft, questModel.getDisplayItem(), questModel.getQuestId(), questModel.getAfterQuestCommand(),
+                    questModel.getBeforeQuestCommand(), objectives, questModel.getQuestFailedCommand(),
+                    questModel.getRewardDisplay());
         }
     }
 }

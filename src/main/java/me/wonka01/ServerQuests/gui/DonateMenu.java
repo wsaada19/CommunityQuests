@@ -8,11 +8,11 @@ import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
+import me.wonka01.ServerQuests.objectives.ObjectiveFilters;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.CompetitiveQuestData;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -97,8 +97,11 @@ public class DonateMenu extends Menu {
                     total = data.getPlayers().getAmountContributedByObjectiveId(getOwner(), i) + inputItem.getAmount();
                 }
 
-                List<Material> requirements = objective.getMaterials();
-                if (requirements.isEmpty() || requirements.contains(inputItem.getType())) {
+                boolean matches = ObjectiveFilters.filter()
+                        .withItem(inputItem)
+                        .matches(objective);
+
+                if (matches) {
                     boolean updateResult = updateQuest(ctrl, inputItem, objective, counter);
                     if (updateResult) {
                         if (total > goal && goal > 0) {
@@ -165,7 +168,7 @@ public class DonateMenu extends Menu {
     }
 
     private boolean isWorldAllowed(@NonNull QuestController ctrl, @NonNull World world) {
-        List<String> worlds = ctrl.getEventConstraints().getWorlds();
+        List<String> worlds = ctrl.getWorlds();
         return worlds.isEmpty() || Utils.contains(worlds, world.getName());
     }
 }

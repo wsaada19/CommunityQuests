@@ -1,4 +1,4 @@
-package me.wonka01.ServerQuests.questcomponents.rewards;
+package me.wonka01.ServerQuests.questcomponents.rewards.types;
 
 import lombok.Getter;
 import me.knighthat.apis.utils.Colorization;

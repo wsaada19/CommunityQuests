@@ -8,7 +8,7 @@ leaderBoardSize: 5
 disableBossBar: false
 
 # Material used in the donate quest menu.
-donateMenuItem: EMERALD
+donateMenuItem: BLACK_STAINED_GLASS_PANE
 
 # If true, blockbreak quests will not be able to break the same item multiple
 # times in a row.
@@ -18,7 +18,7 @@ barColor: "GREEN"
 
 # If true, blockplace quests will not be able to place the same item multiple
 # times in a row.
-disableDuplicatePlaces: false
+disableDuplicatePlaces: true
 
 ## configure the location and text of a hologram that displays quest information
 hologram:
@@ -39,6 +39,37 @@ hologram:
 
 Quests:
     TestQuest: # Quest identifier can be whatever you'd like as long as it's unique
+        displayName: "&cBasalt ZerstÃ¶rer"
+        displayItem: BASALT # optional parameter to set the item used in GUIs for a given quest
+        # See color options here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html
+        barColor: "GREEN"
+        barStyle: "SEGMENTED_20"
+        worlds: # this parameter is optional, if included the quest will only occur in the specified worlds
+            - WL
+            - world
+            - WL_nether
+        objectives: # at least one objective is required, each quest can have infinite objectives
+            - type: donate
+              goal: 10000000
+              materials:
+                  - BASALT
+        description: "Liefert insgesamt 10.000.000 Basalt"
+        questDuration: 21d # The quest will last for 1 day or until the goal is reached, whichever comes first
+        rewards:
+            rankedRewards:
+                "1": # The key is the rank of the player
+                    experience: 10000
+                    commands:
+                        - "gems add %player% 10000"
+                "2":
+                    experience: 5000
+                    commands:
+                        - "gems add %player% 5000"
+                "*": # This is a wildcard, this reward will apply to all other players who participated in the quest and didn't get a ranked reward
+                    experience: 2500
+                    commands:
+                        - "eco add %player% 10000"
+    ZombieQuest: # Quest identifier can be whatever you'd like as long as it's unique
         displayName: "&cZombie and Pig Slayer"
         displayItem: ZOMBIE_HEAD # optional parameter to set the item used in GUIs for a given quest
         # See color options here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html
@@ -48,17 +79,12 @@ Quests:
             - world
         objectives: # at least one objective is required, each quest can have infinite objectives
             - type: mobkill ## required, see type list for available types
-              dynamicGoal: "%server_online%"
+              dynamicGoal: "%math_{server_online}*1000%"
               entities: # This is an optional parameter, if it doesn't exist the quest will count ALL mob kills. entity reference: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
                   - Zombie
                   - Pig
                   - ZOMBIFIED_PIGLIN
               description: "Zombies & Pigs" # A short description of the objective used in the GUI
-            - type: mobkill
-              goal: 5
-              customMobNames:
-                  - Skeleton
-              description: Skeletons
         description: "Kill 100 zombies and pigs! \nKill 50 skeletons!"
         questDuration: 1d # The quest will last for 1 day or until the goal is reached, whichever comes first
         rewards:
@@ -81,17 +107,116 @@ Quests:
                         - material: stone_sword
                           amount: 1
                           displayName: "&8Stone Sword"
+    brewPotion:
+        displayName: "&6&lPotion Master"
+        displayItem: BREWING_STAND
+        objectives:
+            - type: brewpotion
+              goal: 5
+              description: "&cHealth Potions"
+              # https://hub.spigotmc.org/javadocs/spigot/org/bukkit/potion/PotionType.html
+              potions:
+                  - INSTANT_HEAL
+                  - STRONG_HEALING
+            - type: brewpotion
+              goal: 5
+              description: "&6Regen Potions"
+              potions:
+                  - LONG_REGENERATION
+                  - REGENERATION
+                  - STRONG_REGENERATION
+        description: "&fBrew 5 healing and 5 regen potions!"
+        rewards:
+            rewardDisplay:
+                - "&a&lRewards"
+                - "&f- &b15 Diamonds"
+                - "&f- &b100 Experience"
+            rankedRewards:
+                "1":
+                    experience: 100
+                    items:
+                        - material: DIAMOND
+                          amount: 15
+                          displayName: "&bDiamond!"
+                    rewardMessage: "&6You have been rewarded with a diamond and 100 experience for completing the quest!"
+    enchantItem:
+        displayName: "&6Enchant Item"
+        displayItem: ENCHANTING_TABLE
+        objectives:
+            - type: enchantitem
+              goal: 5
+              description: "&6Enchantments"
+              materials:
+                  - DIAMOND_SWORD
+              enchantments:
+                  - SHARPNESS
+                  - KNOCKBACK
+        description: "&fEnchant 5 diamond swords with sharpness or knockback"
+        rewards:
+            rankedRewards:
+                "1":
+                    experience: 100
+                    items:
+                        - material: DIAMOND
+                          amount: 1
+                          displayName: "&bDiamond!"
+                    rewardMessage: "&6You have been rewarded with a diamond!"
+    smeltIron:
+        displayName: "&6Smelt Iron"
+        displayItem: IRON_INGOT
+        description: "&6Smelt 10 iron ore into iron ingots"
+        questDuration: 1h
+        objectives:
+            - type: furnace
+              goal: 10
+              materials:
+                  - IRON_INGOT
+              description: "&6Iron Ingots"
+            - type: smeltitem
+              goal: 10
+              customNames:
+                  - "Cooked Cod"
+              description: "&6Cod"
+        rewards:
+            experience: 100
+            items:
+                - material: DIAMOND
+                  amount: 1
+                  displayName: "&bDiamond"
+    logs:
+        displayName: "&2Im a lumberjack"
+        description: "&2chop 500 logs of each type of wood"
+        displayItem: OAK_WOOD
+        objectives:
+            - type: blockbreak
+              goal: 5
+              materials:
+                  - OAK_LOG
+              description: "&2oak wood"
     Egg:
         displayName: "&6Eggcellent"
         displayItem: EGG
         questDuration: 7d
-        barColor: "WHITE"
+        barColor: "RED"
         barStyle: "SEGMENTED_20"
         objectives:
-            - type: donate
-              materials:
-                  - EGG
+            - type: milkcow
+              goal: 20
         description: H1 needs some cake, you can get some eggs!
+        rewards:
+            items:
+                - material: CHICKEN_SPAWN_EGG
+                  amount: 1
+    ShearSheep:
+        displayName: "&6Shear Sheep"
+        displayItem: SHEARS
+        questDuration: 7d
+        barColor: "YELLOW"
+        barStyle: "SEGMENTED_20"
+        objectives:
+            - type: shear
+              goal: 20
+        description: "Shear 20 sheep!"
         rewards:
             items:
                 - material: CHICKEN_SPAWN_EGG
@@ -183,19 +308,19 @@ Quests:
                           amount: 1
                           displayName: "&8Stone Sword"
     GuiQuest:
-        displayName: "&a&lPotato Diamond Quest"
+        displayName: "&l&bDiamond Miner"
         objectives:
             - type: donate
               goal: 60
               materials:
-                  - POTATO
+                  - DIAMOND
               description: "&l&aPotatoes"
             - type: donate
               goal: 20
               materials:
-                  - DIAMOND
+                  - POTATO
               description: "&l&aDiamonds"
-        description: "&fDonate 60 potatoes and 20 diamonds with /cq donate!"
+        description: '&fThe royal family is in dire need of diamonds. Bring us 60 diamonds and we will reward you handsomely! \n&fAlso throw in 20 potatoes for the next royal feast!'
         rewards:
             rankedRewards:
                 "1": # The key is the rank of the player
@@ -290,7 +415,8 @@ Quests:
                   displayName: "&bPowerful Diamond Sword"
     MythicQuest:
         displayName: "&c&lKill mythic mobs"
-        objective:
+        # displayItem: DRAGON_HEAD
+        objectives:
             - type: mythicmob
               goal: 4
               description: "Spiderz"

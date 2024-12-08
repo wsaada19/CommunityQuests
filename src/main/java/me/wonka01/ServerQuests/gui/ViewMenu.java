@@ -4,11 +4,12 @@ import lombok.NonNull;
 import me.knighthat.apis.menus.Menu;
 import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
+import me.wonka01.ServerQuests.configuration.QuestModel;
 import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.CompetitiveQuestData;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
-import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
+import me.wonka01.ServerQuests.questcomponents.players.PlayerContributionMap;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerData;
 
 import org.bukkit.Bukkit;
@@ -57,7 +58,19 @@ public class ViewMenu extends Menu {
         }
         lore.add(getPlayerProgress(controller));
 
+        addRewardDisplay(lore, controller.getQuestData());
+
         return super.createItemStack(data.getDisplayItem(), data.getDisplayName(), lore);
+    }
+
+    private void addRewardDisplay(List<String> lore, QuestData data) {
+        if (data.getRewardDisplay() == null || data.getRewardDisplay().isEmpty()) {
+            return;
+        }
+        lore.add("");
+        for (String reward : data.getRewardDisplay()) {
+            lore.add(color(reward));
+        }
     }
 
     private @NonNull ItemStack compItem(QuestController ctrl) {
@@ -72,6 +85,9 @@ public class ViewMenu extends Menu {
             lore.add("");
             getObjectivePlayerProgress(data.getObjectives(), lore, getOwner(), (CompetitiveQuestData) data);
         }
+
+        addRewardDisplay(lore, data);
+
         return super.createItemStack(data.getDisplayItem(), data.getDisplayName(), lore);
     }
 
@@ -92,7 +108,7 @@ public class ViewMenu extends Menu {
 
     private void getTopPlayerString(QuestController controller, List<String> lore) {
         String noData = "&7n/a";
-        int size = BasePlayerComponent.getLeaderBoardSize();
+        int size = PlayerContributionMap.getLeaderBoardSize();
         ArrayList<PlayerData> topPlayers = controller.getPlayerComponent().getTopPlayers(size);
 
         if (topPlayers.size() < 1) {
