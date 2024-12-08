@@ -3,7 +3,6 @@ package me.wonka01.ServerQuests.objectives;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.utils.Utils;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -127,10 +126,6 @@ public class ObjectiveFilters {
 
             // Custom model ID filter
             if (customModelId != null) {
-                Bukkit.getLogger().info("Custom model id: " + customModelId);
-                if (!objective.getCustomModelIds().isEmpty()) {
-                    Bukkit.getLogger().info("Objective custom names: " + objective.getCustomModelIds().get(0));
-                }
                 if (!hasCustomModelId(objective, customModelId) && !objective.getCustomModelIds().isEmpty()) {
                     return false;
                 }

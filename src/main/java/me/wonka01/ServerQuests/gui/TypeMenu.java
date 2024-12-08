@@ -56,7 +56,7 @@ public class TypeMenu extends Menu {
         boolean isValid = (goal > 0 || !dynamicGoal.isEmpty()) && model.getCompleteTime() > 0;
         List<String> lore = Collections
                 .singletonList(isValid ? "&fComplete the objective before time runs out to receive a reward!"
-                        : "&2Quest can not be collective, collective quests must have a time limit and a goal.");
+                        : "&cCollective quests need a time limit and a goal.");
 
         String title = getPlugin().messages().string("collective");
         if (title == null || title.isEmpty()) {
