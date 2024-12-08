@@ -58,8 +58,8 @@ public class Objective implements Cloneable {
         objectiveJson.put("amountComplete", amountComplete);
         Gson gson = new Gson();
         objectiveJson.put("mobNames", gson.toJsonTree(mobNames).getAsJsonArray());
-        objectiveJson.put("customMobNames", gson.toJsonTree(customNames).getAsJsonArray());
-        objectiveJson.put("customModelIds", gson.toJsonTree(customModelIds).getAsJsonArray());
+        objectiveJson.put("customNames", gson.toJsonTree(customNames).getAsJsonArray());
+        objectiveJson.put("modelIds", gson.toJsonTree(customModelIds).getAsJsonArray());
         objectiveJson.put("materials", gson.toJsonTree(materials).getAsJsonArray());
         objectiveJson.put("description", description);
         return objectiveJson;

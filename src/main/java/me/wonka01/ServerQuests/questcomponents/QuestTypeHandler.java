@@ -25,8 +25,8 @@ public class QuestTypeHandler {
     }
 
     public QuestTypeHandler(String type) {
-        if (type.equalsIgnoreCase("goal")) {
-            eventType = EventType.GOAL;
+        if (type.equalsIgnoreCase("coll")) {
+            eventType = EventType.COLLECTIVE;
         } else {
             eventType = type.equalsIgnoreCase("comp") ? EventType.COMPETITIVE : EventType.COLLAB;
         }
@@ -89,7 +89,7 @@ public class QuestTypeHandler {
                     questModel.getBeforeQuestCommand(), objectives, questModel.getQuestFailedCommand(),
                     questModel.getRewardDisplay());
         } else {
-            return new GoalQuestData(questModel.getDisplayName(),
+            return new CollectiveQuestData(questModel.getDisplayName(),
                     questModel.getEventDescription(), playerComponent, questModel.getQuestId(),
                     timeLeft, questModel.getDisplayItem(), questModel.getQuestId(), questModel.getAfterQuestCommand(),
                     questModel.getBeforeQuestCommand(), objectives, questModel.getQuestFailedCommand(),

@@ -197,7 +197,7 @@ public class PlayerContributionMap implements Colorization {
             OfflinePlayer player = Bukkit.getServer().getOfflinePlayer(playerData.getUuid());
             RewardManager rewardManager = RewardManager.getInstance();
 
-            if (eventType == EventType.GOAL) {
+            if (eventType == EventType.COLLECTIVE) {
                 if (playerContribution >= questGoal) {
                     playerContributionRatio = 1.0;
                 } else {
@@ -210,7 +210,6 @@ public class PlayerContributionMap implements Colorization {
                 if (rankedReward.size() > 0) {
                     // ServerQuests plugin = JavaPlugin.getPlugin(ServerQuests.class);
                     // String rewardsMessage = plugin.messages().message("rewardsMessage");
-                    onlinePlayer.sendMessage("rewards size " + rankedReward.size());
                     for (Reward reward : rankedReward) {
                         reward.giveRewardToPlayer(onlinePlayer, playerContributionRatio);
                     }

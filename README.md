@@ -352,7 +352,7 @@ Fishing:
 -   **experience**: players must gather Minecraft experience
 -   **level**: players must levelup
 -   **distance**: travel a certain distance in blocks
--   **smeltitem**: use furnace to smelt or cook an item
+-   **furnace**: use furnace to smelt or cook an item
 -   **brewpotion**: brew potions
 -   **playerkill**: kill other players
 -   **carvepumpkin**: use shears on a pumpkin
@@ -508,7 +508,7 @@ You can directly configure schedules in `schedules.yml`:
 ```yaml
 12345678-example:
     questId: "mining" # Quest identifier
-    mode: "coop" # Mode: "coop" or "comp"
+    mode: "coop" # Mode: "coop", "comp" or "coll"
     time: "14:30" # 24-hour format (HH:mm)
     scheduleType: "DAILY" # DAILY, WEEKLY, or CUSTOM_DAYS
     interval: 1 # Days between runs (for CUSTOM_DAYS only)

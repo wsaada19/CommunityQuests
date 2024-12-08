@@ -1,7 +1,7 @@
 package me.wonka01.ServerQuests.objectives;
 
-import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
+import me.wonka01.ServerQuests.utils.Utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -39,7 +39,12 @@ public class ObjectiveFilters {
         public Builder withItem(ItemStack item) {
             if (item != null) {
                 this.material = item.getType();
+                this.customName = item.getItemMeta().getDisplayName();
                 this.customModelId = Utils.getCustomModelData(item);
+
+                if (this.customName == null || this.customName.isEmpty()) {
+                    this.customName = item.getType().name().replace("_", " ").toLowerCase();
+                }
             }
             return this;
         }
@@ -122,6 +127,10 @@ public class ObjectiveFilters {
 
             // Custom model ID filter
             if (customModelId != null) {
+                Bukkit.getLogger().info("Custom model id: " + customModelId);
+                if (!objective.getCustomModelIds().isEmpty()) {
+                    Bukkit.getLogger().info("Objective custom names: " + objective.getCustomModelIds().get(0));
+                }
                 if (!hasCustomModelId(objective, customModelId) && !objective.getCustomModelIds().isEmpty()) {
                     return false;
                 }

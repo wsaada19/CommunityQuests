@@ -106,8 +106,8 @@ public class QuestScheduler extends PluginCommand {
             return;
         }
 
-        if (!mode.equals("coop") && !mode.equals("comp")) {
-            sender.sendMessage("§cMode must be either 'coop' or 'comp'!");
+        if (!mode.equalsIgnoreCase("coop") && !mode.equalsIgnoreCase("comp") && !mode.equalsIgnoreCase("coll")) {
+            sender.sendMessage("§cMode must be either 'coop', 'comp' or 'coll'!");
             return;
         }
 
@@ -319,7 +319,7 @@ public class QuestScheduler extends PluginCommand {
 
             case 3:
                 // Mode completions
-                List<String> modes = Arrays.asList("coop", "comp");
+                List<String> modes = Arrays.asList("coop", "comp", "coll");
                 completions = modes.stream()
                         .filter(mode -> mode.startsWith(args[2].toLowerCase()))
                         .collect(Collectors.toList());

@@ -12,12 +12,12 @@ import org.bukkit.entity.Player;
 
 import lombok.Getter;
 
-public class GoalQuestData extends QuestData {
+public class CollectiveQuestData extends QuestData {
 
     @Getter
     private PlayerContributionMap players;
 
-    public GoalQuestData(String displayName, String description,
+    public CollectiveQuestData(String displayName, String description,
             PlayerContributionMap players, String questType, int durationLeft, Material displayItem,
             String questId, String afterQuestCommand, String beforeQuestCommand, List<Objective> objectives,
             String questFailedCommand, List<String> rewardDisplay) {
@@ -66,6 +66,6 @@ public class GoalQuestData extends QuestData {
 
     @Override
     public EventType getEventType() {
-        return EventType.GOAL;
+        return EventType.COLLECTIVE;
     }
 }

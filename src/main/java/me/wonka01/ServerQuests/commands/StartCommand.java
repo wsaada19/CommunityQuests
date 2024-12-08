@@ -51,6 +51,9 @@ public class StartCommand extends PluginCommand {
                 case "comp":
                     type = EventType.COMPETITIVE;
                     break;
+                case "coll":
+                    type = EventType.COLLECTIVE;
+                    break;
                 default:
                     String invalidQuestType = getPlugin().messages().message("invalidQuestType");
                     sender.sendMessage(invalidQuestType);
@@ -84,7 +87,7 @@ public class StartCommand extends PluginCommand {
 
         // Handle quest type completions (third argument)
         if (args.length == 3) {
-            List<String> questTypes = Arrays.asList("coop", "comp");
+            List<String> questTypes = Arrays.asList("coop", "comp", "coll");
             completions = questTypes.stream()
                     .filter(type -> type.startsWith(args[2].toLowerCase()))
                     .collect(Collectors.toList());

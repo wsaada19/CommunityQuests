@@ -3,7 +3,6 @@ package me.wonka01.ServerQuests.events;
 import java.util.List;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,7 +32,7 @@ public class InventoryClickEvents extends QuestListener implements Listener {
         this.plugin = plugin;
     }
 
-    private void markItemAsUnique(ItemStack item) {
+    private void markItemAsProcessed(ItemStack item) {
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer container = meta.getPersistentDataContainer();
         NamespacedKey uniqueKey = new NamespacedKey(plugin, "processed");
@@ -47,7 +46,6 @@ public class InventoryClickEvents extends QuestListener implements Listener {
 
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer container = meta.getPersistentDataContainer();
-
         NamespacedKey uniqueKey = new NamespacedKey(plugin, "processed");
 
         return container.has(uniqueKey, PersistentDataType.STRING);
@@ -67,19 +65,14 @@ public class InventoryClickEvents extends QuestListener implements Listener {
                     || event.getAction().equals(InventoryAction.MOVE_TO_OTHER_INVENTORY)) {
                 List<QuestController> controllers = tryGetControllersOfObjectiveType(BREW_TYPE);
 
-                Bukkit.getLogger().info("Brewing item " + item.getType().toString());
                 PotionMeta potionMeta = (PotionMeta) item.getItemMeta();
 
-                if (potionMeta == null) {
-                    Bukkit.getLogger().info("PotionMeta is null for item " + item.getType().toString());
-                    return;
-                }
-
+                // Make sure potion hasn't already been used for a community quest
                 if (isItemProcessed(item)) {
                     return;
                 }
 
-                markItemAsUnique(item);
+                markItemAsProcessed(item);
                 for (QuestController controller : controllers) {
                     updateQuest(controller, player, 1, ObjectiveType.BREW_POTION,
                             potionMeta.getBasePotionData().getType());

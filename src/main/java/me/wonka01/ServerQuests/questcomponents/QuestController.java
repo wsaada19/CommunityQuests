@@ -2,7 +2,6 @@ package me.wonka01.ServerQuests.questcomponents;
 
 import lombok.Getter;
 import lombok.NonNull;
-import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
@@ -10,7 +9,9 @@ import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.bossbar.QuestBar;
 import me.wonka01.ServerQuests.questcomponents.players.PlayerContributionMap;
 import me.wonka01.ServerQuests.questcomponents.schedulers.QuestTimer;
+import me.wonka01.ServerQuests.utils.Colorization;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.text.DecimalFormat;
@@ -50,8 +51,8 @@ public class QuestController implements Colorization {
             if (competitiveQuestData.isGoalComplete(objective, player, objectiveId)) {
                 return false;
             }
-        } else if (questData.getEventType().equals(objectiveId)) {
-            GoalQuestData goalQuest = (GoalQuestData) questData;
+        } else if (questData.getEventType().equals(EventType.COLLECTIVE)) {
+            CollectiveQuestData goalQuest = (CollectiveQuestData) questData;
             if (goalQuest.isGoalComplete(objective, player, objectiveId)) {
                 return false;
             }
@@ -61,14 +62,18 @@ public class QuestController implements Colorization {
             }
         }
 
-        if (questData.hasGoal() && questData.getEventType().equals(EventType.COLLAB)) {
-            if (amountToAdd > objective.getGoal() - objective.getAmountComplete()) {
-                amountToAdd = objective.getGoal() - objective.getAmountComplete();
+        if (questData.hasGoal()) {
+            double amountComplete = objective.getAmountComplete();
+
+            if (questData.getEventType().equals(EventType.COMPETITIVE)) {
+                CompetitiveQuestData competitiveQuestData = (CompetitiveQuestData) questData;
+                amountComplete = competitiveQuestData.getPlayers().getAmountContributedByObjectiveId(player,
+                        objectiveId);
+            } else if (questData.getEventType().equals(EventType.COLLECTIVE)) {
+                CollectiveQuestData goalQuest = (CollectiveQuestData) questData;
+                amountComplete = goalQuest.getPlayers().getAmountContributedByObjectiveId(player, objectiveId);
             }
-        } else if (questData.hasGoal() && questData.getEventType().equals(EventType.COMPETITIVE)) {
-            CompetitiveQuestData competitiveQuestData = (CompetitiveQuestData) questData;
-            double amountComplete = competitiveQuestData.getPlayers().getAmountContributedByObjectiveId(player,
-                    objectiveId);
+
             if (amountToAdd > objective.getGoal() - amountComplete) {
                 amountToAdd = objective.getGoal() - amountComplete;
             }
@@ -84,11 +89,13 @@ public class QuestController implements Colorization {
         updateBossBar();
         sendPlayerMessage(player, amountToAdd);
 
+        // save to file every 100 actions
         if (questData.getAmountCompleted() % 100 == 0) {
             plugin.getJsonSave().saveQuestsInProgress();
         }
 
         if (getQuestData().isGoalComplete()) {
+            Bukkit.getLogger().info("Quest complete");
             endQuest();
         }
         return getQuestData().isGoalComplete();
@@ -127,7 +134,7 @@ public class QuestController implements Colorization {
     }
 
     public boolean isGoalQuest() {
-        return (questData.getEventType().equals(EventType.GOAL));
+        return (questData.getEventType().equals(EventType.COLLECTIVE));
     }
 
     private void updateBossBar() {

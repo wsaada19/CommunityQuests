@@ -27,7 +27,7 @@ public enum ObjectiveType {
     CARVE_PUMPKIN("carvepumpkin", Material.CARVED_PUMPKIN),
     MOVEMENT("movement", Material.DIAMOND_BOOTS),
     BREW_POTION("brewpotion", Material.BREWING_STAND),
-    SMELT_ITEM("smeltitem", Material.FURNACE),
+    SMELT_ITEM("furnace", Material.FURNACE),
     COMMAND("command", Material.COMMAND_BLOCK),
     UNKNOWN("unknown", Material.AIR);
 

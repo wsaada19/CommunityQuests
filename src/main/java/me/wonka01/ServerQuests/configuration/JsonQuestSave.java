@@ -1,6 +1,7 @@
 package me.wonka01.ServerQuests.configuration;
 
 import me.wonka01.ServerQuests.ServerQuests;
+import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
@@ -69,8 +70,10 @@ public class JsonQuestSave {
             }
             jObject.put("objectives", objectives);
             jObject.put("timeLeft", questController.getQuestData().getQuestDuration());
-            if (questController.getQuestData() instanceof CompetitiveQuestData) {
+            if (questController.getQuestData().getEventType().equals(EventType.COMPETITIVE)) {
                 jObject.put("type", "comp");
+            } else if (questController.getQuestData().getEventType().equals(EventType.COLLECTIVE)) {
+                jObject.put("type", "coll");
             } else {
                 jObject.put("type", "coop");
             }
@@ -130,8 +133,8 @@ public class JsonQuestSave {
                     double amount = (double) obj.get("amountComplete");
                     JSONArray mobNames = (JSONArray) obj.get("mobNames");
                     JSONArray materials = (JSONArray) obj.get("materials");
-                    JSONArray customNames = (JSONArray) obj.get("customMobNames");
-                    JSONArray customModelIds = (JSONArray) obj.get("customModelIds");
+                    JSONArray customNames = (JSONArray) obj.get("customNames");
+                    JSONArray customModelIds = (JSONArray) obj.get("modelIds");
 
                     List<Material> materialList = convertJsonArrayToList(materials, String.class).stream()
                             .map(materialName -> {
