@@ -24,7 +24,7 @@ disableDuplicatePlaces: false
 hologram:
     # set to 0 or omit refresh-interval if you don't want it to refresh. Refresh is needed for dynamic placeholders
     refresh-interval: 60
-    enabled: true
+    enabled: false
     location:
         world: world
         x: -78
