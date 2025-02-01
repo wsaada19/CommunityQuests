@@ -1,13 +1,13 @@
 package me.wonka01.placeholders;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import me.knighthat.apis.utils.Colorization;
-import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.QuestController;
 import me.wonka01.ServerQuests.questcomponents.QuestData;
 import me.wonka01.ServerQuests.questcomponents.schedulers.ParseDurationString;
+import me.wonka01.ServerQuests.utils.Colorization;
+import me.wonka01.ServerQuests.utils.Utils;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -77,7 +77,7 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
 
         // %communityquests_goal_<questId>%
         if (identifier.startsWith("goal")) {
-            return String.valueOf(questData.getQuestGoal());
+            return formatNumber(questData.getQuestGoal());
         }
 
         // %communityquests_complete_questId%
@@ -120,8 +120,8 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
         // %communityquests_you_questId%
         if (identifier.startsWith("you")) {
             if (player.isOnline()) {
-                int playerContribution = (int) controller.getPlayerComponent().getAmountContributed((Player) player);
-                return "" + playerContribution;
+                double playerContribution = controller.getPlayerComponent().getAmountContributed((Player) player);
+                return formatNumber(playerContribution);
             }
             return "0";
         }
@@ -129,14 +129,14 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
         // %communityquests_objective_goal_objId_questId%
         if (identifier.startsWith("objective_goal")) {
             int index = extractIndex(identifier.replace(questId, ""));
-            return "" + questData.getObjectives().get(index).getGoal();
+            return formatNumber(questData.getObjectives().get(index).getGoal());
         }
 
         // %communityquests_objective_completed_objId_questId%
         if (identifier.startsWith("objective_completed")) {
             // get value of index from identifier and covert it to an integer
             int index = extractIndex(identifier.replace(questId, ""));
-            return "" + questData.getObjectives().get(index).getAmountComplete();
+            return formatNumber(questData.getObjectives().get(index).getAmountComplete());
         }
 
         // %communityquests_objective_objId_questId%
@@ -173,6 +173,10 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
             }
         }
         return null;
+    }
+
+    private String formatNumber(Double number) {
+        return String.format("%,d", number);
     }
 
     public static int extractIndex(String input) {

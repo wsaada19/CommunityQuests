@@ -71,8 +71,9 @@ public class ServerQuests extends JavaPlugin {
         }
 
         registerPlaceholders();
-        if (!setupDecentHologram() && getConfig().getBoolean("hologram.enabled")) {
-            getLogger().info("Warning! DecentHolograms not found, holograms will not work.");
+        if (!setupDecentHologram()) {
+            getLogger()
+                    .info("Warning! DecentHolograms not found or no placeholder api found, holograms will not work.");
         } else if (getConfig().getBoolean("hologram.enabled")) {
             hologram = new DecentHologramsDisplay(this);
             hologram.displayHologram();
@@ -88,17 +89,9 @@ public class ServerQuests extends JavaPlugin {
 
         try {
             Metrics metrics = new Metrics(this, pluginId);
-            metrics.addCustomChart(new Metrics.SingleLineChart("players", new Callable<Integer>() {
-                @Override
-                public Integer call() throws Exception {
-                    // (This is useless as there is already a player chart by default.)
-                    return Bukkit.getOnlinePlayers().size();
-                }
-            }));
             metrics.addCustomChart(new Metrics.SingleLineChart("active_quests", new Callable<Integer>() {
                 @Override
                 public Integer call() throws Exception {
-                    // (This is useless as there is already a player chart by default.)
                     return ActiveQuests.getActiveQuestsInstance().getActiveQuestsList().size();
                 }
             }));
@@ -155,7 +148,9 @@ public class ServerQuests extends JavaPlugin {
     }
 
     private boolean setupDecentHologram() {
-        return Bukkit.getPluginManager().getPlugin("DecentHolograms") != null;
+        boolean isEnabled = Bukkit.getPluginManager().getPlugin("DecentHolograms") != null && isPlaceholderApiEnabled;
+        getLogger().info("DecentHolograms is enabled: " + isEnabled);
+        return isEnabled;
     }
 
     private void registerQuestEvents() {

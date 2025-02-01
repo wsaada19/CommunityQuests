@@ -1,11 +1,11 @@
 package me.wonka01.ServerQuests.questcomponents.players;
 
-import me.knighthat.apis.utils.Colorization;
-import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.questcomponents.rewards.RewardManager;
 import me.wonka01.ServerQuests.questcomponents.rewards.RewardMessage;
 import me.wonka01.ServerQuests.questcomponents.rewards.types.Reward;
+import me.wonka01.ServerQuests.utils.Colorization;
+import me.wonka01.ServerQuests.utils.Utils;
 import me.wonka01.ServerQuests.enums.EventType;
 
 import org.bukkit.Bukkit;

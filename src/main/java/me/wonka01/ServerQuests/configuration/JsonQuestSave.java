@@ -90,17 +90,20 @@ public class JsonQuestSave {
         }
     }
 
-    // public <T> List<T> fromArrayToList(T[] a) {
-    // return Arrays.stream(a).collect(Collectors.toList());
-    // }
-
     private <T> List<T> convertJsonArrayToList(JSONArray arr, Class<T> clazz) {
         List<T> list = new ArrayList<>();
         if (arr == null) {
             return list;
         }
         for (Object o : arr) {
-            list.add(clazz.cast(o));
+            if (clazz == Integer.class && o instanceof Long) {
+                list.add(clazz.cast(((Long) o).intValue())); // Convert Long to Integer
+            } else if (clazz.isInstance(o)) {
+                list.add(clazz.cast(o)); // Safe cast for other types
+            } else {
+                throw new IllegalArgumentException(
+                        "Cannot convert " + o.getClass().getName() + " to " + clazz.getName());
+            }
         }
         return list;
     }
@@ -166,7 +169,11 @@ public class JsonQuestSave {
 
                     UUID uuidKey = null;
                     String playerName = (String) obj.get("name");
-                    long lastUpdated = (Long) obj.get("lastUpdated");
+                    Object lastUpdatedObj = obj.get("lastUpdated");
+                    long lastUpdated = System.currentTimeMillis();
+                    if (lastUpdatedObj != null) {
+                        lastUpdated = (Long) lastUpdatedObj;
+                    }
 
                     while (keys.hasNext()) {
                         String key = keys.next();

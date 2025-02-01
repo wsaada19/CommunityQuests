@@ -3,11 +3,11 @@ package me.wonka01.ServerQuests.questcomponents;
 import lombok.Getter;
 import lombok.NonNull;
 import me.clip.placeholderapi.PlaceholderAPI;
-import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
+import me.wonka01.ServerQuests.utils.Colorization;
 
 import java.util.List;
 import java.util.stream.Collectors;

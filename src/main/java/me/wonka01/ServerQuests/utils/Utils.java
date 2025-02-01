@@ -32,7 +32,7 @@ public interface Utils {
     }
 
     static @NonNull String decimalToString(double a) {
-        DecimalFormat format = new DecimalFormat("0.#");
+        DecimalFormat format = new DecimalFormat("#,###.#");
         return format.format(a);
     }
 

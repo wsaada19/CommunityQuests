@@ -1,8 +1,8 @@
 package me.wonka01.ServerQuests.questcomponents.rewards;
 
 import lombok.Getter;
-import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.questcomponents.rewards.types.Reward;
+import me.wonka01.ServerQuests.utils.Colorization;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;

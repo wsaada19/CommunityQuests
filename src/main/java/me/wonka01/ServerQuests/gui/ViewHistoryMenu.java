@@ -1,9 +1,9 @@
 package me.wonka01.ServerQuests.gui;
 
 import me.knighthat.apis.menus.Menu;
-import me.knighthat.apis.utils.Utils;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestHistoryManager;
+import me.wonka01.ServerQuests.utils.Utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
