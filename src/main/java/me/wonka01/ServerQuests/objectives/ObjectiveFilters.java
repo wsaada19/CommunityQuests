@@ -38,7 +38,9 @@ public class ObjectiveFilters {
         public Builder withItem(ItemStack item) {
             if (item != null) {
                 this.material = item.getType();
-                this.customName = item.getItemMeta().getDisplayName();
+                if (item.hasItemMeta()) {
+                    this.customName = item.getItemMeta().getDisplayName();
+                }
                 this.customModelId = Utils.getCustomModelData(item);
 
                 if (this.customName == null || this.customName.isEmpty()) {

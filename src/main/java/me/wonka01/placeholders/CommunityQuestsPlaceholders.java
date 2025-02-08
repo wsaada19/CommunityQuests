@@ -136,7 +136,8 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
         if (identifier.startsWith("objective_completed")) {
             // get value of index from identifier and covert it to an integer
             int index = extractIndex(identifier.replace(questId, ""));
-            return formatNumber(questData.getObjectives().get(index).getAmountComplete());
+            Double amountComplete = questData.getObjectives().get(index).getAmountComplete();
+            return formatNumber(amountComplete);
         }
 
         // %communityquests_objective_objId_questId%
@@ -176,7 +177,7 @@ public class CommunityQuestsPlaceholders extends PlaceholderExpansion implements
     }
 
     private String formatNumber(Double number) {
-        return String.format("%,d", number);
+        return String.format("%,.0f", number);
     }
 
     public static int extractIndex(String input) {
