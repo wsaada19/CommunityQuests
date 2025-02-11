@@ -334,7 +334,7 @@ Fishing:
 -   **experience**: players must gather Minecraft experience
 -   **carvepumpkin**: use shears on a pumpkin
 -   **mythicmob**: Kill mobs from the mythicmob plugin (requires MythicMobs to be installed)
--   **distance**: travel a certain distance in blocks
+-   **movement**: travel a certain distance in blocks
 
 ### MythicMobs Example
 
