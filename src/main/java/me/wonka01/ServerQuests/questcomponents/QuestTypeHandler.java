@@ -50,8 +50,6 @@ public class QuestTypeHandler {
             barColor = plugin.getConfig().getString("barColor", "GREEN");
         }
 
-        QuestBar bar = new QuestBar(model.getDisplayName(), barColor, model.getBarStyle());
-
         PlayerContributionMap pComponent = new PlayerContributionMap(model.getRewardLimit(),
                 model.getRankedRewards());
 
@@ -66,6 +64,8 @@ public class QuestTypeHandler {
         }
 
         QuestData data = getQuestData(model, pComponent, timeLeft, objs);
+
+        QuestBar bar = new QuestBar(data.getDisplayName(), barColor, model.getBarStyle());
 
         if (data.getAmountCompleted() > 0) {
             bar.updateBarProgress(data.getAmountCompleted() / data.getQuestGoal());

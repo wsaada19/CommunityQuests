@@ -149,7 +149,7 @@ public class ServerQuests extends JavaPlugin {
 
     private boolean setupDecentHologram() {
         boolean isEnabled = Bukkit.getPluginManager().getPlugin("DecentHolograms") != null && isPlaceholderApiEnabled;
-        getLogger().info("DecentHolograms is enabled: " + isEnabled);
+        getLogger().info("DecentHolograms enabled: " + isEnabled);
         return isEnabled;
     }
 

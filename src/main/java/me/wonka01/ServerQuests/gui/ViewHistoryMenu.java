@@ -5,7 +5,6 @@ import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.configuration.QuestHistoryManager;
 import me.wonka01.ServerQuests.utils.Utils;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -27,7 +26,6 @@ public class ViewHistoryMenu extends Menu {
     @Override
     protected void setContents() {
         List<Map<String, Object>> recentQuests = historyManager.getRecentQuests(45); // Get up to 45 recent quests
-        Bukkit.getLogger().info("Recent quests: " + recentQuests.size());
         for (int i = 0; i < recentQuests.size() && i < 45; i++) {
             Map<String, Object> questData = recentQuests.get(i);
 
@@ -44,8 +42,9 @@ public class ViewHistoryMenu extends Menu {
         List<String> lore = new ArrayList<>();
 
         long completionTime = (Long) questData.get("completionTime");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        lore.add(color(getPlugin().messages().string("completed") + "&f" + sdf.format(new Date(completionTime))));
+        // format date in a readable way
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
+        lore.add(color(getPlugin().messages().string("completed") + "&f " + sdf.format(new Date(completionTime))));
 
         lore.add(color(getPlugin().messages().string("topContributors")));
         List<?> topContributors = (List<?>) questData.get("topContributors");
