@@ -1,8 +1,8 @@
-package me.wonka01.ServerQuests.questcomponents.rewards;
+package me.wonka01.ServerQuests.questcomponents.rewards.types;
 
 import lombok.Getter;
-import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
+import me.wonka01.ServerQuests.utils.Colorization;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.java.JavaPlugin;

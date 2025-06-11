@@ -1,9 +1,9 @@
-package me.wonka01.ServerQuests.questcomponents.rewards;
+package me.wonka01.ServerQuests.questcomponents.rewards.types;
 
 import lombok.Getter;
 import lombok.NonNull;
-import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
+import me.wonka01.ServerQuests.utils.Colorization;
 
 import java.util.ArrayList;
 import java.util.HashMap;

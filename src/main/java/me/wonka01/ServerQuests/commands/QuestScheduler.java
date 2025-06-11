@@ -1,6 +1,7 @@
 package me.wonka01.ServerQuests.commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -9,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
+import me.wonka01.ServerQuests.configuration.QuestModel;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,9 +19,13 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class QuestScheduler extends PluginCommand {
     private final ServerQuests plugin;
@@ -100,8 +106,8 @@ public class QuestScheduler extends PluginCommand {
             return;
         }
 
-        if (!mode.equals("coop") && !mode.equals("comp")) {
-            sender.sendMessage("§cMode must be either 'coop' or 'comp'!");
+        if (!mode.equalsIgnoreCase("coop") && !mode.equalsIgnoreCase("comp") && !mode.equalsIgnoreCase("coll")) {
+            sender.sendMessage("§cMode must be either 'coop', 'comp' or 'coll'!");
             return;
         }
 
@@ -271,7 +277,11 @@ public class QuestScheduler extends PluginCommand {
             }
         };
 
-        // Schedule the task
+        // reset if exists
+        if (activeSchedules.containsKey(scheduleId)) {
+            activeSchedules.get(scheduleId).cancel();
+        }
+
         task.runTaskTimer(plugin, initialDelayTicks, intervalTicks);
         activeSchedules.put(scheduleId.toString(), task);
     }
@@ -287,5 +297,83 @@ public class QuestScheduler extends PluginCommand {
     @Override
     public @NonNull String getPermission() {
         return "communityquests.schedule";
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        List<String> completions = new ArrayList<>();
+
+        // Argument count determines the type of completions
+        switch (args.length) {
+            case 2:
+                // Quest ID completions
+                List<String> questIds = new ArrayList<>(plugin.config().getQuestLibrary().getAllQuestModels()
+                        .stream()
+                        .map(QuestModel::getQuestId)
+                        .collect(Collectors.toList()));
+                questIds.add("random"); // Add 'random' as a special option
+                completions = questIds.stream()
+                        .filter(id -> id.toLowerCase().startsWith(args[1].toLowerCase()))
+                        .collect(Collectors.toList());
+                break;
+
+            case 3:
+                // Mode completions
+                List<String> modes = Arrays.asList("coop", "comp", "coll");
+                completions = modes.stream()
+                        .filter(mode -> mode.startsWith(args[2].toLowerCase()))
+                        .collect(Collectors.toList());
+                break;
+
+            case 4:
+                // Time format suggestions
+                completions = Arrays.asList("00:00", "12:00", "14:30", "18:00", "20:00");
+                completions = completions.stream()
+                        .filter(time -> time.startsWith(args[3]))
+                        .collect(Collectors.toList());
+                break;
+
+            case 5:
+                // Schedule type completions
+                List<String> scheduleTypes = Arrays.stream(ScheduleType.values())
+                        .map(Enum::name)
+                        .collect(Collectors.toList());
+                completions = scheduleTypes.stream()
+                        .filter(type -> type.toLowerCase().startsWith(args[4].toLowerCase()))
+                        .collect(Collectors.toList());
+                break;
+
+            case 6:
+                // Action completions
+                List<String> actions = Arrays.asList("add", "remove");
+                completions = actions.stream()
+                        .filter(action -> action.startsWith(args[5].toLowerCase()))
+                        .collect(Collectors.toList());
+                break;
+
+            case 7:
+                // Conditional completions based on previous arguments
+                if (args[4].toUpperCase().equals("WEEKLY")) {
+                    // Day of week suggestions
+                    completions = Arrays.stream(DayOfWeek.values())
+                            .map(Enum::name)
+                            .filter(day -> day.toLowerCase().startsWith(args[6].toLowerCase()))
+                            .collect(Collectors.toList());
+                } else if (args[4].toUpperCase().equals("CUSTOM_DAYS")) {
+                    // Interval suggestions
+                    completions = Arrays.asList("1", "2", "3", "7", "14", "30");
+                    completions = completions.stream()
+                            .filter(interval -> interval.startsWith(args[6]))
+                            .collect(Collectors.toList());
+                } else if (args[5].toLowerCase().equals("remove")) {
+                    // If removing, suggest existing schedule IDs
+                    completions = new ArrayList<>(activeSchedules.keySet()).stream()
+                            .filter(id -> id.toLowerCase().startsWith(args[6].toLowerCase()))
+                            .collect(Collectors.toList());
+                }
+                break;
+        }
+
+        return completions;
     }
 }

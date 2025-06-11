@@ -2,7 +2,8 @@ package me.wonka01.ServerQuests.questcomponents.bossbar;
 
 import lombok.NonNull;
 import lombok.Setter;
-import me.knighthat.apis.utils.Colorization;
+import me.wonka01.ServerQuests.utils.Colorization;
+
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;

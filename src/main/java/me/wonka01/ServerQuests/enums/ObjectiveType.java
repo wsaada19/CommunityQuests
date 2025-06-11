@@ -21,10 +21,14 @@ public enum ObjectiveType {
     GIVE_MONEY("money", Material.GOLDEN_APPLE),
     ENCHANT_ITEM("enchantitem", Material.EMERALD),
     EXPERIENCE("experience", Material.EXPERIENCE_BOTTLE),
+    LEVELUP("level", Material.EXPERIENCE_BOTTLE),
     HARVEST("harvest", Material.WHEAT),
     MYTHIC_MOB("mythicmob", Material.DRAGON_HEAD),
     CARVE_PUMPKIN("carvepumpkin", Material.CARVED_PUMPKIN),
     MOVEMENT("movement", Material.DIAMOND_BOOTS),
+    BREW_POTION("brewpotion", Material.BREWING_STAND),
+    SMELT_ITEM("furnace", Material.FURNACE),
+    COMMAND("command", Material.COMMAND_BLOCK),
     UNKNOWN("unknown", Material.AIR);
 
     @Getter

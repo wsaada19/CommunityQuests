@@ -2,21 +2,27 @@ package me.wonka01.ServerQuests;
 
 import lombok.Getter;
 import lombok.NonNull;
-import me.knighthat.apis.files.Config;
 import me.knighthat.apis.files.Messages;
 import me.knighthat.apis.menus.MenuEvents;
 import me.wonka01.ServerQuests.commands.CommandManager;
+import me.wonka01.ServerQuests.configuration.Config;
 import me.wonka01.ServerQuests.configuration.JsonQuestSave;
+import me.wonka01.ServerQuests.configuration.QuestHistoryManager;
 import me.wonka01.ServerQuests.events.*;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
 import me.wonka01.ServerQuests.questcomponents.bossbar.BossbarPlayerInfo;
 import me.wonka01.ServerQuests.questcomponents.hologram.DecentHologramsDisplay;
+import me.wonka01.ServerQuests.questcomponents.rewards.RewardJoinListener;
 import me.wonka01.ServerQuests.questcomponents.rewards.RewardManager;
+import me.wonka01.bStats.Metrics;
 import me.wonka01.placeholders.CommunityQuestsPlaceholders;
 import net.milkbowl.vault.economy.Economy;
 
+import java.util.concurrent.Callable;
+
 import org.bukkit.Bukkit;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -36,10 +42,15 @@ public class ServerQuests extends JavaPlugin {
     private boolean isPlaceholderApiEnabled;
     @Getter
     private CommandManager commandManager;
+    @Getter
+    private QuestHistoryManager questHistoryManager;
 
     @Override
     public void onEnable() {
         this.commandManager = new CommandManager(this);
+        PluginCommand pluginCommand = getCommand("communityquests");
+        pluginCommand.setExecutor(commandManager);
+        pluginCommand.setTabCompleter(commandManager);
 
         loadSaveData();
 
@@ -60,9 +71,10 @@ public class ServerQuests extends JavaPlugin {
         }
 
         registerPlaceholders();
-        if (!setupDecentHologram() && getConfig().getBoolean("hologram.enabled")) {
-            getLogger().info("Warning! DecentHolograms not found, holograms will not work.");
-        } else {
+        if (!setupDecentHologram()) {
+            getLogger()
+                    .info("Warning! DecentHolograms not found or no placeholder api found, holograms will not work.");
+        } else if (getConfig().getBoolean("hologram.enabled")) {
             hologram = new DecentHologramsDisplay(this);
             hologram.displayHologram();
         }
@@ -71,6 +83,21 @@ public class ServerQuests extends JavaPlugin {
         registerQuestEvents();
         RewardManager.getInstance().populateFromJsonFile(getDataFolder(), getLogger());
         BossbarPlayerInfo.getInstance().loadFromJsonFile(getDataFolder());
+        questHistoryManager = new QuestHistoryManager(this, getDataFolder());
+
+        int pluginId = 24062;
+
+        try {
+            Metrics metrics = new Metrics(this, pluginId);
+            metrics.addCustomChart(new Metrics.SingleLineChart("active_quests", new Callable<Integer>() {
+                @Override
+                public Integer call() throws Exception {
+                    return ActiveQuests.getActiveQuestsInstance().getActiveQuestsList().size();
+                }
+            }));
+        } catch (Exception e) {
+            getLogger().info("[Community Quests] Failed to submit metrics data for bstats");
+        }
         getLogger().info("Plugin is enabled");
     }
 
@@ -121,7 +148,9 @@ public class ServerQuests extends JavaPlugin {
     }
 
     private boolean setupDecentHologram() {
-        return Bukkit.getPluginManager().getPlugin("DecentHolograms") != null;
+        boolean isEnabled = Bukkit.getPluginManager().getPlugin("DecentHolograms") != null && isPlaceholderApiEnabled;
+        getLogger().info("DecentHolograms enabled: " + isEnabled);
+        return isEnabled;
     }
 
     private void registerQuestEvents() {
@@ -140,6 +169,8 @@ public class ServerQuests extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ConsumeItemQuestEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new EnchantItemQuestEvent(activeQuests), this);
         getServer().getPluginManager().registerEvents(new DistanceTraveled(activeQuests), this);
+        getServer().getPluginManager().registerEvents(new InventoryClickEvents(activeQuests, this), this);
+        getServer().getPluginManager().registerEvents(new RewardJoinListener(true), this);
         try {
             getServer().getPluginManager().registerEvents(new ExperienceEvent(activeQuests), this);
             getServer().getPluginManager().registerEvents(new HarvestEvent(activeQuests), this);

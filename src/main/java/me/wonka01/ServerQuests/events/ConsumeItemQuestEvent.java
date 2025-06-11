@@ -23,7 +23,7 @@ public class ConsumeItemQuestEvent extends QuestListener implements Listener {
 
         List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.CONSUME_ITEM);
         for (QuestController controller : controllers) {
-            updateQuest(controller, player, 1, ObjectiveType.CONSUME_ITEM, event.getItem().getType());
+            updateQuest(controller, player, 1, ObjectiveType.CONSUME_ITEM, event.getItem());
         }
     }
 }

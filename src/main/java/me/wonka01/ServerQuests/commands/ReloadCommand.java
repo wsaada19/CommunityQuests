@@ -2,6 +2,10 @@ package me.wonka01.ServerQuests.commands;
 
 import lombok.NonNull;
 import me.wonka01.ServerQuests.ServerQuests;
+
+import java.util.List;
+
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,5 +45,11 @@ public class ReloadCommand extends PluginCommand {
 
         String reloadMessage = getPlugin().messages().message("reloadCommand");
         sender.sendMessage(reloadMessage);
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

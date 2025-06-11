@@ -11,8 +11,8 @@ import java.util.UUID;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 
+// Class that manages the players that have hidden the bossbar
 public class BossbarPlayerInfo {
-    // make singleton class with a list of playerId who have the bossbar enabled
     private static BossbarPlayerInfo instance;
     private List<UUID> playersToHideBossbar;
 
@@ -65,9 +65,6 @@ public class BossbarPlayerInfo {
     }
 
     public void loadFromJsonFile(File path) {
-        // load the list of players from a json file
-        // if the file does not exist, do nothing
-        // if the file exists, load the list of players
         JSONParser parser = new JSONParser();
         File fullPath = new File(path + "/togglebar.json");
         try {

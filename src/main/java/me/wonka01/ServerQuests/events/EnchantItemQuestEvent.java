@@ -23,7 +23,7 @@ public class EnchantItemQuestEvent extends QuestListener implements Listener {
 
         List<QuestController> controllers = tryGetControllersOfObjectiveType(ObjectiveType.ENCHANT_ITEM);
         for (QuestController controller : controllers) {
-            updateQuest(controller, player, 1, ObjectiveType.ENCHANT_ITEM, event.getItem().getType());
+            updateQuest(controller, player, 1, ObjectiveType.ENCHANT_ITEM, event.getItem(), event.getEnchantsToAdd());
         }
     }
 }

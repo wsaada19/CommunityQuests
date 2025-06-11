@@ -17,6 +17,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import me.wonka01.ServerQuests.questcomponents.rewards.types.CommandReward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.ExperienceReward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.ItemReward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.MoneyReward;
+import me.wonka01.ServerQuests.questcomponents.rewards.types.Reward;
+
 public class RewardManager {
     private static RewardManager instance;
     private HashMap<UUID, ArrayList<RewardEntry>> playerRewards = new HashMap<>();

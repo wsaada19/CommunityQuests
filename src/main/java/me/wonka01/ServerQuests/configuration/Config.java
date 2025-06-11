@@ -1,13 +1,15 @@
-package me.knighthat.apis.files;
+package me.wonka01.ServerQuests.configuration;
 
 import lombok.Getter;
 import lombok.NonNull;
+import me.knighthat.apis.files.Getters;
 import me.wonka01.ServerQuests.ServerQuests;
-import me.wonka01.ServerQuests.configuration.QuestLibrary;
+import me.wonka01.ServerQuests.events.BreakEvent;
+import me.wonka01.ServerQuests.events.PlaceEvent;
 import me.wonka01.ServerQuests.gui.DonateMenu;
 import me.wonka01.ServerQuests.questcomponents.ActiveQuests;
 import me.wonka01.ServerQuests.questcomponents.bossbar.BarManager;
-import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
+import me.wonka01.ServerQuests.questcomponents.players.PlayerContributionMap;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -30,7 +32,7 @@ public final class Config extends Getters {
         ActiveQuests.setQuestLimit(limit);
 
         int leaderBoardSize = get().getInt("leaderBoardSize", 5);
-        BasePlayerComponent.setLeaderBoardSize(leaderBoardSize);
+        PlayerContributionMap.setLeaderBoardSize(leaderBoardSize);
 
         boolean disableBar = get().getBoolean("disableBossBar", false);
         BarManager.setDisableBossBar(disableBar);
@@ -40,6 +42,9 @@ public final class Config extends Getters {
             borderMaterial = Material.BLACK_STAINED_GLASS_PANE;
         }
         DonateMenu.setBorderItem(new ItemStack(borderMaterial));
+
+        PlaceEvent.setDisableDuplicatePlaces(get().getBoolean("disableDuplicatePlaces", false));
+        BreakEvent.setDisableDuplicateBreaks(get().getBoolean("disableDuplicateBreaks", false));
     }
 
     public void initializeQuests() {

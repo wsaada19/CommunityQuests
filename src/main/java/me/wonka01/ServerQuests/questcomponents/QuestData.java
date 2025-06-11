@@ -3,19 +3,17 @@ package me.wonka01.ServerQuests.questcomponents;
 import lombok.Getter;
 import lombok.NonNull;
 import me.clip.placeholderapi.PlaceholderAPI;
-import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
+import me.wonka01.ServerQuests.utils.Colorization;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-
-import eu.decentsoftware.holograms.api.utils.scheduler.S;
 
 @Getter
 public class QuestData implements Colorization {
@@ -31,10 +29,12 @@ public class QuestData implements Colorization {
     private String beforeQuestCommand;
     private List<Objective> objectives;
     private String questFailedCommand;
+    private List<String> rewardDisplay;
 
     public QuestData(String displayName, String description, String questType,
             int questDuration, Material displayItem, @NonNull String questId, String afterQuestCommand,
-            String beforeQuestCommand, List<Objective> objectives, String questFailedCommand) {
+            String beforeQuestCommand, List<Objective> objectives, String questFailedCommand,
+            List<String> rewardDisplay) {
         this.questDuration = questDuration;
         this.displayName = displayName;
         this.description = description == null ? "" : description;
@@ -45,6 +45,7 @@ public class QuestData implements Colorization {
         this.beforeQuestCommand = beforeQuestCommand;
         this.objectives = objectives;
         this.questFailedCommand = questFailedCommand;
+        this.rewardDisplay = rewardDisplay;
     }
 
     public double getAmountCompleted() {

@@ -24,7 +24,7 @@ public class HarvestEvent extends QuestListener implements Listener {
         for (QuestController controller : controllers) {
             List<ItemStack> harvestedItems = event.getItemsHarvested();
             for (ItemStack item : harvestedItems) {
-                updateQuest(controller, event.getPlayer(), item.getAmount(), ObjectiveType.HARVEST, item.getType());
+                updateQuest(controller, event.getPlayer(), item.getAmount(), ObjectiveType.HARVEST, item);
             }
         }
     }

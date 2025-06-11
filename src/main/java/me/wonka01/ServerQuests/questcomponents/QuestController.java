@@ -2,15 +2,16 @@ package me.wonka01.ServerQuests.questcomponents;
 
 import lombok.Getter;
 import lombok.NonNull;
-import me.knighthat.apis.utils.Colorization;
 import me.wonka01.ServerQuests.ServerQuests;
 import me.wonka01.ServerQuests.enums.EventType;
 import me.wonka01.ServerQuests.enums.ObjectiveType;
 import me.wonka01.ServerQuests.objectives.Objective;
 import me.wonka01.ServerQuests.questcomponents.bossbar.QuestBar;
-import me.wonka01.ServerQuests.questcomponents.players.BasePlayerComponent;
+import me.wonka01.ServerQuests.questcomponents.players.PlayerContributionMap;
 import me.wonka01.ServerQuests.questcomponents.schedulers.QuestTimer;
+import me.wonka01.ServerQuests.utils.Colorization;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.text.DecimalFormat;
@@ -22,19 +23,19 @@ public class QuestController implements Colorization {
 
     private final QuestBar questBar;
     private final QuestData questData;
-    private final BasePlayerComponent playerComponent;
-    private final EventConstraints eventConstraints;
+    private final PlayerContributionMap playerComponent;
+    private final List<String> worlds;
     private final UUID questId;
     private final ServerQuests plugin;
 
     public QuestController(ServerQuests plugin, QuestData questData, QuestBar questBar,
-            BasePlayerComponent playerComponent, EventConstraints eventConstraints) {
+            PlayerContributionMap playerComponent, List<String> worlds) {
         this.plugin = plugin;
         this.questData = questData;
         this.questBar = questBar;
         this.playerComponent = playerComponent;
         questId = UUID.randomUUID();
-        this.eventConstraints = eventConstraints;
+        this.worlds = worlds;
 
         if (questData.getQuestDuration() > 0) {
             new QuestTimer(this);
@@ -44,10 +45,15 @@ public class QuestController implements Colorization {
     public boolean updateQuest(double count, Player player, Objective objective, Integer objectiveId) {
         double amountToAdd = count;
 
-        // Check if quest is complete
+        // Make sure individuals can't exceed the goal of an objective
         if (questData.getEventType().equals(EventType.COMPETITIVE)) {
             CompetitiveQuestData competitiveQuestData = (CompetitiveQuestData) questData;
             if (competitiveQuestData.isGoalComplete(objective, player, objectiveId)) {
+                return false;
+            }
+        } else if (questData.getEventType().equals(EventType.COLLECTIVE)) {
+            CollectiveQuestData goalQuest = (CollectiveQuestData) questData;
+            if (goalQuest.isGoalComplete(objective, player, objectiveId)) {
                 return false;
             }
         } else {
@@ -56,14 +62,18 @@ public class QuestController implements Colorization {
             }
         }
 
-        if (questData.hasGoal() && questData.getEventType().equals(EventType.COLLAB)) {
-            if (amountToAdd > objective.getGoal() - objective.getAmountComplete()) {
-                amountToAdd = objective.getGoal() - objective.getAmountComplete();
+        if (questData.hasGoal()) {
+            double amountComplete = objective.getAmountComplete();
+
+            if (questData.getEventType().equals(EventType.COMPETITIVE)) {
+                CompetitiveQuestData competitiveQuestData = (CompetitiveQuestData) questData;
+                amountComplete = competitiveQuestData.getPlayers().getAmountContributedByObjectiveId(player,
+                        objectiveId);
+            } else if (questData.getEventType().equals(EventType.COLLECTIVE)) {
+                CollectiveQuestData goalQuest = (CollectiveQuestData) questData;
+                amountComplete = goalQuest.getPlayers().getAmountContributedByObjectiveId(player, objectiveId);
             }
-        } else if (questData.hasGoal() && questData.getEventType().equals(EventType.COMPETITIVE)) {
-            CompetitiveQuestData competitiveQuestData = (CompetitiveQuestData) questData;
-            double amountComplete = competitiveQuestData.getPlayers().getAmountContributedByObjectiveId(player,
-                    objectiveId);
+
             if (amountToAdd > objective.getGoal() - amountComplete) {
                 amountToAdd = objective.getGoal() - amountComplete;
             }
@@ -79,11 +89,13 @@ public class QuestController implements Colorization {
         updateBossBar();
         sendPlayerMessage(player, amountToAdd);
 
+        // save to file every 100 actions
         if (questData.getAmountCompleted() % 100 == 0) {
             plugin.getJsonSave().saveQuestsInProgress();
         }
 
         if (getQuestData().isGoalComplete()) {
+            Bukkit.getLogger().info("Quest complete");
             endQuest();
         }
         return getQuestData().isGoalComplete();
@@ -100,11 +112,14 @@ public class QuestController implements Colorization {
         } else {
             broadcast("questCompleteMessage");
             playerComponent.sendLeaderString();
-            playerComponent.giveOutRewards(questData.getQuestGoal());
+            String completeMessage = color(plugin.messages().message("questCompleteMessage", questData));
+            playerComponent.giveOutRewards(questData.getQuestGoal(), completeMessage, questData.getEventType());
             if (questData.getAfterQuestCommand() != null && !questData.getAfterQuestCommand().isEmpty()) {
                 plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(),
                         questData.getAfterQuestCommand());
             }
+            getPlugin().getQuestHistoryManager().saveCompletedQuest(questId.toString(), questData.getDisplayName(),
+                    playerComponent.getPlayerMap(), questData.getDisplayItem());
         }
 
         ActiveQuests.getActiveQuestsInstance().endQuest(questId);
@@ -116,6 +131,10 @@ public class QuestController implements Colorization {
 
     public boolean isCompetitive() {
         return (questData.getEventType().equals(EventType.COMPETITIVE));
+    }
+
+    public boolean isGoalQuest() {
+        return (questData.getEventType().equals(EventType.COLLECTIVE));
     }
 
     private void updateBossBar() {

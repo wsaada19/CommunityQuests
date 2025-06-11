@@ -8,6 +8,7 @@ commands:
     communityquests:
         aliases: [cq, quests]
         description: Commands for Community Quests Plugin
+        usage: /<command> [start|stop|reload|view|rewards|donate|money|showmessages|togglebar|claim|clearrewards|schedule]
 
 softdepend:
     - Vault
