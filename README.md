@@ -351,12 +351,12 @@ Fishing:
 -   **money**: players can contribute money with /cq deposit <amount>
 -   **experience**: players must gather Minecraft experience
 -   **level**: players must levelup
--   **distance**: travel a certain distance in blocks
 -   **furnace**: use furnace to smelt or cook an item
 -   **brewpotion**: brew potions
 -   **playerkill**: kill other players
 -   **carvepumpkin**: use shears on a pumpkin
 -   **mythicmob**: Kill mobs from the mythicmob plugin (requires MythicMobs to be installed)
+-   **movement**: travel a certain distance in blocks
 
 ### MythicMobs Example
 
